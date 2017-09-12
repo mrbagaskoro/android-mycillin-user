@@ -21,5 +21,17 @@
     <string name="izinkan">IZINKAN</string>
     <string name="location">Location</string>
     <string name="camera">Camera</string>
+    <string name="intro_one_desc">We do not know when we are sick and need health service</string>
+    <string name="intro_two_desc">Medical field innovations make it easier for you to access health services</string>
+    <string name="intro_three_desc">Let\'s join with MyCillin big family</string>
+    <string name="intro_three_title">and.. happy family is yours</string>
+    <string name="intro_four_desc">Almost done …</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="intro_four_select_language">Select your language</string>
+    <string name="intro_four_language_in">Bahasa Indonesia</string>
+    <string name="intro_four_language_en">English</string>
+    <string name="intro_four_get_started">GET STARTED</string>
 
 </resources>

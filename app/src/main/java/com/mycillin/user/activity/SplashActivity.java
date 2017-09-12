@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(new Runnable() {
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, LanguagePreferencesActivity.class);
+                Intent intent = new Intent(SplashActivity.this, IntroActivity.class);
                 startActivity(intent);
                 finish();
             }
