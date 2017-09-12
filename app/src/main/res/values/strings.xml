@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">User</string>
+    <string name="app_name">MyCillin</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -7,25 +7,25 @@
     <string name="action_settings">Setting</string>
 
     <!-- PERMISSION -->
-    <string name="permission_desc">Untuk menggunakan seluruh fitu aplikasi MyCillin, (pengambilan dokumen, jelajahi galeri, dan telepon customer service), Anda harus mengizinkan aplikasi MyCillin mengakses fitur ponsel Android Anda.</string>
-    <string name="permission_rationale_title">Izin ini dibutuhkan</string>
-    <string name="permission_rationale_message">Izin ini dibutuhkan untuk mengakses seluruh fitur</string>
-    <string name="permission_rationale_settings_button_text">PENGATURAN</string>
-    <string name="all_permissions_denied_feedback">Seluruh izin dibutuhkan</string>
-    <string name="camera_permission_denied_feedback">Izin kamera dibutuhkan</string>
-    <string name="storage_permission_denied_feedback">Izin galeri dibutuhkan</string>
-    <string name="call_permission_denied_dialog_title">Permintaan izin telepon</string>
-    <string name="audio_permission_denied_dialog_feedback">Anda tidak bisa menelepon sampai Anda mengizinkan telepon</string>
+    <string name="permission_desc">In order to use MyCillin (documents capture, gallery browsing, and calling cs support), you have to allow permissions on your Android device.</string>
+    <string name="permission_rationale_title">This permission needed</string>
+    <string name="permission_rationale_message">All permissions needed to access all features</string>
+    <string name="permission_rationale_settings_button_text">SETTING</string>
+    <string name="all_permissions_denied_feedback">All permissions needed</string>
+    <string name="camera_permission_denied_feedback">Camera permission Needed</string>
+    <string name="storage_permission_denied_feedback">Galerry permission needed</string>
+    <string name="call_permission_denied_dialog_title">Call permission</string>
+    <string name="audio_permission_denied_dialog_feedback">You can\'t make a call until permission granted</string>
     <string name="version">VERSION</string>
     <string name="storage">Storage</string>
-    <string name="izinkan">IZINKAN</string>
+    <string name="izinkan">ALLOW</string>
     <string name="location">Location</string>
     <string name="camera">Camera</string>
     <string name="intro_one_desc">We do not know when we are sick and need health service</string>
-    <string name="intro_two_desc">Medical field innovations make it easier for you to access health services</string>
+    <string name="intro_two_desc">Medical field innovation that make it easier for you to access health services</string>
     <string name="intro_three_desc">Let\'s join with MyCillin big family</string>
-    <string name="intro_three_title">and.. happy family is yours</string>
-    <string name="intro_four_desc">Almost done …</string>
+    <string name="intro_three_title">and… happy family is yours</string>
+    <string name="intro_four_desc">Almost done…</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -33,6 +33,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.6.0'
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.ahmedjazzar.rosetta:rosetta:1.0.1'
+    compile 'com.akexorcist:localizationactivity:1.1.2'
     compile 'com.github.apl-devs:appintro:v4.2.2'
     compile 'com.android.support:support-v4:26.+'
     testCompile 'junit:junit:4.12'

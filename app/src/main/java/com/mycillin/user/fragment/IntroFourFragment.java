@@ -11,7 +11,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.ahmedjazzar.rosetta.LanguageSwitcher;
 import com.mycillin.user.R;
+
+import java.util.HashSet;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,8 +63,9 @@ public class IntroFourFragment extends Fragment {
         getStartedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String genderSelected = ((RadioButton) rootView.findViewById(((RadioGroup) rootView.findViewById(R.id.introFour_rg_radioGroup)).getCheckedRadioButtonId())).getText().toString();
-                Toast.makeText(getContext(), genderSelected, Toast.LENGTH_SHORT).show();
+                /*String genderSelected = ((RadioButton) rootView.findViewById(((RadioGroup) rootView.findViewById(R.id.introFour_rg_radioGroup)).getCheckedRadioButtonId())).getText().toString();
+                Toast.makeText(getContext(), genderSelected, Toast.LENGTH_SHORT).show();*/
+
             }
         });
 
