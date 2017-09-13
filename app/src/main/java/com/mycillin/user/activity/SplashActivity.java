@@ -3,12 +3,15 @@ package com.mycillin.user.activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.ahmedjazzar.rosetta.LanguageSwitcher;
@@ -37,16 +40,16 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
+        defineLanguage();
+
         tvVersion.setText(getResources().getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
 
         final ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
         if (!applicationPreferencesManager.isSelectLanguage()) {
-            defineLanguage();
             DialogFragment newFragment = SplashActivity.ChangeLanguageDialogFragment.newInstance(R.string.app_name, position);
             newFragment.show(getSupportFragmentManager(), "dialog");
         }
         else {
-
             Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
                 public void run() {

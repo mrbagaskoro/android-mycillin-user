@@ -1,4 +1,4 @@
-package com.mycillin.user.fragment;
+package com.mycillin.user.fragment.intro;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,15 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import com.ahmedjazzar.rosetta.LanguageSwitcher;
 import com.mycillin.user.R;
-
-import java.util.HashSet;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

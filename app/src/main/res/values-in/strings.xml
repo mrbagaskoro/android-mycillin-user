@@ -28,4 +28,25 @@
     <string name="storage">Penyimpanan</string>
     <string name="storage_permission_denied_feedback">Izin galery dibutuhkan</string>
     <string name="version">VERSI</string>
+    <string name="pressBackAgainToLeave">Tekan back sekali lagi untuk keluar</string>
+    <string name="loginActivity_alreadyHaveAccount">Sudah memiliki akun</string>
+    <string name="loginActivity_continueWithFacebook">Masuk menggunakan Facebook</string>
+    <string name="loginActivity_forgotPassword">Lupa Password</string>
+    <string name="loginActivity_login">Login</string>
+    <string name="loginActivity_register">Registrasi</string>
+    <string name="loginActivity_registerCity">Kota</string>
+    <string name="loginActivity_registerCompleteNotesOne">Terima kasih atas kepercayaan dan informasi yang anda berikan. Link konfirmasi akan dikirim ke alamat email anda dalam 24 jam kedepan.</string>
+    <string name="loginActivity_registerCompleteNotesTwo">Segera aktifkan akun anda untuk menikmati kenyamanan dan layanan dari MyCillin</string>
+    <string name="loginActivity_registerConfirmPassword">Konfirmasi Password</string>
+    <string name="loginActivity_registerEMail">E-Mail</string>
+    <string name="loginActivity_registerNote">Agar kami lebih dekat dengan anda, silahkan isi data berikut ini:</string>
+    <string name="loginActivity_registerPassword">Password</string>
+    <string name="loginActivity_tosNotes">Dengan mendaftar, saya telah membaca dan menyetujui Syarat dan Ketentuan serta Kebijakan Privasi yang ditetapkan oleh MyCillin</string>
+    <string name="nav_about_mycillin">Tentang MyCillin</string>
+    <string name="nav_account">Akun</string>
+    <string name="nav_e_wallet">E-Wallet</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_invite_friend">Undang Teman</string>
+    <string name="nav_medical_record">Rekam Medis</string>
+    <string name="nav_setting">Pengaturan</string>
 </resources>

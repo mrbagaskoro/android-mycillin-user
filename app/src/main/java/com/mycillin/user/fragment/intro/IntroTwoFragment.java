@@ -1,4 +1,4 @@
-package com.mycillin.user.fragment;
+package com.mycillin.user.fragment.intro;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

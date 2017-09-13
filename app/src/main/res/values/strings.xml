@@ -47,5 +47,12 @@
     <string name="pressBackAgainToLeave">Press back again to leave</string>
     <string name="loginActivity_registerCompleteNotesOne">Thank you for the trust and information you have provided to us. A confirmation link will be sent to your email address in the next 24 hours.</string>
     <string name="loginActivity_registerCompleteNotesTwo">Immediately activate your account in order to enjoy the convenience and service of MyCillin.</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_account">Account</string>
+    <string name="nav_medical_record">Medical Record</string>
+    <string name="nav_setting">Setting</string>
+    <string name="nav_about_mycillin">About MyCillin</string>
+    <string name="nav_e_wallet">E-Wallet</string>
+    <string name="nav_invite_friend">Invite Friend</string>
 
 </resources>

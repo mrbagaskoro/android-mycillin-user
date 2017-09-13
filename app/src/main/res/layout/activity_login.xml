@@ -325,7 +325,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_text"
                 android:text="@string/loginActivity_registerCompleteNotesOne" />
 
             <TextView
@@ -334,7 +334,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/primary_text"
                 android:text="@string/loginActivity_registerCompleteNotesTwo" />
 
         </LinearLayout>
