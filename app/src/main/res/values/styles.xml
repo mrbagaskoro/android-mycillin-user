@@ -9,6 +9,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,9 +17,26 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.Custom" parent="Theme.AppCompat">
+        <item name="windowActionBar">false</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="CustomActionBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/primary_text</item>
+    </style>
 
     <style name="RadioButtonStyle" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/colorPrimaryDark</item>

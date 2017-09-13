@@ -22,6 +22,9 @@ public class MedicalRecordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_medical_record, container, false);
+
+        getActivity().setTitle(R.string.nav_medical_record);
+
         return rootView;
     }
 }

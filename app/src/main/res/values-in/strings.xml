@@ -21,7 +21,7 @@
     <string name="location">Lokasi</string>
     <string name="navigation_drawer_close">Tutup menu navigasi</string>
     <string name="navigation_drawer_open">Buka menu navigasi</string>
-    <string name="permission_desc">Untuk menggunakan seluruh fitur aplikasi MyCillin (pengambilan dokumen, jelajahi galeri, dan telepon customer service), anda harus mengizinkan aplikasi MyCillin mengakses fitur ponsel Android Anda.</string>
+    <string name="permission_desc">Untuk menggunakan seluruh fitur aplikasi MyCillin, anda harus mengizinkan aplikasi MyCillin mengakses fitur ponsel Android Anda.</string>
     <string name="permission_rationale_message">Izin ini dibutuhkan untuk mengakses seluruh fitur</string>
     <string name="permission_rationale_settings_button_text">PENGATURAN</string>
     <string name="permission_rationale_title">Izin ini dibutuhkan</string>
@@ -49,4 +49,12 @@
     <string name="nav_invite_friend">Undang Teman</string>
     <string name="nav_medical_record">Rekam Medis</string>
     <string name="nav_setting">Pengaturan</string>
+    <string name="homeFragment_share">Bagikan</string>
+    <string name="homeFragment_startService">Klik untuk layanan</string>
+    <string name="homeFragment_walletAmount">Rp 175.000</string>
+    <string name="homeFragment_walletBalance">Saldo E-Wallet</string>
+    <string name="homeFragment_walletDesc">Nominal E-Wallet dalam rupiah</string>
+    <string name="homeFragment_NoteOne">today, tomorow, and together</string>
+    <string name="homeFragment_NoteTwo">You will love the way we care about your health</string>
+    <string name="call">Panggilan</string>
 </resources>

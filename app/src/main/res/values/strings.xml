@@ -7,7 +7,7 @@
     <string name="action_settings">Setting</string>
 
     <!-- PERMISSION -->
-    <string name="permission_desc">In order to use MyCillin (documents capture, gallery browsing, and calling cs support), you have to allow permissions on your Android device.</string>
+    <string name="permission_desc">In order to use MyCillin, you have to allow permissions on your Android device.</string>
     <string name="permission_rationale_title">This permission needed</string>
     <string name="permission_rationale_message">All permissions needed to access all features</string>
     <string name="permission_rationale_settings_button_text">SETTING</string>
@@ -54,5 +54,13 @@
     <string name="nav_about_mycillin">About MyCillin</string>
     <string name="nav_e_wallet">E-Wallet</string>
     <string name="nav_invite_friend">Invite Friend</string>
+    <string name="homeFragment_startService">Click To Start Service</string>
+    <string name="homeFragment_share">Share</string>
+    <string name="homeFragment_walletBalance">E-Wallet Balance</string>
+    <string name="homeFragment_walletAmount">Rp 175.000</string>
+    <string name="homeFragment_walletDesc">E-Wallet amount in rupiah</string>
+    <string name="homeFragment_NoteOne">today, tomorow, and together</string>
+    <string name="homeFragment_NoteTwo">You will love the way we care about your health</string>
+    <string name="call">Call</string>
 
 </resources>

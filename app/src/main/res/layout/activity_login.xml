@@ -45,6 +45,7 @@
                 android:background="@drawable/fb_button"
                 android:padding="@dimen/spacing_small"
                 android:text="@string/loginActivity_continueWithFacebook"
+                android:drawableStart="@drawable/ic_action_facebook_white"
                 android:textColor="@color/white" />
 
             <Button

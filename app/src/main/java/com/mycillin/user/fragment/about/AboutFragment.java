@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.mycillin.user.R;
 
 public class AboutFragment extends Fragment {
+
     public AboutFragment() {
         // Required empty public constructor
     }
@@ -22,6 +23,9 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_about, container, false);
+
+        getActivity().setTitle(R.string.nav_about_mycillin);
+
         return rootView;
     }
 }

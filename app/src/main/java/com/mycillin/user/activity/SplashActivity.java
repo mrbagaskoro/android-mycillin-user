@@ -47,6 +47,7 @@ public class SplashActivity extends AppCompatActivity {
         final ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
         if (!applicationPreferencesManager.isSelectLanguage()) {
             DialogFragment newFragment = SplashActivity.ChangeLanguageDialogFragment.newInstance(R.string.app_name, position);
+            newFragment.setCancelable(false);
             newFragment.show(getSupportFragmentManager(), "dialog");
         }
         else {
@@ -55,11 +56,13 @@ public class SplashActivity extends AppCompatActivity {
                 public void run() {
                     if(applicationPreferencesManager.isIntroDone()) {
                         Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
                     }
                     else {
-                        Intent intent = new Intent(SplashActivity.this, IntroActivity.class);
+                        Intent intent = new Intent(SplashActivity.this, PermissionCheckActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
                     }
@@ -117,7 +120,8 @@ public class SplashActivity extends AppCompatActivity {
                     ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getContext());
                     applicationPreferencesManager.selectLanguage();
 
-                    Intent intent = new Intent(getActivity(), IntroActivity.class);
+                    Intent intent = new Intent(getActivity(), PermissionCheckActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     getActivity().finish();
                 }

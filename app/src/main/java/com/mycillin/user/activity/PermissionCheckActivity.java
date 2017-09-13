@@ -82,6 +82,7 @@ public class PermissionCheckActivity extends AppCompatActivity {
                         token.cancelPermissionRequest();
                     }
                 })
+                .setCancelable(false)
                 .show();
     }
 
@@ -106,7 +107,7 @@ public class PermissionCheckActivity extends AppCompatActivity {
                 ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 
-            Intent intent = new Intent(PermissionCheckActivity.this, SplashActivity.class);
+            Intent intent = new Intent(PermissionCheckActivity.this, IntroActivity.class);
             finish();
             startActivity(intent);
 

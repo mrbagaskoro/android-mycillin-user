@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.primary_text));
+        toolbar.setSubtitleTextColor(getResources().getColor(R.color.primary_text));
+        toolbar.bringToFront();
         getSupportActionBar().setElevation(0);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -46,10 +49,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         // -------------------------------------------------------------------------------------- //
-
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.frame_container, new HomeFragment());
         tx.commit();
+
+        navigationView.getMenu().getItem(0).setChecked(true);
+
     }
 
     @Override
