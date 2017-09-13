@@ -1,21 +1,30 @@
 package com.mycillin.user.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
 
 import com.ahmedjazzar.rosetta.LanguageSwitcher;
+import com.ahmedjazzar.rosetta.LanguagesListDialogFragment;
 import com.github.paolorotolo.appintro.AppIntro;
 import com.mycillin.user.R;
-import com.mycillin.user.fragment.IntroFourFragment;
 import com.mycillin.user.fragment.IntroOneFragment;
 import com.mycillin.user.fragment.IntroThreeFragment;
 import com.mycillin.user.fragment.IntroTwoFragment;
+import com.mycillin.user.util.ApplicationPreferencesManager;
+import com.mycillin.user.util.LanguageOptions;
 
 import java.util.HashSet;
 import java.util.Locale;
 
 public class IntroActivity extends AppIntro {
+
+    int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +38,17 @@ public class IntroActivity extends AppIntro {
         //setProgressButtonEnabled(false);
 
         Locale currentLocale = getResources().getConfiguration().locale;
-        Log.d("###", "onCreate: " + currentLocale.getDisplayName(currentLocale));
+        //Log.d("###", "onCreate: current " + currentLocale.getDisplayName(currentLocale));
 
-        defineLanguage();
-        new LanguageSwitcher(getApplicationContext()).showChangeLanguageDialog(IntroActivity.this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        //Log.d("###", "onCreate: selected " + preferences.getString("user_preferred_language", "en"));
+
+        /*ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
+        if (!applicationPreferencesManager.isSelectLanguage()) {
+            defineLanguage();
+            DialogFragment newFragment = ChangeLanguageDialogFragment.newInstance(R.string.app_name, position);
+            newFragment.show(getSupportFragmentManager(), "dialog");
+        }*/
     }
 
     @Override
@@ -45,7 +61,7 @@ public class IntroActivity extends AppIntro {
         super.onDonePressed(currentFragment);
     }
 
-    private void defineLanguage() {
+    /*private void defineLanguage() {
         // This is the locale that you wanna your app to launch with.
         Locale firstLaunchLocale = new Locale("en");
 
@@ -59,4 +75,49 @@ public class IntroActivity extends AppIntro {
         LanguageSwitcher ls = new LanguageSwitcher(getApplicationContext(), firstLaunchLocale);
         ls.setSupportedLocales(supportedLocales);
     }
+
+    public static class ChangeLanguageDialogFragment extends LanguagesListDialogFragment {
+
+        public static ChangeLanguageDialogFragment newInstance(int title, int position) {
+            ChangeLanguageDialogFragment frag = new ChangeLanguageDialogFragment();
+            Bundle args = new Bundle();
+            args.putInt("title", title);
+            args.putInt("position", position);
+            frag.setArguments(args);
+            return frag;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int title = getArguments().getInt("title");
+            final int position = getArguments().getInt("position");
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setSingleChoiceItems(LanguageOptions.languageList, position, null);
+            builder.setTitle(title);
+            builder.setIcon(R.mipmap.ic_launcher);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    AlertDialog alert = (AlertDialog)dialogInterface;
+                    int position = alert.getListView().getCheckedItemPosition();
+
+                    onLanguageSelected(position);
+                    onPositiveClick();
+
+                    ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getContext());
+                    applicationPreferencesManager.selectLanguage();
+                }
+            });
+            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // CLOSE
+                }
+            });
+
+            return builder.create();
+        }
+    }*/
 }
