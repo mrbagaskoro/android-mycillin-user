@@ -1,5 +1,6 @@
 package com.mycillin.user.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import com.mycillin.user.R;
 import com.mycillin.user.fragment.IntroOneFragment;
 import com.mycillin.user.fragment.IntroThreeFragment;
 import com.mycillin.user.fragment.IntroTwoFragment;
+import com.mycillin.user.util.ApplicationPreferencesManager;
 
 public class IntroActivity extends AppIntro {
 
@@ -28,10 +30,24 @@ public class IntroActivity extends AppIntro {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
+
+        ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
+        applicationPreferencesManager.introDone();
+
+        Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
+
+        ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
+        applicationPreferencesManager.introDone();
+
+        Intent intent = new Intent(IntroActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

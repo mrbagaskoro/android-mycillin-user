@@ -33,5 +33,19 @@
     <string name="intro_four_language_in">Bahasa Indonesia</string>
     <string name="intro_four_language_en">English</string>
     <string name="intro_four_get_started">GET STARTED</string>
+    <string name="loginActivity_tosNotes">By registering, I have read and agreed to MyCillin\'s Term of Use and Privacy Policy</string>
+    <string name="loginActivity_continueWithFacebook">Continue with Facebook</string>
+    <string name="loginActivity_register">Register</string>
+    <string name="loginActivity_alreadyHaveAccount">Already have an account</string>
+    <string name="loginActivity_registerNote">In order for us to get closer to you please complete the following data:</string>
+    <string name="loginActivity_registerEMail">E-Mail</string>
+    <string name="loginActivity_registerPassword">Password</string>
+    <string name="loginActivity_registerConfirmPassword">Confirm Password</string>
+    <string name="loginActivity_registerCity">City</string>
+    <string name="loginActivity_login">Login</string>
+    <string name="loginActivity_forgotPassword">Forgot Password</string>
+    <string name="pressBackAgainToLeave">Press back again to leave</string>
+    <string name="loginActivity_registerCompleteNotesOne">Thank you for the trust and information you have provided to us. A confirmation link will be sent to your email address in the next 24 hours.</string>
+    <string name="loginActivity_registerCompleteNotesTwo">Immediately activate your account in order to enjoy the convenience and service of MyCillin.</string>
 
 </resources>

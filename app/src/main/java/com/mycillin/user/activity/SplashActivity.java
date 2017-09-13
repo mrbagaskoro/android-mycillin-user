@@ -39,19 +39,27 @@ public class SplashActivity extends AppCompatActivity {
 
         tvVersion.setText(getResources().getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
 
-        ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
+        final ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
         if (!applicationPreferencesManager.isSelectLanguage()) {
             defineLanguage();
             DialogFragment newFragment = SplashActivity.ChangeLanguageDialogFragment.newInstance(R.string.app_name, position);
             newFragment.show(getSupportFragmentManager(), "dialog");
         }
         else {
+
             Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    Intent intent = new Intent(SplashActivity.this, IntroActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(applicationPreferencesManager.isIntroDone()) {
+                        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
+                        Intent intent = new Intent(SplashActivity.this, IntroActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }, 2000); // 2000 milliseconds delay
         }
