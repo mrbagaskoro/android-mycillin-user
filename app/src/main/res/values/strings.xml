@@ -62,5 +62,8 @@
     <string name="homeFragment_NoteOne">today, tomorow, and together</string>
     <string name="homeFragment_NoteTwo">You will love the way we care about your health</string>
     <string name="call">Call</string>
+    <string name="homeFragment_topUp">Top-Up</string>
+    <string name="servicesActivity_whoNeedsHelpTxt">Who needs help ?</string>
+    <string name="servicesActivity_dropdownTitle">Select a family member</string>
 
 </resources>

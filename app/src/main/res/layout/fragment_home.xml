@@ -156,7 +156,7 @@
                             android:layout_height="match_parent"
                             android:background="@android:color/transparent"
                             android:textColor="@color/accent"
-                            android:text="Top-Up"/>
+                            android:text="@string/homeFragment_topUp"/>
 
                     </LinearLayout>
 
