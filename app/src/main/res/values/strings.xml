@@ -76,5 +76,15 @@
     <string name="servicesActivity_ambulanceServiceDesc">An ambulance rental service close to you</string>
     <string name="serviceActivity_redeemPrescriptionTitle">REDEEM PRESCRIPTION</string>
     <string name="serviceActivity_redeemPrescriptionDesc">Purchase and delivery prescription service supported by pharmacy network</string>
+    <string name="serviceBookDoctorActivity_addressTitle">ADDRESS</string>
+    <string name="serviceBookDoctorActivity_MapViewTitle">MAP VIEW</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="serviceBookDoctorActivity_filterBtn">USE SEARCH FILTER</string>
+    <string name="serviceBookDoctorActivity_searchBtn">SEARCH</string>
+    <string name="filterBookDoctorDialog_typesOfMedicalPersonelTitle">Types of medical personnel</string>
+    <string name="filterBookDoctorDialog_typesOfSpecialistsTitle">Types of specialists (Doctors only)</string>
+    <string name="filterBookDoctorDialog_medicalPersonelGenderTitle">Gender of medical personnel</string>
+    <string name="filterBookDoctorDIalog_cancelBtn">CANCEL</string>
+    <string name="filterBookDoctorDIalog_applyBtn">APPLY</string>
 
 </resources>

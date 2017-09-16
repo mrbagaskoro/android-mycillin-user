@@ -71,4 +71,14 @@
     <string name="servicesActivity_dropdownTitle">Pilih anggota keluarga</string>
     <string name="servicesActivity_patientsName">Nama Pasien</string>
     <string name="servicesActivity_whoNeedsHelpTxt">Bantuan untuk ?</string>
+    <string name="filterBookDoctorDIalog_applyBtn">TERAPKAN</string>
+    <string name="filterBookDoctorDIalog_cancelBtn">BATAL</string>
+    <string name="filterBookDoctorDialog_medicalPersonelGenderTitle">Gender tenaga medis</string>
+    <string name="filterBookDoctorDialog_typesOfMedicalPersonelTitle">Jenis tenaga medis</string>
+    <string name="filterBookDoctorDialog_typesOfSpecialistsTitle">Jenis spesialis (khusus dokter)</string>
+    <string name="title_activity_maps">Peta</string>
+    <string name="serviceBookDoctorActivity_MapViewTitle">TAMPILAN PETA</string>
+    <string name="serviceBookDoctorActivity_addressTitle">ALAMAT</string>
+    <string name="serviceBookDoctorActivity_filterBtn">GUNAKAN FILTER PENCARIAN</string>
+    <string name="serviceBookDoctorActivity_searchBtn">CARI</string>
 </resources>
