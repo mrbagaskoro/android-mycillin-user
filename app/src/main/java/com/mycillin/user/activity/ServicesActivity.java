@@ -1,10 +1,11 @@
 package com.mycillin.user.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mycillin.user.R;
 
@@ -19,6 +20,17 @@ public class ServicesActivity extends AppCompatActivity {
 
     @BindView(R.id.servicesActivity_et_dropdown)
     TextView tvDropdwon;
+
+    @BindView(R.id.servicesActivity_ll_bookADoctorService)
+    LinearLayout goToBookDoctorService;
+    @BindView(R.id.servicesActivity_ll_medicalReservationService)
+    LinearLayout goToMedicalReservationServicr;
+    @BindView(R.id.servicesActivity_ll_consultationService)
+    LinearLayout goToConsultationServicr;
+    @BindView(R.id.servicesActivity_ll_ambulanceService)
+    LinearLayout goToAmbulanceServicr;
+    @BindView(R.id.servicesActivity_ll_redeemPrescriptionService)
+    LinearLayout goToRedeemPrescriptionService;
 
     private ArrayList<String> items = new ArrayList<>();
 
@@ -47,6 +59,14 @@ public class ServicesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 spinnerDialog.showSpinerDialog();
+            }
+        });
+
+        goToBookDoctorService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ServicesActivity.this, ServiceBookDoctorActivity.class);
+                startActivity(intent);
             }
         });
     }

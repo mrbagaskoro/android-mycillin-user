@@ -65,5 +65,16 @@
     <string name="homeFragment_topUp">Top-Up</string>
     <string name="servicesActivity_whoNeedsHelpTxt">Who needs help ?</string>
     <string name="servicesActivity_dropdownTitle">Select a family member</string>
+    <string name="servicesActivity_patientsName">Patient\'s Name</string>
+    <string name="servicesActivity_bookDoctorTitle">BOOK A DOKTER</string>
+    <string name="servicesActivity_bookDoctorDesc">Order a healthcare and medical service by a doctor to your home</string>
+    <string name="serviceActivity_medicalReservationTitle">MEDICAL RESERVATION</string>
+    <string name="serviceActivity_medicalReservationDesc">Hospital and clinic reservation service</string>
+    <string name="servicesActivity_consultationServiceTitle">CONSULTATION SERVICE</string>
+    <string name="servicesActivity_consultationServiceDesc">An online and real time consultation service with a doctor</string>
+    <string name="servicesActivity_ambulanceServiceText">AMBULANCE SERVICE</string>
+    <string name="servicesActivity_ambulanceServiceDesc">An ambulance rental service close to you</string>
+    <string name="serviceActivity_redeemPrescriptionTitle">REDEEM PRESCRIPTION</string>
+    <string name="serviceActivity_redeemPrescriptionDesc">Purchase and delivery prescription service supported by pharmacy network</string>
 
 </resources>

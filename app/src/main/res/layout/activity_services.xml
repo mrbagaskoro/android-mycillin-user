@@ -4,69 +4,367 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.mycillin.user.activity.ServicesActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/servicesActivity_toolbar"
+    <LinearLayout
+        android:id="@+id/servicesActivity_ll_headerContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="@android:color/white" />
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <RelativeLayout
-        android:id="@+id/servicesActivity_rl_servicesActivityMainContainer"
-        android:layout_below="@+id/servicesActivity_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true" >
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/servicesActivity_iv_userAvatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/ic_launcher"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
 
         <TextView
-            android:id="@+id/servicesActivity_tv_headerTxt"
+            android:id="@+id/servicesActivity_tv_userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="10dp"
-            android:text="@string/servicesActivity_whoNeedsHelpTxt" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_below="@+id/servicesActivity_tv_headerTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="50dp"
-            android:paddingStart="50dp"
-            android:paddingRight="50dp"
-            android:paddingEnd="50dp"
-            android:layout_marginBottom="@dimen/spacing_small" >
-
-            <EditText
-                android:id="@+id/servicesActivity_et_dropdown"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:drawableEnd="@drawable/ic_arrow_drop_down"
-                android:focusable="false"
-                android:inputType="text" />
-
-        </android.support.design.widget.TextInputLayout>
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_below="@+id/servicesActivity_rl_servicesActivityMainContainer"
-        android:layout_above="@+id/servicesActivity_rl_servicesActivityFooterContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray"
-        android:orientation="vertical" >
-
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/primary_text"
+            android:textSize="20sp"
+            android:text="@string/servicesActivity_patientsName" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/servicesActivity_ll_helpContainer"
+        android:layout_below="@+id/servicesActivity_ll_headerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/servicesActivity_tv_helpTxt"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingTop="15dp"
+                android:paddingStart="35dp"
+                android:paddingEnd="20dp"
+                android:textSize="15sp"
+                android:text="@string/servicesActivity_whoNeedsHelpTxt" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:background="@color/lightGray" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5" >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_marginBottom="@dimen/spacing_small" >
+
+                <EditText
+                    android:id="@+id/servicesActivity_et_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down"
+                    android:focusable="false"
+                    android:inputType="text" />
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/servicesActivity_sv_bodyContainer"
+        android:layout_below="@+id/servicesActivity_ll_helpContainer"
+        android:layout_above="@+id/servicesActivity_rl_footerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#3c8c8c8c"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/servicesActivity_ll_bookADoctorService"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/frame"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="3" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_launcher"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:text="@string/servicesActivity_bookDoctorTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/servicesActivity_bookDoctorDesc"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/servicesActivity_ll_medicalReservationService"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/frame">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="3" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_launcher"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:text="@string/serviceActivity_medicalReservationTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/serviceActivity_medicalReservationDesc"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/servicesActivity_ll_consultationService"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/frame">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="3" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_launcher"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:text="@string/servicesActivity_consultationServiceTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/servicesActivity_consultationServiceDesc"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/servicesActivity_ll_ambulanceService"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/frame">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="3" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_launcher"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:text="@string/servicesActivity_ambulanceServiceText"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/servicesActivity_ambulanceServiceDesc"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/servicesActivity_ll_redeemPrescriptionService"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/frame">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="3" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_launcher"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:text="@string/serviceActivity_redeemPrescriptionTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/serviceActivity_redeemPrescriptionDesc"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
     <RelativeLayout
-        android:id="@+id/servicesActivity_rl_servicesActivityFooterContainer"
+        android:id="@+id/servicesActivity_rl_footerContainer"
         android:gravity="bottom"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
