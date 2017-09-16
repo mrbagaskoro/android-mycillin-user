@@ -57,4 +57,18 @@
     <string name="homeFragment_NoteOne">today, tomorow, and together</string>
     <string name="homeFragment_NoteTwo">You will love the way we care about your health</string>
     <string name="call">Panggilan</string>
+    <string name="homeFragment_topUp">Isi Ulang</string>
+    <string name="serviceActivity_medicalReservationDesc">Layanan reservasi berobat ke rumah sakit dan klinik</string>
+    <string name="serviceActivity_medicalReservationTitle">RESERVASI BEROBAT</string>
+    <string name="serviceActivity_redeemPrescriptionDesc">Layanan beli dan antar obat dengan resep dokter yang bekerja sama dengan jaringan apotek</string>
+    <string name="serviceActivity_redeemPrescriptionTitle">TEBUS RESEP OBAT</string>
+    <string name="servicesActivity_ambulanceServiceDesc">Layanan sewa ambulan terdektan dengan lokasi anda</string>
+    <string name="servicesActivity_ambulanceServiceText">LAYANAN AMBULAN</string>
+    <string name="servicesActivity_bookDoctorDesc">Pesan jasa layanan kesahatan dan medis oleh dokter ke rumah anda</string>
+    <string name="servicesActivity_bookDoctorTitle">PESAN DOKTER</string>
+    <string name="servicesActivity_consultationServiceDesc">Layanan konsultasi dengan dokter secara online dan real time</string>
+    <string name="servicesActivity_consultationServiceTitle">JASA KONSULTASI</string>
+    <string name="servicesActivity_dropdownTitle">Pilih anggota keluarga</string>
+    <string name="servicesActivity_patientsName">Nama Pasien</string>
+    <string name="servicesActivity_whoNeedsHelpTxt">Bantuan untuk ?</string>
 </resources>
