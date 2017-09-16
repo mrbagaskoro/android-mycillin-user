@@ -55,6 +55,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".activity.Main2Activity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.AccountActivity" />
     </application>
 
 </manifest>

@@ -86,5 +86,14 @@
     <string name="filterBookDoctorDialog_medicalPersonelGenderTitle">Gender of medical personnel</string>
     <string name="filterBookDoctorDIalog_cancelBtn">CANCEL</string>
     <string name="filterBookDoctorDIalog_applyBtn">APPLY</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_account">Settings</string>
+    <string name="accountActivity_manageAccountTitle">Manage Account</string>
+    <string name="accountActivity_changePasswordTitle">Change Password</string>
+    <string name="accountActivity_signOutTitle">Sign Out</string>
+    <string name="accountActivity_termsPrivacyPolicyTitle">Terms &amp; privacy policy</string>
+    <string name="manageAccountsDialogLayout_accounts">Accounts</string>
 
 </resources>

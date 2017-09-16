@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -88,8 +89,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:background="@color/accentLight"
-                    android:src="@drawable/ic_share"
+                    android:background="@color/colorAccentLight"
+                    app:srcCompat="@drawable/ic_share"
                     android:text="@string/homeFragment_share"/>
 
             </LinearLayout>
@@ -155,7 +156,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@android:color/transparent"
-                            android:textColor="@color/accent"
+                            android:textColor="@color/colorAccent"
                             android:text="@string/homeFragment_topUp"/>
 
                     </LinearLayout>

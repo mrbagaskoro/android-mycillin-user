@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.mycillin.user.fragment.setting.SettingFragment">
 
-    <android.support.v7.widget.Toolbar
+    <!--<android.support.v7.widget.Toolbar
         android:id="@+id/settingFragment_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +13,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="@android:color/white" />
+        app:titleTextColor="@android:color/white" />-->
 
     <TextView
         android:layout_width="wrap_content"

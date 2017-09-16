@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.mycillin.user"
         minSdkVersion 19
@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -27,22 +28,21 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:support-vector-drawable:26.0.0-alpha1'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.android.support:support-v4:26.0.0-alpha1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.android.gms:play-services-maps:11.2.2'
     compile 'com.google.android.gms:play-services-places:11.2.2'
-
     compile 'com.karumi:dexter:4.1.0'
     compile 'com.jakewharton:butterknife:8.6.0'
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.ahmedjazzar.rosetta:rosetta:1.0.1'
-    compile 'com.akexorcist:localizationactivity:1.1.2'
     compile 'com.github.apl-devs:appintro:v4.2.2'
     compile 'com.github.MdFarhanRaja:SearchableSpinner:1.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.orhanobut:dialogplus:1.11@aar'
-
+    compile 'com.synnapps:carouselview:0.1.4'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }

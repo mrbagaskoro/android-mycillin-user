@@ -81,4 +81,13 @@
     <string name="serviceBookDoctorActivity_addressTitle">ALAMAT</string>
     <string name="serviceBookDoctorActivity_filterBtn">GUNAKAN FILTER PENCARIAN</string>
     <string name="serviceBookDoctorActivity_searchBtn">CARI</string>
+    <string name="accountActivity_changePasswordTitle">Ubah Password</string>
+    <string name="accountActivity_manageAccountTitle">Atur Akun</string>
+    <string name="accountActivity_signOutTitle">Keluar</string>
+    <string name="accountActivity_termsPrivacyPolicyTitle">Ketentuan &amp; kebijakan privasi</string>
+    <string name="manageAccountsDialogLayout_accounts">Daftar Akun</string>
+    <string name="title_activity_account">Pengaturan</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Home</string>
+    <string name="title_notifications">Notifikasi</string>
 </resources>
