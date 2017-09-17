@@ -119,5 +119,16 @@
     <string name="insuranceActivity_insurancedNameDesc">Insured Name</string>
     <string name="insuranceActivity_footerInfoOneDesc">You can skip this page if you do not have insurance or your health insurance company is not yet available.</string>
     <string name="insuranceActivity_footerInfoTwoDesc">Currently we have yet not provide cashless payment from insurance provider.</string>
+    <string name="paymentActivity_infoDesc">To make payment easier, we provide several payment methods. Please choose a payment method.</string>
+    <string name="paymentActivity_ewalletDesc">MyCillin E-Wallet</string>
+    <string name="paymentActivity_creditCardDesc">Credit Card</string>
+    <string name="paymentActivity_payPalDesc">PayPal</string>
+    <string name="paymentActivity_paymentTitle">Payment</string>
+    <string name="eWalletDialog_eWalletTitle">E-Wallet</string>
+    <string name="eWalletDialog_infoOneDesc">MyCillin E-Wallet is a payment method provided by MyCillin in collaboration with Bank Mandiri.</string>
+    <string name="eWalletDialog_infoTwoDesc">If you choose this method, you allow MyCillin to debit your e-wallet balance for each service charge.</string>
+    <string name="eWalletDialog_iAgreeDesc">I Agree</string>
+    <string name="eWalletDialog_infoThreeDesc">The system will automatically check your e-wallet balance.</string>
+    <string name="eWalletDialog_infoFourDesc">You can top up your e-wallet balance via Bank Mandiri ATM or Bank Mandiri e-cash service.</string>
 
 </resources>

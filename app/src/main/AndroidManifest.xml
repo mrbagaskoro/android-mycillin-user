@@ -60,7 +60,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.account.AccountActivity" />
         <activity android:name=".activity.account.AccountDetailActivity" />
-        <activity android:name=".activity.account.InsuranceActivity"></activity>
+        <activity android:name=".activity.account.InsuranceActivity" />
+        <activity android:name=".activity.account.PaymentActivity"></activity>
     </application>
 
 </manifest>

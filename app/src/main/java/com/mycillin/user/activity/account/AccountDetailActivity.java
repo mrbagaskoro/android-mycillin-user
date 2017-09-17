@@ -40,6 +40,14 @@ public class AccountDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        addPaymentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AccountDetailActivity.this, PaymentActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
