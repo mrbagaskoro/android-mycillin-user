@@ -16,6 +16,9 @@ import butterknife.ButterKnife;
 
 public class AccountDetailActivity extends AppCompatActivity {
 
+    @BindView(R.id.accountDetailActivity_toolbar)
+    Toolbar toolbar;
+
     @BindView(R.id.accountDetailActivity_ib_addInsurance)
     ImageButton addInsuranceBtn;
     @BindView(R.id.accountDetailActivity_ib_addPayment)
@@ -27,9 +30,16 @@ public class AccountDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account_detail);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.accountDetailActivity_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.accountDetailActivity_title);
+
+        addInsuranceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AccountDetailActivity.this, InsuranceActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

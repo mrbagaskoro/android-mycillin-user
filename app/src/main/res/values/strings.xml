@@ -111,5 +111,13 @@
     <string name="accountDetailActivity_isAgreeDesc">I agree to the terms and conditions and agree to provide personal information to MyCillin.</string>
     <string name="menu_save">Save</string>
     <string name="accountDetailActivity_title">Account Detail</string>
+    <string name="insuranceActivity_title">Insurance</string>
+    <string name="insuranceActivity_infoDesc">MyCillin has partnered with several health insurance providers. Please select the health insurance provider you use for easy payment process and health insurance claims.</string>
+    <string name="insuranceActivity_insuranceProviderDesc">Insurance Provider</string>
+    <string name="insuranceActivity_insurancePolicyNumberDesc">Insurance Policy Number</string>
+    <string name="insuranceActivity_policyHolderNameDesc">Policy Holder Name</string>
+    <string name="insuranceActivity_insurancedNameDesc">Insured Name</string>
+    <string name="insuranceActivity_footerInfoOneDesc">You can skip this page if you do not have insurance or your health insurance company is not yet available.</string>
+    <string name="insuranceActivity_footerInfoTwoDesc">Currently we have yet not provide cashless payment from insurance provider.</string>
 
 </resources>

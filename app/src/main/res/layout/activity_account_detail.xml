@@ -70,8 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
-                android:layout_marginTop="@dimen/spacing_small"
-                app:passwordToggleEnabled="true" >
+                android:layout_marginTop="@dimen/spacing_small" >
 
                 <EditText
                     android:id="@+id/accountDetailActivity_et_fullName"
@@ -85,8 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
-                android:layout_marginTop="@dimen/spacing_small"
-                app:passwordToggleEnabled="true" >
+                android:layout_marginTop="@dimen/spacing_small" >
 
                 <EditText
                     android:id="@+id/accountDetailActivity_et_address"
@@ -100,8 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
-                android:layout_marginTop="@dimen/spacing_small"
-                app:passwordToggleEnabled="true" >
+                android:layout_marginTop="@dimen/spacing_small" >
 
                 <EditText
                     android:id="@+id/accountDetailActivity_et_phone"
@@ -146,8 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
-                android:layout_marginTop="@dimen/spacing_small"
-                app:passwordToggleEnabled="true" >
+                android:layout_marginTop="@dimen/spacing_small" >
 
                 <EditText
                     android:id="@+id/accountDetailActivity_et_dob"
@@ -168,7 +164,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_small"
                     android:layout_marginTop="@dimen/spacing_small"
-                    app:passwordToggleEnabled="true"
                     android:layout_weight="1">
 
                     <EditText
@@ -184,7 +179,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_small"
                     android:layout_marginTop="@dimen/spacing_small"
-                    app:passwordToggleEnabled="true"
                     android:layout_weight="1">
 
                     <EditText
@@ -201,8 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
-                android:layout_marginTop="@dimen/spacing_small"
-                app:passwordToggleEnabled="true" >
+                android:layout_marginTop="@dimen/spacing_small" >
 
                 <EditText
                     android:id="@+id/accountDetailActivity_et_bloodType"
