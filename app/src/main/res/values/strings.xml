@@ -130,5 +130,16 @@
     <string name="eWalletDialog_iAgreeDesc">I Agree</string>
     <string name="eWalletDialog_infoThreeDesc">The system will automatically check your e-wallet balance.</string>
     <string name="eWalletDialog_infoFourDesc">You can top up your e-wallet balance via Bank Mandiri ATM or Bank Mandiri e-cash service.</string>
+    <string name="aboutFragment_version">Version</string>
+    <string name="aboutFragment_connect">Connect with us</string>
+    <string name="aboutFragment_contact">Contact us</string>
+    <string name="aboutFragment_facebook">Like us on Facebook</string>
+    <string name="aboutFragment_twitter">Follow us on Twitter</string>
+    <string name="aboutFragment_instagram">Follow us on Instagram</string>
+    <string name="aboutFragment_youtube">Watch us on Youtube</string>
+    <string name="aboutFragment_playstore">Rate us on Play Store</string>
+    <string name="aboutFragment_abouteOneDesc">MyCillin is a product of PT Traksi Indonesia Solusi, a technology startup company that provides digital peer-to-peer communications services between communities and health professionals such as doctors or paramedics, connecting communities with pharmacies, and connecting communities with hospitals or a health clinic that has worked with MyCillin in a single integrated system.</string>
+    <string name="aboutFragment_abouteTwoDesc">MyCillin provides a solution for the wider community in terms of the ease of getting integrated health services, transparency in costs, as well as providing ease of knowing the user\'s medical records.</string>
+    <string name="aboutFragment_abouteThreeDesc">MyCillin will always strive to create and deliver new things that are useful to the community.</string>
 
 </resources>
