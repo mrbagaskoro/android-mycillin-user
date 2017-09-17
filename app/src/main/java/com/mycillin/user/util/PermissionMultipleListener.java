@@ -5,7 +5,7 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.mycillin.user.activity.PermissionCheckActivity;
+import com.mycillin.user.activity.start.PermissionCheckActivity;
 
 import java.util.List;
 

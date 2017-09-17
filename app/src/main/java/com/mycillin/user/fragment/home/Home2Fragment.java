@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mycillin.user.R;
-import com.mycillin.user.activity.ServiceBookDoctorActivity;
+import com.mycillin.user.activity.service.ServiceBookDoctorActivity;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mycillin.user.activity.IntroActivity">
+    tools:context="com.mycillin.user.activity.start.IntroActivity">
 
     <include layout="@layout/component_toolbar" />
 

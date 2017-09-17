@@ -1,4 +1,4 @@
-package com.mycillin.user.activity;
+package com.mycillin.user.activity.main;
 
 import android.os.Bundle;
 import android.os.Handler;

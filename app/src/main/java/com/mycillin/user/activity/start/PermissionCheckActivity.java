@@ -1,4 +1,4 @@
-package com.mycillin.user.activity;
+package com.mycillin.user.activity.start;
 
 import android.Manifest;
 import android.annotation.TargetApi;

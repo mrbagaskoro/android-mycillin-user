@@ -1,5 +1,6 @@
-package com.mycillin.user.activity;
+package com.mycillin.user.activity.account;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -61,7 +62,8 @@ public class AccountActivity extends AppCompatActivity {
         addAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(AccountActivity.this, AccountDetailActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.mycillin.user.activity;
+package com.mycillin.user.activity.service;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

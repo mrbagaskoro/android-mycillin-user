@@ -1,4 +1,4 @@
-package com.mycillin.user.activity;
+package com.mycillin.user.activity.service;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

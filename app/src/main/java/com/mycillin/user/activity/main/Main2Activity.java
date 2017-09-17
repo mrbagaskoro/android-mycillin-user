@@ -1,4 +1,4 @@
-package com.mycillin.user.activity;
+package com.mycillin.user.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.mycillin.user.R;
+import com.mycillin.user.activity.account.AccountActivity;
 import com.mycillin.user.fragment.about.AboutFragment;
 import com.mycillin.user.fragment.ewallet.EWalletFragment;
 import com.mycillin.user.fragment.home.Home2Fragment;

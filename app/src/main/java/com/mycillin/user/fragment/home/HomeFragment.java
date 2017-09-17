@@ -7,10 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.mycillin.user.R;
-import com.mycillin.user.activity.ServicesActivity;
+import com.mycillin.user.activity.service.ServicesActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.mycillin.user.activity;
+package com.mycillin.user.activity.start;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.mycillin.user.R;
+import com.mycillin.user.activity.main.Main2Activity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
