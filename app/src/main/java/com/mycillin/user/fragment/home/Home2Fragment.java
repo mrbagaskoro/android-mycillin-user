@@ -86,7 +86,7 @@ public class Home2Fragment extends Fragment {
             }
         });
 
-        final int[] sampleImages = {R.drawable.s_01, R.drawable.s_02, R.drawable.s_03};
+        final int[] sampleImages = {R.drawable.promo_1, R.drawable.promo_2,};
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(new ImageListener() {
             @Override

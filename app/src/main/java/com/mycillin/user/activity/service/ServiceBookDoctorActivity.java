@@ -1,6 +1,7 @@
 package com.mycillin.user.activity.service;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -33,8 +34,10 @@ public class ServiceBookDoctorActivity extends AppCompatActivity implements OnMa
 
     @BindView(R.id.serviceBookDoctorActivity_bt_searchBtn)
     Button searchBtn;
-    @BindView(R.id.serviceBookDoctorActivity_bt_filterBtn)
-    Button filterBtn;
+    @BindView(R.id.serviceBookDoctorActivity_fab_filterFAB)
+    FloatingActionButton filterBtn;
+    /*@BindView(R.id.serviceBookDoctorActivity_bt_filterBtn)
+    Button filterBtn;*/
 
     private EditText filterMedicalPersonelType;
     private EditText filterSpecialistsType;
@@ -86,15 +89,15 @@ public class ServiceBookDoctorActivity extends AppCompatActivity implements OnMa
     public void onMapReady(GoogleMap googleMap) {
         gMap = googleMap;
 
-        LatLng jakarta = new LatLng(6.1751, 106.8650);
-        gMap.addMarker(new MarkerOptions().position(jakarta).title("Jakarta"));
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(jakarta));
+        LatLng bapindo = new LatLng(-6.224190, 106.80791);
+        gMap.addMarker(new MarkerOptions().position(bapindo).title("Plaza Bapindo"));
+        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bapindo, 15.0f));
     }
 
     public void onMapSearch(Place place) {
         gMap.clear();
         gMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getAddress().toString()));
-        gMap.animateCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
+        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15.0f));
     }
 
     public void showFilterDialog() {
