@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.primary_text));
-        toolbar.setSubtitleTextColor(getResources().getColor(R.color.primary_text));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.primaryText));
+        toolbar.setSubtitleTextColor(getResources().getColor(R.color.primaryText));
         toolbar.bringToFront();
         getSupportActionBar().setElevation(0);
 

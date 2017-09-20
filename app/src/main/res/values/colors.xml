@@ -6,8 +6,8 @@
     <color name="colorAccent">#FF9800</color>
     <color name="colorAccentLight">#ffc400</color>
 
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#757575</color>
+    <color name="primaryText">#212121</color>
+    <color name="secondaryText">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
 
@@ -23,5 +23,7 @@
     <color name="fbBlue">#3b5998</color>
     <color name="fbBlueMedium">#6d84b4</color>
     <color name="fbBlueLight">#dfe3ee</color>
+
+    <color name="bgColor">#3C8C8C8C</color>
 
 </resources>

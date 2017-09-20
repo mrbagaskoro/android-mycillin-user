@@ -149,7 +149,7 @@
         android:layout_marginBottom="10dp"
         android:padding="@dimen/spacing_small"
         android:text="@string/izinkan"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/primaryText"
         android:background="@drawable/button"/>
 
 </RelativeLayout>

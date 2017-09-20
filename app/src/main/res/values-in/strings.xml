@@ -135,4 +135,12 @@
     <string name="paymentActivity_infoDesc">Untuk mempermudah pembayaran, kami menyediakan beberapa metode pembayaran. Silahkan pilih metode pembayaran yang diinginkan.</string>
     <string name="paymentActivity_payPalDesc">PayPal</string>
     <string name="paymentActivity_paymentTitle">Pembayaran</string>
+    <string name="medicalRecordFragment_filterDesc">Rekam Medis Milik</string>
+    <string name="medicalRecordFragment_infoDesc">Anda dapat melihat rekam medis milik anda atau keluarga anda yang telah terdaftar</string>
+    <string name="menu_save">Simpan</string>
+    <string name="rowMedicalRecord_day">10</string>
+    <string name="rowMedicalRecord_doctorNameDesc">dr Andi Husada</string>
+    <string name="rowMedicalRecord_medicalPersonnelDesc">Tenaga medis yang menangani :</string>
+    <string name="rowMedicalRecord_month">APR</string>
+    <string name="rowMedicalRecord_year">2017</string>
 </resources>

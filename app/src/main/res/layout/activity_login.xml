@@ -57,7 +57,7 @@
                 android:background="@drawable/button"
                 android:padding="@dimen/spacing_small"
                 android:text="@string/loginActivity_register"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primaryText" />
 
             <Button
                 android:id="@+id/loginActivity_bt_showHaveAccBtn"
@@ -68,7 +68,7 @@
                 android:background="@drawable/button"
                 android:padding="@dimen/spacing_small"
                 android:text="@string/loginActivity_alreadyHaveAccount"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primaryText" />
 
             <TextView
                 android:id="@+id/loginActivity_tv_notesTxt"
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_small"
             android:gravity="center"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primaryText"
             android:text="@string/loginActivity_registerNote" />
 
 
@@ -199,7 +199,7 @@
                 android:background="@drawable/button"
                 android:padding="@dimen/spacing_small"
                 android:text="@string/loginActivity_register"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primaryText" />
 
         </LinearLayout>
 
@@ -281,7 +281,7 @@
                 android:background="@drawable/button"
                 android:padding="@dimen/spacing_small"
                 android:text="@string/loginActivity_login"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primaryText" />
 
             <TextView
                 android:id="@+id/loginActivity_tv_forgotPassword"
@@ -326,7 +326,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
                 android:gravity="center"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryText"
                 android:text="@string/loginActivity_registerCompleteNotesOne" />
 
             <TextView
@@ -335,7 +335,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
                 android:gravity="center"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryText"
                 android:text="@string/loginActivity_registerCompleteNotesTwo" />
 
         </LinearLayout>
@@ -361,7 +361,7 @@
                 android:background="@drawable/button"
                 android:padding="@dimen/spacing_small"
                 android:text="@string/loginActivity_login"
-                android:textColor="@color/primary_text" />
+                android:textColor="@color/primaryText" />
 
         </LinearLayout>
 

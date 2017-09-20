@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:gravity="center"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryText"
                 android:text="@string/aboutFragment_abouteOneDesc"/>
 
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:gravity="center"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryText"
                 android:text="@string/aboutFragment_abouteTwoDesc"/>
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:gravity="center"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryText"
                 android:text="@string/aboutFragment_abouteThreeDesc"/>
 
         </LinearLayout>
@@ -92,7 +92,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginStart="10dp"
                                 android:textSize="15sp"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/primaryText"
                                 android:text="@string/aboutFragment_version"/>
 
                         </LinearLayout>
@@ -112,7 +112,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:textSize="20sp"
-                        android:textColor="@color/secondary_text"
+                        android:textColor="@color/secondaryText"
                         android:text="@string/aboutFragment_connect"/>
 
                     <LinearLayout
@@ -152,7 +152,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginStart="10dp"
                                 android:textSize="15sp"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/primaryText"
                                 android:text="@string/aboutFragment_contact"/>
 
                         </LinearLayout>
@@ -201,7 +201,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginStart="10dp"
                                 android:textSize="15sp"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/primaryText"
                                 android:text="@string/aboutFragment_facebook"/>
 
                         </LinearLayout>
@@ -250,7 +250,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginStart="10dp"
                                 android:textSize="15sp"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/primaryText"
                                 android:text="@string/aboutFragment_twitter"/>
 
                         </LinearLayout>
@@ -299,7 +299,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginStart="10dp"
                                 android:textSize="15sp"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/primaryText"
                                 android:text="@string/aboutFragment_instagram"/>
 
                         </LinearLayout>
@@ -348,7 +348,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginStart="10dp"
                                 android:textSize="15sp"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/primaryText"
                                 android:text="@string/aboutFragment_youtube"/>
 
                         </LinearLayout>
@@ -397,7 +397,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginStart="10dp"
                                 android:textSize="15sp"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@color/primaryText"
                                 android:text="@string/aboutFragment_playstore"/>
 
                         </LinearLayout>

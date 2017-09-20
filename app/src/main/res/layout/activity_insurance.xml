@@ -36,7 +36,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:gravity="center_vertical"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primaryText"
             android:textSize="15sp"
             android:text="@string/insuranceActivity_infoDesc" />
 
@@ -130,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primaryText"
             android:textSize="15sp"
             android:textStyle="italic"
             android:text="@string/insuranceActivity_footerInfoOneDesc" />
@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center_vertical"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/primaryText"
             android:textSize="15sp"
             android:textStyle="italic"
             android:text="@string/insuranceActivity_footerInfoTwoDesc" />
@@ -160,7 +160,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/button_no_rad_accent"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryText"
                 android:text="@string/filterBookDoctorDIalog_cancelBtn" />
 
             <Button
@@ -169,7 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/button_no_rad_primary"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryText"
                 android:text="@string/filterBookDoctorDIalog_applyBtn"/>
 
         </LinearLayout>

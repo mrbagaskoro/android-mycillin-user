@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/button_no_rad_accent"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryText"
                 android:text="@string/filterBookDoctorDIalog_cancelBtn" />
 
             <Button
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/button_no_rad_primary"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryText"
                 android:text="@string/filterBookDoctorDIalog_applyBtn"/>
 
         </LinearLayout>
