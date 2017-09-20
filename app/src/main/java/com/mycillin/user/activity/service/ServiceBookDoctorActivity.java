@@ -102,7 +102,7 @@ public class ServiceBookDoctorActivity extends AppCompatActivity implements OnMa
 
     public void showFilterDialog() {
         final DialogPlus dialogPlus = DialogPlus.newDialog(ServiceBookDoctorActivity.this)
-                .setContentHolder(new ViewHolder(R.layout.filter_book_doctor_dialog_layout))
+                .setContentHolder(new ViewHolder(R.layout.dialog_filter_book_doctor_layout))
                 .create();
         dialogPlus.show();
 

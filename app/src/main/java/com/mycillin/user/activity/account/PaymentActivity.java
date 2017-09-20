@@ -1,10 +1,8 @@
 package com.mycillin.user.activity.account;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -48,7 +46,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     public void showEWalletDialog() {
         final DialogPlus dialogPlus = DialogPlus.newDialog(PaymentActivity.this)
-                .setContentHolder(new ViewHolder(R.layout.e_wallet_dialog))
+                .setContentHolder(new ViewHolder(R.layout.dialog_e_wallet_layout))
                 .create();
         dialogPlus.show();
 

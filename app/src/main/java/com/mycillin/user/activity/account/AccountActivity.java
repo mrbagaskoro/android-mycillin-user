@@ -63,7 +63,7 @@ public class AccountActivity extends AppCompatActivity {
 
     public void showManageAccountDialog() {
         final DialogPlus dialogPlus = DialogPlus.newDialog(AccountActivity.this)
-                .setContentHolder(new ViewHolder(R.layout.manage_accounts_dialog_layout))
+                .setContentHolder(new ViewHolder(R.layout.dialog_manage_accounts_layout))
                 .setGravity(Gravity.CENTER)
                 .create();
         dialogPlus.show();

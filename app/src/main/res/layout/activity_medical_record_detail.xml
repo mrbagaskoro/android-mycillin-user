@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="Disease Diagnosis"
+                        android:text="@string/medicalRecordDiagnose_info"
                         android:textColor="@color/white"
                         android:layout_toEndOf="@+id/medicalRecordDetailActivity_iv_diagnose"
                         android:paddingStart="24dp"
@@ -126,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Check Up Result"
+                        android:text="@string/medicalDiagnoseResult_info"
                         android:fontFamily="sans-serif-light"
                         android:textColor="@color/white"
                         android:layout_centerVertical="true"
@@ -167,7 +167,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Type of Action"
+                        android:text="@string/medicalRecordAction_info"
                         android:fontFamily="sans-serif-light"
                         android:textColor="@color/white"
                         android:layout_centerVertical="true"
@@ -208,7 +208,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Medical Prescription"
+                        android:text="@string/medicalRecordPrescription_info"
                         android:fontFamily="sans-serif-light"
                         android:textColor="@color/white"
                         android:layout_centerVertical="true"
