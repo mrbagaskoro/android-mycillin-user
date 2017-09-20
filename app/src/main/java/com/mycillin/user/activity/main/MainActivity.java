@@ -1,32 +1,67 @@
 package com.mycillin.user.activity.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.mycillin.user.R;
+import com.mycillin.user.activity.account.AccountActivity;
 import com.mycillin.user.fragment.about.AboutFragment;
-import com.mycillin.user.fragment.account.AccountFragment;
 import com.mycillin.user.fragment.ewallet.EWalletFragment;
 import com.mycillin.user.fragment.home.HomeFragment;
-import com.mycillin.user.fragment.invite.InviteFragment;
 import com.mycillin.user.fragment.medicalrecord.MedicalRecordFragment;
-import com.mycillin.user.fragment.setting.SettingFragment;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    tx.replace(R.id.mainActivity_fl_framecontainer, new HomeFragment());
+                    tx.commit();
+                    getSupportActionBar().setTitle(R.string.app_name);
+
+                    return true;
+                case R.id.nav_medical_record:
+                    tx.replace(R.id.mainActivity_fl_framecontainer, new MedicalRecordFragment());
+                    tx.commit();
+                    getSupportActionBar().setTitle(R.string.nav_medical_record);
+
+                    return true;
+                case R.id.nav_wallet:
+                    tx.replace(R.id.mainActivity_fl_framecontainer, new EWalletFragment());
+                    tx.commit();
+                    getSupportActionBar().setTitle(R.string.nav_e_wallet);
+
+                    return true;
+                case R.id.nav_about:
+                    tx.replace(R.id.mainActivity_fl_framecontainer, new AboutFragment());
+                    tx.commit();
+                    getSupportActionBar().setTitle(R.string.nav_about_mycillin);
+
+                    return true;
+            }
+
+            return false;
+        }
+
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,88 +69,55 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.primaryText));
-        toolbar.setSubtitleTextColor(getResources().getColor(R.color.primaryText));
-        toolbar.bringToFront();
-        getSupportActionBar().setElevation(0);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // -------------------------------------------------------------------------------------- //
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.frame_container, new HomeFragment());
+        tx.replace(R.id.mainActivity_fl_framecontainer, new HomeFragment());
         tx.commit();
-
-        navigationView.getMenu().getItem(0).setChecked(true);
-
+        getSupportActionBar().setTitle(R.string.app_name);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            if (doubleBackToExitPressedOnce) {
-                super.onBackPressed();
-                return;
-            }
-
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, R.string.pressBackAgainToLeave, Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
         }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, R.string.pressBackAgainToLeave, Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        Fragment fragment = null;
+        if (id == R.id.action_account) {
+            Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+            startActivity(intent);
 
-        if (id == R.id.nav_home) {
-            fragment = new HomeFragment();
+            return true;
         }
-        else if (id == R.id.nav_account) {
-            fragment = new AccountFragment();
-        }
-        else if (id == R.id.nav_medical_record) {
-            fragment = new MedicalRecordFragment();
-        }
-        else if (id == R.id.nav_setting) {
-            fragment = new SettingFragment();
-        }
-        else if (id == R.id.nav_about) {
-            fragment = new AboutFragment();
-        }
-        else if (id == R.id.nav_wallet) {
-            fragment = new EWalletFragment();
-        }
-        else if (id == R.id.nav_invite) {
-            fragment = new InviteFragment();
+        else if(id == R.id.action_invite) {
+            return true;
         }
 
-        if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 }

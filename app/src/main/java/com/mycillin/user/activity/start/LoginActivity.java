@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.mycillin.user.R;
-import com.mycillin.user.activity.main.Main2Activity;
+import com.mycillin.user.activity.main.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO: 13/09/2017 DO LOGIN
-                Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
