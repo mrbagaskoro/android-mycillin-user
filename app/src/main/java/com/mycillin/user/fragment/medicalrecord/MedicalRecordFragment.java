@@ -24,7 +24,6 @@ import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
 public class MedicalRecordFragment extends Fragment {
 
-
     @BindView(R.id.medicalRecordFragment_et_dropdown)
     TextView tvDropdwon;
     @BindView(R.id.medicalRecordFragment_rv_recyclerView)

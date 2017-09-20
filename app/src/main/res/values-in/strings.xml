@@ -82,7 +82,7 @@
     <string name="serviceBookDoctorActivity_filterBtn">GUNAKAN FILTER PENCARIAN</string>
     <string name="serviceBookDoctorActivity_searchBtn">CARI</string>
     <string name="accountActivity_changePasswordTitle">Ubah Password</string>
-    <string name="accountActivity_manageAccountTitle">Atur Akun</string>
+    <string name="accountActivity_manageAccountTitle">Pengaturan Akun</string>
     <string name="accountActivity_signOutTitle">Keluar</string>
     <string name="accountActivity_termsPrivacyPolicyTitle">Ketentuan &amp; Kebijakan Privasi</string>
     <string name="manageAccountsDialogLayout_accounts">Daftar Akun</string>
@@ -150,4 +150,10 @@
     <string name="medicalRecordDetailActivity_title">Detail Rekam Medis</string>
     <string name="medicalRecordDiagnose_info">Diagnosa Penyakit</string>
     <string name="medicalRecordPrescription_info">Resep Obat</string>
+    <string name="eWalletFragment_amount">175.000</string>
+    <string name="eWalletFragment_currency">Rp</string>
+    <string name="eWalletFragment_virtualAccNumber">1019270000001</string>
+    <string name="eWalletFragment_virtualAccNumberTitle">Nomor Akun Virtual</string>
+    <string name="rowEWalletHistoryList_amount">Rp 175.000</string>
+    <string name="rowEWalletHistoryList_date">25 Maret 2017</string>
 </resources>

@@ -50,7 +50,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyViewHo
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            accountName = (TextView) itemView.findViewById(R.id.rowAccountList_tv_accountNameText);
+            accountName = itemView.findViewById(R.id.rowAccountList_tv_accountNameText);
         }
     }
 }
