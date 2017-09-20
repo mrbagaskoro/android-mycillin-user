@@ -72,12 +72,12 @@ public class MedicalRecordFragment extends Fragment {
             }
         });
 
-        getMedicalRecordList(rootView);
+        getMedicalRecordList();
 
         return rootView;
     }
 
-    private void getMedicalRecordList(View view) {
+    private void getMedicalRecordList() {
         medicalRecordRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         medicalRecordRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -87,7 +87,7 @@ public class MedicalRecordFragment extends Fragment {
         medicalRecordLists.add(new MedicalRecordList("07", "MAY", "2017", "dr Andi Husada"));
         medicalRecordLists.add(new MedicalRecordList("05", "JUL", "2017", "dr Andi Husada"));
 
-        medicalRecordAdapter = new MedicalRecordAdapter(medicalRecordLists);
+        medicalRecordAdapter = new MedicalRecordAdapter(medicalRecordLists, getActivity());
         medicalRecordRecyclerView.setAdapter(medicalRecordAdapter);
         medicalRecordAdapter.notifyDataSetChanged();
     }

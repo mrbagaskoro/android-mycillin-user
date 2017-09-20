@@ -143,4 +143,11 @@
     <string name="rowMedicalRecord_medicalPersonnelDesc">Tenaga medis yang menangani :</string>
     <string name="rowMedicalRecord_month">APR</string>
     <string name="rowMedicalRecord_year">2017</string>
+    <string name="medicalDiagnoseResult_info">Hasil Pemeriksaan</string>
+    <string name="medicalRecordAction_info">Tindakan Medis</string>
+    <string name="medicalRecordDetailActivity_dateTitle">10 JAN 2017</string>
+    <string name="medicalRecordDetailActivity_doctorTitle">dr Andi Husada</string>
+    <string name="medicalRecordDetailActivity_title">Detail Rekam Medis</string>
+    <string name="medicalRecordDiagnose_info">Diagnosa Penyakit</string>
+    <string name="medicalRecordPrescription_info">Resep Obat</string>
 </resources>

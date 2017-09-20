@@ -61,7 +61,8 @@
         <activity android:name=".activity.account.AccountActivity" />
         <activity android:name=".activity.account.AccountDetailActivity" />
         <activity android:name=".activity.account.InsuranceActivity" />
-        <activity android:name=".activity.account.PaymentActivity"></activity>
+        <activity android:name=".activity.account.PaymentActivity" />
+        <activity android:name=".activity.medicalrecord.MedicalRecordDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -148,5 +148,12 @@
     <string name="rowMedicalRecord_year">2017</string>
     <string name="rowMedicalRecord_medicalPersonnelDesc">Medical Personnel :</string>
     <string name="rowMedicalRecord_doctorNameDesc">dr Andi Husada</string>
+    <string name="medicalRecordDetailActivity_title">Medical Record Detail</string>
+    <string name="medicalRecordDetailActivity_dateTitle">10 JAN 2017</string>
+    <string name="medicalRecordDetailActivity_doctorTitle">dr Andi Husada</string>
+    <string name="medicalRecordDiagnose_info">Diagnose</string>
+    <string name="medicalRecordAction_info">Action</string>
+    <string name="medicalDiagnoseResult_info">Result</string>
+    <string name="medicalRecordPrescription_info">Prescription</string>
 
 </resources>

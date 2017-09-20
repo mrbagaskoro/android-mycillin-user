@@ -1,12 +1,18 @@
 package com.mycillin.user.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mycillin.user.R;
+import com.mycillin.user.activity.medicalrecord.MedicalRecordDetailActivity;
+import com.mycillin.user.fragment.medicalrecord.MedicalRecordFragment;
 import com.mycillin.user.list.MedicalRecordList;
 
 import java.util.ArrayList;
@@ -18,12 +24,14 @@ import java.util.List;
 
 public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdapter.MyViewHolder> {
     private List<MedicalRecordList> medicalRecordLists;
-    private ArrayList<MedicalRecordList> medicalRecordAccountLists;
+    private ArrayList<MedicalRecordList> ArrayMedicalRecordLists;
+    private Activity activity;
 
-    public MedicalRecordAdapter(List<MedicalRecordList> medicalRecordLists) {
+    public MedicalRecordAdapter(List<MedicalRecordList> medicalRecordLists, Activity activity) {
         this.medicalRecordLists = medicalRecordLists;
-        this.medicalRecordAccountLists = new ArrayList<>();
-        this.medicalRecordAccountLists.addAll(medicalRecordLists);
+        this.ArrayMedicalRecordLists = new ArrayList<>();
+        this.ArrayMedicalRecordLists.addAll(medicalRecordLists);
+        this.activity = activity;
     }
 
     @Override
@@ -34,11 +42,23 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        MedicalRecordList resultList = medicalRecordLists.get(position);
+        final MedicalRecordList resultList = medicalRecordLists.get(position);
         holder.day.setText(resultList.getDay());
         holder.month.setText(resultList.getMonth());
         holder.year.setText(resultList.getYear());
         holder.doctorName.setText(resultList.getDoctorName());
+
+        holder.detailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String date = resultList.getDay() + " " + resultList.getMonth() + " " + resultList.getYear();
+
+                Intent intent = new Intent(activity, MedicalRecordDetailActivity.class);
+                intent.putExtra(MedicalRecordDetailActivity.INTENT_KEY_DATE, date);
+                intent.putExtra(MedicalRecordDetailActivity.INTENT_KEY_DOCTOR, resultList.getDoctorName());
+                activity.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -46,18 +66,20 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
         return medicalRecordLists.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView day;
         private TextView month;
         private TextView year;
         private TextView doctorName;
+        private ImageButton detailBtn;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
             day = itemView.findViewById(R.id.rowMedicalRecordList_tv_day);
             month = itemView.findViewById(R.id.rowMedicalRecordList_tv_month);
             year = itemView.findViewById(R.id.rowMedicalRecordList_tv_year);
             doctorName = itemView.findViewById(R.id.rowMedicalRecordList_tv_doctorName);
+            detailBtn = itemView.findViewById(R.id.rowMedicalRecordList_ib_detailBtn);
         }
     }
 }
