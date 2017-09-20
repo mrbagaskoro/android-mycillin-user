@@ -161,5 +161,9 @@
     <string name="eWalletFragment_amount">175.000</string>
     <string name="eWalletFragment_virtualAccNumberTitle">Virtual Account Number</string>
     <string name="eWalletFragment_virtualAccNumber">1019270000001</string>
+    <string name="changePasswordDialog_title">Change Password</string>
+    <string name="changePasswordDialog_old">Old Password</string>
+    <string name="changePasswordDialog_new">New Password</string>
+    <string name="changePasswordDialog_confirmNew">Confirm New Password</string>
 
 </resources>
