@@ -84,7 +84,7 @@
     <string name="accountActivity_changePasswordTitle">Ubah Password</string>
     <string name="accountActivity_manageAccountTitle">Atur Akun</string>
     <string name="accountActivity_signOutTitle">Keluar</string>
-    <string name="accountActivity_termsPrivacyPolicyTitle">Ketentuan &amp; kebijakan privasi</string>
+    <string name="accountActivity_termsPrivacyPolicyTitle">Ketentuan &amp; Kebijakan Privasi</string>
     <string name="manageAccountsDialogLayout_accounts">Daftar Akun</string>
     <string name="title_activity_account">Pengaturan</string>
     <string name="title_dashboard">Dashboard</string>
