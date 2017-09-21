@@ -183,5 +183,6 @@
     <string name="medicalPersonnelDetail_cash">Cash</string>
     <string name="medicalPersonnelDetail_hospitalEWallet">E-Wallet</string>
     <string name="medicalPersonnelDetailActivity_request">REQUEST</string>
+    <string name="nav_history">History</string>
 
 </resources>

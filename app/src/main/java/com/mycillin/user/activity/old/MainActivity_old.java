@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.mycillin.user.R;
 import com.mycillin.user.fragment.AboutFragment;
-import com.mycillin.user.fragment.AccountFragment;
+import com.mycillin.user.fragment.HistoryFragment;
 import com.mycillin.user.fragment.EWalletFragment;
 import com.mycillin.user.fragment.old.HomeFragment_old;
 import com.mycillin.user.fragment.InviteFragment;
@@ -91,7 +91,7 @@ public class MainActivity_old extends AppCompatActivity implements NavigationVie
             fragment = new HomeFragment_old();
         }
         else if (id == R.id.nav_account) {
-            fragment = new AccountFragment();
+            fragment = new HistoryFragment();
         }
         else if (id == R.id.nav_medical_record) {
             fragment = new MedicalRecordFragment();

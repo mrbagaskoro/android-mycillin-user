@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +17,10 @@ import android.widget.Toast;
 import com.mycillin.user.R;
 import com.mycillin.user.fragment.AboutFragment;
 import com.mycillin.user.fragment.EWalletFragment;
+import com.mycillin.user.fragment.HistoryFragment;
 import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.fragment.MedicalRecordFragment;
+import com.mycillin.user.util.BottomNavigationViewHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
                     tx.replace(R.id.mainActivity_fl_framecontainer, new HomeFragment());
                     tx.commit();
                     getSupportActionBar().setTitle(R.string.app_name);
+
+                    return true;
+                case R.id.nav_history:
+                    tx.replace(R.id.mainActivity_fl_framecontainer, new HistoryFragment());
+                    tx.commit();
+                    getSupportActionBar().setTitle(R.string.nav_history);
 
                     return true;
                 case R.id.nav_medical_record:
@@ -70,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // -------------------------------------------------------------------------------------- //

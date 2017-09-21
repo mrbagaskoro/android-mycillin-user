@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import com.mycillin.user.R;
 
-public class AccountFragment extends Fragment {
-    public AccountFragment() {
+public class HistoryFragment extends Fragment {
+    public HistoryFragment() {
         // Required empty public constructor
     }
 
@@ -21,9 +21,9 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_account, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_history, container, false);
 
-        getActivity().setTitle(R.string.nav_account);
+        getActivity().setTitle(R.string.nav_history);
 
         return rootView;
     }
