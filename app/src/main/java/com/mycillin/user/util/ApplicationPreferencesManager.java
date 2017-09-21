@@ -3,10 +3,6 @@ package com.mycillin.user.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by 16003041 on 13/09/2017.
- */
-
 public class ApplicationPreferencesManager {
 
     public static final String KEY_USER_PREFERED_LANGUAGE = "user_preferred_language";
