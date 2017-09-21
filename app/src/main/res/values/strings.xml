@@ -165,5 +165,9 @@
     <string name="changePasswordDialog_old">Old Password</string>
     <string name="changePasswordDialog_new">New Password</string>
     <string name="changePasswordDialog_confirmNew">Confirm New Password</string>
+    <string name="medicalPersonnelActivity_search">Search</string>
+    <string name="medicalPersonnelActivity_records">0 Record(s) found</string>
+    <string name="medicalPersonnelActivity_title">Medical Personnel Available</string>
+    <string name="medicalPersonnelAdapter_doctorPermittTitle">SIPP Number:</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.mycillin.user.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -36,8 +37,6 @@ public class ServiceBookDoctorActivity extends AppCompatActivity implements OnMa
     Button searchBtn;
     @BindView(R.id.serviceBookDoctorActivity_fab_filterFAB)
     FloatingActionButton filterBtn;
-    /*@BindView(R.id.serviceBookDoctorActivity_bt_filterBtn)
-    Button filterBtn;*/
 
     private EditText filterMedicalPersonelType;
     private EditText filterSpecialistsType;
@@ -81,6 +80,13 @@ public class ServiceBookDoctorActivity extends AppCompatActivity implements OnMa
             @Override
             public void onClick(View view) {
                 showFilterDialog();
+            }
+        });
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ServiceBookDoctorActivity.this, MedicalPersonnelActivity.class);
+                startActivity(intent);
             }
         });
     }

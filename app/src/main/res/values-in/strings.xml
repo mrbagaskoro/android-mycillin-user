@@ -160,4 +160,8 @@
     <string name="changePasswordDialog_confirmNew">Konfirmasi Password Baru</string>
     <string name="changePasswordDialog_old">Password Lama</string>
     <string name="changePasswordDialog_title">Ubah Password</string>
+    <string name="medicalPersonnelActivity_records">0 Data ditemukan</string>
+    <string name="medicalPersonnelActivity_search">Cari</string>
+    <string name="medicalPersonnelActivity_title">Tenaga Medis Tersedia</string>
+    <string name="medicalPersonnelAdapter_doctorPermittTitle">No. SIPP:</string>
 </resources>
