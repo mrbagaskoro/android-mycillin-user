@@ -186,5 +186,6 @@
     <string name="nav_history">History</string>
     <string name="historyFragment_inProgressTitle">In Progress</string>
     <string name="historyFragment_completedTitle">Completed</string>
+    <string name="rowInProgressList_bookType">Visit request to home</string>
 
 </resources>

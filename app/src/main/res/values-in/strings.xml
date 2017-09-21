@@ -178,4 +178,8 @@
     <string name="medicalPersonnelDetail_hospitalEWallet">E-Wallet</string>
     <string name="medicalPersonnelDetail_hospitalInfo">RS Mitra Keluarga, Depok</string>
     <string name="medicalPersonnelDetail_radioGroupTitle">Bayar dengan:</string>
+    <string name="rowInProgressList_bookType">Request visit ke rumah</string>
+    <string name="nav_history">History</string>
+    <string name="historyFragment_completedTitle">Selesai</string>
+    <string name="historyFragment_inProgressTitle">Berlangsung</string>
 </resources>

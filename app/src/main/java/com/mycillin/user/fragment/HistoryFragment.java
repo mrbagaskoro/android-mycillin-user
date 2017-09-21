@@ -48,9 +48,9 @@ public class HistoryFragment extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new HistoryInProgressFragment(), getString(R.string.historyFragment_inProgressTitle));
-        adapter.addFragment(new HistoryCompleteddFragment(), getString(R.string.historyFragment_completedTitle));
+        adapter.addFragment(new HistoryCompletedFragment(), getString(R.string.historyFragment_completedTitle));
         viewPager.setAdapter(adapter);
     }
 
