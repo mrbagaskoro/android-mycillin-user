@@ -63,7 +63,8 @@
         <activity android:name=".activity.InsuranceActivity" />
         <activity android:name=".activity.PaymentActivity" />
         <activity android:name=".activity.MedicalRecordDetailActivity" />
-        <activity android:name=".activity.MedicalPersonnelActivity"></activity>
+        <activity android:name=".activity.MedicalPersonnelActivity" />
+        <activity android:name=".activity.MedicalPersonnelDetailActivity"></activity>
     </application>
 
 </manifest>

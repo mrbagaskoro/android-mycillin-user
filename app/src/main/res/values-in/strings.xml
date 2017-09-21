@@ -164,4 +164,18 @@
     <string name="medicalPersonnelActivity_search">Cari</string>
     <string name="medicalPersonnelActivity_title">Tenaga Medis Tersedia</string>
     <string name="medicalPersonnelAdapter_doctorPermittTitle">No. SIPP:</string>
+    <string name="medicalPersonnelDetailActivity_request">PESAN</string>
+    <string name="medicalPersonnelDetail_availability">21.00 WIB</string>
+    <string name="medicalPersonnelDetail_availabilityInfo">Tersedia sampai:</string>
+    <string name="medicalPersonnelDetail_cash">Tunai</string>
+    <string name="medicalPersonnelDetail_doctorPermitt">291827/II/2011</string>
+    <string name="medicalPersonnelDetail_doctorType">Ahli Jantung</string>
+    <string name="medicalPersonnelDetail_educationInfo">FK UI 2004</string>
+    <string name="medicalPersonnelDetail_experienceInfo">10 tahun praktek sejak 20017</string>
+    <string name="medicalPersonnelDetail_feeInfo">Perkiraan Biaya</string>
+    <string name="medicalPersonnelDetail_feeAmount">Rp 200.000</string>
+    <string name="medicalPersonnelDetail_feeTwoInfo">Mungkin berlaku biaya tambahan</string>
+    <string name="medicalPersonnelDetail_hospitalEWallet">E-Wallet</string>
+    <string name="medicalPersonnelDetail_hospitalInfo">RS Mitra Keluarga, Depok</string>
+    <string name="medicalPersonnelDetail_radioGroupTitle">Bayar dengan:</string>
 </resources>

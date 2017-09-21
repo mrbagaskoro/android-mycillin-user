@@ -1,5 +1,6 @@
 package com.mycillin.user.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -59,7 +60,12 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 MedicalPersonnelList list = medicalPersonnelLists.get(position);
-                Toast.makeText(getApplicationContext(), list.getDoctorName(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MedicalPersonnelActivity.this, MedicalPersonnelDetailActivity.class);
+                intent.putExtra(MedicalPersonnelDetailActivity.KEY_FLAG_DOCTOR_NAME, list.getDoctorName());
+                intent.putExtra(MedicalPersonnelDetailActivity.KEY_FLAG_DOCTOR_TYPE, list.getDoctorType());
+                intent.putExtra(MedicalPersonnelDetailActivity.KEY_FLAG_DOCTOR_PERMITT, list.getDoctorPermitt());
+                startActivity(intent);
             }
 
             @Override
