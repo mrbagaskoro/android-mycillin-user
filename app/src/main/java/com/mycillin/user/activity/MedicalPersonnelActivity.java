@@ -6,10 +6,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Toast;
 
 import com.mycillin.user.R;
 import com.mycillin.user.adapter.MedicalPersonnelAdapter;
 import com.mycillin.user.list.MedicalPersonnelList;
+import com.mycillin.user.util.RecyclerTouchListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,5 +54,18 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
         medicalPersonneldAdapter = new MedicalPersonnelAdapter(medicalPersonnelLists, MedicalPersonnelActivity.this);
         medicalPersonnelRecyclerView.setAdapter(medicalPersonneldAdapter);
         medicalPersonneldAdapter.notifyDataSetChanged();
+
+        medicalPersonnelRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), medicalPersonnelRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                MedicalPersonnelList list = medicalPersonnelLists.get(position);
+                Toast.makeText(getApplicationContext(), list.getDoctorName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
     }
 }
