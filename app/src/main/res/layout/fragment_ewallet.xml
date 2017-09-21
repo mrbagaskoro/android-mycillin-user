@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgColor"
-    tools:context="com.mycillin.user.fragment.ewallet.EWalletFragment">
+    tools:context="com.mycillin.user.fragment.EWalletFragment">
 
     <LinearLayout
         android:id="@+id/eWalletFragment_ll_headerContainer"

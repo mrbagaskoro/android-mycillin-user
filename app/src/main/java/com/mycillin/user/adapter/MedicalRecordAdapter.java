@@ -3,7 +3,6 @@ package com.mycillin.user.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mycillin.user.R;
-import com.mycillin.user.activity.medicalrecord.MedicalRecordDetailActivity;
-import com.mycillin.user.fragment.medicalrecord.MedicalRecordFragment;
+import com.mycillin.user.activity.MedicalRecordDetailActivity;
 import com.mycillin.user.list.MedicalRecordList;
 
 import java.util.ArrayList;

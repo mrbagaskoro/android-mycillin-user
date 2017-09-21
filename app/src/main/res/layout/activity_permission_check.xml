@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mycillin.user.activity.start.PermissionCheckActivity">
+    tools:context="com.mycillin.user.activity.PermissionCheckActivity">
 
     <ImageView
         android:id="@+id/permissionCheckActivity_iv_permissionImg"

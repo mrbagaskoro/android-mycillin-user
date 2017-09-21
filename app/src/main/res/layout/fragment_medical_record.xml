@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgColor"
-    tools:context="com.mycillin.user.fragment.medicalrecord.MedicalRecordFragment" >
+    tools:context="com.mycillin.user.fragment.MedicalRecordFragment" >
 
     <LinearLayout
         android:id="@+id/medicalRecordFragment_ll_headerContainer"
