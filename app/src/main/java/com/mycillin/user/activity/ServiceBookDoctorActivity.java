@@ -70,7 +70,8 @@ public class ServiceBookDoctorActivity extends AppCompatActivity {
                 getFragmentManager().findFragmentById(R.id.serviceBookDoctorActivity_fr_placeAutoCompleteFragment);
 
         AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-                .setTypeFilter(AutocompleteFilter.TYPE_FILTER_ADDRESS)
+                .setTypeFilter(Place.TYPE_COUNTRY)
+                .setCountry("ID")
                 .build();
         placeAutocompleteFragment.setFilter(typeFilter);
         placeAutocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
