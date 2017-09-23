@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:orientation="vertical"
+        android:background="@color/white"
         android:gravity="center">
 
         <LinearLayout
@@ -49,6 +50,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/eWalletFragment_amount"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
                     android:textSize="60sp"/>
 
             </LinearLayout>
@@ -56,6 +59,12 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:layout_above="@+id/eWalletFragment_ll_accountContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/bgColor" />
 
     <LinearLayout
         android:id="@+id/eWalletFragment_ll_accountContainer"

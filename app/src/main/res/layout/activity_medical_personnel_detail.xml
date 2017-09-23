@@ -91,28 +91,28 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal">
+            android:paddingTop="10dp">
 
             <RatingBar
                 android:id="@+id/medicalPersonelDetailActivity_rb_doctorRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/Base.Widget.AppCompat.RatingBar.Indicator"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
     <View
-        android:layout_above="@+id/homeFragment_sv_bodyContainer"
+        android:layout_above="@+id/medicalPersonelDetailActivity_sv_bodyContainer"
         android:layout_width="fill_parent"
         android:layout_height="1dip"
         android:background="@color/bgColor" />
 
     <ScrollView
-        android:id="@+id/homeFragment_sv_bodyContainer"
+        android:id="@+id/medicalPersonelDetailActivity_sv_bodyContainer"
         android:layout_below="@+id/medicalPersonelDetailActivity_ll_infoContainer"
-        android:layout_above="@+id/homeFragment_rl_footerContainer"
+        android:layout_above="@+id/medicalPersonelDetailActivity_rl_footerContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -336,8 +336,14 @@
 
     </ScrollView>
 
+    <View
+        android:layout_above="@+id/medicalPersonelDetailActivity_rl_footerContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/bgColor" />
+
     <RelativeLayout
-        android:id="@+id/homeFragment_rl_footerContainer"
+        android:id="@+id/medicalPersonelDetailActivity_rl_footerContainer"
         android:gravity="bottom"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -348,7 +354,6 @@
             android:id="@+id/medicalPersonelDetailActivity_ll_estimatedFee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#50000000"
             android:orientation="horizontal" >
 
             <LinearLayout
