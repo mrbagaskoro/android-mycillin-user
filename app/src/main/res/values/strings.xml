@@ -188,5 +188,10 @@
     <string name="historyFragment_completedTitle">Completed</string>
     <string name="rowInProgressList_bookType">Visit request to home</string>
     <string name="historyInProgressDetailActivity_addressInfo">Jl.Asem No.32, Sawangan, Depok</string>
+    <string name="historyCompletedDetailActivity_reqInfoTitle">Request Info</string>
+    <string name="historyCompletedDetailActivity_diagnoseInfo">High Fever</string>
+    <string name="historyCompletedDetailActivity_emailReceiptInfo">EMAIL RECEIPT</string>
+    <string name="historyCompletedDetailActivity_redeemPrescriptionInfo">REDEEM PRESCRIPTION</string>
+    <string name="historyCompletedDetailActivity_emailDiagnosisInfo">EMAIL DIAGNOSIS &amp; PRESCRIPTION</string>
 
 </resources>

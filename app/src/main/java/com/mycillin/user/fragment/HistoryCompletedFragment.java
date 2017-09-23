@@ -1,5 +1,6 @@
 package com.mycillin.user.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.mycillin.user.R;
+import com.mycillin.user.activity.HistoryCompletedDetailActivity;
 import com.mycillin.user.adapter.CompletedAdapter;
 import com.mycillin.user.list.CompletedList;
+import com.mycillin.user.util.RecyclerTouchListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +63,25 @@ public class HistoryCompletedFragment extends Fragment {
         completedAdapter = new CompletedAdapter(completedListList);
         completedRecyclerView.setAdapter(completedAdapter);
         completedAdapter.notifyDataSetChanged();
+
+        completedRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), completedRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                CompletedList list = completedListList.get(position);
+
+                Intent intent = new Intent(getContext(), HistoryCompletedDetailActivity.class);
+                intent.putExtra(HistoryCompletedDetailActivity.KEY_FLAG_DOCTOR_NAME, list.getBookDoctor());
+                intent.putExtra(HistoryCompletedDetailActivity.KEY_FLAG_DOCTOR_DATE, list.getBookDate());
+                intent.putExtra(HistoryCompletedDetailActivity.KEY_FLAG_DOCTOR_TIME, list.getBookTime());
+                intent.putExtra(HistoryCompletedDetailActivity.KEY_FLAG_DOCTOR_TYPE, list.getBookType());
+                intent.putExtra(HistoryCompletedDetailActivity.KEY_FLAG_DOCTOR_PIC, list.getDoctorPic());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
     }
 }

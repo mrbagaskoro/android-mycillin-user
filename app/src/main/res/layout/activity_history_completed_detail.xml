@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mycillin.user.activity.HistoryCompletedDetailActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/historyCompletedDetailActivity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@android:color/white" />
+
+    <LinearLayout
+        android:id="@+id/historyCompletedDetailActivity_ll_headerContainer"
+        android:layout_below="@+id/historyCompletedDetailActivity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/rowCompletedList_ll_mainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/historyCompletedDetailActivity_iv_doctorAvatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@mipmap/ic_launcher"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="@color/black"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/bgColor" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1" >
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="10dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/historyCompletedDetailActivity_tv_doctorName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primaryText"
+                            android:text="@string/rowMedicalRecord_doctorNameDesc" />
+
+                        <TextView
+                            android:id="@+id/historyCompletedDetailActivity_tv_bookDate"
+                            android:layout_toEndOf="@+id/historyCompletedDetailActivity_tv_doctorName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/secondaryText"
+                            android:text="@string/rowEWalletHistoryList_date" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/historyCompletedDetailActivity_tv_bookType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/secondaryText"
+                            android:text="@string/rowInProgressList_bookType" />
+
+                        <RatingBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginStart="5dp"
+                            style="@style/Widget.AppCompat.RatingBar.Indicator"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="end"
+                    android:orientation="vertical" >
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/historyCompletedDetailActivity_ll_mainContainer"
+        android:layout_below="@+id/historyCompletedDetailActivity_ll_headerContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/historyCompletedDetailActivity_fr_mapFragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.mycillin.user.activity.MapsActivity" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/historyCompletedDetailActivity_rl_footerContainer"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        android:background="@color/bgColor">
+
+        <LinearLayout
+            android:id="@+id/historyCompletedDetailActivity_ll_paymentInfoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="@string/historyCompletedDetailActivity_reqInfoTitle"/>
+
+                <TextView
+                    android:id="@+id/historyCompletedDetailActivity_emailReceipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:textStyle="bold"
+                    android:text="@string/historyCompletedDetailActivity_emailReceiptInfo"/>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bgColor" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/historyCompletedDetailActivity_tv_diagnoseInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/secondaryText"
+                        android:drawableStart="@drawable/indicator_dot_grey"
+                        android:text="@string/historyCompletedDetailActivity_diagnoseInfo" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/historyCompletedDetailActivity_tv_locationInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/secondaryText"
+                        android:drawableStart="@drawable/indicator_dot_grey"
+                        android:text="@string/historyInProgressDetailActivity_addressInfo" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/historyCompletedDetailActivity__tv_feeInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:drawableStart="@drawable/indicator_dot_grey"
+                        android:text="@string/medicalPersonnelDetail_feeAmount"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/historyCompletedDetailActivity_ll_paymentInfoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/historyCompletedDetailActivity_bt_redeemPrescriptionBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_no_rad_fb_light"
+                android:layout_weight="1"
+                android:text="@string/historyCompletedDetailActivity_redeemPrescriptionInfo"/>
+
+            <Button
+                android:id="@+id/historyCompletedDetailActivity_bt_emailDiagnosisBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_no_rad_primary"
+                android:layout_weight="1"
+                android:text="@string/historyCompletedDetailActivity_emailDiagnosisInfo"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -182,4 +182,10 @@
     <string name="nav_history">History</string>
     <string name="historyFragment_completedTitle">Selesai</string>
     <string name="historyFragment_inProgressTitle">Berlangsung</string>
+    <string name="historyCompletedDetailActivity_diagnoseInfo">Demam Tinggi</string>
+    <string name="historyCompletedDetailActivity_emailReceiptInfo">EMAIL STRUK</string>
+    <string name="historyCompletedDetailActivity_redeemPrescriptionInfo">TEBUS RESEP OBAT</string>
+    <string name="historyCompletedDetailActivity_reqInfoTitle">Request Info</string>
+    <string name="historyInProgressDetailActivity_addressInfo">Jl.Asem No.32, Sawangan, Depok</string>
+    <string name="historyCompletedDetailActivity_emailDiagnosisInfo">EMAIL DIAGNOSA &amp; RESEP OBAT</string>
 </resources>
