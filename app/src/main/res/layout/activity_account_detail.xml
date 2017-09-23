@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#3c8e8e8e"
     tools:context="com.mycillin.user.activity.AccountDetailActivity">
 
     <android.support.v7.widget.Toolbar
@@ -25,7 +24,7 @@
         android:layout_below="@id/accountDetailActivity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#3c8e8e8e"
+        android:background="@color/bgColor"
         android:orientation="horizontal" >
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -216,6 +215,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/bgColor"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -227,6 +227,7 @@
                         android:paddingEnd="15dp"
                         android:textSize="20sp"
                         android:layout_weight="1"
+                        android:textColor="@color/primaryText"
                         android:text="@string/accountDetailActivity_insuranceDesc" />
 
                     <ImageButton
@@ -252,7 +253,8 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/accountDetailActivity_rv_insurancesList"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@color/bgColor" >
 
                     </android.support.v7.widget.RecyclerView>
 
@@ -271,6 +273,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/bgColor"
                     android:orientation="horizontal" >
 
                     <TextView
@@ -282,6 +285,7 @@
                         android:paddingEnd="15dp"
                         android:textSize="20sp"
                         android:layout_weight="1"
+                        android:textColor="@color/primaryText"
                         android:text="@string/accountDetailActivity_paymentDesc" />
 
                     <ImageButton
@@ -307,7 +311,8 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/accountDetailActivity_rv_paymentsList"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@color/bgColor" >
 
                     </android.support.v7.widget.RecyclerView>
 

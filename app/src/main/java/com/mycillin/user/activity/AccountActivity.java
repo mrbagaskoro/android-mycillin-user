@@ -87,6 +87,7 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
     }
+
     public void showChangePasswordDialog() {
         final DialogPlus dialogPlus = DialogPlus.newDialog(AccountActivity.this)
                 .setContentHolder(new ViewHolder(R.layout.dialog_change_password_layout))

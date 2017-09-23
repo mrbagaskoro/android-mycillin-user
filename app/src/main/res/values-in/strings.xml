@@ -212,4 +212,8 @@
     <string name="medicalRecordDetailActivity_resultInfo4">Gula Darah</string>
     <string name="medicalRecordDetailActivity_resultInfo5">Kolesterol</string>
     <string name="medicalRecordDetailActivity_resultInfo6">Kondisi Lain</string>
+    <string name="rowInsuranceList_company">Prudential</string>
+    <string name="rowInsuranceList_policy">PO/176246/2017</string>
+    <string name="rowPaymentList_account">1019270000001</string>
+    <string name="rowPaymentList_payment">E-Wallet</string>
 </resources>
