@@ -187,5 +187,6 @@
     <string name="historyFragment_inProgressTitle">In Progress</string>
     <string name="historyFragment_completedTitle">Completed</string>
     <string name="rowInProgressList_bookType">Visit request to home</string>
+    <string name="historyInProgressDetailActivity_addressInfo">Jl.Asem No.32, Sawangan, Depok</string>
 
 </resources>

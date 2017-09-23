@@ -28,7 +28,7 @@ import com.orhanobut.dialogplus.ViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ServiceBookDoctorActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class ServiceBookDoctorActivity extends AppCompatActivity {
 
     @BindView(R.id.serviceBookDoctorActivity_toolbar)
     Toolbar toolbar;
@@ -55,7 +55,16 @@ public class ServiceBookDoctorActivity extends AppCompatActivity implements OnMa
         toolbar.setTitle(getResources().getString(R.string.servicesActivity_bookDoctorTitle));
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.serviceBookDoctorActivity_fr_mapFragment);
-        mapFragment.getMapAsync(this);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                gMap = googleMap;
+
+                LatLng bapindo = new LatLng(-6.224190, 106.80791);
+                gMap.addMarker(new MarkerOptions().position(bapindo).title("Plaza Bapindo"));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bapindo, 15.0f));
+            }
+        });
 
         PlaceAutocompleteFragment placeAutocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.serviceBookDoctorActivity_fr_placeAutoCompleteFragment);
@@ -89,15 +98,6 @@ public class ServiceBookDoctorActivity extends AppCompatActivity implements OnMa
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        gMap = googleMap;
-
-        LatLng bapindo = new LatLng(-6.224190, 106.80791);
-        gMap.addMarker(new MarkerOptions().position(bapindo).title("Plaza Bapindo"));
-        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bapindo, 15.0f));
     }
 
     public void onMapSearch(Place place) {
