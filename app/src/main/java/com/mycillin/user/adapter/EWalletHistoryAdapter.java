@@ -40,7 +40,7 @@ public class EWalletHistoryAdapter extends RecyclerView.Adapter<EWalletHistoryAd
         holder.amount.setText(resultList.getAmount());
         holder.date.setText(resultList.getDate());
 
-        if(!resultList.isTopUp()) {
+        if(resultList.isTopUp()) {
             holder.icon.setImageResource(R.drawable.ic_action_add_green);
         }
     }
