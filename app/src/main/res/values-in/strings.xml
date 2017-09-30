@@ -90,9 +90,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_home">Home</string>
     <string name="title_notifications">Notifikasi</string>
-    <string name="aboutFragment_abouteOneDesc">MyCillin merupakan produk dari PT Traksi Indonesia Solusi, perusahaan startup teknologi yang menyediakan layanan penghubung digital dalam bentuk peer-to-peer antara masyarakat dengan para pekerja profesional di bidang kesehatan seperti dokter atau paramedis, menghubungkan masyarakat dengan apotek, serta menghubungkan masyarakat dengan rumah sakit atau klinik kesehatan yang telah bekerja sama dengan MyCillin dalam satu kesatuan sistem yang terintegrasi.</string>
-    <string name="aboutFragment_abouteThreeDesc">MyCillin akan selalu berusaha untuk menciptakan dan memberikan hal-hal baru yang berguna bagi masyarakat.</string>
-    <string name="aboutFragment_abouteTwoDesc">MyCillin memberikan solusi bagi masyarakat luas dalam hal kemudahan mendapatkan pelayanan kesehatan yang terintegrasi, transparasi dalam biaya, serta memberikan kemudahan mengetahui rekam medis pengguna.</string>
     <string name="aboutFragment_connect">Tehubung dengan kami</string>
     <string name="aboutFragment_contact">Hubungi kami</string>
     <string name="aboutFragment_facebook">Sukai kami di Facebook</string>
@@ -216,4 +213,5 @@
     <string name="rowInsuranceList_policy">PO/176246/2017</string>
     <string name="rowPaymentList_account">1019270000001</string>
     <string name="rowPaymentList_payment">E-Wallet</string>
+    <string name="aboutFragment_aboutDesc">MyCillin merupakan platform digital penghubung antara masyarakat yang membutuhkan layanan kesehatan terbaik, mudah, dan murah dengan para profesional dan institusi di bidang medis</string>
 </resources>
