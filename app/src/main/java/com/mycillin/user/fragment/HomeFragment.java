@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mycillin.user.R;
 import com.mycillin.user.activity.ServiceBookDoctorActivity;
+import com.mycillin.user.activity.ServiceMedicalReservationActivity;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
@@ -82,6 +83,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ServiceBookDoctorActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        goToMedicalReservationService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ServiceMedicalReservationActivity.class);
                 startActivity(intent);
             }
         });

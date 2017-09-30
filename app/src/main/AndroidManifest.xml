@@ -66,7 +66,8 @@
         <activity android:name=".activity.MedicalPersonnelActivity" />
         <activity android:name=".activity.MedicalPersonnelDetailActivity" />
         <activity android:name=".activity.HistoryInProgressDetailActivity" />
-        <activity android:name=".activity.HistoryCompletedDetailActivity"></activity>
+        <activity android:name=".activity.HistoryCompletedDetailActivity" />
+        <activity android:name=".activity.ServiceMedicalReservationActivity"></activity>
     </application>
 
 </manifest>
