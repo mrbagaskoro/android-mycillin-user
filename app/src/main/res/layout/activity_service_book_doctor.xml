@@ -25,88 +25,9 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/serviceBookDoctorActivity_ll_headerContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/frame_alt"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textSize="20sp"
-                    android:drawableEnd="@drawable/ic_location_black"
-                    android:text="@string/serviceBookDoctorActivity_addressTitle" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/gray" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <fragment
-                    android:id="@+id/serviceBookDoctorActivity_fr_placeAutoCompleteFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/serviceBookDoctorActivity_ll_bodyContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/frame_alt"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textSize="20sp"
-                    android:text="@string/serviceBookDoctorActivity_MapViewTitle" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/gray" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp">
+            android:orientation="vertical">
 
             <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -122,11 +43,34 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/serviceBookDoctorActivity_ll_headerContainer"
+        android:layout_below="@+id/serviceBookDoctorActivity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/frame_alt"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <fragment
+                android:id="@+id/serviceBookDoctorActivity_fr_placeAutoCompleteFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/serviceBookDoctorActivity_rl_footerContainer"
         android:gravity="bottom"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
         <Button
             android:id="@+id/serviceBookDoctorActivity_bt_searchBtn"
