@@ -360,7 +360,7 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="?android:attr/windowBackground" >
 
         <LinearLayout
             android:id="@+id/homeFragment_ll_homeFragmentBtnContainer"
@@ -375,12 +375,9 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingEnd="10dp"
+                    android:padding="5dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
