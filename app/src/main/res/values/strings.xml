@@ -219,5 +219,9 @@
     <string name="rowPaymentList_payment">E-Wallet</string>
     <string name="rowPaymentList_account">1019270000001</string>
     <string name="aboutFragment_aboutDesc">MyCillin is a bridging digital platform between people who need the best, easiest, and cheapest healthcare services with professionals and institutions in the medical field</string>
+    <string name="ratingActivity_comments">Additional Comments...</string>
+    <string name="ratingActivity_title">Give Rating</string>
+    <string name="ratingActivity_commentsCounter">0 / 250</string>
+    <string name="ratingActivity_submit">SUBMIT</string>
 
 </resources>

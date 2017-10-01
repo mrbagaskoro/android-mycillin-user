@@ -1,8 +1,10 @@
 package com.mycillin.user.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,6 +29,8 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
     TextView bookDate;
     @BindView(R.id.historyCompletedDetailActivity_tv_bookType)
     TextView bookType;
+    @BindView(R.id.historyCompletedDetailActivity_tv_giveRating)
+    TextView giveRating;
 
     private GoogleMap gMap;
 
@@ -59,5 +63,13 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
         doctorName.setText(getIntent().getStringExtra(KEY_FLAG_DOCTOR_NAME));
         bookDate.setText(getIntent().getStringExtra(KEY_FLAG_DOCTOR_DATE) + ", " + getIntent().getStringExtra(KEY_FLAG_DOCTOR_TIME));
         bookType.setText(getIntent().getStringExtra(KEY_FLAG_DOCTOR_TYPE));
+
+        giveRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HistoryCompletedDetailActivity.this, RatingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
