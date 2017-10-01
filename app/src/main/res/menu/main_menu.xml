@@ -6,13 +6,13 @@
         android:id="@+id/action_invite"
         android:orderInCategory="1"
         android:title="@string/nav_invite_friend"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_share_white"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_account"
         android:orderInCategory="2"
         android:title="@string/nav_account"
-        android:icon="@drawable/ic_account_circle"
+        android:icon="@drawable/ic_account_circle_white"
         app:showAsAction="ifRoom" />
 </menu>

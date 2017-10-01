@@ -125,6 +125,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if(id == R.id.action_invite) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareIntent_subject));
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareIntent_text));
+            startActivity(Intent.createChooser(intent, getString(R.string.shareIntent_title)));
+
             return true;
         }
 

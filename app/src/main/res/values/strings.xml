@@ -223,5 +223,8 @@
     <string name="ratingActivity_title">Give Rating</string>
     <string name="ratingActivity_commentsCounter">0 / 250</string>
     <string name="ratingActivity_submit">SUBMIT</string>
+    <string name="shareIntent_subject">Join MyCillin Now!</string>
+    <string name="shareIntent_text">Join MyCillin and get the reward. Visit this link to learn more http://mycillin.com/</string>
+    <string name="shareIntent_title">Share MyCillin to...</string>
 
 </resources>
