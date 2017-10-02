@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 
 import com.mycillin.user.R;
+import com.mycillin.user.util.Configs;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,15 +32,15 @@ public class TermsAndPolicyActivity extends AppCompatActivity {
 
         if(getIntent().getStringExtra(EXTRA_FLAG).equals(EXTRA_TERMS_OF_USE)) {
             toolbar.setTitle(R.string.accountActivity_termsOfUseTitle);
-            webView.loadUrl("http://mycillin.com/services/articles/ketentuan_penggunaan");
+            webView.loadUrl(Configs.URL_TERMS_OF_USE);
         }
         else if(getIntent().getStringExtra(EXTRA_FLAG).equals(EXTRA_TERMS_AND_CONDITIONS)) {
             toolbar.setTitle(R.string.accountActivity_termsAndConditionsTitle);
-            webView.loadUrl("http://mycillin.com/services/articles/syarat_ketentuan");
+            webView.loadUrl(Configs.URL_TERMS_AND_CONDITIONS);
         }
         else if(getIntent().getStringExtra(EXTRA_FLAG).equals(EXTRA_PRIVACY_POLICY)) {
             toolbar.setTitle(R.string.accountActivity_privacyPolicyTitle);
-            webView.loadUrl("http://mycillin.com/services/articles/kebijakan_privasi");
+            webView.loadUrl(Configs.URL_PRIVACY_POLICY);
         }
 
     }

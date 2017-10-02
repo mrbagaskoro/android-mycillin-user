@@ -6,29 +6,29 @@
         android:enabled="true"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/nav_home"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/nav_history"
         android:enabled="true"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/nav_history"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/nav_medical_record"
         android:enabled="true"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/nav_medical_record"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/nav_wallet"
         android:enabled="true"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/nav_e_wallet"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/nav_about"
         android:enabled="true"
         android:icon="@mipmap/ic_launcher"
         android:title="@string/nav_about_mycillin"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 </menu>
