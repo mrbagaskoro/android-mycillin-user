@@ -93,7 +93,7 @@
     <string name="accountActivity_manageAccountTitle">Manage Account</string>
     <string name="accountActivity_changePasswordTitle">Change Password</string>
     <string name="accountActivity_signOutTitle">Sign Out</string>
-    <string name="accountActivity_termsPrivacyPolicyTitle">Terms &amp; Privacy Policy</string>
+    <string name="accountActivity_termsOfUseTitle">Terms of Use</string>
     <string name="manageAccountsDialogLayout_accounts">Accounts</string>
     <string name="accountDetailActivity_infoDesc">Please provide your information correctly in order to get a quality medical services</string>
     <string name="accountDetailActivity_fullNameDesc">Full Name</string>
@@ -226,5 +226,7 @@
     <string name="shareIntent_subject">Join MyCillin Now!</string>
     <string name="shareIntent_text">Join MyCillin and get the reward. Visit this link to learn more http://mycillin.com/</string>
     <string name="shareIntent_title">Share MyCillin to...</string>
+    <string name="accountActivity_termsAndConditionsTitle">Terms and Conditions</string>
+    <string name="accountActivity_privacyPolicyTitle">Privacy Policy</string>
 
 </resources>

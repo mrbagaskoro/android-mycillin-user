@@ -84,7 +84,7 @@
     <string name="accountActivity_changePasswordTitle">Ubah Password</string>
     <string name="accountActivity_manageAccountTitle">Pengaturan Akun</string>
     <string name="accountActivity_signOutTitle">Keluar</string>
-    <string name="accountActivity_termsPrivacyPolicyTitle">Ketentuan &amp; Kebijakan Privasi</string>
+    <string name="accountActivity_termsOfUseTitle">Ketentuan Penggunaan</string>
     <string name="manageAccountsDialogLayout_accounts">Daftar Akun</string>
     <string name="title_activity_account">Pengaturan</string>
     <string name="title_dashboard">Dashboard</string>
@@ -221,4 +221,6 @@
     <string name="shareIntent_subject">Bergabung dengan MyCillin sekarang!</string>
     <string name="shareIntent_text">Bergabung dengan MyCillin dan dapatkan hadiahnya. Kunjungi tautan berikut untuk pelajari lebih lanjut http://mycillin.com/</string>
     <string name="shareIntent_title">Berbagi MyCillin ke...</string>
+    <string name="accountActivity_privacyPolicyTitle">Kebijakan Privasi</string>
+    <string name="accountActivity_termsAndConditionsTitle">Syarat dan Ketentuan</string>
 </resources>

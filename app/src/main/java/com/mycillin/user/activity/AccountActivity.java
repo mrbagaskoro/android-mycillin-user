@@ -32,8 +32,12 @@ public class AccountActivity extends AppCompatActivity {
     LinearLayout changePassword;
     @BindView(R.id.accountActivity_ll_signOut)
     LinearLayout signOut;
-    @BindView(R.id.accountActivity_ll_termsPrivacyPolicy)
-    LinearLayout termsPrivacePolicy;
+    @BindView(R.id.accountActivity_ll_termsOfUse)
+    LinearLayout termsOfUse;
+    @BindView(R.id.accountActivity_ll_termsAndConditions)
+    LinearLayout termsAndConditions;
+    @BindView(R.id.accountActivity_ll_privacyPolicy)
+    LinearLayout privacyPolicy;
 
     @BindView(R.id.accountActivity_toolbar)
     Toolbar toolbar;
@@ -48,7 +52,6 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-
         ButterKnife.bind(this);
 
         toolbar.setTitle(R.string.nav_account);
@@ -63,6 +66,33 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showChangePasswordDialog();
+            }
+        });
+
+        termsOfUse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AccountActivity.this, TermsAndPolicyActivity.class);
+                intent.putExtra(TermsAndPolicyActivity.EXTRA_FLAG, TermsAndPolicyActivity.EXTRA_TERMS_OF_USE);
+                startActivity(intent);
+            }
+        });
+
+        termsAndConditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AccountActivity.this, TermsAndPolicyActivity.class);
+                intent.putExtra(TermsAndPolicyActivity.EXTRA_FLAG, TermsAndPolicyActivity.EXTRA_TERMS_AND_CONDITIONS);
+                startActivity(intent);
+            }
+        });
+
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AccountActivity.this, TermsAndPolicyActivity.class);
+                intent.putExtra(TermsAndPolicyActivity.EXTRA_FLAG, TermsAndPolicyActivity.EXTRA_PRIVACY_POLICY);
+                startActivity(intent);
             }
         });
     }

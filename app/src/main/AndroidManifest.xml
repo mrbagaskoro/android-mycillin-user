@@ -68,7 +68,8 @@
         <activity android:name=".activity.HistoryInProgressDetailActivity" />
         <activity android:name=".activity.HistoryCompletedDetailActivity" />
         <activity android:name=".activity.ServiceMedicalReservationActivity" />
-        <activity android:name=".activity.RatingActivity"></activity>
+        <activity android:name=".activity.RatingActivity" />
+        <activity android:name=".activity.TermsAndPolicyActivity"></activity>
     </application>
 
 </manifest>
