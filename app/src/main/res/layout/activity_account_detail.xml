@@ -43,13 +43,15 @@
             android:id="@+id/accountDetailActivity_tv_infoDesc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="40dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="@string/accountDetailActivity_infoDesc"
             android:textColor="@color/primaryText"
-            android:textSize="15sp"
-            android:text="@string/accountDetailActivity_infoDesc" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 
