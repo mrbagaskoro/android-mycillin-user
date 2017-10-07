@@ -228,5 +228,9 @@
     <string name="shareIntent_title">Share MyCillin to...</string>
     <string name="accountActivity_termsAndConditionsTitle">Terms and Conditions</string>
     <string name="accountActivity_privacyPolicyTitle">Privacy Policy</string>
+    <string name="accountActivity_termsPrivacyPolicyTitle">Terms &amp; Privacy Policy</string>
+    <string name="termAndPrivacyPolicyActivity_termOfUse">Terms of Use</string>
+    <string name="termAndPrivacyPolicyActivity_termsAndConditions">Terms and Conditions</string>
+    <string name="termAndPrivacyPolicyActivity_privacyPolicy">Privacy Policy</string>
 
 </resources>

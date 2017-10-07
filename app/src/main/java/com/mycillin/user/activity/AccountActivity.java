@@ -32,12 +32,8 @@ public class AccountActivity extends AppCompatActivity {
     LinearLayout changePassword;
     @BindView(R.id.accountActivity_ll_signOut)
     LinearLayout signOut;
-    @BindView(R.id.accountActivity_ll_termsOfUse)
-    LinearLayout termsOfUse;
-    @BindView(R.id.accountActivity_ll_termsAndConditions)
-    LinearLayout termsAndConditions;
-    @BindView(R.id.accountActivity_ll_privacyPolicy)
-    LinearLayout privacyPolicy;
+    @BindView(R.id.accountActivity_ll_termsPrivacyPolicy)
+    LinearLayout termsAndPrivacyPolicy;
 
     @BindView(R.id.accountActivity_toolbar)
     Toolbar toolbar;
@@ -69,29 +65,10 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
-        termsOfUse.setOnClickListener(new View.OnClickListener() {
+        termsAndPrivacyPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AccountActivity.this, TermsAndPolicyActivity.class);
-                intent.putExtra(TermsAndPolicyActivity.EXTRA_FLAG, TermsAndPolicyActivity.EXTRA_TERMS_OF_USE);
-                startActivity(intent);
-            }
-        });
-
-        termsAndConditions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AccountActivity.this, TermsAndPolicyActivity.class);
-                intent.putExtra(TermsAndPolicyActivity.EXTRA_FLAG, TermsAndPolicyActivity.EXTRA_TERMS_AND_CONDITIONS);
-                startActivity(intent);
-            }
-        });
-
-        privacyPolicy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AccountActivity.this, TermsAndPolicyActivity.class);
-                intent.putExtra(TermsAndPolicyActivity.EXTRA_FLAG, TermsAndPolicyActivity.EXTRA_PRIVACY_POLICY);
+                Intent intent = new Intent(AccountActivity.this, TermsAndPrivacyPolicyActivity.class);
                 startActivity(intent);
             }
         });

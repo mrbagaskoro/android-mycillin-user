@@ -223,4 +223,8 @@
     <string name="shareIntent_title">Berbagi MyCillin ke...</string>
     <string name="accountActivity_privacyPolicyTitle">Kebijakan Privasi</string>
     <string name="accountActivity_termsAndConditionsTitle">Syarat dan Ketentuan</string>
+    <string name="termAndPrivacyPolicyActivity_privacyPolicy">Kebijakan Privasi</string>
+    <string name="termAndPrivacyPolicyActivity_termOfUse">Ketentuan Penggunaan</string>
+    <string name="termAndPrivacyPolicyActivity_termsAndConditions">Syarat dan Ketentuan</string>
+    <string name="accountActivity_termsPrivacyPolicyTitle">Ketentuan &amp; Kebijakan Privasi</string>
 </resources>
