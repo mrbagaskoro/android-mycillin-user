@@ -232,5 +232,7 @@
     <string name="termAndPrivacyPolicyActivity_termOfUse">Terms of Use</string>
     <string name="termAndPrivacyPolicyActivity_termsAndConditions">Terms and Conditions</string>
     <string name="termAndPrivacyPolicyActivity_privacyPolicy">Privacy Policy</string>
+    <string name="accountActivity_cancelTitle">Cancel</string>
+    <string name="accountActivity_signOutMessage">Are you sure you want to sign out of your account ?</string>
 
 </resources>

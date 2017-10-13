@@ -2,7 +2,6 @@ package com.mycillin.user.activity;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,14 +14,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.mycillin.user.R;
-import com.mycillin.user.rest.ModelDataLogin;
-import com.mycillin.user.rest.ModelResultDataLogin;
-import com.mycillin.user.rest.ModelResultLogin;
+import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
-import com.mycillin.user.util.Alerts;
-import com.mycillin.user.util.Configs;
+import com.mycillin.user.util.SessionManager;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -30,13 +27,6 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -99,6 +89,17 @@ public class LoginActivity extends AppCompatActivity {
         registerCompleteFunction();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SessionManager session = new SessionManager(getApplicationContext());
+        if (session.isLoggedIn()) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
     public void registerFunction() {
         doRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +116,35 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO: 13/09/2017 DO LOGIN
 
+                /*MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                HashMap<String, String> params = new HashMap<>();
+                params.put("email", emailEdtxt.getText().toString());
+                params.put("password", passwordEdtxt.getText().toString());
+
+                final JSONObject jsonObject = new JSONObject(params);
+                OkHttpClient client = new OkHttpClient();
+
+                RequestBody body = RequestBody.create(JSON, jsonObject.toString());
+                Request request = new Request.Builder()
+                        .url(Configs.RETROFIT_BASE_URL + "login/")
+                        .post(body)
+                        .addHeader("content-type", "application/json; charset=utf-8")
+                        .build();
+
+                client.newCall(request).enqueue(new okhttp3.Callback() {
+                    @Override
+                    public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
+                        Log.d("###", "onFailure: " + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull okhttp3.Call call, @NonNull final okhttp3.Response response) throws IOException {
+                        @SuppressWarnings("ConstantConditions")
+                        final String result = response.body().string();
+                        Log.d("###", "onResponse: " + result);
+                    }
+                });*/
+
                 MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
 
                 HashMap<String, String> params = new HashMap<>();
@@ -124,19 +154,30 @@ public class LoginActivity extends AppCompatActivity {
                 myCillinAPI.doLogin(params).enqueue(new retrofit2.Callback<ModelResultLogin>() {
                     @Override
                     public void onResponse(@NonNull retrofit2.Call<ModelResultLogin> call, @NonNull retrofit2.Response<ModelResultLogin> response) {
-                        ModelResultLogin modelResultLogin = response.body();
-                        if (modelResultLogin != null) {
-                            if(modelResultLogin.getResult().isStatus()) {
-                                Toast.makeText(getApplicationContext(), modelResultLogin.getResult().getData().getUserId(), Toast.LENGTH_SHORT).show();
 
-                                // TODO: 12/10/2017 SET SESSION
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(), modelResultLogin.getResult().getMessage(), Toast.LENGTH_SHORT).show();
-                                //Snackbar.make(getWindow().getDecorView().getRootView(), modelResultLogin.getResult().getMessage(), Snackbar.LENGTH_SHORT).show();
+                        if(response.isSuccessful()) {
+                            ModelResultLogin modelResultLogin = response.body();
+                            assert modelResultLogin != null;
+
+                            SessionManager session = new SessionManager(getApplicationContext());
+                            session.createLoginSession(
+                                    modelResultLogin.getResult().getData().getEmail(),
+                                    modelResultLogin.getResult().getData().getFullName(),
+                                    modelResultLogin.getResult().getData().getUserId(),
+                                    modelResultLogin.getResult().getToken()
+                            );
+
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                String message = jsonObject.getJSONObject("result").getString("message");
+                                Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
                             }
                         }
                     }

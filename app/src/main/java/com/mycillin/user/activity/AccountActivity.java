@@ -1,6 +1,8 @@
 package com.mycillin.user.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,6 +17,7 @@ import android.widget.LinearLayout;
 import com.mycillin.user.R;
 import com.mycillin.user.adapter.AccountAdapter;
 import com.mycillin.user.list.AccountList;
+import com.mycillin.user.util.SessionManager;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
@@ -65,6 +68,13 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doSignOut();
+            }
+        });
+
         termsAndPrivacyPolicy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +84,7 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-    public void showManageAccountDialog() {
+    private void showManageAccountDialog() {
         final DialogPlus dialogPlus = DialogPlus.newDialog(AccountActivity.this)
                 .setContentHolder(new ViewHolder(R.layout.dialog_manage_accounts_layout))
                 .setGravity(Gravity.CENTER)
@@ -95,7 +105,7 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-    public void showChangePasswordDialog() {
+    private void showChangePasswordDialog() {
         final DialogPlus dialogPlus = DialogPlus.newDialog(AccountActivity.this)
                 .setContentHolder(new ViewHolder(R.layout.dialog_change_password_layout))
                 .setGravity(Gravity.CENTER)
@@ -105,8 +115,29 @@ public class AccountActivity extends AppCompatActivity {
         View dialogPlusView = dialogPlus.getHolderView();
     }
 
+    private void doSignOut() {
+        new AlertDialog.Builder(AccountActivity.this)
+                .setTitle(getString(R.string.accountActivity_signOutTitle))
+                .setMessage(R.string.accountActivity_signOutMessage)
+                .setIcon(R.mipmap.ic_launcher)
+                .setPositiveButton(getString(R.string.accountActivity_signOutTitle), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SessionManager session = new SessionManager(getApplicationContext());
+                        session.logoutUser();
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
 
-    public void getAccountList(View view) {
+    private void getAccountList(View view) {
         accountRecyclerView = view.findViewById(R.id.manageAccountDialog_rv_recyclertView);
         accountRecyclerView.setLayoutManager(new LinearLayoutManager(AccountActivity.this));
         accountRecyclerView.setItemAnimator(new DefaultItemAnimator());

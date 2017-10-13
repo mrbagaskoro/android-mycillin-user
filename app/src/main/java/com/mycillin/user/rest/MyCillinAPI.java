@@ -1,5 +1,7 @@
 package com.mycillin.user.rest;
 
+import com.mycillin.user.rest.login.ModelResultLogin;
+
 import java.util.HashMap;
 
 import retrofit2.Call;

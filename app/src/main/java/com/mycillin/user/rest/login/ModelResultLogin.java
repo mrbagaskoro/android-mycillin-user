@@ -1,4 +1,4 @@
-package com.mycillin.user.rest;
+package com.mycillin.user.rest.login;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -11,7 +11,7 @@ public class ModelResultLogin {
 
     @SerializedName("result")
     @Expose
-    public ModelResultDataLogin result = new ModelResultDataLogin();
+    public ModelResultDataLogin result;
 
     public ModelResultDataLogin getResult() {
         return result;
