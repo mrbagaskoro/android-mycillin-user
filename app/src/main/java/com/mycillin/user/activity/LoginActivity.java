@@ -1,22 +1,25 @@
 package com.mycillin.user.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mycillin.user.R;
-import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
+import com.mycillin.user.rest.login.ModelResultLogin;
+import com.mycillin.user.rest.register.ModelResultRegister;
+import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
 
 import org.json.JSONException;
@@ -27,6 +30,9 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -38,29 +44,57 @@ public class LoginActivity extends AppCompatActivity {
     RelativeLayout loginContainer;
     @BindView(R.id.loginActivity_rl_registerCompleteContainer)
     RelativeLayout registerCompleteContainer;
+    @BindView(R.id.loginActivity_rl_forgotPasswordContainer)
+    RelativeLayout forgotPasswordContainer;
+    @BindView(R.id.loginActivity_rl_forgotPasswordCompleteContainer)
+    RelativeLayout forgotPasswordCompleteContainer;
 
     @BindView(R.id.loginActivity_bt_showRegisterBtn)
     Button showRegisterBtn;
     @BindView(R.id.loginActivity_bt_showHaveAccBtn)
     Button showHaveAccBtn;
+    @BindView(R.id.loginActivity_tv_forgotPassword)
+    TextView showForgotPasswordBtn;
     @BindView(R.id.loginActivity_bt_registerBtn)
     Button doRegisterBtn;
     @BindView(R.id.loginActivity_bt_loginBtn)
     Button doLoginBtn;
     @BindView(R.id.loginActivity_bt_registerCompleteLoginBtn)
     Button doRegisterCompleteLoginBtn;
+    @BindView(R.id.loginActivity_bt_forgotPasswordBtn)
+    Button doForgotPasswordBtn;
+    @BindView(R.id.loginActivity_bt_forgotPasswordCompleteLoginBtn)
+    Button doForgotPasswordCompleteBtn;
 
     @BindView(R.id.loginActivity_et_loginEmail)
-    EditText emailEdtxt;
+    EditText loginEmailEdtxt;
     @BindView(R.id.loginActivity_et_loginPassword)
-    EditText passwordEdtxt;
+    EditText loginPasswordEdtxt;
+
+    @BindView(R.id.loginActivity_et_registerEmail)
+    EditText registerEmailEdtxt;
+    @BindView(R.id.loginActivity_et_registerPassword)
+    EditText registerPasswordEdtxt;
+    @BindView(R.id.loginActivity_et_registerConfirmPassword)
+    EditText registerConfirmPasswordEdtxt;
+    @BindView(R.id.loginActivity_et_registerName)
+    EditText registerNameEdtxt;
+    @BindView(R.id.loginActivity_et_registerReferral)
+    EditText registerReferralEdtxt;
+
+    @BindView(R.id.loginActivity_et_forgotPasswordEmail)
+    EditText forgotPasswordEmailEdtxt;
 
     private boolean doubleBackToExitPressedOnce = false;
     private int MENU_FLAG_LANDING = 1001;
     private int MENU_FLAG_REGISTER = 1002;
     private int MENU_FLAG_LOGIN = 1003;
     private int MENU_FLAG_REGISTER_COMPLETE = 1004;
+    private int MENU_FLAG_FORGOT_PASSWORD = 1005;
+    private int MENU_FLAG_FORGOT_PASSWORD_COMPLETE = 1006;
     private int MENU_FLAG;
+
+    private ProgressBarHandler progressBarHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +103,8 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         MENU_FLAG = MENU_FLAG_LANDING;
+
+        progressBarHandler = new ProgressBarHandler(this);
 
         showRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,9 +120,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        showForgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toForgotPasswordView();
+            }
+        });
+
         registerFunction();
         loginFunction();
         registerCompleteFunction();
+        forgotPasswordFunction();
+        forgotPasswordCompleteFunction();
     }
 
     @Override
@@ -98,143 +143,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
-
-    public void registerFunction() {
-        doRegisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: 13/09/2017 DO REGISTER
-                toRegisterCompleteView();
-            }
-        });
-    }
-
-    public void loginFunction() {
-        doLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: 13/09/2017 DO LOGIN
-
-                /*MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-                HashMap<String, String> params = new HashMap<>();
-                params.put("email", emailEdtxt.getText().toString());
-                params.put("password", passwordEdtxt.getText().toString());
-
-                final JSONObject jsonObject = new JSONObject(params);
-                OkHttpClient client = new OkHttpClient();
-
-                RequestBody body = RequestBody.create(JSON, jsonObject.toString());
-                Request request = new Request.Builder()
-                        .url(Configs.RETROFIT_BASE_URL + "login/")
-                        .post(body)
-                        .addHeader("content-type", "application/json; charset=utf-8")
-                        .build();
-
-                client.newCall(request).enqueue(new okhttp3.Callback() {
-                    @Override
-                    public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
-                        Log.d("###", "onFailure: " + e.getMessage());
-                    }
-
-                    @Override
-                    public void onResponse(@NonNull okhttp3.Call call, @NonNull final okhttp3.Response response) throws IOException {
-                        @SuppressWarnings("ConstantConditions")
-                        final String result = response.body().string();
-                        Log.d("###", "onResponse: " + result);
-                    }
-                });*/
-
-                MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
-
-                HashMap<String, String> params = new HashMap<>();
-                params.put("email", emailEdtxt.getText().toString());
-                params.put("password", passwordEdtxt.getText().toString());
-
-                myCillinAPI.doLogin(params).enqueue(new retrofit2.Callback<ModelResultLogin>() {
-                    @Override
-                    public void onResponse(@NonNull retrofit2.Call<ModelResultLogin> call, @NonNull retrofit2.Response<ModelResultLogin> response) {
-
-                        if(response.isSuccessful()) {
-                            ModelResultLogin modelResultLogin = response.body();
-                            assert modelResultLogin != null;
-
-                            SessionManager session = new SessionManager(getApplicationContext());
-                            session.createLoginSession(
-                                    modelResultLogin.getResult().getData().getEmail(),
-                                    modelResultLogin.getResult().getData().getFullName(),
-                                    modelResultLogin.getResult().getData().getUserId(),
-                                    modelResultLogin.getResult().getToken()
-                            );
-
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                                String message = jsonObject.getJSONObject("result").getString("message");
-                                Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
-                            } catch (JSONException | IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull retrofit2.Call<ModelResultLogin> call, @NonNull Throwable t) {
-                        // TODO: 12/10/2017 SET FAILURE SCENARIO
-                        Log.d("###", "onFailure: " + t.getMessage());
-                    }
-                });
-            }
-        });
-    }
-
-    public void registerCompleteFunction() {
-        doRegisterCompleteLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toLoginView();
-            }
-        });
-    }
-
-    public void toLandingView(){
-        loginLandingContainer.setVisibility(View.VISIBLE);
-        registerContainer.setVisibility(View.GONE);
-        loginContainer.setVisibility(View.GONE);
-        registerCompleteContainer.setVisibility(View.GONE);
-
-        MENU_FLAG = MENU_FLAG_LANDING;
-    }
-
-    public void toRegisterView(){
-        loginLandingContainer.setVisibility(View.GONE);
-        registerContainer.setVisibility(View.VISIBLE);
-        loginContainer.setVisibility(View.GONE);
-        registerCompleteContainer.setVisibility(View.GONE);
-
-        MENU_FLAG = MENU_FLAG_REGISTER;
-    }
-
-    public void toLoginView(){
-        loginLandingContainer.setVisibility(View.GONE);
-        registerContainer.setVisibility(View.GONE);
-        loginContainer.setVisibility(View.VISIBLE);
-        registerCompleteContainer.setVisibility(View.GONE);
-
-        MENU_FLAG = MENU_FLAG_LOGIN;
-    }
-
-    public void toRegisterCompleteView(){
-        loginLandingContainer.setVisibility(View.GONE);
-        registerContainer.setVisibility(View.GONE);
-        loginContainer.setVisibility(View.GONE);
-        registerCompleteContainer.setVisibility(View.VISIBLE);
-
-        MENU_FLAG = MENU_FLAG_REGISTER_COMPLETE;
     }
 
     @Override
@@ -258,5 +166,305 @@ public class LoginActivity extends AppCompatActivity {
         else {
             toLandingView();
         }
+    }
+
+    private void registerFunction() {
+        doRegisterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(registerEmailEdtxt.getText().toString().trim().equals("")) {
+                    registerEmailEdtxt.setError(getString(R.string.loginActivity_emailWarning));
+                }
+                else if(registerPasswordEdtxt.getText().toString().trim().equals("")) {
+                    registerPasswordEdtxt.setError(getString(R.string.loginActivity_passwordWarning));
+                }
+                else if(registerConfirmPasswordEdtxt.getText().toString().trim().equals("")) {
+                    registerConfirmPasswordEdtxt.setError(getString(R.string.loginActivity_passwordConfirmationWarning));
+                }
+                else if(registerNameEdtxt.getText().toString().trim().equals("")) {
+                    registerNameEdtxt.setError(getString(R.string.loginActivity_nameWarning));
+                }
+                else if(registerReferralEdtxt.getText().toString().trim().equals("")) {
+                    registerReferralEdtxt.setError(getString(R.string.loginActivity_referralWarning));
+                }
+                else {
+                    if(registerConfirmPasswordEdtxt.getText().toString().trim().equals(registerPasswordEdtxt.getText().toString().trim())) {
+                        doRegister();
+                    }
+                    else {
+                        registerConfirmPasswordEdtxt.setError(getString(R.string.loginActivity_passwordMatchWarning));
+                    }
+                }
+            }
+        });
+    }
+
+    private void loginFunction() {
+        doLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(loginEmailEdtxt.getText().toString().trim().equals("")) {
+                    loginEmailEdtxt.setError(getString(R.string.loginActivity_emailWarning));
+                }
+                else if(loginPasswordEdtxt.getText().toString().trim().equals("")) {
+                    loginPasswordEdtxt.setError(getString(R.string.loginActivity_passwordWarning));
+                }
+                else {
+                    doLogin();
+                }
+            }
+        });
+    }
+
+    private void registerCompleteFunction() {
+        doRegisterCompleteLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toLoginView();
+            }
+        });
+    }
+
+    private void forgotPasswordFunction() {
+        doForgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(forgotPasswordEmailEdtxt.getText().toString().trim().equals("")) {
+                    forgotPasswordEmailEdtxt.setError(getString(R.string.loginActivity_emailWarning));
+                }
+                else {
+                    doForgotPassword();
+                }
+            }
+        });
+    }
+
+    private void forgotPasswordCompleteFunction() {
+        doForgotPasswordCompleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toLoginView();
+            }
+        });
+    }
+
+    private void toLandingView() {
+        loginLandingContainer.setVisibility(View.VISIBLE);
+        registerContainer.setVisibility(View.GONE);
+        loginContainer.setVisibility(View.GONE);
+        registerCompleteContainer.setVisibility(View.GONE);
+        forgotPasswordContainer.setVisibility(View.GONE);
+        forgotPasswordCompleteContainer.setVisibility(View.GONE);
+
+        MENU_FLAG = MENU_FLAG_LANDING;
+    }
+
+    private void toRegisterView() {
+        loginLandingContainer.setVisibility(View.GONE);
+        registerContainer.setVisibility(View.VISIBLE);
+        loginContainer.setVisibility(View.GONE);
+        registerCompleteContainer.setVisibility(View.GONE);
+        forgotPasswordContainer.setVisibility(View.GONE);
+        forgotPasswordCompleteContainer.setVisibility(View.GONE);
+
+        MENU_FLAG = MENU_FLAG_REGISTER;
+    }
+
+    private void toLoginView() {
+        loginLandingContainer.setVisibility(View.GONE);
+        registerContainer.setVisibility(View.GONE);
+        loginContainer.setVisibility(View.VISIBLE);
+        registerCompleteContainer.setVisibility(View.GONE);
+        forgotPasswordContainer.setVisibility(View.GONE);
+        forgotPasswordCompleteContainer.setVisibility(View.GONE);
+
+        MENU_FLAG = MENU_FLAG_LOGIN;
+    }
+
+    private void toRegisterCompleteView() {
+        registerEmailEdtxt.setText("");
+        registerPasswordEdtxt.setText("");
+        registerConfirmPasswordEdtxt.setText("");
+        registerNameEdtxt.setText("");
+        registerReferralEdtxt.setText("");
+
+        loginLandingContainer.setVisibility(View.GONE);
+        registerContainer.setVisibility(View.GONE);
+        loginContainer.setVisibility(View.GONE);
+        registerCompleteContainer.setVisibility(View.VISIBLE);
+        forgotPasswordContainer.setVisibility(View.GONE);
+        forgotPasswordCompleteContainer.setVisibility(View.GONE);
+
+        MENU_FLAG = MENU_FLAG_REGISTER_COMPLETE;
+    }
+
+    private void toForgotPasswordView() {
+        loginLandingContainer.setVisibility(View.GONE);
+        registerContainer.setVisibility(View.GONE);
+        loginContainer.setVisibility(View.GONE);
+        registerCompleteContainer.setVisibility(View.GONE);
+        forgotPasswordContainer.setVisibility(View.VISIBLE);
+        forgotPasswordCompleteContainer.setVisibility(View.GONE);
+
+        MENU_FLAG = MENU_FLAG_FORGOT_PASSWORD;
+    }
+
+    private void toForgotPasswordCompleteView() {
+        forgotPasswordEmailEdtxt.setText("");
+
+        loginLandingContainer.setVisibility(View.GONE);
+        registerContainer.setVisibility(View.GONE);
+        loginContainer.setVisibility(View.GONE);
+        registerCompleteContainer.setVisibility(View.GONE);
+        forgotPasswordContainer.setVisibility(View.GONE);
+        forgotPasswordCompleteContainer.setVisibility(View.VISIBLE);
+
+        MENU_FLAG = MENU_FLAG_FORGOT_PASSWORD_COMPLETE;
+    }
+
+    private void doLogin() {
+        progressBarHandler.show();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("email", loginEmailEdtxt.getText().toString());
+        params.put("password", loginPasswordEdtxt.getText().toString());
+
+        myCillinAPI.doLogin(params).enqueue(new Callback<ModelResultLogin>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultLogin> call, @NonNull Response<ModelResultLogin> response) {
+
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultLogin modelResultLogin = response.body();
+                    assert modelResultLogin != null;
+
+                    SessionManager session = new SessionManager(getApplicationContext());
+                    session.createLoginSession(
+                            modelResultLogin.getResult().getData().getEmail(),
+                            modelResultLogin.getResult().getData().getFullName(),
+                            modelResultLogin.getResult().getData().getUserId(),
+                            modelResultLogin.getResult().getToken()
+                    );
+
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message = jsonObject.getJSONObject("result").getString("message");
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultLogin> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doRegister() {
+        progressBarHandler.show();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("email", registerEmailEdtxt.getText().toString());
+        params.put("password", registerPasswordEdtxt.getText().toString());
+        params.put("name", registerNameEdtxt.getText().toString());
+        params.put("ref_id", registerReferralEdtxt.getText().toString());
+
+        myCillinAPI.doRegister(
+                    params.get("email"),
+                    params.get("password"),
+                    params.get("name"),
+                    params.get("ref_id"))
+        .enqueue(new Callback<ModelResultRegister>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultRegister> call, @NonNull Response<ModelResultRegister> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultRegister modelResultRegister = response.body();
+
+                    assert modelResultRegister != null;
+                    if(modelResultRegister.getResult().isStatus()) {
+                        Snackbar.make(getWindow().getDecorView().getRootView(), modelResultRegister.getResult().getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                        toRegisterCompleteView();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message = jsonObject.getJSONObject("result").getString("message");
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultRegister> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doForgotPassword() {
+        progressBarHandler.show();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("email", forgotPasswordEmailEdtxt.getText().toString());
+        
+        myCillinAPI.doForgotPassword(params).enqueue(new Callback<ModelResultForgotPassword>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultForgotPassword> call, @NonNull Response<ModelResultForgotPassword> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultForgotPassword modelResultForgotPassword = response.body();
+
+                    assert modelResultForgotPassword != null;
+                    if(modelResultForgotPassword.getResult().isStatus()) {
+                        Snackbar.make(getWindow().getDecorView().getRootView(), modelResultForgotPassword.getResult().getMessage(), Snackbar.LENGTH_SHORT).show();
+
+                        toForgotPasswordCompleteView();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message = jsonObject.getJSONObject("result").getString("message");
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultForgotPassword> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

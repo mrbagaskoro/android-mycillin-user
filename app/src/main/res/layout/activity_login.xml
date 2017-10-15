@@ -169,10 +169,24 @@
                 android:layout_marginTop="@dimen/spacing_small" >
 
                 <EditText
-                    android:id="@+id/loginActivity_et_registerCity"
+                    android:id="@+id/loginActivity_et_registerName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/loginActivity_registerCity"
+                    android:hint="@string/loginActivity_registerName"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_small"
+                android:layout_marginTop="@dimen/spacing_small" >
+
+                <EditText
+                    android:id="@+id/loginActivity_et_registerReferral"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/loginActivity_registerReferral"
                     android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
@@ -354,6 +368,135 @@
 
             <Button
                 android:id="@+id/loginActivity_bt_registerCompleteLoginBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button"
+                android:padding="@dimen/spacing_small"
+                android:text="@string/loginActivity_login"
+                android:textColor="@color/primaryText" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/loginActivity_rl_forgotPasswordContainer"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/loginActivity_iv_forgotPasswordLogo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="top"
+            android:contentDescription="@null"
+            android:src="@drawable/mycillin_logo" />
+
+        <LinearLayout
+            android:id="@+id/loginActivity_ll_forgotPasswordBodyContainer"
+            android:layout_below="@+id/loginActivity_iv_forgotPasswordLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_small"
+                android:layout_marginTop="@dimen/spacing_small">
+
+                <EditText
+                    android:id="@+id/loginActivity_et_forgotPasswordEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/loginActivity_registerEMail"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/loginActivity_ll_forgotPasswordBodyContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_alignParentBottom="true" >
+
+            <Button
+                android:id="@+id/loginActivity_bt_forgotPasswordBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button"
+                android:padding="@dimen/spacing_small"
+                android:text="@string/loginActivity_forgotPasswordBtn"
+                android:textColor="@color/primaryText" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/loginActivity_rl_forgotPasswordCompleteContainer"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/loginActivity_iv_forgotPasswordCompleteLogo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="top"
+            android:contentDescription="@null"
+            android:src="@drawable/mycillin_logo" />
+
+        <LinearLayout
+            android:id="@+id/loginActivity_ll_forgotPasswordCompleteBodyContainer"
+            android:layout_below="@+id/loginActivity_iv_forgotPasswordCompleteLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/loginActivity_tv_forgotPasswordCompleteNotesOneTxt"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_small"
+                android:gravity="center"
+                android:textColor="@color/primaryText"
+                android:text="@string/loginActivity_forgotPasswordCompleteNotesOneTxt" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/loginActivity_ll_forgotPasswordCompleteBodyContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_alignParentBottom="true" >
+
+            <Button
+                android:id="@+id/loginActivity_bt_forgotPasswordCompleteLoginBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

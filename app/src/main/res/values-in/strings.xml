@@ -227,4 +227,16 @@
     <string name="termAndPrivacyPolicyActivity_termOfUse">Ketentuan Penggunaan</string>
     <string name="termAndPrivacyPolicyActivity_termsAndConditions">Syarat dan Ketentuan</string>
     <string name="accountActivity_termsPrivacyPolicyTitle">Ketentuan &amp; Kebijakan Privasi</string>
+    <string name="accountActivity_cancelTitle">Batal</string>
+    <string name="accountActivity_signOutMessage">Anda yakin akan keluar daru akun anda ?</string>
+    <string name="loginActivity_emailWarning">E-Mail wajib diisi !</string>
+    <string name="loginActivity_forgotPasswordBtn">Reset Password</string>
+    <string name="loginActivity_forgotPasswordCompleteNotesOneTxt">Reset password berhasil. Sebuah e-mail yang berisi informasi password baru anda akan dikirim ke alamat e-mail anda dalam waktu 24 jam kedepan.</string>
+    <string name="loginActivity_nameWarning">Nama wajib diisi !</string>
+    <string name="loginActivity_passwordConfirmationWarning">Konfirmasi password wajib diisi !</string>
+    <string name="loginActivity_passwordMatchWarning">Konfirmasi password tidak cocok !</string>
+    <string name="loginActivity_passwordWarning">Password wajib diisi !</string>
+    <string name="loginActivity_referralWarning">ID Referral wajib diisi !</string>
+    <string name="loginActivity_registerName">Nama</string>
+    <string name="loginActivity_registerReferral">ID Referral</string>
 </resources>

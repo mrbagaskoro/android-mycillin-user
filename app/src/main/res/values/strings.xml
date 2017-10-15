@@ -234,5 +234,15 @@
     <string name="termAndPrivacyPolicyActivity_privacyPolicy">Privacy Policy</string>
     <string name="accountActivity_cancelTitle">Cancel</string>
     <string name="accountActivity_signOutMessage">Are you sure you want to sign out of your account ?</string>
+    <string name="loginActivity_registerName">Name</string>
+    <string name="loginActivity_registerReferral">Referral ID</string>
+    <string name="loginActivity_emailWarning">E-Mail is required !</string>
+    <string name="loginActivity_passwordWarning">Password is required !</string>
+    <string name="loginActivity_passwordConfirmationWarning">Password Confirmation is required !</string>
+    <string name="loginActivity_nameWarning">Name is required !</string>
+    <string name="loginActivity_referralWarning">Referral ID is required !</string>
+    <string name="loginActivity_passwordMatchWarning">Password Confirmation doesn\'t match !</string>
+    <string name="loginActivity_forgotPasswordBtn">Reset Password</string>
+    <string name="loginActivity_forgotPasswordCompleteNotesOneTxt">Reset password success. An e-mail containing your new password will be sent to your e-mail address in the next 24 hours.</string>
 
 </resources>
