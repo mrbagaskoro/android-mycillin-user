@@ -1,5 +1,6 @@
 package com.mycillin.user.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.mycillin.user.BuildConfig;
 import com.mycillin.user.R;
+import com.mycillin.user.activity.ChatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,7 +96,8 @@ public class AboutFragment extends Fragment {
         playstore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.aboutFragment_playstore), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), ChatActivity.class);
+                startActivity(intent);
             }
         });
 

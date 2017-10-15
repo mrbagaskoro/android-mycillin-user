@@ -244,5 +244,5 @@
     <string name="loginActivity_passwordMatchWarning">Password Confirmation doesn\'t match !</string>
     <string name="loginActivity_forgotPasswordBtn">Reset Password</string>
     <string name="loginActivity_forgotPasswordCompleteNotesOneTxt">Reset password success. An e-mail containing your new password will be sent to your e-mail address in the next 24 hours.</string>
-
+    <string name="chatActivity_confirm">Confirm</string>
 </resources>

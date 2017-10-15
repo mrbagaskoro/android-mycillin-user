@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.mycillin.user"
-        minSdkVersion 19
+        minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -32,8 +32,8 @@ dependencies {
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.android.support:support-v4:26.0.0-alpha1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.google.android.gms:play-services-maps:11.2.2'
-    compile 'com.google.android.gms:play-services-places:11.2.2'
+    compile 'com.google.android.gms:play-services-maps:11.0.4'
+    compile 'com.google.android.gms:play-services-places:11.0.4'
     compile 'com.karumi:dexter:4.1.0'
     compile 'com.jakewharton:butterknife:8.6.0'
     compile 'com.facebook.stetho:stetho:1.5.0'
@@ -45,6 +45,15 @@ dependencies {
     compile 'com.synnapps:carouselview:0.1.4'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+
+    //firebase
+    compile 'com.google.firebase:firebase-messaging:11.0.4'
+    compile 'com.google.firebase:firebase-auth:11.0.4'
+    compile 'com.google.firebase:firebase-core:11.0.4'
+    compile 'com.google.firebase:firebase-database:11.0.4'
+    compile 'com.google.firebase:firebase-storage:11.0.4'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    apply plugin: 'com.google.gms.google-services'
 }
