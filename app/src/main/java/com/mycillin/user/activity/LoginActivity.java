@@ -172,28 +172,35 @@ public class LoginActivity extends AppCompatActivity {
         doRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean isValid = true;
+
                 if(registerEmailEdtxt.getText().toString().trim().equals("")) {
                     registerEmailEdtxt.setError(getString(R.string.loginActivity_emailWarning));
+                    isValid = false;
                 }
-                else if(registerPasswordEdtxt.getText().toString().trim().equals("")) {
+                if(registerPasswordEdtxt.getText().toString().trim().equals("")) {
                     registerPasswordEdtxt.setError(getString(R.string.loginActivity_passwordWarning));
+                    isValid = false;
                 }
-                else if(registerConfirmPasswordEdtxt.getText().toString().trim().equals("")) {
+                if(registerConfirmPasswordEdtxt.getText().toString().trim().equals("")) {
                     registerConfirmPasswordEdtxt.setError(getString(R.string.loginActivity_passwordConfirmationWarning));
+                    isValid = false;
                 }
-                else if(registerNameEdtxt.getText().toString().trim().equals("")) {
+                if(registerNameEdtxt.getText().toString().trim().equals("")) {
                     registerNameEdtxt.setError(getString(R.string.loginActivity_nameWarning));
+                    isValid = false;
                 }
-                else if(registerReferralEdtxt.getText().toString().trim().equals("")) {
+                if(registerReferralEdtxt.getText().toString().trim().equals("")) {
                     registerReferralEdtxt.setError(getString(R.string.loginActivity_referralWarning));
+                    isValid = false;
                 }
-                else {
-                    if(registerConfirmPasswordEdtxt.getText().toString().trim().equals(registerPasswordEdtxt.getText().toString().trim())) {
-                        doRegister();
-                    }
-                    else {
-                        registerConfirmPasswordEdtxt.setError(getString(R.string.loginActivity_passwordMatchWarning));
-                    }
+                if(!registerConfirmPasswordEdtxt.getText().toString().trim().equals(registerPasswordEdtxt.getText().toString().trim())) {
+                    registerConfirmPasswordEdtxt.setError(getString(R.string.loginActivity_passwordMatchWarning));
+                    isValid = false;
+                }
+
+                if(isValid) {
+                    doRegister();
                 }
             }
         });
@@ -203,14 +210,18 @@ public class LoginActivity extends AppCompatActivity {
         doLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean isValid = true;
 
                 if(loginEmailEdtxt.getText().toString().trim().equals("")) {
                     loginEmailEdtxt.setError(getString(R.string.loginActivity_emailWarning));
+                    isValid = false;
                 }
-                else if(loginPasswordEdtxt.getText().toString().trim().equals("")) {
+                if(loginPasswordEdtxt.getText().toString().trim().equals("")) {
                     loginPasswordEdtxt.setError(getString(R.string.loginActivity_passwordWarning));
+                    isValid = false;
                 }
-                else {
+
+                if(isValid) {
                     doLogin();
                 }
             }
@@ -230,10 +241,14 @@ public class LoginActivity extends AppCompatActivity {
         doForgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean isValid = true;
+
                 if(forgotPasswordEmailEdtxt.getText().toString().trim().equals("")) {
                     forgotPasswordEmailEdtxt.setError(getString(R.string.loginActivity_emailWarning));
+                    isValid = false;
                 }
-                else {
+
+                if(isValid) {
                     doForgotPassword();
                 }
             }
