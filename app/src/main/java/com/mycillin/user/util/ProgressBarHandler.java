@@ -36,14 +36,13 @@ public class ProgressBarHandler {
 
         layout.addView(rl, params);
 
-        ((Activity) this.context).getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
         hide();
     }
 
     public void show() {
         progressBar.setVisibility(View.VISIBLE);
+        ((Activity) this.context).getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     public void hide() {

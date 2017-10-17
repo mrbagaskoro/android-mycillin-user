@@ -1,5 +1,6 @@
 package com.mycillin.user.rest;
 
+import com.mycillin.user.rest.accountList.ModelResultAccountList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
 import com.mycillin.user.rest.login.ModelResultLogin;
@@ -37,4 +38,7 @@ public interface MyCillinAPI {
 
     @POST("change_password/")
     Call<ModelResultChangePassword> doChangePassword(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("list_family/")
+    Call<ModelResultAccountList> getAccountList(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }

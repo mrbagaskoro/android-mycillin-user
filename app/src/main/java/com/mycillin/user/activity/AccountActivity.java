@@ -11,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,7 @@ import com.mycillin.user.adapter.AccountAdapter;
 import com.mycillin.user.list.AccountList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.accountList.ModelResultAccountList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
@@ -245,19 +247,83 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-    private void getAccountList(View view) {
-        accountRecyclerView = view.findViewById(R.id.manageAccountDialog_rv_recyclertView);
-        accountRecyclerView.setLayoutManager(new LinearLayoutManager(AccountActivity.this));
-        accountRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    private void getAccountList(final View view) {
+        progressBarHandler.show();
 
-        accountLists.clear();
-        accountLists.add(new AccountList("pic_01.jpg", "Me"));
-        accountLists.add(new AccountList("pic_01.jpg", "Wife"));
-        accountLists.add(new AccountList("pic_01.jpg", "Son"));
-        accountLists.add(new AccountList("pic_01.jpg", "Daughter"));
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
 
-        accountAdapter = new AccountAdapter(accountLists);
-        accountRecyclerView.setAdapter(accountAdapter);
-        accountAdapter.notifyDataSetChanged();
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+
+        myCillinAPI.getAccountList(token, params).enqueue(new Callback<ModelResultAccountList>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultAccountList> call, @NonNull Response<ModelResultAccountList> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultAccountList modelResultAccountList = response.body();
+
+                    assert modelResultAccountList != null;
+                    if(modelResultAccountList.getResult().isStatus()) {
+                        accountRecyclerView = view.findViewById(R.id.manageAccountDialog_rv_recyclertView);
+                        accountRecyclerView.setLayoutManager(new LinearLayoutManager(AccountActivity.this));
+                        accountRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                        accountLists.clear();
+
+                        int size = modelResultAccountList.getResult().getData().size();
+                        for(int i = 0; i < size; i++) {
+                            String accountPic = "pic_01.jpg";
+                            String accountName = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountCreatedBy = modelResultAccountList.getResult().getData().get(i).getCreatedBy();
+                            String accountCreatedDate = modelResultAccountList.getResult().getData().get(i).getCreatedDate();
+                            String accountUpdatedBy = modelResultAccountList.getResult().getData().get(i).getUpdatedBy();
+                            String accountUpdatedDate = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountRelationId = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountRelationType = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountUserId = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountGender = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountAddress = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountMobileNo = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountDOB = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountHeight = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountWeight = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountBloodType = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountInsuranceId = modelResultAccountList.getResult().getData().get(i).getFullName();
+
+                            accountLists.add(new AccountList(accountPic, accountName,
+                                    accountCreatedBy, accountCreatedDate, accountUpdatedBy,
+                                    accountUpdatedDate, accountRelationId, accountRelationType,
+                                    accountUserId, accountGender, accountAddress, accountMobileNo,
+                                    accountDOB, accountHeight, accountWeight, accountBloodType,
+                                    accountInsuranceId));
+                        }
+
+                        accountAdapter = new AccountAdapter(accountLists);
+                        accountRecyclerView.setAdapter(accountAdapter);
+                        accountAdapter.notifyDataSetChanged();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message = jsonObject.getJSONObject("result").getString("message");
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultAccountList> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }
