@@ -29,6 +29,7 @@ import com.mycillin.user.list.InsuranceList;
 import com.mycillin.user.list.PaymentList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.accountInsert.ModelResultAccountInsert;
 import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
@@ -62,6 +63,8 @@ public class AccountDetailActivity extends AppCompatActivity {
     @BindView(R.id.accountDetailActivity_rv_paymentsList)
     RecyclerView paymentRecyclerView;
 
+    @BindView(R.id.accountDetailActivity_et_relationType)
+    EditText relationTypeEdtxt;
     @BindView(R.id.accountDetailActivity_et_fullName)
     EditText fullNameEdtxt;
     @BindView(R.id.accountDetailActivity_et_address)
@@ -132,7 +135,11 @@ public class AccountDetailActivity extends AppCompatActivity {
         isNew = getIntent().getBooleanExtra(EXTRA_ACCOUNT_DETAIL_IS_NEW, true);
         if(!isNew) {
             accountDetailData = (HashMap<String, String>) getIntent().getSerializableExtra(EXTRA_ACCOUNT_DETAIL);
-            // TODO: 17/10/2017 POPULATE FIELD
+
+            relationTypeEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_RELATION_TYPE));
+            relationTypeEdtxt.setEnabled(false);
+            relationTypeEdtxt.setBackgroundResource(R.drawable.disabled_edittext);
+            relationTypeEdtxt.setTranslationY(5);
 
             fullNameEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_NAME));
             addressEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_ADDRESS));
@@ -217,6 +224,10 @@ public class AccountDetailActivity extends AppCompatActivity {
             if(isAgreeCBox.isChecked()) {
                 boolean isValid = true;
 
+                if(relationTypeEdtxt.getText().toString().trim().equals("")) {
+                    relationTypeEdtxt.setError(getString(R.string.accountDetailActivity_relationWarning));
+                    isValid = false;
+                }
                 if(fullNameEdtxt.getText().toString().trim().equals("")) {
                     fullNameEdtxt.setError(getString(R.string.accountDetailActivity_fullNameWarning));
                     isValid = false;
@@ -252,7 +263,7 @@ public class AccountDetailActivity extends AppCompatActivity {
 
                 if(isValid) {
                     if(isNew) {
-                        Toast.makeText(getApplicationContext(), "SAVE", Toast.LENGTH_SHORT).show();
+                        doInsert();
                     }
                     else {
                         doUpdate(accountDetailData.get(KEY_PARAM_ACCOUNT_RELATION_ID));
@@ -322,6 +333,67 @@ public class AccountDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<ModelResultAccountUpdate> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doInsert() {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("relation_type", relationTypeEdtxt.getText().toString());
+        params.put("full_name", fullNameEdtxt.getText().toString());
+        params.put("address", addressEdtxt.getText().toString());
+        params.put("mobile_number", phoneEdtxt.getText().toString());
+        if(genderRGroup.getCheckedRadioButtonId() == genderRGroup.getChildAt(0).getId()) {
+            params.put("gender", GENDER_VALUE_M);
+        }
+        else if(genderRGroup.getCheckedRadioButtonId() == genderRGroup.getChildAt(1).getId()) {
+            params.put("gender", GENDER_VALUE_F);
+        }
+        params.put("dob", dobEdtxt.getText().toString());
+        params.put("height", heightEdtxt.getText().toString());
+        params.put("weight", weightEdtxt.getText().toString());
+        params.put("blood_type", bloodTypeEdtxt.getText().toString());
+        params.put("insurance_id", "");
+
+        myCillinAPI.doInsertAccount(token, params).enqueue(new Callback<ModelResultAccountInsert>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultAccountInsert> call, @NonNull Response<ModelResultAccountInsert> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultAccountInsert modelResultAccountInsert = response.body();
+
+                    assert modelResultAccountInsert != null;
+                    if(modelResultAccountInsert.getResult().isStatus()) {
+                        String message = modelResultAccountInsert.getResult().getMessage();
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message = jsonObject.getJSONObject("result").getString("message");
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultAccountInsert> call, @NonNull Throwable t) {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();

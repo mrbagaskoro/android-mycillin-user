@@ -1,5 +1,6 @@
 package com.mycillin.user.rest;
 
+import com.mycillin.user.rest.accountInsert.ModelResultAccountInsert;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
 import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
@@ -45,4 +46,7 @@ public interface MyCillinAPI {
 
     @POST("update_family/")
     Call<ModelResultAccountUpdate> doUpdateAccount(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("add_family/")
+    Call<ModelResultAccountInsert> doInsertAccount(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }

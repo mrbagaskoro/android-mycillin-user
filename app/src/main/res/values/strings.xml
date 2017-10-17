@@ -254,4 +254,6 @@
     <string name="accountDetailActivity_heightWarning">Height is required !</string>
     <string name="accountDetailActivity_weightWarning">Weight is required !</string>
     <string name="accountDetailActivity_bloodTypeWarning">Blood Type is required !</string>
+    <string name="accountDetailActivity_relationDesc">Relation</string>
+    <string name="accountDetailActivity_relationWarning">Relation is required !</string>
 </resources>
