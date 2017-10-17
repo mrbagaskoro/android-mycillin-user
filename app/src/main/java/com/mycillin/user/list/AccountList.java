@@ -31,6 +31,21 @@ public class AccountList {
                        String accountBloodType, String accountInsuranceId){
         this.accountPic = accountPic;
         this.accountName = accountName;
+        this.accountCreatedBy = accountCreatedBy;
+        this.accountCreatedDate = accountCreatedDate;
+        this.accountUpdatedBy = accountUpdatedBy;
+        this.accountUpdatedDate = accountUpdatedDate;
+        this.accountRelationId = accountRelationId;
+        this.accountRelationType = accountRelationType;
+        this.accountUserId = accountUserId;
+        this.accountGender = accountGender;
+        this.accountAddress = accountAddress;
+        this.accountMobileNo = accountMobileNo;
+        this.accountDOB = accountDOB;
+        this.accountHeight = accountHeight;
+        this.accountWeight = accountWeight;
+        this.accountBloodType = accountBloodType;
+        this.accountInsuranceId = accountInsuranceId;
     }
 
     public String getAccountPic() {

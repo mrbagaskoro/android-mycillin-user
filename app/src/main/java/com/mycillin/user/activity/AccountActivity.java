@@ -2,6 +2,7 @@ package com.mycillin.user.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -18,16 +19,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mycillin.user.R;
 import com.mycillin.user.adapter.AccountAdapter;
 import com.mycillin.user.list.AccountList;
+import com.mycillin.user.list.CompletedList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.util.ProgressBarHandler;
+import com.mycillin.user.util.RecyclerTouchListener;
 import com.mycillin.user.util.SessionManager;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
@@ -36,9 +40,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,6 +67,9 @@ public class AccountActivity extends AppCompatActivity {
     @BindView(R.id.accountActivity_toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.accountActivity_tv_userName)
+    TextView patientsNameTxt;
+
     RecyclerView accountRecyclerView;
 
     private ImageButton addAccountBtn;
@@ -76,6 +85,10 @@ public class AccountActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         toolbar.setTitle(R.string.nav_account);
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        sessionManager.checkLogin();
+        patientsNameTxt.setText(sessionManager.getUserFullName());
 
         progressBarHandler = new ProgressBarHandler(this);
 
@@ -117,14 +130,16 @@ public class AccountActivity extends AppCompatActivity {
 
         View dialogPlusView = dialogPlus.getHolderView();
 
-        getAccountList(dialogPlusView);
+        getAccountList(dialogPlus, dialogPlusView);
 
         addAccountBtn = dialogPlusView.findViewById(R.id.manageAccountDialog_ib_addAccountBtn);
         addAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AccountActivity.this, AccountDetailActivity.class);
+                intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL_IS_NEW, true);
                 startActivity(intent);
+                dialogPlus.dismiss();
             }
         });
     }
@@ -141,27 +156,39 @@ public class AccountActivity extends AppCompatActivity {
         final EditText newPasswordEdtxt = dialogPlusView.findViewById(R.id.changePasswordDialog_et_newPassword);
         final EditText confirmNewPasswordEdtxt = dialogPlusView.findViewById(R.id.changePasswordDialog_et_confirmNewPassword);
         Button applyChangePasswordBtn = dialogPlusView.findViewById(R.id.changePasswordDialog_bt_applyBtn);
+        Button cancelChangePasswordBtn = dialogPlusView.findViewById(R.id.changePasswordDialog_bt_cancelBtn);
 
         applyChangePasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean isValid = true;
                 if(oldPasswordEdtxt.getText().toString().trim().equals("")) {
                     oldPasswordEdtxt.setError(getString(R.string.loginActivity_passwordWarning));
+                    isValid = false;
                 }
-                else if(newPasswordEdtxt.getText().toString().trim().equals("")) {
+                if(newPasswordEdtxt.getText().toString().trim().equals("")) {
                     newPasswordEdtxt.setError(getString(R.string.loginActivity_passwordWarning));
+                    isValid = false;
                 }
-                else if(confirmNewPasswordEdtxt.getText().toString().trim().equals("")) {
+                if(confirmNewPasswordEdtxt.getText().toString().trim().equals("")) {
                     confirmNewPasswordEdtxt.setError(getString(R.string.loginActivity_passwordConfirmationWarning));
+                    isValid = false;
                 }
-                else {
-                    if(confirmNewPasswordEdtxt.getText().toString().trim().equals(newPasswordEdtxt.getText().toString().trim())) {
-                        doChangePassword(oldPasswordEdtxt.getText().toString(), newPasswordEdtxt.getText().toString());
-                    }
-                    else {
-                        confirmNewPasswordEdtxt.setError(getString(R.string.loginActivity_passwordMatchWarning));
-                    }
+                if(!confirmNewPasswordEdtxt.getText().toString().trim().equals(newPasswordEdtxt.getText().toString().trim())) {
+                    confirmNewPasswordEdtxt.setError(getString(R.string.loginActivity_passwordMatchWarning));
+                    isValid = false;
                 }
+
+                if(isValid) {
+                    doChangePassword(oldPasswordEdtxt.getText().toString(), newPasswordEdtxt.getText().toString());
+                }
+            }
+        });
+
+        cancelChangePasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogPlus.dismiss();
             }
         });
     }
@@ -247,7 +274,7 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-    private void getAccountList(final View view) {
+    private void getAccountList(final DialogPlus dialogPlus, final View view) {
         progressBarHandler.show();
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
@@ -281,18 +308,18 @@ public class AccountActivity extends AppCompatActivity {
                             String accountCreatedBy = modelResultAccountList.getResult().getData().get(i).getCreatedBy();
                             String accountCreatedDate = modelResultAccountList.getResult().getData().get(i).getCreatedDate();
                             String accountUpdatedBy = modelResultAccountList.getResult().getData().get(i).getUpdatedBy();
-                            String accountUpdatedDate = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountRelationId = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountRelationType = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountUserId = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountGender = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountAddress = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountMobileNo = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountDOB = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountHeight = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountWeight = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountBloodType = modelResultAccountList.getResult().getData().get(i).getFullName();
-                            String accountInsuranceId = modelResultAccountList.getResult().getData().get(i).getFullName();
+                            String accountUpdatedDate = modelResultAccountList.getResult().getData().get(i).getUpdatedDate();
+                            String accountRelationId = modelResultAccountList.getResult().getData().get(i).getRelationId();
+                            String accountRelationType = modelResultAccountList.getResult().getData().get(i).getRelationType();
+                            String accountUserId = modelResultAccountList.getResult().getData().get(i).getUserId();
+                            String accountGender = modelResultAccountList.getResult().getData().get(i).getGender();
+                            String accountAddress = modelResultAccountList.getResult().getData().get(i).getAddress();
+                            String accountMobileNo = modelResultAccountList.getResult().getData().get(i).getMobileNo();
+                            String accountDOB = modelResultAccountList.getResult().getData().get(i).getDob();
+                            String accountHeight = modelResultAccountList.getResult().getData().get(i).getHeight();
+                            String accountWeight = modelResultAccountList.getResult().getData().get(i).getWeight();
+                            String accountBloodType = modelResultAccountList.getResult().getData().get(i).getBloodType();
+                            String accountInsuranceId = modelResultAccountList.getResult().getData().get(i).getInsuranceId();
 
                             accountLists.add(new AccountList(accountPic, accountName,
                                     accountCreatedBy, accountCreatedDate, accountUpdatedBy,
@@ -305,6 +332,43 @@ public class AccountActivity extends AppCompatActivity {
                         accountAdapter = new AccountAdapter(accountLists);
                         accountRecyclerView.setAdapter(accountAdapter);
                         accountAdapter.notifyDataSetChanged();
+
+                        accountRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), accountRecyclerView, new RecyclerTouchListener.ClickListener() {
+                            @Override
+                            public void onClick(View view, int position) {
+                                AccountList list = accountLists.get(position);
+
+                                HashMap<String, String> params = new HashMap<>();
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_PIC, list.getAccountPic());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_NAME, list.getAccountName());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_CREATED_BY, list.getAccountCreatedBy());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_CREATED_DATE, list.getAccountCreatedDate());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_UPDATED_BY, list.getAccountUpdatedBy());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_UPDATED_DATE, list.getAccountUpdatedDate());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_RELATION_ID, list.getAccountRelationId());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_RELATION_TYPE, list.getAccountRelationType());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_USER_ID, list.getAccountUserId());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_GENDER, list.getAccountGender());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_ADDRESS, list.getAccountAddress());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_MOBILE_NO, list.getAccountMobileNo());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_DOB, list.getAccountDOB());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_HEIGHT, list.getAccountHeight());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_WEIGHT, list.getAccountWeight());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_BLOOD_TYPE, list.getAccountBloodType());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_INSURANCE_ID, list.getAccountInsuranceId());
+
+                                Intent intent = new Intent(AccountActivity.this, AccountDetailActivity.class);
+                                intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL, params);
+                                intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL_IS_NEW, false);
+                                startActivity(intent);
+                                dialogPlus.dismiss();
+                            }
+
+                            @Override
+                            public void onLongClick(View view, int position) {
+
+                            }
+                        }));
                     }
                 }
                 else {

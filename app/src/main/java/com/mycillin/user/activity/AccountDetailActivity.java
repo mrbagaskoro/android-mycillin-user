@@ -1,28 +1,51 @@
 package com.mycillin.user.activity;
 
 import android.content.Intent;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.mycillin.user.R;
 import com.mycillin.user.adapter.InsuranceAdapter;
 import com.mycillin.user.adapter.PaymentAdapter;
+import com.mycillin.user.list.AccountList;
 import com.mycillin.user.list.InsuranceList;
 import com.mycillin.user.list.PaymentList;
+import com.mycillin.user.rest.MyCillinAPI;
+import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
+import com.mycillin.user.util.ProgressBarHandler;
+import com.mycillin.user.util.SessionManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AccountDetailActivity extends AppCompatActivity {
 
@@ -39,10 +62,61 @@ public class AccountDetailActivity extends AppCompatActivity {
     @BindView(R.id.accountDetailActivity_rv_paymentsList)
     RecyclerView paymentRecyclerView;
 
+    @BindView(R.id.accountDetailActivity_et_fullName)
+    EditText fullNameEdtxt;
+    @BindView(R.id.accountDetailActivity_et_address)
+    EditText addressEdtxt;
+    @BindView(R.id.accountDetailActivity_et_phone)
+    EditText phoneEdtxt;
+    @BindView(R.id.accountActivity_rg_genderRg)
+    RadioGroup genderRGroup;
+    @BindView(R.id.accountActivity_rb_genderMaleRb)
+    RadioButton genderMaleRBtn;
+    @BindView(R.id.accountActivity_rb_genderFemaleRb)
+    RadioButton genderFemaleRBtn;
+    @BindView(R.id.accountDetailActivity_et_dob)
+    EditText dobEdtxt;
+    @BindView(R.id.accountDetailActivity_et_height)
+    EditText heightEdtxt;
+    @BindView(R.id.accountDetailActivity_et_weight)
+    EditText weightEdtxt;
+    @BindView(R.id.accountDetailActivity_et_bloodType)
+    EditText bloodTypeEdtxt;
+    @BindView(R.id.accountDetailActivity_cb_isAgree)
+    CheckBox isAgreeCBox;
+
+
     private List<InsuranceList> insuranceLists = new ArrayList<>();
     private InsuranceAdapter insuranceAdapter;
     private List<PaymentList> paymentLists = new ArrayList<>();
     private PaymentAdapter paymentAdapter;
+
+    public static final String EXTRA_ACCOUNT_DETAIL = "EXTRA_ACCOUNT_DETAIL";
+    public static final String EXTRA_ACCOUNT_DETAIL_IS_NEW = "EXTRA_ACCOUNT_DETAIL_IS_NEW";
+    public static final String KEY_PARAM_ACCOUNT_PIC = "KEY_PARAM_ACCOUNT_PIC";
+    public static final String KEY_PARAM_ACCOUNT_NAME = "KEY_PARAM_ACCOUNT_NAME";
+    public static final String KEY_PARAM_ACCOUNT_CREATED_BY = "KEY_PARAM_ACCOUNT_CREATED_BY";
+    public static final String KEY_PARAM_ACCOUNT_CREATED_DATE = "KEY_PARAM_ACCOUNT_CREATED_DATE";
+    public static final String KEY_PARAM_ACCOUNT_UPDATED_BY = "KEY_PARAM_ACCOUNT_UPDATED_BY";
+    public static final String KEY_PARAM_ACCOUNT_UPDATED_DATE = "KEY_PARAM_ACCOUNT_UPDATED_DATE";
+    public static final String KEY_PARAM_ACCOUNT_RELATION_ID = "KEY_PARAM_ACCOUNT_RELATION_ID";
+    public static final String KEY_PARAM_ACCOUNT_RELATION_TYPE = "KEY_PARAM_ACCOUNT_RELATION_TYPE";
+    public static final String KEY_PARAM_ACCOUNT_USER_ID = "KEY_PARAM_ACCOUNT_USER_ID";
+    public static final String KEY_PARAM_ACCOUNT_GENDER = "KEY_PARAM_ACCOUNT_GENDER";
+    public static final String KEY_PARAM_ACCOUNT_ADDRESS = "KEY_PARAM_ACCOUNT_ADDRESS";
+    public static final String KEY_PARAM_ACCOUNT_MOBILE_NO = "KEY_PARAM_ACCOUNT_MOBILE_NO";
+    public static final String KEY_PARAM_ACCOUNT_DOB = "KEY_PARAM_ACCOUNT_DOB";
+    public static final String KEY_PARAM_ACCOUNT_HEIGHT = "KEY_PARAM_ACCOUNT_HEIGHT";
+    public static final String KEY_PARAM_ACCOUNT_WEIGHT = "KEY_PARAM_ACCOUNT_WEIGHT";
+    public static final String KEY_PARAM_ACCOUNT_BLOOD_TYPE = "KEY_PARAM_ACCOUNT_BLOOD_TYPE";
+    public static final String KEY_PARAM_ACCOUNT_INSURANCE_ID = "KEY_PARAM_ACCOUNT_INSURANCE_ID";
+    public static final String GENDER_VALUE_M = "M";
+    public static final String GENDER_VALUE_F = "F";
+
+    private boolean isNew = true;
+    private HashMap<String, String> accountDetailData;
+
+    private ProgressBarHandler progressBarHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +126,36 @@ public class AccountDetailActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.accountDetailActivity_title);
+
+        progressBarHandler = new ProgressBarHandler(this);
+
+        isNew = getIntent().getBooleanExtra(EXTRA_ACCOUNT_DETAIL_IS_NEW, true);
+        if(!isNew) {
+            accountDetailData = (HashMap<String, String>) getIntent().getSerializableExtra(EXTRA_ACCOUNT_DETAIL);
+            // TODO: 17/10/2017 POPULATE FIELD
+
+            fullNameEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_NAME));
+            addressEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_ADDRESS));
+            phoneEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_MOBILE_NO));
+            if(accountDetailData.get(KEY_PARAM_ACCOUNT_GENDER).equals(GENDER_VALUE_M)) {
+                genderRGroup.check(genderMaleRBtn.getId());
+            }
+            else if(accountDetailData.get(KEY_PARAM_ACCOUNT_GENDER).equals(GENDER_VALUE_F)) {
+                genderRGroup.check(genderFemaleRBtn.getId());
+            }
+            dobEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_DOB));
+            heightEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_HEIGHT));
+            weightEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_WEIGHT));
+            bloodTypeEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_BLOOD_TYPE));
+            //isAgreeCBox.setText(params.get(KEY_PARAM_ACCOUNT_NAME));
+        }
+
+        genderRGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                genderFemaleRBtn.setError(null);
+            }
+        });
 
         addInsuranceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,9 +214,118 @@ public class AccountDetailActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_save) {
+            if(isAgreeCBox.isChecked()) {
+                boolean isValid = true;
+
+                if(fullNameEdtxt.getText().toString().trim().equals("")) {
+                    fullNameEdtxt.setError(getString(R.string.accountDetailActivity_fullNameWarning));
+                    isValid = false;
+                }
+                if(addressEdtxt.getText().toString().trim().equals("")) {
+                    addressEdtxt.setError(getString(R.string.accountDetailActivity_addressWarning));
+                    isValid = false;
+                }
+                if(phoneEdtxt.getText().toString().trim().equals("")) {
+                    phoneEdtxt.setError(getString(R.string.accountDetailActivity_phoneWarning));
+                    isValid = false;
+                }
+                if(genderRGroup.getCheckedRadioButtonId() == -1) {
+                    genderFemaleRBtn.setError(getString(R.string.accountDetailActivity_genderWarning));
+                    isValid = false;
+                }
+                if(dobEdtxt.getText().toString().trim().equals("")) {
+                    dobEdtxt.setError(getString(R.string.accountDetailActivity_dobWarning));
+                    isValid = false;
+                }
+                if(heightEdtxt.getText().toString().trim().equals("")) {
+                    heightEdtxt.setError(getString(R.string.accountDetailActivity_heightWarning));
+                    isValid = false;
+                }
+                if(weightEdtxt.getText().toString().trim().equals("")) {
+                    weightEdtxt.setError(getString(R.string.accountDetailActivity_weightWarning));
+                    isValid = false;
+                }
+                if(bloodTypeEdtxt.getText().toString().trim().equals("")) {
+                    bloodTypeEdtxt.setError(getString(R.string.accountDetailActivity_bloodTypeWarning));
+                    isValid = false;
+                }
+
+                if(isValid) {
+                    if(isNew) {
+                        Toast.makeText(getApplicationContext(), "SAVE", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        doUpdate(accountDetailData.get(KEY_PARAM_ACCOUNT_RELATION_ID));
+                    }
+                }
+            }
+            else {
+                Snackbar.make(getWindow().getDecorView().getRootView(), R.string.accountDetailActivity_agreementWarning, Snackbar.LENGTH_SHORT).show();
+            }
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void doUpdate(String relationId) {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("relation_id", relationId);
+        params.put("full_name", fullNameEdtxt.getText().toString());
+        params.put("address", addressEdtxt.getText().toString());
+        params.put("mobile_number", phoneEdtxt.getText().toString());
+        if(genderRGroup.getCheckedRadioButtonId() == genderRGroup.getChildAt(0).getId()) {
+            params.put("gender", GENDER_VALUE_M);
+        }
+        else if(genderRGroup.getCheckedRadioButtonId() == genderRGroup.getChildAt(1).getId()) {
+            params.put("gender", GENDER_VALUE_F);
+        }
+        params.put("dob", dobEdtxt.getText().toString());
+        params.put("height", heightEdtxt.getText().toString());
+        params.put("weight", weightEdtxt.getText().toString());
+        params.put("blood_type", bloodTypeEdtxt.getText().toString());
+        params.put("insurance_id", "");
+
+        myCillinAPI.doUpdateAccount(token, params).enqueue(new Callback<ModelResultAccountUpdate>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultAccountUpdate> call, @NonNull Response<ModelResultAccountUpdate> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultAccountUpdate modelResultAccountUpdate = response.body();
+
+                    assert modelResultAccountUpdate != null;
+                    if(modelResultAccountUpdate.getResult().isStatus()) {
+                        String message = modelResultAccountUpdate.getResult().getMessage();
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message = jsonObject.getJSONObject("result").getString("message");
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultAccountUpdate> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

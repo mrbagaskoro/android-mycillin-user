@@ -246,4 +246,12 @@
     <string name="loginActivity_forgotPasswordCompleteNotesOneTxt">Reset password success. An e-mail containing your new password will be sent to your e-mail address in the next 24 hours.</string>
     <string name="chatActivity_confirm">Confirm</string>
     <string name="accountDetailActivity_agreementWarning">Please kindly check the agreement box first</string>
+    <string name="accountDetailActivity_fullNameWarning">Full Name is required !</string>
+    <string name="accountDetailActivity_addressWarning">Address is required !</string>
+    <string name="accountDetailActivity_phoneWarning">Phone Number is required !</string>
+    <string name="accountDetailActivity_genderWarning">Gender is required !</string>
+    <string name="accountDetailActivity_dobWarning">Date of Birth is required !</string>
+    <string name="accountDetailActivity_heightWarning">Height is required !</string>
+    <string name="accountDetailActivity_weightWarning">Weight is required !</string>
+    <string name="accountDetailActivity_bloodTypeWarning">Blood Type is required !</string>
 </resources>
