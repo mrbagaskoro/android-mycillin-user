@@ -79,8 +79,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText registerConfirmPasswordEdtxt;
     @BindView(R.id.loginActivity_et_registerName)
     EditText registerNameEdtxt;
-    @BindView(R.id.loginActivity_et_registerReferral)
-    EditText registerReferralEdtxt;
 
     @BindView(R.id.loginActivity_et_forgotPasswordEmail)
     EditText forgotPasswordEmailEdtxt;
@@ -188,10 +186,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if(registerNameEdtxt.getText().toString().trim().equals("")) {
                     registerNameEdtxt.setError(getString(R.string.loginActivity_nameWarning));
-                    isValid = false;
-                }
-                if(registerReferralEdtxt.getText().toString().trim().equals("")) {
-                    registerReferralEdtxt.setError(getString(R.string.loginActivity_referralWarning));
                     isValid = false;
                 }
                 if(!registerConfirmPasswordEdtxt.getText().toString().trim().equals(registerPasswordEdtxt.getText().toString().trim())) {
@@ -302,7 +296,6 @@ public class LoginActivity extends AppCompatActivity {
         registerPasswordEdtxt.setText("");
         registerConfirmPasswordEdtxt.setText("");
         registerNameEdtxt.setText("");
-        registerReferralEdtxt.setText("");
 
         loginLandingContainer.setVisibility(View.GONE);
         registerContainer.setVisibility(View.GONE);
@@ -398,7 +391,7 @@ public class LoginActivity extends AppCompatActivity {
         params.put("email", registerEmailEdtxt.getText().toString());
         params.put("password", registerPasswordEdtxt.getText().toString());
         params.put("name", registerNameEdtxt.getText().toString());
-        params.put("ref_id", registerReferralEdtxt.getText().toString());
+        params.put("ref_id", "");
 
         myCillinAPI.doRegister(
                     params.get("email"),
