@@ -342,7 +342,7 @@ public class AccountActivity extends AppCompatActivity {
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_RELATION_ID, list.getAccountRelationId());
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_RELATION_TYPE, list.getAccountRelationType());
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_USER_ID, list.getAccountUserId());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_GENDER, list.getAccountGender());
+                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_GENDER, list.getAccountGender() == null ? "" : list.getAccountGender());
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_ADDRESS, list.getAccountAddress());
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_MOBILE_NO, list.getAccountMobileNo());
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_DOB, list.getAccountDOB());
