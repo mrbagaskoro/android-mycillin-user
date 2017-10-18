@@ -251,4 +251,5 @@
     <string name="accountDetailActivity_weightWarning">Berat Badan wajib diisi !</string>
     <string name="accountDetailActivity_relationDesc">Relasi</string>
     <string name="accountDetailActivity_relationWarning">Relasi wajib diisi !</string>
+    <string name="accountDetailActivity_saveMessage">Anda yakin akan menyimpan data ?</string>
 </resources>

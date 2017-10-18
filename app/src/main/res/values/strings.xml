@@ -256,4 +256,5 @@
     <string name="accountDetailActivity_bloodTypeWarning">Blood Type is required !</string>
     <string name="accountDetailActivity_relationDesc">Relation</string>
     <string name="accountDetailActivity_relationWarning">Relation is required !</string>
+    <string name="accountDetailActivity_saveMessage">Are you sure you want to save ?</string>
 </resources>

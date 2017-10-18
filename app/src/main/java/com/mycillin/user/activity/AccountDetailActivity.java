@@ -1,9 +1,12 @@
 package com.mycillin.user.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -262,12 +265,28 @@ public class AccountDetailActivity extends AppCompatActivity {
                 }
 
                 if(isValid) {
-                    if(isNew) {
-                        doInsert();
-                    }
-                    else {
-                        doUpdate(accountDetailData.get(KEY_PARAM_ACCOUNT_RELATION_ID));
-                    }
+                    new AlertDialog.Builder(AccountDetailActivity.this)
+                            .setTitle(getString(R.string.menu_save))
+                            .setMessage(R.string.accountDetailActivity_saveMessage)
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setPositiveButton(getString(R.string.menu_save), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if(isNew) {
+                                        doInsert();
+                                    }
+                                    else {
+                                        doUpdate(accountDetailData.get(KEY_PARAM_ACCOUNT_RELATION_ID));
+                                    }
+                                }
+                            })
+                            .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
                 }
             }
             else {
@@ -317,7 +336,15 @@ public class AccountDetailActivity extends AppCompatActivity {
                     assert modelResultAccountUpdate != null;
                     if(modelResultAccountUpdate.getResult().isStatus()) {
                         String message = modelResultAccountUpdate.getResult().getMessage();
-                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT)
+                                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                                    @Override
+                                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                                        super.onDismissed(transientBottomBar, event);
+                                        finish();
+                                    }
+                                })
+                                .show();
                     }
                 }
                 else {
@@ -378,7 +405,15 @@ public class AccountDetailActivity extends AppCompatActivity {
                     assert modelResultAccountInsert != null;
                     if(modelResultAccountInsert.getResult().isStatus()) {
                         String message = modelResultAccountInsert.getResult().getMessage();
-                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT)
+                                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                                    @Override
+                                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                                        super.onDismissed(transientBottomBar, event);
+                                        finish();
+                                    }
+                                })
+                                .show();
                     }
                 }
                 else {
