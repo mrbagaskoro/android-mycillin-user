@@ -49,7 +49,7 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
 
     @BindView(R.id.homeFragment_et_dropdown)
-    TextView tvDropdwon;
+    TextView tvDropdown;
     @BindView(R.id.homeFragment_cv_carouselView)
     CarouselView carouselView;
 
@@ -85,20 +85,14 @@ public class HomeFragment extends Fragment {
         progressBarHandler = new ProgressBarHandler(getContext());
 
         final SpinnerDialog spinnerDialog = new SpinnerDialog(getActivity(), items, getString(R.string.servicesActivity_dropdownTitle), R.style.DialogAnimations_SmileWindow);
-
-        /*items.add("Me");
-        items.add("Wife");
-        items.add("Son");
-        items.add("Daughter");*/
-
         spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
             @Override
             public void onClick(String s, int i) {
-                tvDropdwon.setText(s);
+                tvDropdown.setText(s);
             }
         });
 
-        tvDropdwon.setOnClickListener(new View.OnClickListener() {
+        tvDropdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getAccountList(spinnerDialog);
@@ -157,6 +151,7 @@ public class HomeFragment extends Fragment {
                     assert modelResultAccountList != null;
                     if(modelResultAccountList.getResult().isStatus()) {
 
+                        items.clear();
                         int size = modelResultAccountList.getResult().getData().size();
                         for(int i = 0; i < size; i++) {
                             String accountPic = "pic_01.jpg";
