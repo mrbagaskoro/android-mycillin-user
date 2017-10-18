@@ -1,5 +1,6 @@
 package com.mycillin.user.activity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -139,18 +140,24 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void showChangePasswordDialog() {
-        final DialogPlus dialogPlus = DialogPlus.newDialog(AccountActivity.this)
+        /*final DialogPlus dialogPlus = DialogPlus.newDialog(AccountActivity.this)
                 .setContentHolder(new ViewHolder(R.layout.dialog_change_password_layout))
                 .setGravity(Gravity.CENTER)
                 .create();
         dialogPlus.show();
 
-        View dialogPlusView = dialogPlus.getHolderView();
-        final EditText oldPasswordEdtxt = dialogPlusView.findViewById(R.id.changePasswordDialog_et_oldPassword);
-        final EditText newPasswordEdtxt = dialogPlusView.findViewById(R.id.changePasswordDialog_et_newPassword);
-        final EditText confirmNewPasswordEdtxt = dialogPlusView.findViewById(R.id.changePasswordDialog_et_confirmNewPassword);
-        Button applyChangePasswordBtn = dialogPlusView.findViewById(R.id.changePasswordDialog_bt_applyBtn);
-        Button cancelChangePasswordBtn = dialogPlusView.findViewById(R.id.changePasswordDialog_bt_cancelBtn);
+        View dialogPlusView = dialogPlus.getHolderView();*/
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_change_password_layout);
+        dialog.setTitle(getString(R.string.changePasswordDialog_title));
+        dialog.show();
+
+        final EditText oldPasswordEdtxt = dialog.findViewById(R.id.changePasswordDialog_et_oldPassword);
+        final EditText newPasswordEdtxt = dialog.findViewById(R.id.changePasswordDialog_et_newPassword);
+        final EditText confirmNewPasswordEdtxt = dialog.findViewById(R.id.changePasswordDialog_et_confirmNewPassword);
+        Button applyChangePasswordBtn = dialog.findViewById(R.id.changePasswordDialog_bt_applyBtn);
+        Button cancelChangePasswordBtn = dialog.findViewById(R.id.changePasswordDialog_bt_cancelBtn);
 
         applyChangePasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +189,7 @@ public class AccountActivity extends AppCompatActivity {
         cancelChangePasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogPlus.dismiss();
+                dialog.dismiss();
             }
         });
     }
