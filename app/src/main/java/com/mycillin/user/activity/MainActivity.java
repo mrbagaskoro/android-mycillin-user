@@ -21,6 +21,7 @@ import com.mycillin.user.fragment.HistoryFragment;
 import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.fragment.MedicalRecordFragment;
 import com.mycillin.user.util.BottomNavigationViewHelper;
+import com.mycillin.user.util.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -125,10 +126,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         else if(id == R.id.action_invite) {
+            SessionManager sessionManager = new SessionManager(getApplicationContext());
+            String userId = sessionManager.getUserId();
+            String link = " http://mycillin.com/services/web/registration/" + userId;
+
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareIntent_subject));
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareIntent_text));
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareIntent_text) + link);
             startActivity(Intent.createChooser(intent, getString(R.string.shareIntent_title)));
 
             return true;
