@@ -7,6 +7,7 @@ import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
 import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.register.ModelResultRegister;
+import com.mycillin.user.rest.relationList.ModelResultRelationList;
 import com.mycillin.user.util.SessionManager;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -49,4 +51,7 @@ public interface MyCillinAPI {
 
     @POST("add_family/")
     Call<ModelResultAccountInsert> doInsertAccount(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @GET("list_relation/")
+    Call<ModelResultRelationList> getRelationList();
 }

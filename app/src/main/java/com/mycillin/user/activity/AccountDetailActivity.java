@@ -34,6 +34,7 @@ import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.accountInsert.ModelResultAccountInsert;
 import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
+import com.mycillin.user.rest.relationList.ModelResultRelationList;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
 
@@ -47,6 +48,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -121,6 +124,9 @@ public class AccountDetailActivity extends AppCompatActivity {
 
     private boolean isNew = true;
     private HashMap<String, String> accountDetailData;
+    private ArrayList<String> relationItems = new ArrayList<>();
+    private HashMap<Integer, String> relationItemsTemp = new HashMap<>();
+    private String selectedRelation;
 
     private ProgressBarHandler progressBarHandler;
 
@@ -159,6 +165,25 @@ public class AccountDetailActivity extends AppCompatActivity {
             bloodTypeEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_BLOOD_TYPE));
             //isAgreeCBox.setText(params.get(KEY_PARAM_ACCOUNT_NAME));
         }
+
+        final SpinnerDialog spinnerDialog = new SpinnerDialog(AccountDetailActivity.this, relationItems, getString(R.string.accountDetailActivity_relationTypeDropdownTitle), R.style.DialogAnimations_SmileWindow);
+        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+            @Override
+            public void onClick(String s, int i) {
+                relationTypeEdtxt.setText(s);
+                for(int j = 0; j < relationItemsTemp.size(); j++) {
+                    if(relationItemsTemp.get(j).split(" - ")[1].equals(s)) {
+                        selectedRelation = relationItemsTemp.get(j).split(" - ")[0];
+                    }
+                }
+            }
+        });
+        relationTypeEdtxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getRelationList(spinnerDialog);
+            }
+        });
 
         genderRGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -378,7 +403,7 @@ public class AccountDetailActivity extends AppCompatActivity {
 
         HashMap<String, String> params = new HashMap<>();
         params.put("user_id", userId);
-        params.put("relation_type", relationTypeEdtxt.getText().toString());
+        params.put("relation_type", selectedRelation);
         params.put("full_name", fullNameEdtxt.getText().toString());
         params.put("address", addressEdtxt.getText().toString());
         params.put("mobile_number", phoneEdtxt.getText().toString());
@@ -429,6 +454,45 @@ public class AccountDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<ModelResultAccountInsert> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getRelationList(final SpinnerDialog spinnerDialog) {
+        progressBarHandler.show();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+        myCillinAPI.getRelationList().enqueue(new Callback<ModelResultRelationList>() {
+            @Override
+            public void onResponse(Call<ModelResultRelationList> call, Response<ModelResultRelationList> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultRelationList modelResultRelationList = response.body();
+
+                    assert modelResultRelationList != null;
+                    if(modelResultRelationList.getResult().isStatus()) {
+
+                        relationItems.clear();
+                        relationItemsTemp.clear();
+                        int size = modelResultRelationList.getResult().getData().size();
+                        for(int i = 0; i < size; i++) {
+                            String relationId = modelResultRelationList.getResult().getData().get(i).getRelationId();
+                            String relationDesc = modelResultRelationList.getResult().getData().get(i).getRelationDesc();
+
+                            relationItems.add(relationDesc);
+                            relationItemsTemp.put(i, relationId + " - " + relationDesc);
+                        }
+                        spinnerDialog.showSpinerDialog();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelResultRelationList> call, Throwable t) {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
