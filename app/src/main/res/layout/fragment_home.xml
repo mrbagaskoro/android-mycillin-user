@@ -354,7 +354,7 @@
 
     </ScrollView>
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/homeFragment_rl_footerContainer"
         android:gravity="bottom"
         android:layout_alignParentBottom="true"
@@ -404,7 +404,7 @@
 
                 </LinearLayout>
 
-                <!--<View
+                <View
                     android:layout_width="1dip"
                     android:layout_height="fill_parent"
                     android:background="@color/lightGray" />
@@ -427,7 +427,7 @@
                         android:textColor="@color/colorAccent"
                         android:text="@string/homeFragment_topUp"/>
 
-                </LinearLayout>-->
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -435,6 +435,6 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 </RelativeLayout>
