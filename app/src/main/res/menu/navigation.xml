@@ -4,31 +4,31 @@
     <item
         android:id="@+id/nav_home"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_menu_mycillin"
         android:title="@string/nav_home"
         app:showAsAction="never" />
     <item
         android:id="@+id/nav_history"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_menu_history"
         android:title="@string/nav_history"
         app:showAsAction="never" />
     <item
         android:id="@+id/nav_medical_record"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_menu_medical_record"
         android:title="@string/nav_medical_record"
         app:showAsAction="never" />
     <item
         android:id="@+id/nav_wallet"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_menu_ewallet"
         android:title="@string/nav_e_wallet"
         app:showAsAction="never" />
     <item
         android:id="@+id/nav_about"
         android:enabled="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_menu_mycillin"
         android:title="@string/nav_about_mycillin"
         app:showAsAction="never" />
 </menu>
