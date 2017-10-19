@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.mycillin.user.R;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
@@ -65,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
     Button doForgotPasswordBtn;
     @BindView(R.id.loginActivity_bt_forgotPasswordCompleteLoginBtn)
     Button doForgotPasswordCompleteBtn;
+    @BindView(R.id.loginActivity_bt_fbLoginBtn)
+    LoginButton fbLoginBtn;
 
     @BindView(R.id.loginActivity_et_loginEmail)
     EditText loginEmailEdtxt;
@@ -92,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     private int MENU_FLAG_FORGOT_PASSWORD_COMPLETE = 1006;
     private int MENU_FLAG;
 
+    CallbackManager callbackManager;
     private ProgressBarHandler progressBarHandler;
 
     @Override
@@ -99,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        callbackManager = CallbackManager.Factory.create();
 
         MENU_FLAG = MENU_FLAG_LANDING;
 
@@ -125,11 +137,36 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+        fbLoginBtn.setReadPermissions("email");
+        fbLoginBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                getFacebookUserDetails(loginResult);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
         registerFunction();
         loginFunction();
         registerCompleteFunction();
         forgotPasswordFunction();
         forgotPasswordCompleteFunction();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -474,5 +511,32 @@ public class LoginActivity extends AppCompatActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    protected void getFacebookUserDetails(LoginResult loginResult) {
+        GraphRequest data_request = GraphRequest.newMeRequest(
+                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject json_object, GraphResponse response) {
+                        try {
+                            String picture = json_object.getJSONObject("picture").getJSONObject("data").getString("url");
+                            String id = json_object.getString("id");
+                            String email = json_object.has("email") ? json_object.getString("email") : "N/A";
+                            String name = json_object.getString("name");
+
+                            // TODO: 19-Oct-17 ADD DATA TO FB REGISTER SERVICE
+                            Toast.makeText(getApplicationContext(), "PIC : " + picture + "\nID : " + id + "\nE-MAIL : " + email + "\nNAME : " + name, Toast.LENGTH_LONG).show();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                });
+        Bundle permission_param = new Bundle();
+        permission_param.putString("fields", "id,name,email,picture.width(120).height(120)");
+        data_request.setParameters(permission_param);
+        data_request.executeAsync();
+
     }
 }

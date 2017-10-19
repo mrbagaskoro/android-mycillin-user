@@ -35,7 +35,7 @@
             android:paddingRight="20dp"
             android:layout_alignParentBottom="true" >
 
-            <Button
+            <!--<Button
                 android:id="@+id/loginActivity_bt_fbLoginBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,16 @@
                 android:padding="@dimen/spacing_small"
                 android:text="@string/loginActivity_continueWithFacebook"
                 android:drawableStart="@drawable/ic_action_facebook_white"
-                android:textColor="@color/white" />
+                android:textColor="@color/white" />-->
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/loginActivity_bt_fbLoginBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp" />
 
             <Button
                 android:id="@+id/loginActivity_bt_showRegisterBtn"
