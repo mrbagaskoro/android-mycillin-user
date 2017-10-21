@@ -135,15 +135,16 @@
                         android:paddingEnd="10dp"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/servicesActivity_bookDoctorTitle"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
+                        android:textStyle="italic"
                         android:text="@string/servicesActivity_bookDoctorDesc"/>
 
                 </LinearLayout>
@@ -186,15 +187,16 @@
                         android:paddingEnd="10dp"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/serviceActivity_medicalReservationTitle"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
+                        android:textStyle="italic"
                         android:text="@string/serviceActivity_medicalReservationDesc"/>
 
                 </LinearLayout>
@@ -237,15 +239,16 @@
                         android:paddingEnd="10dp"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/servicesActivity_consultationServiceTitle"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
+                        android:textStyle="italic"
                         android:text="@string/servicesActivity_consultationServiceDesc"/>
 
                 </LinearLayout>
@@ -288,15 +291,16 @@
                         android:paddingEnd="10dp"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/servicesActivity_ambulanceServiceText"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
+                        android:textStyle="italic"
                         android:text="@string/servicesActivity_ambulanceServiceDesc"/>
 
                 </LinearLayout>
@@ -339,15 +343,16 @@
                         android:paddingEnd="10dp"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
                         android:text="@string/serviceActivity_redeemPrescriptionTitle"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
+                        android:textStyle="italic"
                         android:text="@string/serviceActivity_redeemPrescriptionDesc"/>
 
                 </LinearLayout>

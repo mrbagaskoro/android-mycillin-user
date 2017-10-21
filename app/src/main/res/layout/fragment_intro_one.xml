@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark">
+    android:background="@drawable/slider_01">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/introOne_iv_image"
         android:layout_width="200dp"
         android:layout_height="200dp"
@@ -23,6 +23,6 @@
         android:layout_height="wrap_content"
         android:text="@string/intro_one_desc"
         android:textSize="18sp"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff" />-->
 
 </RelativeLayout>
