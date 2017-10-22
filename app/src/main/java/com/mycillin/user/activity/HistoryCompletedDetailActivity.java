@@ -29,8 +29,8 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
     TextView bookDate;
     @BindView(R.id.historyCompletedDetailActivity_tv_bookType)
     TextView bookType;
-    @BindView(R.id.historyCompletedDetailActivity_tv_giveRating)
-    TextView giveRating;
+    /*@BindView(R.id.historyCompletedDetailActivity_tv_giveRating)
+    TextView giveRating;*/
 
     private GoogleMap gMap;
 
@@ -64,12 +64,12 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
         bookDate.setText(getIntent().getStringExtra(KEY_FLAG_DOCTOR_DATE) + ", " + getIntent().getStringExtra(KEY_FLAG_DOCTOR_TIME));
         bookType.setText(getIntent().getStringExtra(KEY_FLAG_DOCTOR_TYPE));
 
-        giveRating.setOnClickListener(new View.OnClickListener() {
+        /*giveRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HistoryCompletedDetailActivity.this, RatingActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 }

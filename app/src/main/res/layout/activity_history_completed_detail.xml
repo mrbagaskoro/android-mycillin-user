@@ -130,7 +130,7 @@
 
                         </LinearLayout>
 
-                        <RelativeLayout
+                        <!--<RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent" >
 
@@ -145,7 +145,7 @@
                                 android:textStyle="bold"
                                 android:text="GIVE RATING" />
 
-                        </RelativeLayout>
+                        </RelativeLayout>-->
 
                     </LinearLayout>
 
