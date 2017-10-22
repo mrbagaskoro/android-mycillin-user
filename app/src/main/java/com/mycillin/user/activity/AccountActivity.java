@@ -96,7 +96,9 @@ public class AccountActivity extends AppCompatActivity {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showChangePasswordDialog();
+                //showChangePasswordDialog();
+                Intent intent = new Intent(AccountActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
             }
         });
 
