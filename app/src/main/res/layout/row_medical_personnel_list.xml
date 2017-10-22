@@ -35,9 +35,9 @@
                     android:id="@+id/rowMedicalPersonnelList_iv_personnelAvatar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/ic_launcher"
-                    app:civ_border_color="#FF000000"
-                    app:civ_border_width="2dp" />
+                    android:src="@drawable/ic_action_user"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="#FF000000" />
 
 
             </LinearLayout>
