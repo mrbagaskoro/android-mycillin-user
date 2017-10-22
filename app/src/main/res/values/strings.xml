@@ -258,4 +258,6 @@
     <string name="accountDetailActivity_relationWarning">Relation is required !</string>
     <string name="accountDetailActivity_saveMessage">Are you sure you want to save ?</string>
     <string name="accountDetailActivity_relationTypeDropdownTitle">Select a relation type</string>
+    <string name="serviceBookDoctorActivity_locationDisabledWarning">Couldn\'t get the location. Make sure location is enabled on the device</string>
+    <string name="serviceBookDoctorActivity_myLocationMarker">My Location</string>
 </resources>

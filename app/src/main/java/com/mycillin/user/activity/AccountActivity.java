@@ -257,7 +257,14 @@ public class AccountActivity extends AppCompatActivity {
                 else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        String message = jsonObject.getJSONObject("result").getString("message");
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
                         Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
@@ -375,7 +382,14 @@ public class AccountActivity extends AppCompatActivity {
                 else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        String message = jsonObject.getJSONObject("result").getString("message");
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
                         Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();

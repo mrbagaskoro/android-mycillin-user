@@ -1,6 +1,10 @@
 package com.mycillin.user.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +39,8 @@ public class ServiceMedicalReservationActivity extends AppCompatActivity {
 
     @BindView(R.id.serviceMedicalReservationActivity_bt_searchBtn)
     Button searchBtn;
+    @BindView(R.id.serviceMedicalReservationActivity_fab_locationFAB)
+    FloatingActionButton locationBtn;
     @BindView(R.id.serviceMedicalReservationActivity_fab_filterFAB)
     FloatingActionButton filterBtn;
 
@@ -45,6 +51,7 @@ public class ServiceMedicalReservationActivity extends AppCompatActivity {
     private Button filterApplyBtn;
 
     private GoogleMap gMap;
+    private LocationManager locationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +61,8 @@ public class ServiceMedicalReservationActivity extends AppCompatActivity {
 
         toolbar.setTitle(getResources().getString(R.string.serviceActivity_medicalReservationTitle));
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.serviceMedicalReservationActivity_fr_mapFragment);
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                gMap = googleMap;
-
-                LatLng bapindo = new LatLng(-6.224190, 106.80791);
-                gMap.addMarker(new MarkerOptions().position(bapindo).title("Plaza Bapindo"));
-                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bapindo, 15.0f));
-            }
-        });
+        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.serviceMedicalReservationActivity_fr_mapFragment);
+        getLocation(mapFragment);
 
         PlaceAutocompleteFragment placeAutocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.serviceMedicalReservationActivity_fr_placeAutoCompleteFragment);
@@ -86,6 +84,12 @@ public class ServiceMedicalReservationActivity extends AppCompatActivity {
             }
         });
 
+        locationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getLocation(mapFragment);
+            }
+        });
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,5 +131,45 @@ public class ServiceMedicalReservationActivity extends AppCompatActivity {
                 dialogPlus.dismiss();
             }
         });
+    }
+
+    private void getLocation(final SupportMapFragment mapFragment) {
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, new LocationListener() {
+                @Override
+                public void onLocationChanged(final Location location) {
+                    mapFragment.getMapAsync(new OnMapReadyCallback() {
+                        @Override
+                        public void onMapReady(GoogleMap googleMap) {
+                            gMap = googleMap;
+                            gMap.clear();
+
+                            LatLng bapindo = new LatLng(location.getLatitude(), location.getLongitude());
+                            gMap.addMarker(new MarkerOptions().position(bapindo).title(getResources().getString(R.string.serviceBookDoctorActivity_myLocationMarker)));
+                            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bapindo, 15.0f));
+                        }
+                    });
+                }
+
+                @Override
+                public void onStatusChanged(String s, int i, Bundle bundle) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String s) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String s) {
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.serviceBookDoctorActivity_locationDisabledWarning), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
     }
 }

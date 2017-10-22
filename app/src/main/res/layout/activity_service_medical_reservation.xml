@@ -82,6 +82,18 @@
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/serviceMedicalReservationActivity_fab_locationFAB"
+        android:layout_above="@+id/serviceMedicalReservationActivity_fab_filterFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
+        app:backgroundTint="@color/gray"
+        android:src="@drawable/ic_my_location" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/serviceMedicalReservationActivity_fab_filterFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
