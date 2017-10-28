@@ -32,6 +32,7 @@ import com.mycillin.user.list.InsuranceList;
 import com.mycillin.user.list.PaymentList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.accountDelete.ModelResultAccountDelete;
 import com.mycillin.user.rest.accountInsert.ModelResultAccountInsert;
 import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
 import com.mycillin.user.rest.relationList.ModelResultRelationList;
@@ -240,7 +241,12 @@ public class AccountDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.save_menu, menu);
+        if(isNew) {
+            getMenuInflater().inflate(R.menu.save_menu, menu);
+        }
+        else {
+            getMenuInflater().inflate(R.menu.save_delete_menu, menu);
+        }
         return true;
     }
 
@@ -318,6 +324,34 @@ public class AccountDetailActivity extends AppCompatActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), R.string.accountDetailActivity_agreementWarning, Snackbar.LENGTH_SHORT).show();
             }
             return true;
+        }
+
+        if(!isNew) {
+            if(id == R.id.action_delete) {
+                if(accountDetailData.get(KEY_PARAM_ACCOUNT_RELATION_TYPE).equals("01")) {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), R.string.accountDetailActivity_deleteMainAccWarning, Snackbar.LENGTH_SHORT).show();
+                }
+                else {
+                    new AlertDialog.Builder(AccountDetailActivity.this)
+                            .setTitle(R.string.accountActivityDetail_deleteTitle)
+                            .setMessage(R.string.accountActivityDetail_deleteMessage)
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setPositiveButton(getString(R.string.accountActivityDetail_deleteTitle), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    doDelete(accountDetailData.get(KEY_PARAM_ACCOUNT_RELATION_ID));
+                                }
+                            })
+                            .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                }
+
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -468,6 +502,67 @@ public class AccountDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<ModelResultAccountInsert> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doDelete(String relationId) {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("relation_id", Integer.parseInt(relationId));
+
+        myCillinAPI.doDeleteAccount(token, params).enqueue(new Callback<ModelResultAccountDelete>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultAccountDelete> call, @NonNull Response<ModelResultAccountDelete> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultAccountDelete modelResultAccountDelete = response.body();
+
+                    assert modelResultAccountDelete != null;
+                    if(modelResultAccountDelete.getResult().isStatus()) {
+                        Snackbar.make(getWindow().getDecorView().getRootView(), R.string.accountDetailActivity_deleteSuccessMessage, Snackbar.LENGTH_SHORT)
+                                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                                    @Override
+                                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                                        super.onDismissed(transientBottomBar, event);
+                                        finish();
+                                    }
+                                })
+                                .show();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultAccountDelete> call, @NonNull Throwable t) {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();

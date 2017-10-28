@@ -1,5 +1,6 @@
 package com.mycillin.user.rest;
 
+import com.mycillin.user.rest.accountDelete.ModelResultAccountDelete;
 import com.mycillin.user.rest.accountInsert.ModelResultAccountInsert;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
 import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
@@ -51,6 +52,9 @@ public interface MyCillinAPI {
 
     @POST("add_family/")
     Call<ModelResultAccountInsert> doInsertAccount(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("delete_family/")
+    Call<ModelResultAccountDelete> doDeleteAccount(@Header("Authorization") String token, @Body HashMap<String, Object> params);
 
     @GET("list_relation/")
     Call<ModelResultRelationList> getRelationList();

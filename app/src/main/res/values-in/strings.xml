@@ -255,4 +255,8 @@
     <string name="accountDetailActivity_relationTypeDropdownTitle">Pilih tipe relasi</string>
     <string name="serviceBookDoctorActivity_myLocationMarker">Lokasi Saya</string>
     <string name="serviceBookDoctorActivity_locationDisabledWarning">Gagal mendapatkan lokasi. Pastikan pengaturan lokasi aktif pada perangkat anda</string>
+    <string name="accountDetailActivity_deleteMainAccWarning">Akun utama tidak boleh dihapus !</string>
+    <string name="accountActivityDetail_deleteTitle">Hapus</string>
+    <string name="accountActivityDetail_deleteMessage">Anda yakin akan menghapus data ini ?</string>
+    <string name="accountDetailActivity_deleteSuccessMessage">Data berhasil dihapus</string>
 </resources>
