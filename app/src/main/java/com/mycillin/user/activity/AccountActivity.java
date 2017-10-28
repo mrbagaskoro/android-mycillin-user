@@ -13,6 +13,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mycillin.user.R;
 import com.mycillin.user.adapter.AccountAdapter;
 import com.mycillin.user.list.AccountList;
@@ -44,12 +46,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AccountActivity extends AppCompatActivity {
 
+    @BindView(R.id.accountActivity_iv_userAvatar)
+    CircleImageView userAvatar;
     @BindView(R.id.accountActivity_ll_manageAccount)
     LinearLayout manageAccount;
     @BindView(R.id.accountActivity_ll_changePassword)
@@ -116,6 +121,10 @@ public class AccountActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Glide.with(getApplicationContext())
+                .load("")
+                .into(userAvatar);
     }
 
     private void showManageAccountDialog() {
@@ -313,7 +322,6 @@ public class AccountActivity extends AppCompatActivity {
 
                         int size = modelResultAccountList.getResult().getData().size();
                         for(int i = 0; i < size; i++) {
-                            String accountPic = "pic_01.jpg";
                             String accountName = modelResultAccountList.getResult().getData().get(i).getFullName();
                             String accountCreatedBy = modelResultAccountList.getResult().getData().get(i).getCreatedBy();
                             String accountCreatedDate = modelResultAccountList.getResult().getData().get(i).getCreatedDate();
@@ -331,7 +339,7 @@ public class AccountActivity extends AppCompatActivity {
                             String accountBloodType = modelResultAccountList.getResult().getData().get(i).getBloodType();
                             String accountInsuranceId = modelResultAccountList.getResult().getData().get(i).getInsuranceId();
 
-                            accountLists.add(new AccountList(accountPic, accountName,
+                            accountLists.add(new AccountList(accountName,
                                     accountCreatedBy, accountCreatedDate, accountUpdatedBy,
                                     accountUpdatedDate, accountRelationId, accountRelationType,
                                     accountUserId, accountGender, accountAddress, accountMobileNo,
@@ -349,7 +357,6 @@ public class AccountActivity extends AppCompatActivity {
                                 AccountList list = accountLists.get(position);
 
                                 HashMap<String, String> params = new HashMap<>();
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_PIC, list.getAccountPic());
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_NAME, list.getAccountName());
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_CREATED_BY, list.getAccountCreatedBy());
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_CREATED_DATE, list.getAccountCreatedDate());

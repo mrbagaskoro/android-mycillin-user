@@ -5,7 +5,6 @@ package com.mycillin.user.list;
  */
 
 public class AccountList {
-    private String accountPic;
     private String accountName;
     private String accountCreatedBy;
     private String accountCreatedDate;
@@ -23,13 +22,12 @@ public class AccountList {
     private String accountBloodType;
     private String accountInsuranceId;
 
-    public AccountList(String accountPic, String accountName, String accountCreatedBy,
+    public AccountList(String accountName, String accountCreatedBy,
                        String accountCreatedDate, String accountUpdatedBy, String accountUpdatedDate,
                        String accountRelationId, String accountRelationType, String accountUserId,
                        String accountGender, String accountAddress, String accountMobileNo,
                        String accountDOB, String accountHeight, String accountWeight,
                        String accountBloodType, String accountInsuranceId){
-        this.accountPic = accountPic;
         this.accountName = accountName;
         this.accountCreatedBy = accountCreatedBy;
         this.accountCreatedDate = accountCreatedDate;
@@ -46,14 +44,6 @@ public class AccountList {
         this.accountWeight = accountWeight;
         this.accountBloodType = accountBloodType;
         this.accountInsuranceId = accountInsuranceId;
-    }
-
-    public String getAccountPic() {
-        return accountPic;
-    }
-
-    public void setAccountPic(String accountPic) {
-        this.accountPic = accountPic;
     }
 
     public String getAccountName() {

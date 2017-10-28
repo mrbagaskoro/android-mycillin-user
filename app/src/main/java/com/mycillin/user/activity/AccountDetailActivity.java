@@ -103,7 +103,6 @@ public class AccountDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_ACCOUNT_DETAIL = "EXTRA_ACCOUNT_DETAIL";
     public static final String EXTRA_ACCOUNT_DETAIL_IS_NEW = "EXTRA_ACCOUNT_DETAIL_IS_NEW";
-    public static final String KEY_PARAM_ACCOUNT_PIC = "KEY_PARAM_ACCOUNT_PIC";
     public static final String KEY_PARAM_ACCOUNT_NAME = "KEY_PARAM_ACCOUNT_NAME";
     public static final String KEY_PARAM_ACCOUNT_CREATED_BY = "KEY_PARAM_ACCOUNT_CREATED_BY";
     public static final String KEY_PARAM_ACCOUNT_CREATED_DATE = "KEY_PARAM_ACCOUNT_CREATED_DATE";
