@@ -3,6 +3,7 @@ package com.mycillin.user.rest;
 import com.mycillin.user.rest.accountDelete.ModelResultAccountDelete;
 import com.mycillin.user.rest.accountInsert.ModelResultAccountInsert;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
+import com.mycillin.user.rest.accountPicGet.ModelResultAccountPicGet;
 import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
@@ -58,4 +59,7 @@ public interface MyCillinAPI {
 
     @GET("list_relation/")
     Call<ModelResultRelationList> getRelationList();
+
+    @POST("get_avatar/")
+    Call<ModelResultAccountPicGet> getAvatar(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }
