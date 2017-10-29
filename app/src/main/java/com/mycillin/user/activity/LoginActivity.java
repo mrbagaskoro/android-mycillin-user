@@ -19,12 +19,14 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.mycillin.user.R;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.accountPicGet.ModelResultAccountPicGet;
+import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
 import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.register.ModelResultRegister;
@@ -178,6 +180,9 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
+        }
+        else {
+            LoginManager.getInstance().logOut();
         }
     }
 
@@ -547,8 +552,7 @@ public class LoginActivity extends AppCompatActivity {
                             String email = json_object.has("email") ? json_object.getString("email") : "N/A";
                             String name = json_object.getString("name");
 
-                            // TODO: 19-Oct-17 ADD DATA TO FB REGISTER SERVICE
-                            Toast.makeText(getApplicationContext(), "PIC : " + picture + "\nID : " + id + "\nE-MAIL : " + email + "\nNAME : " + name, Toast.LENGTH_LONG).show();
+                            doFacebookLogin(picture, id, email, name);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -561,6 +565,71 @@ public class LoginActivity extends AppCompatActivity {
         data_request.setParameters(permission_param);
         data_request.executeAsync();
 
+    }
+
+    private void doFacebookLogin(final String picture, String id, String email, String name) {
+        progressBarHandler.show();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("fb_id", id);
+        params.put("fb_name", name);
+        params.put("fb_email", email.equals("N/A") ? id + "@facebook.com" : email);
+
+        myCillinAPI.doFacebookLogin(
+                params.get("fb_id"),
+                params.get("fb_name"),
+                params.get("fb_email"))
+                .enqueue(new Callback<ModelResultFacebookLogin>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ModelResultFacebookLogin> call, @NonNull Response<ModelResultFacebookLogin> response) {
+                        progressBarHandler.hide();
+
+                        if(response.isSuccessful()) {
+                            ModelResultFacebookLogin modelResultFacebookLogin = response.body();
+
+                            assert modelResultFacebookLogin != null;
+                            if(modelResultFacebookLogin.getResult().isStatus()) {
+                                SessionManager session = new SessionManager(getApplicationContext());
+                                session.createLoginSession(
+                                        modelResultFacebookLogin.getResult().getData().getEmail(),
+                                        modelResultFacebookLogin.getResult().getData().getFullName(),
+                                        modelResultFacebookLogin.getResult().getData().getUserId(),
+                                        modelResultFacebookLogin.getResult().getToken(),
+                                        picture
+                                );
+
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                        else {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                String message;
+                                if(jsonObject.has("result")) {
+                                    message = jsonObject.getJSONObject("result").getString("message");
+                                }
+                                else {
+
+                                    message = jsonObject.getString("message");
+                                }
+                                Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<ModelResultFacebookLogin> call, @NonNull Throwable t) {
+                        // TODO: 12/10/2017 SET FAILURE SCENARIO
+                        progressBarHandler.hide();
+                        Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void getUserPic(final ModelResultLogin modelResultLogin) {

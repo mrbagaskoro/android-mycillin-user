@@ -7,6 +7,7 @@ import com.mycillin.user.rest.accountPicGet.ModelResultAccountPicGet;
 import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
 import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
+import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
 import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.register.ModelResultRegister;
@@ -39,6 +40,12 @@ public interface MyCillinAPI {
                                          @Field("password") String password,
                                          @Field("name") String name,
                                          @Field("ref_id") String referral);
+
+    @FormUrlEncoded
+    @POST("login_fb/")
+    Call<ModelResultFacebookLogin> doFacebookLogin(@Field("fb_id") String id,
+                                                   @Field("fb_name") String name,
+                                                   @Field("fb_email") String email);
 
     @POST("forgot_password/")
     Call<ModelResultForgotPassword> doForgotPassword(@Body HashMap<String, String> params);

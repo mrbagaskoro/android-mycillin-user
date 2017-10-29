@@ -122,9 +122,11 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
-        Glide.with(getApplicationContext())
-                .load("")
-                .into(userAvatar);
+        if(!sessionManager.getUserPicUrl().isEmpty()) {
+            Glide.with(getApplicationContext())
+                    .load(sessionManager.getUserPicUrl())
+                    .into(userAvatar);
+        }
     }
 
     private void showManageAccountDialog() {
