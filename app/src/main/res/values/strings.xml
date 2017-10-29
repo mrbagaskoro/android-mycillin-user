@@ -264,4 +264,6 @@
     <string name="accountActivityDetail_deleteTitle">Delete</string>
     <string name="accountActivityDetail_deleteMessage">Are you sure you want to delete this data ?</string>
     <string name="accountDetailActivity_deleteSuccessMessage">Data deleted successfully</string>
+    <string name="cancelActivity_cancelTitle">Cancellation Reason</string>
+    <string name="cancelActivity_cancelHeaderTitle">May We Know Why You\'re Canceling This Order ?</string>
 </resources>

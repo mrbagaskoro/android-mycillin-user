@@ -44,7 +44,6 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyViewHo
         return accountLists.size();
     }
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView accountName;
 

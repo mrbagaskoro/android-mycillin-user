@@ -1,9 +1,11 @@
 package com.mycillin.user.activity;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,6 +25,8 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.historyInProgressDetailActivity_fab_callFAB)
     FloatingActionButton callBtn;
+    @BindView(R.id.historyInProgressDetailActivity_fab_cancelFAB)
+    FloatingActionButton cancelBtn;
 
     @BindView(R.id.historyInProgressDetailActivity_tv_doctorName)
     TextView doctorName;
@@ -62,5 +66,13 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
         doctorName.setText(getIntent().getStringExtra(KEY_FLAG_DOCTOR_NAME));
         bookDate.setText(getIntent().getStringExtra(KEY_FLAG_DOCTOR_DATE) + ", " + getIntent().getStringExtra(KEY_FLAG_DOCTOR_TIME));
         bookType.setText(getIntent().getStringExtra(KEY_FLAG_DOCTOR_TYPE));
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HistoryInProgressDetailActivity.this, CancelActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -15,12 +15,13 @@ import java.util.Map;
 public class SessionManager {
 
     private static final String KEY_PREF_NAME = "MYCILLIN_SESSION_MANAGER";
-    private static final String KEY_IS_LOGGED_IN = "IS_LOGGED_IN";
 
-    public static final String KEY_EMAIL = "EMAIL";
-    public static final String KEY_FULLNAME = "FULLNAME";
-    public static final String KEY_USER_ID = "USER_ID";
-    public static final String KEY_TOKEN = "TOKEN";
+    private static final String KEY_IS_LOGGED_IN = "IS_LOGGED_IN";
+    private static final String KEY_EMAIL = "EMAIL";
+    private static final String KEY_FULLNAME = "FULLNAME";
+    private static final String KEY_USER_ID = "USER_ID";
+    private static final String KEY_TOKEN = "TOKEN";
+    private static final String KEY_USER_PIC_URL = "USER_PIC_URL";
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -33,12 +34,13 @@ public class SessionManager {
         editor = sharedPreferences.edit();
     }
 
-    public void createLoginSession(String email, String fullName, String uderId, String token) {
+    public void createLoginSession(String email, String fullName, String userId, String token, String url) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_FULLNAME, fullName);
-        editor.putString(KEY_USER_ID, uderId);
+        editor.putString(KEY_USER_ID, userId);
         editor.putString(KEY_TOKEN, token);
+        editor.putString(KEY_USER_PIC_URL, url);
 
         editor.commit();
     }
@@ -78,5 +80,9 @@ public class SessionManager {
 
     public String getUserToken() {
         return sharedPreferences.getString(KEY_TOKEN, null);
+    }
+
+    public String getUserPicUrl() {
+        return sharedPreferences.getString(KEY_USER_PIC_URL, null);
     }
 }

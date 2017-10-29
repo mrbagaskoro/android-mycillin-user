@@ -90,7 +90,8 @@
         <activity android:name=".activity.RatingActivity" />
         <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.TermsAndPrivacyPolicyActivity" />
-        <activity android:name=".activity.ChangePasswordActivity"></activity>
+        <activity android:name=".activity.ChangePasswordActivity" />
+        <activity android:name=".activity.CancelActivity"></activity>
     </application>
 
 </manifest>

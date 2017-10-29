@@ -24,6 +24,7 @@ import com.facebook.login.widget.LoginButton;
 import com.mycillin.user.R;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.accountPicGet.ModelResultAccountPicGet;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
 import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.register.ModelResultRegister;
@@ -380,7 +381,6 @@ public class LoginActivity extends AppCompatActivity {
         myCillinAPI.doLogin(params).enqueue(new Callback<ModelResultLogin>() {
             @Override
             public void onResponse(@NonNull Call<ModelResultLogin> call, @NonNull Response<ModelResultLogin> response) {
-
                 progressBarHandler.hide();
 
                 if(response.isSuccessful()) {
@@ -392,12 +392,15 @@ public class LoginActivity extends AppCompatActivity {
                             modelResultLogin.getResult().getData().getEmail(),
                             modelResultLogin.getResult().getData().getFullName(),
                             modelResultLogin.getResult().getData().getUserId(),
-                            modelResultLogin.getResult().getToken()
+                            modelResultLogin.getResult().getToken(),
+                            ""
                     );
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
+
+                    //getUserPic(modelResultLogin);
                 }
                 else {
                     try {
@@ -407,7 +410,6 @@ public class LoginActivity extends AppCompatActivity {
                             message = jsonObject.getJSONObject("result").getString("message");
                         }
                         else {
-
                             message = jsonObject.getString("message");
                         }
                         Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
@@ -559,5 +561,66 @@ public class LoginActivity extends AppCompatActivity {
         data_request.setParameters(permission_param);
         data_request.executeAsync();
 
+    }
+
+    private void getUserPic(final ModelResultLogin modelResultLogin) {
+        progressBarHandler.show();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", modelResultLogin.getResult().getData().getUserId());
+
+        String token = modelResultLogin.getResult().getToken();
+        Log.d("###", "token: " + token);
+
+        myCillinAPI.getAvatar(token, params).enqueue(new Callback<ModelResultAccountPicGet>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultAccountPicGet> call, @NonNull Response<ModelResultAccountPicGet> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultAccountPicGet modelResultAccountPicGet = response.body();
+                    assert modelResultAccountPicGet != null;
+
+                    if(modelResultAccountPicGet.getResult().isStatus()) {
+                        SessionManager session = new SessionManager(getApplicationContext());
+                        session.createLoginSession(
+                                modelResultLogin.getResult().getData().getEmail(),
+                                modelResultLogin.getResult().getData().getFullName(),
+                                modelResultLogin.getResult().getData().getUserId(),
+                                modelResultLogin.getResult().getToken(),
+                                modelResultAccountPicGet.getResult().getMessage().get(0).getImageProfile()
+                                );
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+                            message = "FUCK!!!" + jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultAccountPicGet> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }
