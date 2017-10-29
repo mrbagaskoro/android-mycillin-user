@@ -1,5 +1,6 @@
 package com.mycillin.user.activity;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.IdRes;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -44,6 +46,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -220,6 +223,24 @@ public class AccountDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getBloodTypeList(bloodTypeSpinnerDialog);
+            }
+        });
+
+        dobEdtxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(),
+                        dateListener, 1999, 0, 1);
+                datePickerDialog.show();*/
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AccountDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
+
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        dobEdtxt.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                    }
+
+                }, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
+                datePickerDialog.show();
             }
         });
 
@@ -632,4 +653,11 @@ public class AccountDetailActivity extends AppCompatActivity {
 
         spinnerDialog.showSpinerDialog();
     }
+
+    private DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            dobEdtxt.setText(arg1 + "-" + (arg2 + 1) + "-" + arg3);
+        }
+    };
 }
