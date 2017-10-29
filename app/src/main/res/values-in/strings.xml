@@ -261,4 +261,5 @@
     <string name="accountDetailActivity_deleteSuccessMessage">Data berhasil dihapus</string>
     <string name="cancelActivity_cancelTitle">Alasan Pembatalan</string>
     <string name="cancelActivity_cancelHeaderTitle">Mohon Berikan Alasan Anda Melakukan Pembatalan Order Ini</string>
+    <string name="accountDetailActivity_bloodTypeDropdownTitle">Pilih golongan darah</string>
 </resources>
