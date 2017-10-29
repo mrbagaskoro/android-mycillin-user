@@ -207,6 +207,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/accountDetailActivity_bloodTypeDesc"
                     android:inputType="text"
+                    android:focusable="false"
                     android:drawableEnd="@drawable/ic_arrow_drop_down"/>
             </android.support.design.widget.TextInputLayout>
 

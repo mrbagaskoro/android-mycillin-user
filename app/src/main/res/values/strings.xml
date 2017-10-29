@@ -266,4 +266,5 @@
     <string name="accountDetailActivity_deleteSuccessMessage">Data deleted successfully</string>
     <string name="cancelActivity_cancelTitle">Cancellation Reason</string>
     <string name="cancelActivity_cancelHeaderTitle">May We Know Why You\'re Canceling This Order ?</string>
+    <string name="accountDetailActivity_bloodTypeDropdownTitle">Select a blood type</string>
 </resources>

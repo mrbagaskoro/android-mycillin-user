@@ -127,6 +127,7 @@ public class AccountDetailActivity extends AppCompatActivity {
     private ArrayList<String> relationItems = new ArrayList<>();
     private HashMap<Integer, String> relationItemsTemp = new HashMap<>();
     private String selectedRelation;
+    private ArrayList<String> bloodTypeItems = new ArrayList<>();
 
     private ProgressBarHandler progressBarHandler;
 
@@ -166,8 +167,8 @@ public class AccountDetailActivity extends AppCompatActivity {
             //isAgreeCBox.setText(params.get(KEY_PARAM_ACCOUNT_NAME));
         }
 
-        final SpinnerDialog spinnerDialog = new SpinnerDialog(AccountDetailActivity.this, relationItems, getString(R.string.accountDetailActivity_relationTypeDropdownTitle), R.style.DialogAnimations_SmileWindow);
-        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+        final SpinnerDialog relationTypeSpinnerDialog = new SpinnerDialog(AccountDetailActivity.this, relationItems, getString(R.string.accountDetailActivity_relationTypeDropdownTitle), R.style.DialogAnimations_SmileWindow);
+        relationTypeSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
             @Override
             public void onClick(String s, int i) {
                 relationTypeEdtxt.setText(s);
@@ -181,7 +182,7 @@ public class AccountDetailActivity extends AppCompatActivity {
         relationTypeEdtxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getRelationList(spinnerDialog);
+                getRelationList(relationTypeSpinnerDialog);
             }
         });
 
@@ -205,6 +206,20 @@ public class AccountDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AccountDetailActivity.this, PaymentActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        final SpinnerDialog bloodTypeSpinnerDialog = new SpinnerDialog(AccountDetailActivity.this, bloodTypeItems, getString(R.string.accountDetailActivity_bloodTypeDropdownTitle), R.style.DialogAnimations_SmileWindow);
+        bloodTypeSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+            @Override
+            public void onClick(String s, int i) {
+                bloodTypeEdtxt.setText(s);
+            }
+        });
+        bloodTypeEdtxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBloodTypeList(bloodTypeSpinnerDialog);
             }
         });
 
@@ -606,5 +621,15 @@ public class AccountDetailActivity extends AppCompatActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void getBloodTypeList(SpinnerDialog spinnerDialog) {
+        bloodTypeItems.clear();
+        bloodTypeItems.add("A");
+        bloodTypeItems.add("B");
+        bloodTypeItems.add("AB");
+        bloodTypeItems.add("O");
+
+        spinnerDialog.showSpinerDialog();
     }
 }
