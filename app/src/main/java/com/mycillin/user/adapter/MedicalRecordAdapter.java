@@ -41,22 +41,10 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final MedicalRecordList resultList = medicalRecordLists.get(position);
-        holder.day.setText(resultList.getDay());
-        holder.month.setText(resultList.getMonth());
-        holder.year.setText(resultList.getYear());
-        holder.doctorName.setText(resultList.getDoctorName());
-
-        holder.detailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String date = resultList.getDay() + " " + resultList.getMonth() + " " + resultList.getYear();
-
-                Intent intent = new Intent(activity, MedicalRecordDetailActivity.class);
-                intent.putExtra(MedicalRecordDetailActivity.INTENT_KEY_DATE, date);
-                intent.putExtra(MedicalRecordDetailActivity.INTENT_KEY_DOCTOR, resultList.getDoctorName());
-                activity.startActivity(intent);
-            }
-        });
+        holder.day.setText(resultList.getCreatedDay());
+        holder.month.setText(resultList.getCreatedMonth());
+        holder.year.setText(resultList.getCreatedYear());
+        holder.doctorName.setText(resultList.getPartnerId());
     }
 
     @Override
@@ -69,7 +57,6 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
         private TextView month;
         private TextView year;
         private TextView doctorName;
-        private ImageButton detailBtn;
 
         MyViewHolder(View itemView) {
             super(itemView);
@@ -77,7 +64,6 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
             month = itemView.findViewById(R.id.rowMedicalRecordList_tv_month);
             year = itemView.findViewById(R.id.rowMedicalRecordList_tv_year);
             doctorName = itemView.findViewById(R.id.rowMedicalRecordList_tv_doctorName);
-            detailBtn = itemView.findViewById(R.id.rowMedicalRecordList_ib_detailBtn);
         }
     }
 }

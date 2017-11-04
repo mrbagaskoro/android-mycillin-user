@@ -431,14 +431,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <!--<LinearLayout
+                        android:id="@+id/medicalRecordDetailActivity_ll_prescriptionContent"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:orientation="horizontal"
                         android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/medicalRecordDetailActivity_tv_prescriptionInfo1"
+                            android:id="@+id/medicalRecordDetailActivity_tv_prescriptionInfo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
@@ -449,21 +450,22 @@
                             android:text="@string/medicalRecordDetailActivity_prescriptionInfo1"/>
 
                         <View
+                            android:id="@+id/medicalRecordDetailActivity_v_prescriptionView"
                             android:layout_width="1dip"
                             android:layout_height="match_parent"
                             android:background="@color/bgColor" />
 
                         <TextView
-                            android:id="@+id/medicalRecordDetailActivity_tv_prescription1"
+                            android:id="@+id/medicalRecordDetailActivity_tv_prescription"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="10dp"
                             android:layout_weight="1"
                             android:text="@string/medicalRecordDetailActivity_prescription1"/>
 
-                    </LinearLayout>
+                    </LinearLayout>-->
 
-                    <LinearLayout
+                    <!--<LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
@@ -525,7 +527,7 @@
                             android:layout_weight="1"
                             android:text="@string/medicalRecordDetailActivity_prescription3"/>
 
-                    </LinearLayout>
+                    </LinearLayout>-->
 
                 </LinearLayout>
 

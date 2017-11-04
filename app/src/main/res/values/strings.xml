@@ -197,7 +197,7 @@
     <string name="medicalRecordDetailActivity_result1">120 mm/hg</string>
     <string name="medicalRecordDetailActivity_resultInfo2">Diastole</string>
     <string name="medicalRecordDetailActivity_result2">75 mm/hg</string>
-    <string name="medicalRecordDetailActivity_resultInfo3">Weight (estimated)</string>
+    <string name="medicalRecordDetailActivity_resultInfo3">Body Temperature</string>
     <string name="medicalRecordDetailActivity_result3">60 kg</string>
     <string name="medicalRecordDetailActivity_resultInfo4">Blood Sugar</string>
     <string name="medicalRecordDetailActivity_result4">Normal</string>
@@ -268,4 +268,16 @@
     <string name="cancelActivity_cancelHeaderTitle">May We Know Why You\'re Canceling This Order ?</string>
     <string name="accountDetailActivity_bloodTypeDropdownTitle">Select a blood type</string>
     <string name="medicalRecordFragment_selectFamilyMessage">Please select a family member</string>
+    <string name="dateFormater_jan">JAN</string>
+    <string name="dateFormater_feb">FEB</string>
+    <string name="dateFormatter_mar">MAR</string>
+    <string name="dateFormatter_apr">APR</string>
+    <string name="dateFormatter_may">MAY</string>
+    <string name="dateFormatter_jun">JUN</string>
+    <string name="dateFormatter_jul">JUL</string>
+    <string name="dateFormatter_aug">AUG</string>
+    <string name="dateFormatter_sep">SEP</string>
+    <string name="dateFormatter_oct">OCT</string>
+    <string name="dateFormatter_nov">NOV</string>
+    <string name="dateFormatter_dec">DEC</string>
 </resources>
