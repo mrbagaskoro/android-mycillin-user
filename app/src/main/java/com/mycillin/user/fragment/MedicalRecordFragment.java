@@ -1,5 +1,6 @@
 package com.mycillin.user.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -15,13 +16,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mycillin.user.R;
+import com.mycillin.user.activity.MedicalRecordDetailActivity;
 import com.mycillin.user.adapter.MedicalRecordAdapter;
 import com.mycillin.user.list.MedicalRecordList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
 import com.mycillin.user.rest.medicalRecordList.ModelResultMedicalRecordList;
+import com.mycillin.user.util.DateFormatter;
 import com.mycillin.user.util.ProgressBarHandler;
+import com.mycillin.user.util.RecyclerTouchListener;
 import com.mycillin.user.util.SessionManager;
 
 import org.json.JSONException;
@@ -165,48 +169,65 @@ public class MedicalRecordFragment extends Fragment {
                             String medicalRecordPrescriptionTypeId = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionTypeId();
                             String medicalRecordPrescriptionPhoto = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionPhoto();
 
-                            medicalRecordLists.add(new MedicalRecordList("10", "JAN", "2017", medicalRecordPartnerId));
+                            DateFormatter dateFormatter = new DateFormatter(getActivity(), medicalRecordCreatedDate);
+                            medicalRecordLists.add(new MedicalRecordList(
+                                    medicalRecordCreatedBy, medicalRecordCreatedDate,
+                                    dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_DD).toString(),
+                                    dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_MM).toString(),
+                                    dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_YY).toString(),
+                                    medicalRecordUpdatedBy, medicalRecordUpdatedDate, medicalRecordBookingId,
+                                    medicalRecordRecordId, medicalRecordUserId, medicalRecordRelationId,
+                                    medicalRecordPartnerId, medicalRecordServiceTypeId, medicalRecordBodyTemperature,
+                                    medicalRecordBloodSugarLevel, medicalRecordCholesterolLevel,
+                                    medicalRecordBloodPressUpper, medicalRecordBloodPressLower,
+                                    medicalRecordPatientCondition, medicalRecordDiagnose, medicalRecordPrescriptionStatus,
+                                    medicalRecordPrescriptionId, medicalRecordPrescriptionTypeId, medicalRecordPrescriptionPhoto
+                                    )
+                            );
                         }
 
                         medicalRecordAdapter = new MedicalRecordAdapter(medicalRecordLists, getActivity());
                         medicalRecordRecyclerView.setAdapter(medicalRecordAdapter);
                         medicalRecordAdapter.notifyDataSetChanged();
 
-                        /*accountRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), accountRecyclerView, new RecyclerTouchListener.ClickListener() {
+                        medicalRecordRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), medicalRecordRecyclerView, new RecyclerTouchListener.ClickListener() {
                             @Override
                             public void onClick(View view, int position) {
-                                AccountList list = accountLists.get(position);
+                                MedicalRecordList list = medicalRecordLists.get(position);
 
                                 HashMap<String, String> params = new HashMap<>();
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_NAME, list.getAccountName());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_CREATED_BY, list.getAccountCreatedBy());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_CREATED_DATE, list.getAccountCreatedDate());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_UPDATED_BY, list.getAccountUpdatedBy());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_UPDATED_DATE, list.getAccountUpdatedDate());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_RELATION_ID, list.getAccountRelationId());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_RELATION_TYPE, list.getAccountRelationType());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_USER_ID, list.getAccountUserId());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_GENDER, list.getAccountGender() == null ? "" : list.getAccountGender());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_ADDRESS, list.getAccountAddress());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_MOBILE_NO, list.getAccountMobileNo());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_DOB, list.getAccountDOB());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_HEIGHT, list.getAccountHeight());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_WEIGHT, list.getAccountWeight());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_BLOOD_TYPE, list.getAccountBloodType());
-                                params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_INSURANCE_ID, list.getAccountInsuranceId());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_BY, list.getCreatedBy());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_DATE, list.getCreatedDate());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_BY, list.getUpdatedBy());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_DATE, list.getUpdatedDate());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_BOOKING_ID, list.getBookingId());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_RECORD_ID, list.getRecordId());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_USER_ID, list.getUserId());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_RELATION_ID, list.getRelationId());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PARTNET_ID, list.getPartnerId());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_SERVICE_TYPE_ID, list.getServiceTypeId());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_BODY_TEMPERATURE, list.getBodyTemperature());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_SUGAR_LEVEL, list.getBloodSugarLevel());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_CHOLESTEROL_LEVEL, list.getCholesterolLevel());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_PRESS_UPPER, list.getBloodPressUpper());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_PRESS_LOWER, list.getBloodPressLower());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PATIENT_CONDITION, list.getPatientCondition());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_DIAGNOSE, list.getDiagnose());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_STATUS, list.getPrescriptionStatus());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_ID, list.getPrescriptionId());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_TYPE_ID, list.getPrescriptionTypeId());
+                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_PHOTO, list.getPrescriptionPhoto());
 
-                                Intent intent = new Intent(AccountActivity.this, AccountDetailActivity.class);
-                                intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL, params);
-                                intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL_IS_NEW, false);
+                                Intent intent = new Intent(getContext(), MedicalRecordDetailActivity.class);
+                                intent.putExtra(MedicalRecordDetailActivity.EXTRA_MEDICAL_RECORD_DETAIL, params);
                                 startActivity(intent);
-                                dialogPlus.dismiss();
                             }
 
                             @Override
                             public void onLongClick(View view, int position) {
 
                             }
-                        }));*/
+                        }));
                     }
                 }
                 else {
