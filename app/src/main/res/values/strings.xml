@@ -208,7 +208,7 @@
     <string name="medicalRecordDetailActivity_action">Medical Action</string>
     <string name="medicalRecordDetailActivity_actionDesc">On-Demand direct actions</string>
     <string name="medicalRecordDetailActivity_prescription">Prescription</string>
-    <string name="medicalRecordDetailActivity_prescriptionInfo1">Xitoplam 250mg (10 pcs)</string>
+    <string name="medicalRecordDetailActivity_prescriptionInfo1">Xitoplam 250mg</string>
     <string name="medicalRecordDetailActivity_prescription1">3 x 1</string>
     <string name="medicalRecordDetailActivity_prescriptionInfo2">Litacid (1 bottle)</string>
     <string name="medicalRecordDetailActivity_prescription2">3 x 1</string>
@@ -280,4 +280,5 @@
     <string name="dateFormatter_oct">OCT</string>
     <string name="dateFormatter_nov">NOV</string>
     <string name="dateFormatter_dec">DEC</string>
+    <string name="medicalRecordDetailActivity_noData">No Data Available</string>
 </resources>

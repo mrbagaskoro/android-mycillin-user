@@ -1,21 +1,39 @@
 package com.mycillin.user.activity;
 
-import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mycillin.user.R;
+import com.mycillin.user.adapter.PrescriptionRecordAdapter;
+import com.mycillin.user.list.PrescriptionRecordList;
+import com.mycillin.user.rest.MyCillinAPI;
+import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionRecordList;
+import com.mycillin.user.util.ProgressBarHandler;
+import com.mycillin.user.util.SessionManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MedicalRecordDetailActivity extends AppCompatActivity {
 
@@ -64,14 +82,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
     @BindView(R.id.medicalRecordDetailActivity_tv_result6)
     TextView conditionTxt;
     @BindView(R.id.medicalRecordDetailActivity_tv_action)
-    TextView actionTxt;/*
-    @BindView(R.id.medicalRecordDetailActivity_tv_prescriptionInfo)
-    TextView prescriptionInfo;
-    @BindView(R.id.medicalRecordDetailActivity_v_prescriptionView)
-    View prescriptionView;
-    @BindView(R.id.medicalRecordDetailActivity_tv_prescription)
-    TextView prescription;*/
-
+    TextView actionTxt;
     @BindView(R.id.medicalRecordDetailActivity_ll_diagnoseTitleContainer)
     LinearLayout diagnoseTitleContainer;
     @BindView(R.id.medicalRecordDetailActivity_ll_diagnoseContentContainer)
@@ -88,8 +99,18 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
     LinearLayout prescriptionTitleContainer;
     @BindView(R.id.medicalRecordDetailActivity_ll_prescriptionContentContainer)
     LinearLayout prescriptionContentContainer;
-    /*@BindView(R.id.medicalRecordDetailActivity_ll_prescriptionContent)
-    LinearLayout prescriptionContent;*/
+
+    @BindView(R.id.medicalRecordDetailActivity_rv_recyclerView)
+    RecyclerView medicalRecordDetailRecyclerView;
+    @BindView(R.id.medicalRecordDetailActivity_ll_messageContainer)
+    LinearLayout messageContainer;
+    @BindView(R.id.medicalRecordDetailActivity_tv_message)
+    TextView message;
+
+    private List<PrescriptionRecordList> prescriptionRecordLists = new ArrayList<>();
+    private PrescriptionRecordAdapter prescriptionRecordAdapter;
+
+    private ProgressBarHandler progressBarHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +120,8 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.medicalRecordDetailActivity_title);
+
+        progressBarHandler = new ProgressBarHandler(this);
 
         HashMap<String, String> medicalRecordDetailData = (HashMap<String, String>) getIntent().getSerializableExtra(EXTRA_MEDICAL_RECORD_DETAIL);
 
@@ -113,65 +136,8 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
         conditionTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PATIENT_CONDITION));
         //actionTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PARTNET_ID));
 
-        LinearLayout linearLayout = new LinearLayout(this);
-        for(int i = 0; i < 5; i++) {
-
-            LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1.0f
-            );
-
-            LinearLayout.LayoutParams viewLayoutParams = new LinearLayout.LayoutParams(
-                    1,
-                    LinearLayout.LayoutParams.MATCH_PARENT
-            );
-
-            LinearLayout.LayoutParams text2LayoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    1.0f
-            );
-
-            LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    0,
-                    1.0f
-            );
-
-            TextView text = new TextView(this);
-            text.setLayoutParams(textLayoutParams);
-            text.setPadding(10, 10, 10, 10);
-            text.setGravity(Gravity.END);
-            text.setTextColor(getResources().getColor(R.color.primaryText));
-            text.setTypeface(Typeface.DEFAULT_BOLD);
-            text.setText("The Value of i is :" + i);
-
-            View view = new View(this);
-            view.setLayoutParams(viewLayoutParams);
-            view.setBackgroundColor(getResources().getColor(R.color.bgColor));
-
-            TextView text2 = new TextView(this);
-            text2.setLayoutParams(text2LayoutParams);
-            text2.setPadding(10, 10, 10, 10);
-            text2.setText(i + "");
-
-            linearLayout.setLayoutParams(linearLayoutParams);
-            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            linearLayout.addView(text);
-            linearLayout.addView(view);
-            linearLayout.addView(text2);
-
-            prescriptionContentContainer.removeAllViews();
-            prescriptionContentContainer.setOrientation(LinearLayout.VERTICAL);
-            prescriptionContentContainer.addView(linearLayout);
-
-            /*((ViewGroup)prescriptionContent.getParent()).removeView(prescriptionContent);
-            prescriptionContentContainer.addView(prescriptionContent);*/
-        }
-
         accordionMenu();
+        getPrescriptionList(medicalRecordDetailData.get(KEY_PARAM_PRESCRIPTION_ID));
     }
 
     private void accordionMenu() {
@@ -220,6 +186,86 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
                 else {
                     prescriptionContentContainer.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+    }
+
+    private void getPrescriptionList(String prescriptionId) {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("prescription_no", prescriptionId);
+
+        myCillinAPI.getPrescriptionRecordList(token, params).enqueue(new Callback<ModelResultPrescriptionRecordList>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultPrescriptionRecordList> call, @NonNull Response<ModelResultPrescriptionRecordList> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultPrescriptionRecordList modelResultPrescriptionRecordList = response.body();
+
+                    assert modelResultPrescriptionRecordList != null;
+                    if(modelResultPrescriptionRecordList.getResult().isStatus()) {
+                        messageContainer.setVisibility(View.GONE);
+                        medicalRecordDetailRecyclerView.setVisibility(View.VISIBLE);
+
+                        medicalRecordDetailRecyclerView.setLayoutManager(new LinearLayoutManager(MedicalRecordDetailActivity.this));
+                        medicalRecordDetailRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                        prescriptionRecordLists.clear();
+
+                        int size = modelResultPrescriptionRecordList.getResult().getData().size();
+                        if(size > 0) {
+                            for(int i = 0; i < size; i++) {
+                                String recordId = modelResultPrescriptionRecordList.getResult().getData().get(i).getRecordId();
+                                String prescriptionName = modelResultPrescriptionRecordList.getResult().getData().get(i).getNamaObat();
+                                String prescriptionQty = modelResultPrescriptionRecordList.getResult().getData().get(i).getJumlahObat();
+                                String unitId = modelResultPrescriptionRecordList.getResult().getData().get(i).getSatuanId();
+                                String dosageId = modelResultPrescriptionRecordList.getResult().getData().get(i).getDosageId();
+                                String instructionId = modelResultPrescriptionRecordList.getResult().getData().get(i).getUseInstructionId();
+
+                                prescriptionRecordLists.add(new PrescriptionRecordList(recordId,
+                                        prescriptionName, prescriptionQty, unitId, dosageId, instructionId));
+                            }
+
+                            prescriptionRecordAdapter = new PrescriptionRecordAdapter(prescriptionRecordLists);
+                            medicalRecordDetailRecyclerView.setAdapter(prescriptionRecordAdapter);
+                            prescriptionRecordAdapter.notifyDataSetChanged();
+                        }
+                        else {
+                            messageContainer.setVisibility(View.VISIBLE);
+                            message.setText(R.string.medicalRecordDetailActivity_noData);
+                            medicalRecordDetailRecyclerView.setVisibility(View.GONE);
+                        }
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultPrescriptionRecordList> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
     }
