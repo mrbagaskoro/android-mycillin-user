@@ -91,7 +91,8 @@
         <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.TermsAndPrivacyPolicyActivity" />
         <activity android:name=".activity.ChangePasswordActivity" />
-        <activity android:name=".activity.CancelActivity"></activity>
+        <activity android:name=".activity.CancelActivity" />
+        <activity android:name=".activity.FilterDoctorActivity"></activity>
     </application>
 
 </manifest>

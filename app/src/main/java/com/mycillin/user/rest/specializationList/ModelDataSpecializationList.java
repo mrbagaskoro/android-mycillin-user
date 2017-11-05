@@ -9,10 +9,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class ModelDataSpecializationList {
 
-    @SerializedName("specialization_id")
+    @SerializedName("spesialisasi_id")
     @Expose
     private String specializationId;
-    @SerializedName("specialization_desc")
+    @SerializedName("spesialisasi_desc")
     @Expose
     private String specializationDesc;
 

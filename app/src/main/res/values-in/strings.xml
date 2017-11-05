@@ -79,7 +79,7 @@
     <string name="title_activity_maps">Peta</string>
     <string name="serviceBookDoctorActivity_MapViewTitle">TAMPILAN PETA</string>
     <string name="serviceBookDoctorActivity_addressTitle">ALAMAT</string>
-    <string name="serviceBookDoctorActivity_filterBtn">GUNAKAN FILTER PENCARIAN</string>
+    <string name="serviceBookDoctorActivity_filterBtn">Gunakan Filter Pencarian</string>
     <string name="serviceBookDoctorActivity_searchBtn">CARI</string>
     <string name="accountActivity_changePasswordTitle">Ubah Password</string>
     <string name="accountActivity_manageAccountTitle">Pengaturan Akun</string>

@@ -11,9 +11,11 @@ import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
 import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.medicalRecordList.ModelResultMedicalRecordList;
+import com.mycillin.user.rest.partnerTypeList.ModelResultPartnerTypeList;
 import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionRecordList;
 import com.mycillin.user.rest.register.ModelResultRegister;
 import com.mycillin.user.rest.relationList.ModelResultRelationList;
+import com.mycillin.user.rest.specializationList.ModelResultSpecializationList;
 import com.mycillin.user.util.SessionManager;
 
 import java.util.HashMap;
@@ -81,4 +83,10 @@ public interface MyCillinAPI {
 
     @POST("detail_prescription/")
     Call<ModelResultPrescriptionRecordList> getPrescriptionRecordList(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @GET("list_partner_type/")
+    Call<ModelResultPartnerTypeList> getPartnerTypeList();
+
+    @GET("list_spesialisasi/")
+    Call<ModelResultSpecializationList> getSpecializationList();
 }

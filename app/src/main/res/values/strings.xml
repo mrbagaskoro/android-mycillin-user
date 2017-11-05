@@ -79,7 +79,7 @@
     <string name="serviceBookDoctorActivity_addressTitle">ADDRESS</string>
     <string name="serviceBookDoctorActivity_MapViewTitle">MAP VIEW</string>
     <string name="title_activity_maps">Map</string>
-    <string name="serviceBookDoctorActivity_filterBtn">USE SEARCH FILTER</string>
+    <string name="serviceBookDoctorActivity_filterBtn">Use Search Filter</string>
     <string name="serviceBookDoctorActivity_searchBtn">SEARCH</string>
     <string name="filterBookDoctorDialog_typesOfMedicalPersonelTitle">Types of medical personnel</string>
     <string name="filterBookDoctorDialog_typesOfSpecialistsTitle">Types of specialists (Doctors only)</string>
@@ -281,4 +281,6 @@
     <string name="dateFormatter_nov">NOV</string>
     <string name="dateFormatter_dec">DEC</string>
     <string name="medicalRecordDetailActivity_noData">No Data Available</string>
+    <string name="filterDoctorActivity_partnerType">Partner Type</string>
+    <string name="filterDoctorActivity_partnerSpecialization">Partnet Specialization</string>
 </resources>

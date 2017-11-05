@@ -93,7 +93,8 @@ public class ServiceMedicalReservationActivity extends AppCompatActivity {
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showFilterDialog();
+                Intent intent = new Intent(ServiceMedicalReservationActivity.this, FilterDoctorActivity.class);
+                startActivity(intent);
             }
         });
         searchBtn.setOnClickListener(new View.OnClickListener() {
