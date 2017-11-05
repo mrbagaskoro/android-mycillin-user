@@ -276,4 +276,6 @@
     <string name="dateFormatter_nov">NOV</string>
     <string name="dateFormatter_dec">DES</string>
     <string name="medicalRecordDetailActivity_noData">Data Tidak Tersedia</string>
+    <string name="filterDoctorActivity_partnerType">Tipe Tenaga Medis</string>
+    <string name="filterDoctorActivity_partnerSpecialization">Spesialisasi Tenaga Medis</string>
 </resources>
