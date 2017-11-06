@@ -3,31 +3,52 @@ package com.mycillin.user.activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ahmedjazzar.rosetta.LanguageSwitcher;
 import com.ahmedjazzar.rosetta.LanguagesListDialogFragment;
 import com.mycillin.user.BuildConfig;
 import com.mycillin.user.R;
+import com.mycillin.user.database.Banner;
+import com.mycillin.user.database.BannerDao;
+import com.mycillin.user.database.DaoSession;
+import com.mycillin.user.rest.MyCillinAPI;
+import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.bannerImage.ModelResultBannerImage;
 import com.mycillin.user.util.ApplicationPreferencesManager;
+import com.mycillin.user.util.BaseApplication;
 import com.mycillin.user.util.LanguageOptions;
+import com.mycillin.user.util.ProgressBarHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
     @BindView(R.id.splashScreen_tv_version)
     TextView tvVersion;
+    @BindView(R.id.splashScreen_pb_progressBar)
+    ProgressBar progressBar;
 
     private int position = 0;
 
@@ -41,30 +62,14 @@ public class SplashActivity extends AppCompatActivity {
 
         tvVersion.setText(getResources().getString(R.string.version) + " " + BuildConfig.VERSION_NAME);
 
-        final ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
+        ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
         if (!applicationPreferencesManager.isSelectLanguage()) {
             DialogFragment newFragment = SplashActivity.ChangeLanguageDialogFragment.newInstance(R.string.app_name, position);
             newFragment.setCancelable(false);
             newFragment.show(getSupportFragmentManager(), "dialog");
         }
         else {
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    if(applicationPreferencesManager.isIntroDone()) {
-                        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                    }
-                    else {
-                        Intent intent = new Intent(SplashActivity.this, PermissionCheckActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            }, 2000); // 2000 milliseconds delay
+            getBanner(applicationPreferencesManager);
         }
     }
 
@@ -81,6 +86,67 @@ public class SplashActivity extends AppCompatActivity {
         // classes. static is much stable.
         LanguageSwitcher ls = new LanguageSwitcher(getApplicationContext(), firstLaunchLocale);
         ls.setSupportedLocales(supportedLocales);
+    }
+
+    private void getBanner(final ApplicationPreferencesManager applicationPreferencesManager) {
+        progressBar.setVisibility(View.VISIBLE);
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+        myCillinAPI.getBannerImage().enqueue(new Callback<ModelResultBannerImage>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultBannerImage> call, @NonNull Response<ModelResultBannerImage> response) {
+                progressBar.setVisibility(View.GONE);
+
+                if(response.isSuccessful()) {
+                    ModelResultBannerImage modelResultBannerImage = response.body();
+
+                    assert modelResultBannerImage != null;
+                    if(modelResultBannerImage.getResult().isStatus()) {
+                        List<Banner> bannerList = modelResultBannerImage.getResult().getData();
+
+                        DaoSession daoSession = ((BaseApplication) getApplication()).getDaoSession();
+                        BannerDao bannerDao = daoSession.getBannerDao();
+                        bannerDao.insertOrReplaceInTx(bannerList);
+
+                        if(applicationPreferencesManager.isIntroDone()) {
+                            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            Intent intent = new Intent(SplashActivity.this, PermissionCheckActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultBannerImage> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBar.setVisibility(View.GONE);
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public static class ChangeLanguageDialogFragment extends LanguagesListDialogFragment {

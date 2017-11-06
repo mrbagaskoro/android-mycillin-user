@@ -14,16 +14,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mycillin.user.R;
 import com.mycillin.user.activity.AccountActivity;
 import com.mycillin.user.activity.AccountDetailActivity;
 import com.mycillin.user.activity.ServiceBookDoctorActivity;
 import com.mycillin.user.activity.ServiceMedicalReservationActivity;
 import com.mycillin.user.adapter.AccountAdapter;
+import com.mycillin.user.database.Banner;
 import com.mycillin.user.list.AccountList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
+import com.mycillin.user.util.DaoDatabaseHelper;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.RecyclerTouchListener;
 import com.mycillin.user.util.SessionManager;
@@ -31,12 +34,14 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
+import org.greenrobot.greendao.query.Query;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,15 +120,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        final int[] sampleImages = { R.drawable.roll_01, R.drawable.roll_02, R.drawable.roll_03 };
-        carouselView.setPageCount(sampleImages.length);
-        carouselView.setImageListener(new ImageListener() {
-            @Override
-            public void setImageForPosition(int position, ImageView imageView) {
-                imageView.setImageResource(sampleImages[position]);
-            }
-        });
-
+        getBannerImage();
 
         return rootView;
     }
@@ -200,6 +197,29 @@ public class HomeFragment extends Fragment {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
                 progressBarHandler.hide();
                 Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getBannerImage() {
+        final List<String> urls = new ArrayList<>();
+
+        DaoDatabaseHelper daoDatabaseHelper = new DaoDatabaseHelper(getActivity());
+        Query<Banner> query = daoDatabaseHelper.getBanner();
+
+        urls.clear();
+        for (int i = 0; i < query.list().size(); i++) {
+            String imageName = query.list().get(i).getImageName();
+            urls.add(imageName);
+        }
+
+        carouselView.setPageCount(query.list().size());
+        carouselView.setImageListener(new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                Glide.with(getContext())
+                        .load(urls.get(position))
+                        .into(imageView);
             }
         });
     }
