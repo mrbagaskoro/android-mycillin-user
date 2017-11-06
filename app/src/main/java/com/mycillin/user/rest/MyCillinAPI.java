@@ -5,6 +5,7 @@ import com.mycillin.user.rest.accountInsert.ModelResultAccountInsert;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
 import com.mycillin.user.rest.accountPicGet.ModelResultAccountPicGet;
 import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
+import com.mycillin.user.rest.bannerImage.ModelResultBannerImage;
 import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
@@ -89,4 +90,7 @@ public interface MyCillinAPI {
 
     @GET("list_spesialisasi/")
     Call<ModelResultSpecializationList> getSpecializationList();
+
+    @GET("banner/")
+    Call<ModelResultBannerImage> getBannerImage();
 }
