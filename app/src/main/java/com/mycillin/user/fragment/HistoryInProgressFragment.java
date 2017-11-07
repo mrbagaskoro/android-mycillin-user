@@ -47,20 +47,6 @@ public class HistoryInProgressFragment extends Fragment {
 
         getInProgressList();
 
-        return rootView;
-    }
-
-    public void getInProgressList() {
-        inProgressRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        inProgressRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        inProgressLists.clear();
-        inProgressLists.add(new InProgressList("pic_01.jpg", "dr Andi Husada", "Visit request to home", "07 September 2017", "15.00 WIB"));
-
-        inProgressAdapter = new InProgressAdapter(inProgressLists);
-        inProgressRecyclerView.setAdapter(inProgressAdapter);
-        inProgressAdapter.notifyDataSetChanged();
-
         inProgressRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), inProgressRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -80,5 +66,19 @@ public class HistoryInProgressFragment extends Fragment {
 
             }
         }));
+
+        return rootView;
+    }
+
+    public void getInProgressList() {
+        inProgressRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        inProgressRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        inProgressLists.clear();
+        inProgressLists.add(new InProgressList("pic_01.jpg", "dr Andi Husada", "Visit request to home", "07 September 2017", "15.00 WIB"));
+
+        inProgressAdapter = new InProgressAdapter(inProgressLists);
+        inProgressRecyclerView.setAdapter(inProgressAdapter);
+        inProgressAdapter.notifyDataSetChanged();
     }
 }

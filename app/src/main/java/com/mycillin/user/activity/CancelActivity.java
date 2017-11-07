@@ -58,6 +58,20 @@ public class CancelActivity extends AppCompatActivity {
         progressBarHandler = new ProgressBarHandler(this);
 
         getCancelReason();
+
+        cancelReasonRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), cancelReasonRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                CancelReasonList list = cancelReasonList.get(position);
+
+                Toast.makeText(getApplicationContext(), list.getCancelReasonId() + " - " + list.getCancelReasonDesc(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
     }
 
     private void getCancelReason() {
@@ -89,20 +103,6 @@ public class CancelActivity extends AppCompatActivity {
                         cancelReasonAdapter = new CancelReasonAdapter(cancelReasonList);
                         cancelReasonRecyclerView.setAdapter(cancelReasonAdapter);
                         cancelReasonAdapter.notifyDataSetChanged();
-
-                        cancelReasonRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), cancelReasonRecyclerView, new RecyclerTouchListener.ClickListener() {
-                            @Override
-                            public void onClick(View view, int position) {
-                                CancelReasonList list = cancelReasonList.get(position);
-
-                                Toast.makeText(getApplicationContext(), list.getCancelReasonId() + " - " + list.getCancelReasonDesc(), Toast.LENGTH_LONG).show();
-                            }
-
-                            @Override
-                            public void onLongClick(View view, int position) {
-
-                            }
-                        }));
                     }
                 }
                 else {

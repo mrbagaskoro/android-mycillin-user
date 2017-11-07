@@ -109,6 +109,45 @@ public class MedicalRecordFragment extends Fragment {
             }
         });
 
+        medicalRecordRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), medicalRecordRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                MedicalRecordList list = medicalRecordLists.get(position);
+
+                HashMap<String, String> params = new HashMap<>();
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_BY, list.getCreatedBy());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_DATE, list.getCreatedDate());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_BY, list.getUpdatedBy());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_DATE, list.getUpdatedDate());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_BOOKING_ID, list.getBookingId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_RECORD_ID, list.getRecordId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_USER_ID, list.getUserId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_RELATION_ID, list.getRelationId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_PARTNET_ID, list.getPartnerId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_SERVICE_TYPE_ID, list.getServiceTypeId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_BODY_TEMPERATURE, list.getBodyTemperature());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_SUGAR_LEVEL, list.getBloodSugarLevel());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_CHOLESTEROL_LEVEL, list.getCholesterolLevel());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_PRESS_UPPER, list.getBloodPressUpper());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_PRESS_LOWER, list.getBloodPressLower());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_PATIENT_CONDITION, list.getPatientCondition());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_DIAGNOSE, list.getDiagnose());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_STATUS, list.getPrescriptionStatus());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_ID, list.getPrescriptionId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_TYPE_ID, list.getPrescriptionTypeId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_PHOTO, list.getPrescriptionPhoto());
+
+                Intent intent = new Intent(getContext(), MedicalRecordDetailActivity.class);
+                intent.putExtra(MedicalRecordDetailActivity.EXTRA_MEDICAL_RECORD_DETAIL, params);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
         return rootView;
     }
 
@@ -124,8 +163,6 @@ public class MedicalRecordFragment extends Fragment {
         HashMap<String, String> params = new HashMap<>();
         params.put("user_id", userId);
         params.put("relation_id", relationId);
-
-        Log.d("###", "getMedicalRecordList: " + token);
 
         myCillinAPI.getMedicalRecordList(token, params).enqueue(new Callback<ModelResultMedicalRecordList>() {
             @Override
@@ -190,45 +227,6 @@ public class MedicalRecordFragment extends Fragment {
                             medicalRecordAdapter = new MedicalRecordAdapter(medicalRecordLists, getActivity());
                             medicalRecordRecyclerView.setAdapter(medicalRecordAdapter);
                             medicalRecordAdapter.notifyDataSetChanged();
-
-                            medicalRecordRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), medicalRecordRecyclerView, new RecyclerTouchListener.ClickListener() {
-                                @Override
-                                public void onClick(View view, int position) {
-                                    MedicalRecordList list = medicalRecordLists.get(position);
-
-                                    HashMap<String, String> params = new HashMap<>();
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_BY, list.getCreatedBy());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_DATE, list.getCreatedDate());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_BY, list.getUpdatedBy());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_DATE, list.getUpdatedDate());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_BOOKING_ID, list.getBookingId());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_RECORD_ID, list.getRecordId());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_USER_ID, list.getUserId());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_RELATION_ID, list.getRelationId());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PARTNET_ID, list.getPartnerId());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_SERVICE_TYPE_ID, list.getServiceTypeId());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_BODY_TEMPERATURE, list.getBodyTemperature());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_SUGAR_LEVEL, list.getBloodSugarLevel());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_CHOLESTEROL_LEVEL, list.getCholesterolLevel());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_PRESS_UPPER, list.getBloodPressUpper());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_PRESS_LOWER, list.getBloodPressLower());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PATIENT_CONDITION, list.getPatientCondition());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_DIAGNOSE, list.getDiagnose());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_STATUS, list.getPrescriptionStatus());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_ID, list.getPrescriptionId());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_TYPE_ID, list.getPrescriptionTypeId());
-                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_PHOTO, list.getPrescriptionPhoto());
-
-                                    Intent intent = new Intent(getContext(), MedicalRecordDetailActivity.class);
-                                    intent.putExtra(MedicalRecordDetailActivity.EXTRA_MEDICAL_RECORD_DETAIL, params);
-                                    startActivity(intent);
-                                }
-
-                                @Override
-                                public void onLongClick(View view, int position) {
-
-                                }
-                            }));
                         }
                         else {
                             messageContainer.setVisibility(View.VISIBLE);

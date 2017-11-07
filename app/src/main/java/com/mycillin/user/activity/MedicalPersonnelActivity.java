@@ -41,20 +41,6 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.medicalPersonnelActivity_title);
 
         getMedicalPersonnelList();
-    }
-
-    private void getMedicalPersonnelList() {
-        medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        medicalPersonnelLists.clear();
-        medicalPersonnelLists.add(new MedicalPersonnelList("dr Andi Husada", "Cardiologist", "291827/II/2011", "husada.jpg"));
-        medicalPersonnelLists.add(new MedicalPersonnelList("dr Titin Hutapea", "Dentist", "471827/XI/2016", "hutapea.jpg"));
-        medicalPersonnelLists.add(new MedicalPersonnelList("dr Hotman Sitorus", "Neurologist", "362817/IV/2015", "sitorus.jpg"));
-
-        medicalPersonneldAdapter = new MedicalPersonnelAdapter(medicalPersonnelLists, MedicalPersonnelActivity.this);
-        medicalPersonnelRecyclerView.setAdapter(medicalPersonneldAdapter);
-        medicalPersonneldAdapter.notifyDataSetChanged();
 
         medicalPersonnelRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), medicalPersonnelRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -73,5 +59,19 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
 
             }
         }));
+    }
+
+    private void getMedicalPersonnelList() {
+        medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        medicalPersonnelLists.clear();
+        medicalPersonnelLists.add(new MedicalPersonnelList("dr Andi Husada", "Cardiologist", "291827/II/2011", "husada.jpg"));
+        medicalPersonnelLists.add(new MedicalPersonnelList("dr Titin Hutapea", "Dentist", "471827/XI/2016", "hutapea.jpg"));
+        medicalPersonnelLists.add(new MedicalPersonnelList("dr Hotman Sitorus", "Neurologist", "362817/IV/2015", "sitorus.jpg"));
+
+        medicalPersonneldAdapter = new MedicalPersonnelAdapter(medicalPersonnelLists, MedicalPersonnelActivity.this);
+        medicalPersonnelRecyclerView.setAdapter(medicalPersonneldAdapter);
+        medicalPersonneldAdapter.notifyDataSetChanged();
     }
 }

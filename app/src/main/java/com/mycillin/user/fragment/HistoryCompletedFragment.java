@@ -48,22 +48,6 @@ public class HistoryCompletedFragment extends Fragment {
 
         getCompletedList();
 
-        return rootView;
-    }
-
-    public void getCompletedList() {
-        completedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        completedRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        completedListList.clear();
-        completedListList.add(new CompletedList("pic_01.jpg", "dr Andi Husada", "Visit request to home", "07 September 2017", "15.00 WIB"));
-        completedListList.add(new CompletedList("pic_01.jpg", "dr Titin Hutapea", "Visit request to clinic", "27 Agustus 2017", "10.00 WIB"));
-        completedListList.add(new CompletedList("pic_01.jpg", "dr Hotman Sitorus", "Visit request to home", "11 Maret 2017", "20.00 WIB"));
-
-        completedAdapter = new CompletedAdapter(completedListList);
-        completedRecyclerView.setAdapter(completedAdapter);
-        completedAdapter.notifyDataSetChanged();
-
         completedRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), completedRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -83,5 +67,21 @@ public class HistoryCompletedFragment extends Fragment {
 
             }
         }));
+
+        return rootView;
+    }
+
+    public void getCompletedList() {
+        completedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        completedRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        completedListList.clear();
+        completedListList.add(new CompletedList("pic_01.jpg", "dr Andi Husada", "Visit request to home", "07 September 2017", "15.00 WIB"));
+        completedListList.add(new CompletedList("pic_01.jpg", "dr Titin Hutapea", "Visit request to clinic", "27 Agustus 2017", "10.00 WIB"));
+        completedListList.add(new CompletedList("pic_01.jpg", "dr Hotman Sitorus", "Visit request to home", "11 Maret 2017", "20.00 WIB"));
+
+        completedAdapter = new CompletedAdapter(completedListList);
+        completedRecyclerView.setAdapter(completedAdapter);
+        completedAdapter.notifyDataSetChanged();
     }
 }
