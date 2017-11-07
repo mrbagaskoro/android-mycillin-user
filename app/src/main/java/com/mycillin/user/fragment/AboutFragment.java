@@ -121,8 +121,8 @@ public class AboutFragment extends Fragment {
             appPackage = "com.facebook.katana";
         }
         else if(id.equals(KEY_TWITTER)) {
-            url = "twitter://user?screen_name=FCBarcelona";
-            urlAlt = "http://www.twitter.com/FCBarcelona/";
+            url = "twitter://user?screen_name=mycillin";
+            urlAlt = "http://www.twitter.com/mycillin/";
             appPackage = "com.twitter.android";
         }
         else if(id.equals(KEY_INSTAGRAM)) {
@@ -131,8 +131,8 @@ public class AboutFragment extends Fragment {
             appPackage = "com.instagram.android";
         }
         else if(id.equals(KEY_YOUTUBE)) {
-            url = "http://www.youtube.com/user/fcbarcelona/";
-            urlAlt = "http://www.youtube.com/user/fcbarcelona/";
+            url = "https://www.youtube.com/channel/UCkjlt7RUv_Qi1LPUyTr0o9w/";
+            urlAlt = "https://www.youtube.com/channel/UCkjlt7RUv_Qi1LPUyTr0o9w/";
             appPackage = "com.google.android.youtube";
         }
 
