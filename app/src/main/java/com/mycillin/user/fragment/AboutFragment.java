@@ -1,6 +1,7 @@
 package com.mycillin.user.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -35,6 +36,11 @@ public class AboutFragment extends Fragment {
     @BindView(R.id.aboutFragment_ll_playStore)
     LinearLayout playstore;
 
+    public static String KEY_FACEBOOK = "KEY_FACEBOOK";
+    public static String KEY_TWITTER = "KEY_TWITTER";
+    public static String KEY_INSTAGRAM = "KEY_INSTAGRAM";
+    public static String KEY_YOUTUBE = "KEY_YOUTUBE";
+
     public AboutFragment() {
         // Required empty public constructor
     }
@@ -64,7 +70,7 @@ public class AboutFragment extends Fragment {
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.aboutFragment_facebook), Toast.LENGTH_SHORT).show();
+                openSocialMedia(KEY_FACEBOOK);
             }
         });
 
@@ -72,7 +78,7 @@ public class AboutFragment extends Fragment {
         twitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.aboutFragment_twitter), Toast.LENGTH_SHORT).show();
+                openSocialMedia(KEY_TWITTER);
             }
         });
 
@@ -80,7 +86,7 @@ public class AboutFragment extends Fragment {
         instagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.aboutFragment_instagram), Toast.LENGTH_SHORT).show();
+                openSocialMedia(KEY_INSTAGRAM);
             }
         });
 
@@ -88,7 +94,7 @@ public class AboutFragment extends Fragment {
         youtube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.aboutFragment_youtube), Toast.LENGTH_SHORT).show();
+                openSocialMedia(KEY_YOUTUBE);
             }
         });
 
@@ -102,5 +108,41 @@ public class AboutFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void openSocialMedia(String id) {
+        String url = "";
+        String urlAlt = "";
+        String appPackage = "";
+
+        if(id.equals(KEY_FACEBOOK)) {
+            url = "fb://profile/100022037055834";
+            urlAlt = "http://www.facebook.com/mycillin.mycillin.9/";
+            appPackage = "com.facebook.katana";
+        }
+        else if(id.equals(KEY_TWITTER)) {
+            url = "twitter://user?screen_name=FCBarcelona";
+            urlAlt = "http://www.twitter.com/FCBarcelona/";
+            appPackage = "com.twitter.android";
+        }
+        else if(id.equals(KEY_INSTAGRAM)) {
+            url = "http://instagram.com/_u/mycillin/";
+            urlAlt = "https://www.instagram.com/mycillin/";
+            appPackage = "com.instagram.android";
+        }
+        else if(id.equals(KEY_YOUTUBE)) {
+            url = "http://www.youtube.com/user/fcbarcelona/";
+            urlAlt = "http://www.youtube.com/user/fcbarcelona/";
+            appPackage = "com.google.android.youtube";
+        }
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            intent.setPackage(appPackage);
+            startActivity(intent);
+        } catch (android.content.ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlAlt)));
+        }
     }
 }
