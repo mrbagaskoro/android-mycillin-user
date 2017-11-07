@@ -36,6 +36,7 @@ public class AboutFragment extends Fragment {
     @BindView(R.id.aboutFragment_ll_playStore)
     LinearLayout playstore;
 
+    public static String KEY_EMAIL = "KEY_EMAIL";
     public static String KEY_FACEBOOK = "KEY_FACEBOOK";
     public static String KEY_TWITTER = "KEY_TWITTER";
     public static String KEY_INSTAGRAM = "KEY_INSTAGRAM";
@@ -63,7 +64,7 @@ public class AboutFragment extends Fragment {
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.aboutFragment_contact), Toast.LENGTH_SHORT).show();
+                openSocialMedia(KEY_EMAIL);
             }
         });
 
@@ -115,34 +116,43 @@ public class AboutFragment extends Fragment {
         String urlAlt = "";
         String appPackage = "";
 
-        if(id.equals(KEY_FACEBOOK)) {
-            url = "fb://profile/100022037055834";
-            urlAlt = "http://www.facebook.com/mycillin.mycillin.9/";
-            appPackage = "com.facebook.katana";
+        if(id.equals(KEY_EMAIL)) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto","mycillin@gmail.com", null));
+            //intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            //intent.putExtra(Intent.EXTRA_TEXT, message);
+            startActivity(Intent.createChooser(intent, getString(R.string.aboutFragment_chooseEmailMessage)));
         }
-        else if(id.equals(KEY_TWITTER)) {
-            url = "twitter://user?screen_name=mycillin";
-            urlAlt = "http://www.twitter.com/mycillin/";
-            appPackage = "com.twitter.android";
-        }
-        else if(id.equals(KEY_INSTAGRAM)) {
-            url = "http://instagram.com/_u/mycillin/";
-            urlAlt = "https://www.instagram.com/mycillin/";
-            appPackage = "com.instagram.android";
-        }
-        else if(id.equals(KEY_YOUTUBE)) {
-            url = "https://www.youtube.com/channel/UCkjlt7RUv_Qi1LPUyTr0o9w/";
-            urlAlt = "https://www.youtube.com/channel/UCkjlt7RUv_Qi1LPUyTr0o9w/";
-            appPackage = "com.google.android.youtube";
-        }
+        else {
+            if(id.equals(KEY_FACEBOOK)) {
+                url = "fb://profile/100022037055834";
+                urlAlt = "http://www.facebook.com/mycillin.mycillin.9/";
+                appPackage = "com.facebook.katana";
+            }
+            else if(id.equals(KEY_TWITTER)) {
+                url = "twitter://user?screen_name=mycillin";
+                urlAlt = "http://www.twitter.com/mycillin/";
+                appPackage = "com.twitter.android";
+            }
+            else if(id.equals(KEY_INSTAGRAM)) {
+                url = "http://instagram.com/_u/mycillin/";
+                urlAlt = "https://www.instagram.com/mycillin/";
+                appPackage = "com.instagram.android";
+            }
+            else if(id.equals(KEY_YOUTUBE)) {
+                url = "https://www.youtube.com/channel/UCkjlt7RUv_Qi1LPUyTr0o9w/";
+                urlAlt = "https://www.youtube.com/channel/UCkjlt7RUv_Qi1LPUyTr0o9w/";
+                appPackage = "com.google.android.youtube";
+            }
 
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            intent.setPackage(appPackage);
-            startActivity(intent);
-        } catch (android.content.ActivityNotFoundException e) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlAlt)));
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                intent.setPackage(appPackage);
+                startActivity(intent);
+            } catch (android.content.ActivityNotFoundException e) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlAlt)));
+            }
         }
     }
 }
