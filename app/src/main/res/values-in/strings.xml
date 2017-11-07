@@ -278,4 +278,5 @@
     <string name="medicalRecordDetailActivity_noData">Data Tidak Tersedia</string>
     <string name="filterDoctorActivity_partnerType">Tipe Tenaga Medis</string>
     <string name="filterDoctorActivity_partnerSpecialization">Spesialisasi Tenaga Medis</string>
+    <string name="aboutFragment_chooseEmailMessage">Pilih klien Email :</string>
 </resources>

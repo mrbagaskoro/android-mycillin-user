@@ -283,4 +283,5 @@
     <string name="medicalRecordDetailActivity_noData">No Data Available</string>
     <string name="filterDoctorActivity_partnerType">Paramedic Type</string>
     <string name="filterDoctorActivity_partnerSpecialization">Paramedic Specialization</string>
+    <string name="aboutFragment_chooseEmailMessage">Choose an Email client :</string>
 </resources>

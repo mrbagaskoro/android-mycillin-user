@@ -137,97 +137,104 @@ public class MedicalRecordFragment extends Fragment {
 
                     assert modelResultMedicalRecordList != null;
                     if(modelResultMedicalRecordList.getResult().isStatus()) {
-                        messageContainer.setVisibility(View.GONE);
-                        medicalRecordRecyclerView.setVisibility(View.VISIBLE);
-
-                        medicalRecordRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        medicalRecordRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-                        medicalRecordLists.clear();
-
                         int size = modelResultMedicalRecordList.getResult().getData().size();
-                        for(int i = 0; i < size; i++) {
-                            String medicalRecordCreatedBy = modelResultMedicalRecordList.getResult().getData().get(i).getCreatedBy();
-                            String medicalRecordCreatedDate = modelResultMedicalRecordList.getResult().getData().get(i).getCreatedDate();
-                            String medicalRecordUpdatedBy = modelResultMedicalRecordList.getResult().getData().get(i).getUpdatedBy();
-                            String medicalRecordUpdatedDate = modelResultMedicalRecordList.getResult().getData().get(i).getUpdatedDate();
-                            String medicalRecordBookingId = modelResultMedicalRecordList.getResult().getData().get(i).getBookingId();
-                            String medicalRecordRecordId = modelResultMedicalRecordList.getResult().getData().get(i).getRecordId();
-                            String medicalRecordUserId = modelResultMedicalRecordList.getResult().getData().get(i).getUserId();
-                            String medicalRecordRelationId = modelResultMedicalRecordList.getResult().getData().get(i).getRelationId();
-                            String medicalRecordPartnerId = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerId();
-                            String medicalRecordServiceTypeId = modelResultMedicalRecordList.getResult().getData().get(i).getServiceTypeId();
-                            String medicalRecordBodyTemperature = modelResultMedicalRecordList.getResult().getData().get(i).getBodyTemperature();
-                            String medicalRecordBloodSugarLevel = modelResultMedicalRecordList.getResult().getData().get(i).getBloodSugarLevel();
-                            String medicalRecordCholesterolLevel = modelResultMedicalRecordList.getResult().getData().get(i).getCholesterolLevel();
-                            String medicalRecordBloodPressUpper = modelResultMedicalRecordList.getResult().getData().get(i).getBloodPressUpper();
-                            String medicalRecordBloodPressLower = modelResultMedicalRecordList.getResult().getData().get(i).getBloodPressLower();
-                            String medicalRecordPatientCondition = modelResultMedicalRecordList.getResult().getData().get(i).getPatientCondition();
-                            String medicalRecordDiagnose = modelResultMedicalRecordList.getResult().getData().get(i).getDiagnosa();
-                            String medicalRecordPrescriptionStatus = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionStatus();
-                            String medicalRecordPrescriptionId = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionId();
-                            String medicalRecordPrescriptionTypeId = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionTypeId();
-                            String medicalRecordPrescriptionPhoto = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionPhoto();
+                        if(size > 0) {
+                            messageContainer.setVisibility(View.GONE);
+                            medicalRecordRecyclerView.setVisibility(View.VISIBLE);
 
-                            DateFormatter dateFormatter = new DateFormatter(getActivity(), medicalRecordCreatedDate);
-                            medicalRecordLists.add(new MedicalRecordList(
-                                    medicalRecordCreatedBy, medicalRecordCreatedDate,
-                                    dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_DD).toString(),
-                                    dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_MM).toString(),
-                                    dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_YY).toString(),
-                                    medicalRecordUpdatedBy, medicalRecordUpdatedDate, medicalRecordBookingId,
-                                    medicalRecordRecordId, medicalRecordUserId, medicalRecordRelationId,
-                                    medicalRecordPartnerId, medicalRecordServiceTypeId, medicalRecordBodyTemperature,
-                                    medicalRecordBloodSugarLevel, medicalRecordCholesterolLevel,
-                                    medicalRecordBloodPressUpper, medicalRecordBloodPressLower,
-                                    medicalRecordPatientCondition, medicalRecordDiagnose, medicalRecordPrescriptionStatus,
-                                    medicalRecordPrescriptionId, medicalRecordPrescriptionTypeId, medicalRecordPrescriptionPhoto
-                                    )
-                            );
+                            medicalRecordRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                            medicalRecordRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                            medicalRecordLists.clear();
+
+                            for(int i = 0; i < size; i++) {
+                                String medicalRecordCreatedBy = modelResultMedicalRecordList.getResult().getData().get(i).getCreatedBy();
+                                String medicalRecordCreatedDate = modelResultMedicalRecordList.getResult().getData().get(i).getCreatedDate();
+                                String medicalRecordUpdatedBy = modelResultMedicalRecordList.getResult().getData().get(i).getUpdatedBy();
+                                String medicalRecordUpdatedDate = modelResultMedicalRecordList.getResult().getData().get(i).getUpdatedDate();
+                                String medicalRecordBookingId = modelResultMedicalRecordList.getResult().getData().get(i).getBookingId();
+                                String medicalRecordRecordId = modelResultMedicalRecordList.getResult().getData().get(i).getRecordId();
+                                String medicalRecordUserId = modelResultMedicalRecordList.getResult().getData().get(i).getUserId();
+                                String medicalRecordRelationId = modelResultMedicalRecordList.getResult().getData().get(i).getRelationId();
+                                String medicalRecordPartnerId = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerId();
+                                String medicalRecordServiceTypeId = modelResultMedicalRecordList.getResult().getData().get(i).getServiceTypeId();
+                                String medicalRecordBodyTemperature = modelResultMedicalRecordList.getResult().getData().get(i).getBodyTemperature();
+                                String medicalRecordBloodSugarLevel = modelResultMedicalRecordList.getResult().getData().get(i).getBloodSugarLevel();
+                                String medicalRecordCholesterolLevel = modelResultMedicalRecordList.getResult().getData().get(i).getCholesterolLevel();
+                                String medicalRecordBloodPressUpper = modelResultMedicalRecordList.getResult().getData().get(i).getBloodPressUpper();
+                                String medicalRecordBloodPressLower = modelResultMedicalRecordList.getResult().getData().get(i).getBloodPressLower();
+                                String medicalRecordPatientCondition = modelResultMedicalRecordList.getResult().getData().get(i).getPatientCondition();
+                                String medicalRecordDiagnose = modelResultMedicalRecordList.getResult().getData().get(i).getDiagnosa();
+                                String medicalRecordPrescriptionStatus = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionStatus();
+                                String medicalRecordPrescriptionId = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionId();
+                                String medicalRecordPrescriptionTypeId = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionTypeId();
+                                String medicalRecordPrescriptionPhoto = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionPhoto();
+
+                                DateFormatter dateFormatter = new DateFormatter(getActivity(), medicalRecordCreatedDate);
+                                medicalRecordLists.add(new MedicalRecordList(
+                                                medicalRecordCreatedBy, medicalRecordCreatedDate,
+                                                dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_DD).toString(),
+                                                dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_MM).toString(),
+                                                dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_YY).toString(),
+                                                medicalRecordUpdatedBy, medicalRecordUpdatedDate, medicalRecordBookingId,
+                                                medicalRecordRecordId, medicalRecordUserId, medicalRecordRelationId,
+                                                medicalRecordPartnerId, medicalRecordServiceTypeId, medicalRecordBodyTemperature,
+                                                medicalRecordBloodSugarLevel, medicalRecordCholesterolLevel,
+                                                medicalRecordBloodPressUpper, medicalRecordBloodPressLower,
+                                                medicalRecordPatientCondition, medicalRecordDiagnose, medicalRecordPrescriptionStatus,
+                                                medicalRecordPrescriptionId, medicalRecordPrescriptionTypeId, medicalRecordPrescriptionPhoto
+                                        )
+                                );
+                            }
+
+                            medicalRecordAdapter = new MedicalRecordAdapter(medicalRecordLists, getActivity());
+                            medicalRecordRecyclerView.setAdapter(medicalRecordAdapter);
+                            medicalRecordAdapter.notifyDataSetChanged();
+
+                            medicalRecordRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), medicalRecordRecyclerView, new RecyclerTouchListener.ClickListener() {
+                                @Override
+                                public void onClick(View view, int position) {
+                                    MedicalRecordList list = medicalRecordLists.get(position);
+
+                                    HashMap<String, String> params = new HashMap<>();
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_BY, list.getCreatedBy());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_DATE, list.getCreatedDate());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_BY, list.getUpdatedBy());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_DATE, list.getUpdatedDate());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_BOOKING_ID, list.getBookingId());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_RECORD_ID, list.getRecordId());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_USER_ID, list.getUserId());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_RELATION_ID, list.getRelationId());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PARTNET_ID, list.getPartnerId());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_SERVICE_TYPE_ID, list.getServiceTypeId());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_BODY_TEMPERATURE, list.getBodyTemperature());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_SUGAR_LEVEL, list.getBloodSugarLevel());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_CHOLESTEROL_LEVEL, list.getCholesterolLevel());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_PRESS_UPPER, list.getBloodPressUpper());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_PRESS_LOWER, list.getBloodPressLower());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PATIENT_CONDITION, list.getPatientCondition());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_DIAGNOSE, list.getDiagnose());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_STATUS, list.getPrescriptionStatus());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_ID, list.getPrescriptionId());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_TYPE_ID, list.getPrescriptionTypeId());
+                                    params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_PHOTO, list.getPrescriptionPhoto());
+
+                                    Intent intent = new Intent(getContext(), MedicalRecordDetailActivity.class);
+                                    intent.putExtra(MedicalRecordDetailActivity.EXTRA_MEDICAL_RECORD_DETAIL, params);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onLongClick(View view, int position) {
+
+                                }
+                            }));
                         }
-
-                        medicalRecordAdapter = new MedicalRecordAdapter(medicalRecordLists, getActivity());
-                        medicalRecordRecyclerView.setAdapter(medicalRecordAdapter);
-                        medicalRecordAdapter.notifyDataSetChanged();
-
-                        medicalRecordRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), medicalRecordRecyclerView, new RecyclerTouchListener.ClickListener() {
-                            @Override
-                            public void onClick(View view, int position) {
-                                MedicalRecordList list = medicalRecordLists.get(position);
-
-                                HashMap<String, String> params = new HashMap<>();
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_BY, list.getCreatedBy());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_DATE, list.getCreatedDate());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_BY, list.getUpdatedBy());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_DATE, list.getUpdatedDate());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_BOOKING_ID, list.getBookingId());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_RECORD_ID, list.getRecordId());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_USER_ID, list.getUserId());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_RELATION_ID, list.getRelationId());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PARTNET_ID, list.getPartnerId());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_SERVICE_TYPE_ID, list.getServiceTypeId());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_BODY_TEMPERATURE, list.getBodyTemperature());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_SUGAR_LEVEL, list.getBloodSugarLevel());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_CHOLESTEROL_LEVEL, list.getCholesterolLevel());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_PRESS_UPPER, list.getBloodPressUpper());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_PRESS_LOWER, list.getBloodPressLower());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PATIENT_CONDITION, list.getPatientCondition());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_DIAGNOSE, list.getDiagnose());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_STATUS, list.getPrescriptionStatus());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_ID, list.getPrescriptionId());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_TYPE_ID, list.getPrescriptionTypeId());
-                                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_PHOTO, list.getPrescriptionPhoto());
-
-                                Intent intent = new Intent(getContext(), MedicalRecordDetailActivity.class);
-                                intent.putExtra(MedicalRecordDetailActivity.EXTRA_MEDICAL_RECORD_DETAIL, params);
-                                startActivity(intent);
-                            }
-
-                            @Override
-                            public void onLongClick(View view, int position) {
-
-                            }
-                        }));
+                        else {
+                            messageContainer.setVisibility(View.VISIBLE);
+                            message.setText(R.string.medicalRecordDetailActivity_noData);
+                            medicalRecordRecyclerView.setVisibility(View.GONE);
+                        }
                     }
                 }
                 else {

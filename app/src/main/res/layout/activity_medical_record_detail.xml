@@ -73,18 +73,24 @@
                     android:id="@+id/medicalRecordDetailActivity_ll_diagnoseTitleContainer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="horizontal"
                     android:background="?attr/selectableItemBackground" >
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="20sp"
-                        android:drawableEnd="@drawable/ic_arrow_drop_down_circle_black"
+                        android:layout_weight="1"
                         android:text="@string/medicalRecordDetailActivity_diagnose" />
+
+                    <ImageView
+                        android:id="@+id/medicalRecordDetailActivity_iv_diagnoseIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
 
                 </LinearLayout>
 
@@ -122,18 +128,24 @@
                     android:id="@+id/medicalRecordDetailActivity_ll_resultTitleContainer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="horizontal"
                     android:background="?attr/selectableItemBackground" >
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="20sp"
-                        android:drawableEnd="@drawable/ic_arrow_drop_down_circle_black"
+                        android:layout_weight="1"
                         android:text="@string/medicalRecordDetailActivity_result" />
+
+                    <ImageView
+                        android:id="@+id/medicalRecordDetailActivity_iv_resultIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -356,18 +368,24 @@
                     android:id="@+id/medicalRecordDetailActivity_ll_actionTitleContainer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="horizontal"
                     android:background="?attr/selectableItemBackground" >
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="20sp"
-                        android:drawableEnd="@drawable/ic_arrow_drop_down_circle_black"
+                        android:layout_weight="1"
                         android:text="@string/medicalRecordDetailActivity_action" />
+
+                    <ImageView
+                        android:id="@+id/medicalRecordDetailActivity_iv_actionIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -399,24 +417,30 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@drawable/frame_alt"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/medicalRecordDetailActivity_ll_prescriptionTitleContainer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackground" >
+                    android:orientation="horizontal"
+                    android:background="?attr/selectableItemBackground">
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingTop="15dp"
                         android:paddingBottom="15dp"
-                        android:paddingStart="15dp"
                         android:paddingEnd="15dp"
-                        android:textSize="20sp"
-                        android:drawableEnd="@drawable/ic_arrow_drop_down_circle_black"
-                        android:text="@string/medicalRecordDetailActivity_prescription" />
+                        android:paddingStart="15dp"
+                        android:paddingTop="15dp"
+                        android:text="@string/medicalRecordDetailActivity_prescription"
+                        android:layout_weight="1"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/medicalRecordDetailActivity_iv_prescriptionIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 

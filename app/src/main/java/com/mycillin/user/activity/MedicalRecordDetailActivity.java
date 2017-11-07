@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -85,18 +86,26 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
     TextView actionTxt;
     @BindView(R.id.medicalRecordDetailActivity_ll_diagnoseTitleContainer)
     LinearLayout diagnoseTitleContainer;
+    @BindView(R.id.medicalRecordDetailActivity_iv_diagnoseIcon)
+    ImageView diagnoseTitleIcon;
     @BindView(R.id.medicalRecordDetailActivity_ll_diagnoseContentContainer)
     LinearLayout diagnoseContentContainer;
     @BindView(R.id.medicalRecordDetailActivity_ll_resultTitleContainer)
     LinearLayout resultTitleContainer;
+    @BindView(R.id.medicalRecordDetailActivity_iv_resultIcon)
+    ImageView resultTitleIcon;
     @BindView(R.id.medicalRecordDetailActivity_ll_resultContentContainer)
     LinearLayout resultContentContainer;
     @BindView(R.id.medicalRecordDetailActivity_ll_actionTitleContainer)
     LinearLayout actionTitleContainer;
+    @BindView(R.id.medicalRecordDetailActivity_iv_actionIcon)
+    ImageView actionTitleIcon;
     @BindView(R.id.medicalRecordDetailActivity_ll_actionContentContainer)
     LinearLayout actionContentContainer;
     @BindView(R.id.medicalRecordDetailActivity_ll_prescriptionTitleContainer)
     LinearLayout prescriptionTitleContainer;
+    @BindView(R.id.medicalRecordDetailActivity_iv_prescriptionIcon)
+    ImageView prescriptionTitleIcon;
     @BindView(R.id.medicalRecordDetailActivity_ll_prescriptionContentContainer)
     LinearLayout prescriptionContentContainer;
 
@@ -141,51 +150,100 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
     }
 
     private void accordionMenu() {
+        diagnoseContentContainer.setVisibility(View.GONE);
+        diagnoseTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+        resultContentContainer.setVisibility(View.GONE);
+        resultTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+        actionContentContainer.setVisibility(View.GONE);
+        actionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+        prescriptionContentContainer.setVisibility(View.GONE);
+        prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+
         diagnoseTitleContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                diagnoseTitleIcon.setImageResource(android.R.color.transparent);
                 if(diagnoseContentContainer.getVisibility() == View.VISIBLE) {
                     diagnoseContentContainer.setVisibility(View.GONE);
+                    diagnoseTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
                 }
                 else {
                     diagnoseContentContainer.setVisibility(View.VISIBLE);
+                    diagnoseTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_up_black);
                 }
+
+                resultContentContainer.setVisibility(View.GONE);
+                resultTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+                actionContentContainer.setVisibility(View.GONE);
+                actionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+                prescriptionContentContainer.setVisibility(View.GONE);
+                prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
             }
         });
 
         resultTitleContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                resultTitleIcon.setImageResource(android.R.color.transparent);
                 if(resultContentContainer.getVisibility() == View.VISIBLE) {
                     resultContentContainer.setVisibility(View.GONE);
+                    resultTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
                 }
                 else {
                     resultContentContainer.setVisibility(View.VISIBLE);
+                    resultTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_up_black);
                 }
+
+                diagnoseContentContainer.setVisibility(View.GONE);
+                diagnoseTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+                actionContentContainer.setVisibility(View.GONE);
+                actionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+                prescriptionContentContainer.setVisibility(View.GONE);
+                prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
             }
         });
 
         actionTitleContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                actionTitleIcon.setImageResource(android.R.color.transparent);
                 if(actionContentContainer.getVisibility() == View.VISIBLE) {
                     actionContentContainer.setVisibility(View.GONE);
+                    actionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
                 }
                 else {
                     actionContentContainer.setVisibility(View.VISIBLE);
+                    actionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_up_black);
                 }
+
+                diagnoseContentContainer.setVisibility(View.GONE);
+                diagnoseTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+                resultContentContainer.setVisibility(View.GONE);
+                resultTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+                prescriptionContentContainer.setVisibility(View.GONE);
+                prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
             }
         });
 
         prescriptionTitleContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                prescriptionTitleIcon.setImageResource(android.R.color.transparent);
                 if(prescriptionContentContainer.getVisibility() == View.VISIBLE) {
                     prescriptionContentContainer.setVisibility(View.GONE);
+                    prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
                 }
                 else {
                     prescriptionContentContainer.setVisibility(View.VISIBLE);
+                    prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_up_black);
                 }
+
+                diagnoseContentContainer.setVisibility(View.GONE);
+                diagnoseTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+                resultContentContainer.setVisibility(View.GONE);
+                resultTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
+                actionContentContainer.setVisibility(View.GONE);
+                actionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
             }
         });
     }
@@ -211,15 +269,14 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
 
                     assert modelResultPrescriptionRecordList != null;
                     if(modelResultPrescriptionRecordList.getResult().isStatus()) {
-                        messageContainer.setVisibility(View.GONE);
-                        medicalRecordDetailRecyclerView.setVisibility(View.VISIBLE);
-
-                        medicalRecordDetailRecyclerView.setLayoutManager(new LinearLayoutManager(MedicalRecordDetailActivity.this));
-                        medicalRecordDetailRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                        prescriptionRecordLists.clear();
-
                         int size = modelResultPrescriptionRecordList.getResult().getData().size();
                         if(size > 0) {
+                            messageContainer.setVisibility(View.GONE);
+                            medicalRecordDetailRecyclerView.setVisibility(View.VISIBLE);
+
+                            medicalRecordDetailRecyclerView.setLayoutManager(new LinearLayoutManager(MedicalRecordDetailActivity.this));
+                            medicalRecordDetailRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                            prescriptionRecordLists.clear();
                             for(int i = 0; i < size; i++) {
                                 String recordId = modelResultPrescriptionRecordList.getResult().getData().get(i).getRecordId();
                                 String prescriptionName = modelResultPrescriptionRecordList.getResult().getData().get(i).getNamaObat();
