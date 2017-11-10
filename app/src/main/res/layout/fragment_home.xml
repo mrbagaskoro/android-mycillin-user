@@ -255,7 +255,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:id="@+id/homeFragment_ll_ambulanceService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -357,7 +357,7 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
         </LinearLayout>
 
