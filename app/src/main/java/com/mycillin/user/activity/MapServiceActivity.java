@@ -32,7 +32,7 @@ import com.orhanobut.dialogplus.ViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ServiceBookDoctorActivity extends AppCompatActivity {
+public class MapServiceActivity extends AppCompatActivity {
 
     @BindView(R.id.serviceBookDoctorActivity_toolbar)
     Toolbar toolbar;
@@ -56,7 +56,7 @@ public class ServiceBookDoctorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_book_doctor);
+        setContentView(R.layout.activity_map_service);
         ButterKnife.bind(this);
 
         toolbar.setTitle(getResources().getString(R.string.servicesActivity_bookDoctorTitle));
@@ -80,7 +80,7 @@ public class ServiceBookDoctorActivity extends AppCompatActivity {
 
             @Override
             public void onError(Status status) {
-                Toast.makeText(ServiceBookDoctorActivity.this,"An error occurred: " + status, Toast.LENGTH_LONG ).show();
+                Toast.makeText(MapServiceActivity.this,"An error occurred: " + status, Toast.LENGTH_LONG ).show();
             }
         });
 
@@ -93,14 +93,14 @@ public class ServiceBookDoctorActivity extends AppCompatActivity {
         filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ServiceBookDoctorActivity.this, FilterDoctorActivity.class);
+                Intent intent = new Intent(MapServiceActivity.this, FilterDoctorActivity.class);
                 startActivity(intent);
             }
         });
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ServiceBookDoctorActivity.this, MedicalPersonnelActivity.class);
+                Intent intent = new Intent(MapServiceActivity.this, MedicalPersonnelActivity.class);
                 startActivity(intent);
             }
         });
@@ -113,7 +113,7 @@ public class ServiceBookDoctorActivity extends AppCompatActivity {
     }
 
     public void showFilterDialog() {
-        final DialogPlus dialogPlus = DialogPlus.newDialog(ServiceBookDoctorActivity.this)
+        final DialogPlus dialogPlus = DialogPlus.newDialog(MapServiceActivity.this)
                 .setContentHolder(new ViewHolder(R.layout.dialog_filter_book_doctor_layout))
                 .create();
         dialogPlus.show();

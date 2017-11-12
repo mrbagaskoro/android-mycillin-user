@@ -19,8 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mycillin.user.R;
 import com.mycillin.user.activity.ChatActivity;
-import com.mycillin.user.activity.ServiceBookDoctorActivity;
-import com.mycillin.user.activity.ServiceConsultationActivity;
+import com.mycillin.user.activity.MapServiceActivity;
 import com.mycillin.user.activity.ServiceMedicalReservationActivity;
 import com.mycillin.user.adapter.ConsultationMenuAdapter;
 import com.mycillin.user.database.Banner;
@@ -136,7 +135,7 @@ public class HomeFragment extends Fragment {
         goToBookDoctorService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ServiceBookDoctorActivity.class);
+                Intent intent = new Intent(getContext(), MapServiceActivity.class);
                 startActivity(intent);
             }
         });
