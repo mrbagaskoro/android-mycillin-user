@@ -6,26 +6,25 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mycillin.user.R;
-import com.mycillin.user.activity.AccountActivity;
-import com.mycillin.user.activity.AccountDetailActivity;
+import com.mycillin.user.activity.ChatActivity;
 import com.mycillin.user.activity.ServiceBookDoctorActivity;
 import com.mycillin.user.activity.ServiceConsultationActivity;
 import com.mycillin.user.activity.ServiceMedicalReservationActivity;
-import com.mycillin.user.adapter.AccountAdapter;
+import com.mycillin.user.adapter.ConsultationMenuAdapter;
 import com.mycillin.user.database.Banner;
-import com.mycillin.user.list.AccountList;
+import com.mycillin.user.list.ConsultationMenuList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
@@ -33,7 +32,6 @@ import com.mycillin.user.util.DaoDatabaseHelper;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.RecyclerTouchListener;
 import com.mycillin.user.util.SessionManager;
-import com.orhanobut.dialogplus.DialogPlus;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
@@ -63,6 +61,16 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.homeFragment_cv_carouselView)
     CarouselView carouselView;
 
+    @BindView(R.id.homeFragment_ll_mainContainer)
+    LinearLayout mainContainer;
+    @BindView(R.id.homeFragment_ll_consultationContainer)
+    LinearLayout consultationContainer;
+    @BindView(R.id.serviceConsultationActivity_ib_backToMainBtn)
+    ImageButton backToMainButton;
+
+    @BindView(R.id.serviceConsultationActivity_rv_recyclerView)
+    RecyclerView consultationMenuRecyclerView;
+
     @BindView(R.id.homeFragment_ll_bookADoctorService)
     LinearLayout goToBookDoctorService;
     @BindView(R.id.homeFragment_ll_medicalReservationService)
@@ -76,6 +84,19 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<String> items = new ArrayList<>();
     private ProgressBarHandler progressBarHandler;
+
+    private List<ConsultationMenuList> consultationMenuLists = new ArrayList<>();
+    private ConsultationMenuAdapter consultationMenuAdapter;
+
+    public static final String KEY_ID_MENU_01 = "KEY_ID_MENU_01";
+    public static final String KEY_ID_MENU_02 = "KEY_ID_MENU_02";
+    public static final String KEY_ID_MENU_03 = "KEY_ID_MENU_03";
+    public static final String KEY_ID_MENU_04 = "KEY_ID_MENU_04";
+    public static final String KEY_ID_MENU_05 = "KEY_ID_MENU_05";
+    public static final String KEY_ID_MENU_06 = "KEY_ID_MENU_06";
+    public static final String KEY_ID_MENU_07 = "KEY_ID_MENU_07";
+    public static final String KEY_ID_MENU_08 = "KEY_ID_MENU_08";
+    public static final String KEY_ID_MENU_09 = "KEY_ID_MENU_09";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -93,6 +114,9 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         progressBarHandler = new ProgressBarHandler(getContext());
+
+        mainContainer.setVisibility(View.VISIBLE);
+        consultationContainer.setVisibility(View.GONE);
 
         final SpinnerDialog spinnerDialog = new SpinnerDialog(getActivity(), items, getString(R.string.servicesActivity_dropdownTitle), R.style.DialogAnimations_SmileWindow);
         spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
@@ -128,8 +152,9 @@ public class HomeFragment extends Fragment {
         goToConsultationService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ServiceConsultationActivity.class);
-                startActivity(intent);
+                mainContainer.setVisibility(View.GONE);
+                consultationContainer.setVisibility(View.VISIBLE);
+                getConsultationMenu();
             }
         });
 
@@ -252,6 +277,49 @@ public class HomeFragment extends Fragment {
                         .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit,
                                 R.anim.activity_close_enter, R.anim.activity_close_exit)
                         .show(imageLinks.get(position));
+            }
+        });
+    }
+
+    private void getConsultationMenu() {
+        consultationMenuRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        consultationMenuRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        consultationMenuLists.clear();
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_01, getString(R.string.serviceConsultationActivity_menu1Title)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_02, getString(R.string.serviceConsultationActivity_menu2Title)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_03, getString(R.string.serviceConsultationActivity_menu3Title)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_04, getString(R.string.serviceConsultationActivity_menu4Title)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_05, getString(R.string.serviceConsultationActivity_menu5Title)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_06, getString(R.string.serviceConsultationActivity_menu6Title)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_07, getString(R.string.serviceConsultationActivity_menu7Title)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_08, getString(R.string.serviceConsultationActivity_menu8Title)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_09, getString(R.string.serviceConsultationActivity_menu9Title)));
+
+        consultationMenuAdapter = new ConsultationMenuAdapter(consultationMenuLists);
+        consultationMenuRecyclerView.setAdapter(consultationMenuAdapter);
+        consultationMenuAdapter.notifyDataSetChanged();
+
+        consultationMenuRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), consultationMenuRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                ConsultationMenuList list = consultationMenuLists.get(position);
+
+                Intent intent = new Intent(getContext(), ChatActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+        backToMainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainContainer.setVisibility(View.VISIBLE);
+                consultationContainer.setVisibility(View.GONE);
             }
         });
     }
