@@ -41,10 +41,10 @@ public class MedicalRecordAdapter extends RecyclerView.Adapter<MedicalRecordAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final MedicalRecordList resultList = medicalRecordLists.get(position);
-        holder.day.setText(resultList.getCreatedDay());
-        holder.month.setText(resultList.getCreatedMonth());
-        holder.year.setText(resultList.getCreatedYear());
-        holder.doctorName.setText(resultList.getPartnerId());
+        holder.day.setText("null");
+        holder.month.setText("null");
+        holder.year.setText("null");
+        holder.doctorName.setText(resultList.getPartnerName());
     }
 
     @Override

@@ -5,19 +5,11 @@ package com.mycillin.user.list;
  */
 
 public class MedicalRecordList {
-    private String createdBy;
-    private String createdDate;
-    private String createdDay;
-    private String createdMonth;
-    private String createdYear;
-    private String updatedBy;
-    private String updatedDate;
-    private String bookingId;
+    private String partnerId;
+    private String partnerName;
     private String recordId;
     private String userId;
-    private String relationId;
-    private String partnerId;
-    private String serviceTypeId;
+    private String serviceTypeDesc;
     private String bodyTemperature;
     private String bloodSugarLevel;
     private String cholesterolLevel;
@@ -27,30 +19,19 @@ public class MedicalRecordList {
     private String diagnose;
     private String prescriptionStatus;
     private String prescriptionId;
-    private String prescriptionTypeId;
-    private String prescriptionPhoto;
+    private String prescriptionTypeDesc;
 
-    public MedicalRecordList(String createdBy, String createdDate, String createdDay, String createdMonth,
-                             String createdYear, String updatedBy, String updatedDate, String bookingId,
-                             String recordId, String userId, String relationId, String partnerId,
-                             String serviceTypeId, String bodyTemperature, String bloodSugarLevel,
+    public MedicalRecordList(String partnerId, String partnerName, String recordId, String userId,
+                             String serviceTypeDesc, String bodyTemperature, String bloodSugarLevel,
                              String cholesterolLevel, String bloodPressUpper, String bloodPressLower,
                              String patientCondition, String diagnose, String prescriptionStatus,
-                             String prescriptionId, String prescriptionTypeId, String prescriptionPhoto){
+                             String prescriptionId, String prescriptionTypeDesc){
         
-        this.createdBy = createdBy;
-        this.createdDate = createdDate;
-        this.createdDay = createdDay;
-        this.createdMonth = createdMonth;
-        this.createdYear = createdYear;
-        this.updatedBy = updatedBy;
-        this.updatedDate = updatedDate;
-        this.bookingId = bookingId;
+        this.partnerId = partnerId;
+        this.partnerName = partnerName;
         this.recordId = recordId;
         this.userId = userId;
-        this.relationId = relationId;
-        this.partnerId = partnerId;
-        this.serviceTypeId = serviceTypeId;
+        this.serviceTypeDesc = serviceTypeDesc;
         this.bodyTemperature = bodyTemperature;
         this.bloodSugarLevel = bloodSugarLevel;
         this.cholesterolLevel = cholesterolLevel;
@@ -60,72 +41,23 @@ public class MedicalRecordList {
         this.diagnose = diagnose;
         this.prescriptionStatus = prescriptionStatus;
         this.prescriptionId = prescriptionId;
-        this.prescriptionTypeId = prescriptionTypeId;
-        this.prescriptionPhoto = prescriptionPhoto;
+        this.prescriptionTypeDesc = prescriptionTypeDesc;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getPartnerId() {
+        return partnerId;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setPartnerId(String partnerId) {
+        this.partnerId = partnerId;
     }
 
-    public String getCreatedDate() {
-        return createdDate;
+    public String getPartnerName() {
+        return partnerName;
     }
 
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getCreatedDay() {
-        return createdDay;
-    }
-
-    public void setCreatedDay(String createdDay) {
-        this.createdDay = createdDay;
-    }
-
-    public String getCreatedMonth() {
-        return createdMonth;
-    }
-
-    public void setCreatedMonth(String createdMonth) {
-        this.createdMonth = createdMonth;
-    }
-
-    public String getCreatedYear() {
-        return createdYear;
-    }
-
-    public void setCreatedYear(String createdYear) {
-        this.createdYear = createdYear;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public String getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(String updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public String getBookingId() {
-        return bookingId;
-    }
-
-    public void setBookingId(String bookingId) {
-        this.bookingId = bookingId;
+    public void setPartnerName(String partnerName) {
+        this.partnerName = partnerName;
     }
 
     public String getRecordId() {
@@ -144,28 +76,12 @@ public class MedicalRecordList {
         this.userId = userId;
     }
 
-    public String getRelationId() {
-        return relationId;
+    public String getServiceTypeDesc() {
+        return serviceTypeDesc;
     }
 
-    public void setRelationId(String relationId) {
-        this.relationId = relationId;
-    }
-
-    public String getPartnerId() {
-        return partnerId;
-    }
-
-    public void setPartnerId(String partnerId) {
-        this.partnerId = partnerId;
-    }
-
-    public String getServiceTypeId() {
-        return serviceTypeId;
-    }
-
-    public void setServiceTypeId(String serviceTypeId) {
-        this.serviceTypeId = serviceTypeId;
+    public void setServiceTypeDesc(String serviceTypeDesc) {
+        this.serviceTypeDesc = serviceTypeDesc;
     }
 
     public String getBodyTemperature() {
@@ -240,19 +156,11 @@ public class MedicalRecordList {
         this.prescriptionId = prescriptionId;
     }
 
-    public String getPrescriptionTypeId() {
-        return prescriptionTypeId;
+    public String getPrescriptionTypeDesc() {
+        return prescriptionTypeDesc;
     }
 
-    public void setPrescriptionTypeId(String prescriptionTypeId) {
-        this.prescriptionTypeId = prescriptionTypeId;
-    }
-
-    public String getPrescriptionPhoto() {
-        return prescriptionPhoto;
-    }
-
-    public void setPrescriptionPhoto(String prescriptionPhoto) {
-        this.prescriptionPhoto = prescriptionPhoto;
+    public void setPrescriptionTypeDesc(String prescriptionTypeDesc) {
+        this.prescriptionTypeDesc = prescriptionTypeDesc;
     }
 }

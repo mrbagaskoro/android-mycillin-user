@@ -115,16 +115,11 @@ public class MedicalRecordFragment extends Fragment {
                 MedicalRecordList list = medicalRecordLists.get(position);
 
                 HashMap<String, String> params = new HashMap<>();
-                params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_BY, list.getCreatedBy());
-                params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_DATE, list.getCreatedDate());
-                params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_BY, list.getUpdatedBy());
-                params.put(MedicalRecordDetailActivity.KEY_PARAM_UPDATED_DATE, list.getUpdatedDate());
-                params.put(MedicalRecordDetailActivity.KEY_PARAM_BOOKING_ID, list.getBookingId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_PARTNER_ID, list.getPartnerId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_PARTNER_NAME, list.getPartnerName());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_RECORD_ID, list.getRecordId());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_USER_ID, list.getUserId());
-                params.put(MedicalRecordDetailActivity.KEY_PARAM_RELATION_ID, list.getRelationId());
-                params.put(MedicalRecordDetailActivity.KEY_PARAM_PARTNET_ID, list.getPartnerId());
-                params.put(MedicalRecordDetailActivity.KEY_PARAM_SERVICE_TYPE_ID, list.getServiceTypeId());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_SERVICE_TYPE_DESC, list.getServiceTypeDesc());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_BODY_TEMPERATURE, list.getBodyTemperature());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_BLOOD_SUGAR_LEVEL, list.getBloodSugarLevel());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_CHOLESTEROL_LEVEL, list.getCholesterolLevel());
@@ -134,8 +129,7 @@ public class MedicalRecordFragment extends Fragment {
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_DIAGNOSE, list.getDiagnose());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_STATUS, list.getPrescriptionStatus());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_ID, list.getPrescriptionId());
-                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_TYPE_ID, list.getPrescriptionTypeId());
-                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_PHOTO, list.getPrescriptionPhoto());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_TYPE_DESC, list.getServiceTypeDesc());
 
                 Intent intent = new Intent(getContext(), MedicalRecordDetailActivity.class);
                 intent.putExtra(MedicalRecordDetailActivity.EXTRA_MEDICAL_RECORD_DETAIL, params);
@@ -185,16 +179,11 @@ public class MedicalRecordFragment extends Fragment {
                             medicalRecordLists.clear();
 
                             for(int i = 0; i < size; i++) {
-                                String medicalRecordCreatedBy = modelResultMedicalRecordList.getResult().getData().get(i).getCreatedBy();
-                                String medicalRecordCreatedDate = modelResultMedicalRecordList.getResult().getData().get(i).getCreatedDate();
-                                String medicalRecordUpdatedBy = modelResultMedicalRecordList.getResult().getData().get(i).getUpdatedBy();
-                                String medicalRecordUpdatedDate = modelResultMedicalRecordList.getResult().getData().get(i).getUpdatedDate();
-                                String medicalRecordBookingId = modelResultMedicalRecordList.getResult().getData().get(i).getBookingId();
+                                String medicalRecordPartnerId = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerId();
+                                String medicalRecordPartnerName = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerName();
                                 String medicalRecordRecordId = modelResultMedicalRecordList.getResult().getData().get(i).getRecordId();
                                 String medicalRecordUserId = modelResultMedicalRecordList.getResult().getData().get(i).getUserId();
-                                String medicalRecordRelationId = modelResultMedicalRecordList.getResult().getData().get(i).getRelationId();
-                                String medicalRecordPartnerId = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerId();
-                                String medicalRecordServiceTypeId = modelResultMedicalRecordList.getResult().getData().get(i).getServiceTypeId();
+                                String medicalRecordServiceTypeDesc = modelResultMedicalRecordList.getResult().getData().get(i).getServiceTypeDesc();
                                 String medicalRecordBodyTemperature = modelResultMedicalRecordList.getResult().getData().get(i).getBodyTemperature();
                                 String medicalRecordBloodSugarLevel = modelResultMedicalRecordList.getResult().getData().get(i).getBloodSugarLevel();
                                 String medicalRecordCholesterolLevel = modelResultMedicalRecordList.getResult().getData().get(i).getCholesterolLevel();
@@ -204,23 +193,15 @@ public class MedicalRecordFragment extends Fragment {
                                 String medicalRecordDiagnose = modelResultMedicalRecordList.getResult().getData().get(i).getDiagnosa();
                                 String medicalRecordPrescriptionStatus = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionStatus();
                                 String medicalRecordPrescriptionId = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionId();
-                                String medicalRecordPrescriptionTypeId = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionTypeId();
-                                String medicalRecordPrescriptionPhoto = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionPhoto();
+                                String medicalRecordPrescriptionTypeDesc = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionTypeDesc();
 
-                                DateFormatter dateFormatter = new DateFormatter(getActivity(), medicalRecordCreatedDate);
-                                medicalRecordLists.add(new MedicalRecordList(
-                                                medicalRecordCreatedBy, medicalRecordCreatedDate,
-                                                dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_DD).toString(),
-                                                dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_MM).toString(),
-                                                dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_YY).toString(),
-                                                medicalRecordUpdatedBy, medicalRecordUpdatedDate, medicalRecordBookingId,
-                                                medicalRecordRecordId, medicalRecordUserId, medicalRecordRelationId,
-                                                medicalRecordPartnerId, medicalRecordServiceTypeId, medicalRecordBodyTemperature,
-                                                medicalRecordBloodSugarLevel, medicalRecordCholesterolLevel,
-                                                medicalRecordBloodPressUpper, medicalRecordBloodPressLower,
-                                                medicalRecordPatientCondition, medicalRecordDiagnose, medicalRecordPrescriptionStatus,
-                                                medicalRecordPrescriptionId, medicalRecordPrescriptionTypeId, medicalRecordPrescriptionPhoto
-                                        )
+                                //DateFormatter dateFormatter = new DateFormatter(getActivity(), medicalRecordCreatedDate);
+                                medicalRecordLists.add(new MedicalRecordList(medicalRecordPartnerId, medicalRecordPartnerName,
+                                        medicalRecordRecordId, medicalRecordUserId, medicalRecordServiceTypeDesc,
+                                        medicalRecordBodyTemperature, medicalRecordBloodSugarLevel, medicalRecordCholesterolLevel,
+                                        medicalRecordBloodPressUpper, medicalRecordBloodPressLower, medicalRecordPatientCondition,
+                                        medicalRecordDiagnose, medicalRecordPrescriptionStatus, medicalRecordPrescriptionId,
+                                        medicalRecordPrescriptionTypeDesc)
                                 );
                             }
 

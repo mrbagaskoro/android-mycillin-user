@@ -39,16 +39,12 @@ import retrofit2.Response;
 public class MedicalRecordDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_MEDICAL_RECORD_DETAIL = "EXTRA_MEDICAL_RECORD_DETAIL";
-    public static final String KEY_PARAM_CREATED_BY = "KEY_PARAM_CREATED_BY";
-    public static final String KEY_PARAM_CREATED_DATE = "KEY_PARAM_CREATED_DATE";
-    public static final String KEY_PARAM_UPDATED_BY = "KEY_PARAM_UPDATED_BY";
-    public static final String KEY_PARAM_UPDATED_DATE = "KEY_PARAM_UPDATED_DATE";
-    public static final String KEY_PARAM_BOOKING_ID = "KEY_PARAM_BOOKING_ID";
+
+    public static final String KEY_PARAM_PARTNER_ID = "KEY_PARAM_PARTNER_ID";
+    public static final String KEY_PARAM_PARTNER_NAME = "KEY_PARAM_PARTNER_NAME";
     public static final String KEY_PARAM_RECORD_ID = "KEY_PARAM_RECORD_ID";
     public static final String KEY_PARAM_USER_ID = "KEY_PARAM_USER_ID";
-    public static final String KEY_PARAM_RELATION_ID = "KEY_PARAM_RELATION_ID";
-    public static final String KEY_PARAM_PARTNET_ID = "KEY_PARAM_PARTNET_ID";
-    public static final String KEY_PARAM_SERVICE_TYPE_ID = "KEY_PARAM_SERVICE_TYPE_ID";
+    public static final String KEY_PARAM_SERVICE_TYPE_DESC = "KEY_PARAM_SERVICE_TYPE_DESC";
     public static final String KEY_PARAM_BODY_TEMPERATURE = "KEY_PARAM_BODY_TEMPERATURE";
     public static final String KEY_PARAM_BLOOD_SUGAR_LEVEL = "KEY_PARAM_BLOOD_SUGAR_LEVEL";
     public static final String KEY_PARAM_CHOLESTEROL_LEVEL = "KEY_PARAM_CHOLESTEROL_LEVEL";
@@ -58,8 +54,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
     public static final String KEY_PARAM_DIAGNOSE = "KEY_PARAM_DIAGNOSE";
     public static final String KEY_PARAM_PRESCRIPTION_STATUS = "KEY_PARAM_PRESCRIPTION_STATUS";
     public static final String KEY_PARAM_PRESCRIPTION_ID = "KEY_PARAM_PRESCRIPTION_ID";
-    public static final String KEY_PARAM_PRESCRIPTION_TYPE_ID = "KEY_PARAM_PRESCRIPTION_TYPE_ID";
-    public static final String KEY_PARAM_PRESCRIPTION_PHOTO = "KEY_PARAM_PRESCRIPTION_PHOTO";
+    public static final String KEY_PARAM_PRESCRIPTION_TYPE_DESC = "KEY_PARAM_PRESCRIPTION_TYPE_DESC";
 
     @BindView(R.id.medicalRecordDetailActivity_toolbar)
     Toolbar toolbar;
@@ -134,8 +129,8 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
 
         HashMap<String, String> medicalRecordDetailData = (HashMap<String, String>) getIntent().getSerializableExtra(EXTRA_MEDICAL_RECORD_DETAIL);
 
-        dateTxt.setText(medicalRecordDetailData.get(KEY_PARAM_CREATED_DATE));
-        doctorTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PARTNET_ID));
+        dateTxt.setText("null");
+        doctorTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PARTNER_NAME));
         diagnoseTxt.setText(medicalRecordDetailData.get(KEY_PARAM_DIAGNOSE));
         systoleTxt.setText(medicalRecordDetailData.get(KEY_PARAM_BLOOD_PRESS_UPPER));
         diastoleTxt.setText(medicalRecordDetailData.get(KEY_PARAM_BLOOD_PRESS_LOWER));
@@ -143,7 +138,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
         bloodSugarTxt.setText(medicalRecordDetailData.get(KEY_PARAM_BLOOD_SUGAR_LEVEL));
         cholesterolTxt.setText(medicalRecordDetailData.get(KEY_PARAM_CHOLESTEROL_LEVEL));
         conditionTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PATIENT_CONDITION));
-        //actionTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PARTNET_ID));
+        //actionTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PARTNER_ID));
 
         accordionMenu();
         getPrescriptionList(medicalRecordDetailData.get(KEY_PARAM_PRESCRIPTION_ID));

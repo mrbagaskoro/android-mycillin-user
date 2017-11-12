@@ -9,36 +9,22 @@ import com.google.gson.annotations.SerializedName;
 
 public class ModelDataMedicalRecordList {
 
-    @SerializedName("created_by")
+
+    @SerializedName("partner_id")
     @Expose
-    private String createdBy;
-    @SerializedName("created_date")
+    private String partnerId;
+    @SerializedName("partner_name")
     @Expose
-    private String createdDate;
-    @SerializedName("updated_by")
-    @Expose
-    private String updatedBy;
-    @SerializedName("updated_date")
-    @Expose
-    private String updatedDate;
-    @SerializedName("booking_id")
-    @Expose
-    private String bookingId;
+    private String partnerName;
     @SerializedName("record_id")
     @Expose
     private String recordId;
     @SerializedName("user_id")
     @Expose
     private String userId;
-    @SerializedName("relation_id")
+    @SerializedName("service_type_desc")
     @Expose
-    private String relationId;
-    @SerializedName("partner_id")
-    @Expose
-    private String partnerId;
-    @SerializedName("service_type_id")
-    @Expose
-    private String serviceTypeId;
+    private String serviceTypeDesc;
     @SerializedName("body_temperature")
     @Expose
     private String bodyTemperature;
@@ -66,51 +52,24 @@ public class ModelDataMedicalRecordList {
     @SerializedName("prescription_id")
     @Expose
     private String prescriptionId;
-    @SerializedName("prescription_type_id")
+    @SerializedName("prescription_type_desc")
     @Expose
-    private String prescriptionTypeId;
-    @SerializedName("prescription_photo")
-    @Expose
-    private String prescriptionPhoto;
+    private String prescriptionTypeDesc;
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getPartnerId() {
+        return partnerId;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setPartnerId(String partnerId) {
+        this.partnerId = partnerId;
     }
 
-    public String getCreatedDate() {
-        return createdDate;
+    public String getPartnerName() {
+        return partnerName;
     }
 
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public String getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(String updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public String getBookingId() {
-        return bookingId;
-    }
-
-    public void setBookingId(String bookingId) {
-        this.bookingId = bookingId;
+    public void setPartnerName(String partnerName) {
+        this.partnerName = partnerName;
     }
 
     public String getRecordId() {
@@ -129,28 +88,12 @@ public class ModelDataMedicalRecordList {
         this.userId = userId;
     }
 
-    public String getRelationId() {
-        return relationId;
+    public String getServiceTypeDesc() {
+        return serviceTypeDesc;
     }
 
-    public void setRelationId(String relationId) {
-        this.relationId = relationId;
-    }
-
-    public String getPartnerId() {
-        return partnerId;
-    }
-
-    public void setPartnerId(String partnerId) {
-        this.partnerId = partnerId;
-    }
-
-    public String getServiceTypeId() {
-        return serviceTypeId;
-    }
-
-    public void setServiceTypeId(String serviceTypeId) {
-        this.serviceTypeId = serviceTypeId;
+    public void setServiceTypeDesc(String serviceTypeDesc) {
+        this.serviceTypeDesc = serviceTypeDesc;
     }
 
     public String getBodyTemperature() {
@@ -225,19 +168,11 @@ public class ModelDataMedicalRecordList {
         this.prescriptionId = prescriptionId;
     }
 
-    public String getPrescriptionTypeId() {
-        return prescriptionTypeId;
+    public String getPrescriptionTypeDesc() {
+        return prescriptionTypeDesc;
     }
 
-    public void setPrescriptionTypeId(String prescriptionTypeId) {
-        this.prescriptionTypeId = prescriptionTypeId;
-    }
-
-    public String getPrescriptionPhoto() {
-        return prescriptionPhoto;
-    }
-
-    public void setPrescriptionPhoto(String prescriptionPhoto) {
-        this.prescriptionPhoto = prescriptionPhoto;
+    public void setPrescriptionTypeDesc(String prescriptionTypeDesc) {
+        this.prescriptionTypeDesc = prescriptionTypeDesc;
     }
 }
