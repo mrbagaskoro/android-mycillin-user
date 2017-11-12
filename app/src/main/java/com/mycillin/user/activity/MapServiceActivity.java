@@ -53,13 +53,22 @@ public class MapServiceActivity extends AppCompatActivity {
     private GoogleMap gMap;
     private LocationManager locationManager;
 
+    public static final String EXTRA_MAP_SERVICE = "EXTRA_MAP_SERVICE";
+    public static final String KEY_BOOK_DOCTOR = "KEY_BOOK_DOCTOR";
+    public static final String KEY_MEDICAL_RESERVATION = "KEY_MEDICAL_RESERVATION";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_service);
         ButterKnife.bind(this);
 
-        toolbar.setTitle(getResources().getString(R.string.servicesActivity_bookDoctorTitle));
+        if(getIntent().getStringExtra(EXTRA_MAP_SERVICE).equals(KEY_BOOK_DOCTOR)) {
+            toolbar.setTitle(getResources().getString(R.string.servicesActivity_bookDoctorTitle));
+        }
+        else {
+            toolbar.setTitle(getResources().getString(R.string.serviceActivity_medicalReservationTitle));
+        }
 
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.serviceBookDoctorActivity_fr_mapFragment);
         getLocation(mapFragment);

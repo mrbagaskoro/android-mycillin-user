@@ -20,7 +20,6 @@ import com.bumptech.glide.Glide;
 import com.mycillin.user.R;
 import com.mycillin.user.activity.ChatActivity;
 import com.mycillin.user.activity.MapServiceActivity;
-import com.mycillin.user.activity.ServiceMedicalReservationActivity;
 import com.mycillin.user.adapter.ConsultationMenuAdapter;
 import com.mycillin.user.database.Banner;
 import com.mycillin.user.list.ConsultationMenuList;
@@ -136,6 +135,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), MapServiceActivity.class);
+                intent.putExtra(MapServiceActivity.EXTRA_MAP_SERVICE, MapServiceActivity.KEY_BOOK_DOCTOR);
                 startActivity(intent);
             }
         });
@@ -143,7 +143,8 @@ public class HomeFragment extends Fragment {
         goToMedicalReservationService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ServiceMedicalReservationActivity.class);
+                Intent intent = new Intent(getContext(), MapServiceActivity.class);
+                intent.putExtra(MapServiceActivity.EXTRA_MAP_SERVICE, MapServiceActivity.KEY_MEDICAL_RESERVATION);
                 startActivity(intent);
             }
         });
