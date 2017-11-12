@@ -19,6 +19,7 @@ import com.mycillin.user.R;
 import com.mycillin.user.activity.AccountActivity;
 import com.mycillin.user.activity.AccountDetailActivity;
 import com.mycillin.user.activity.ServiceBookDoctorActivity;
+import com.mycillin.user.activity.ServiceConsultationActivity;
 import com.mycillin.user.activity.ServiceMedicalReservationActivity;
 import com.mycillin.user.adapter.AccountAdapter;
 import com.mycillin.user.database.Banner;
@@ -64,10 +65,10 @@ public class HomeFragment extends Fragment {
     LinearLayout goToMedicalReservationService;
     @BindView(R.id.homeFragment_ll_consultationService)
     LinearLayout goToConsultationService;
-    @BindView(R.id.homeFragment_ll_ambulanceService)
+    /*@BindView(R.id.homeFragment_ll_ambulanceService)
     LinearLayout goToAmbulanceService;
     @BindView(R.id.homeFragment_ll_redeemPrescriptionService)
-    LinearLayout goToRedeemPrescriptionService;
+    LinearLayout goToRedeemPrescriptionService;*/
 
     private ArrayList<String> items = new ArrayList<>();
     private ProgressBarHandler progressBarHandler;
@@ -116,6 +117,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ServiceMedicalReservationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        goToConsultationService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ServiceConsultationActivity.class);
                 startActivity(intent);
             }
         });

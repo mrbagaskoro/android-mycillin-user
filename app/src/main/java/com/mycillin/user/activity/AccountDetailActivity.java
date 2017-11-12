@@ -98,7 +98,6 @@ public class AccountDetailActivity extends AppCompatActivity {
     @BindView(R.id.accountDetailActivity_cb_isAgree)
     CheckBox isAgreeCBox;
 
-
     private List<InsuranceList> insuranceLists = new ArrayList<>();
     private InsuranceAdapter insuranceAdapter;
     private List<PaymentList> paymentLists = new ArrayList<>();

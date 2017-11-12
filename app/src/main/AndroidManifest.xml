@@ -92,7 +92,8 @@
         <activity android:name=".activity.TermsAndPrivacyPolicyActivity" />
         <activity android:name=".activity.ChangePasswordActivity" />
         <activity android:name=".activity.CancelActivity" />
-        <activity android:name=".activity.FilterDoctorActivity"></activity>
+        <activity android:name=".activity.FilterDoctorActivity" />
+        <activity android:name=".activity.ServiceConsultationActivity"></activity>
     </application>
 
 </manifest>
