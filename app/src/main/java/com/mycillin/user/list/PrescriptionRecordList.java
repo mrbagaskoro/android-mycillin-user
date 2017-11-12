@@ -5,29 +5,37 @@ package com.mycillin.user.list;
  */
 
 public class PrescriptionRecordList {
-    private String recordId;
+    private String createdDate;
+    private String prescriptionNo;
     private String prescriptionName;
     private String prescriptionQty;
-    private String unitId;
-    private String dosageId;
-    private String instructionId;
+    private String prescriptionUnitDesc;
+    private String dosageDesc;
 
-    public PrescriptionRecordList(String recordId, String prescriptionName,
-                       String prescriptionQty, String unitId, String dosageId, String instructionId) {
-        this.recordId = recordId;
+    public PrescriptionRecordList(String createdDate, String prescriptionNo, String prescriptionName,
+                       String prescriptionQty, String prescriptionUnitDesc, String dosageDesc) {
+        this.createdDate = createdDate;
+        this.prescriptionNo = prescriptionNo;
         this.prescriptionName = prescriptionName;
         this.prescriptionQty = prescriptionQty;
-        this.unitId = unitId;
-        this.dosageId = dosageId;
-        this.instructionId = instructionId;
+        this.prescriptionUnitDesc = prescriptionUnitDesc;
+        this.dosageDesc = dosageDesc;
     }
 
-    public String getRecordId() {
-        return recordId;
+    public String getCreatedDate() {
+        return createdDate;
     }
 
-    public void setRecordId(String recordId) {
-        this.recordId = recordId;
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getPrescriptionNo() {
+        return prescriptionNo;
+    }
+
+    public void setPrescriptionNo(String prescriptionNo) {
+        this.prescriptionNo = prescriptionNo;
     }
 
     public String getPrescriptionName() {
@@ -46,27 +54,19 @@ public class PrescriptionRecordList {
         this.prescriptionQty = prescriptionQty;
     }
 
-    public String getUnitId() {
-        return unitId;
+    public String getPrescriptionUnitDesc() {
+        return prescriptionUnitDesc;
     }
 
-    public void setUnitId(String unitId) {
-        this.unitId = unitId;
+    public void setPrescriptionUnitDesc(String prescriptionUnitDesc) {
+        this.prescriptionUnitDesc = prescriptionUnitDesc;
     }
 
-    public String getDosageId() {
-        return dosageId;
+    public String getDosageDesc() {
+        return dosageDesc;
     }
 
-    public void setDosageId(String dosageId) {
-        this.dosageId = dosageId;
-    }
-
-    public String getInstructionId() {
-        return instructionId;
-    }
-
-    public void setInstructionId(String instructionId) {
-        this.instructionId = instructionId;
+    public void setDosageDesc(String dosageDesc) {
+        this.dosageDesc = dosageDesc;
     }
 }

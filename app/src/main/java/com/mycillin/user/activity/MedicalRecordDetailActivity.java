@@ -273,15 +273,15 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
                             medicalRecordDetailRecyclerView.setItemAnimator(new DefaultItemAnimator());
                             prescriptionRecordLists.clear();
                             for(int i = 0; i < size; i++) {
-                                String recordId = modelResultPrescriptionRecordList.getResult().getData().get(i).getRecordId();
-                                String prescriptionName = modelResultPrescriptionRecordList.getResult().getData().get(i).getNamaObat();
-                                String prescriptionQty = modelResultPrescriptionRecordList.getResult().getData().get(i).getJumlahObat();
-                                String unitId = modelResultPrescriptionRecordList.getResult().getData().get(i).getSatuanId();
-                                String dosageId = modelResultPrescriptionRecordList.getResult().getData().get(i).getDosageId();
-                                String instructionId = modelResultPrescriptionRecordList.getResult().getData().get(i).getUseInstructionId();
+                                String createdDate = modelResultPrescriptionRecordList.getResult().getData().get(i).getCreatedDate();
+                                String prescriptionNo = modelResultPrescriptionRecordList.getResult().getData().get(i).getPrescriptionNo();
+                                String prescriptionName = modelResultPrescriptionRecordList.getResult().getData().get(i).getPrescriptionName();
+                                String prescriptionQty = modelResultPrescriptionRecordList.getResult().getData().get(i).getPrescriptionQty();
+                                String unitDesc = modelResultPrescriptionRecordList.getResult().getData().get(i).getPrescriptionUnitDesc();
+                                String dosageDesc = modelResultPrescriptionRecordList.getResult().getData().get(i).getDosageDesc();
 
-                                prescriptionRecordLists.add(new PrescriptionRecordList(recordId,
-                                        prescriptionName, prescriptionQty, unitId, dosageId, instructionId));
+                                prescriptionRecordLists.add(new PrescriptionRecordList(createdDate,
+                                        prescriptionNo, prescriptionName, prescriptionQty, unitDesc, dosageDesc));
                             }
 
                             prescriptionRecordAdapter = new PrescriptionRecordAdapter(prescriptionRecordLists);

@@ -37,9 +37,8 @@ public class PrescriptionRecordAdapter extends RecyclerView.Adapter<Prescription
         PrescriptionRecordList resultList = prescriptionRecordLists.get(position);
         holder.prescriptionName.setText(resultList.getPrescriptionName());
         holder.prescriptionQty.setText(resultList.getPrescriptionQty());
-        holder.prescriptionUnit.setText(resultList.getUnitId());
-        holder.prescriptionDosage.setText(resultList.getDosageId());
-        holder.prescriptionInstruction.setText(resultList.getInstructionId());
+        holder.prescriptionUnit.setText(resultList.getPrescriptionUnitDesc());
+        holder.prescriptionDosage.setText(resultList.getDosageDesc());
     }
 
     @Override
@@ -52,7 +51,6 @@ public class PrescriptionRecordAdapter extends RecyclerView.Adapter<Prescription
         private TextView prescriptionQty;
         private TextView prescriptionUnit;
         private TextView prescriptionDosage;
-        private TextView prescriptionInstruction;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -60,7 +58,6 @@ public class PrescriptionRecordAdapter extends RecyclerView.Adapter<Prescription
             prescriptionQty = itemView.findViewById(R.id.rowPrescriptionList_tv_prescriptionQty);
             prescriptionUnit = itemView.findViewById(R.id.rowPrescriptionList_tv_prescriptionUnit);
             prescriptionDosage = itemView.findViewById(R.id.rowPrescriptionList_tv_prescriptionDosage);
-            prescriptionInstruction = itemView.findViewById(R.id.rowPrescriptionList_tv_prescriptionInstruction);
         }
     }
 }
