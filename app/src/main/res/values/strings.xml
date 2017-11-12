@@ -295,4 +295,6 @@
     <string name="serviceConsultationActivity_menu9Title">Neurologist</string>
     <string name="accountActivity_manageInsuranceTitle">Manage Insurance</string>
     <string name="accountActivity_managePaymentMethodTitle">Manage Payment Method</string>
+    <string name="rowInsuranceList_insuranceHolderTitle">Insurance Holder</string>
+    <string name="rowInsuranceList_insuredNameTitle">Insured Name</string>
 </resources>

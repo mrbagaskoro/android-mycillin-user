@@ -290,4 +290,6 @@
     <string name="serviceConsultationActivity_menu9Title">Spesialis Saraf</string>
     <string name="accountActivity_manageInsuranceTitle">Pengaturan Asuransi</string>
     <string name="accountActivity_managePaymentMethodTitle">Pengaturan Metode Pembayaran</string>
+    <string name="rowInsuranceList_insuranceHolderTitle">Nama Pemegang Polis</string>
+    <string name="rowInsuranceList_insuredNameTitle">Nama Tertanggung</string>
 </resources>

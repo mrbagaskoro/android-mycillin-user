@@ -10,6 +10,7 @@ import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
+import com.mycillin.user.rest.insuranceList.ModelResultInsuranceList;
 import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.medicalRecordList.ModelResultMedicalRecordList;
 import com.mycillin.user.rest.partnerTypeList.ModelResultPartnerTypeList;
@@ -93,4 +94,7 @@ public interface MyCillinAPI {
 
     @GET("banner/")
     Call<ModelResultBannerImage> getBannerImage();
+
+    @POST("list_member_insurance/")
+    Call<ModelResultInsuranceList> getInsuranceList(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }

@@ -5,27 +5,100 @@ package com.mycillin.user.list;
  */
 
 public class InsuranceList {
-    private String insuranceCompany;
-    private String insurancePolicy;
 
-    public InsuranceList(String insuranceCompany, String insurancePolicy){
-        this.insuranceCompany = insuranceCompany;
-        this.insurancePolicy = insurancePolicy;
+    private String insuranceId;
+    private String userId;
+    private String relationId;
+    private String policyNo;
+    private String insuranceProviderId;
+    private String insuranceProviderDesc;
+    private String insuredName;
+    private String insuranceHolderName;
+    private String insuranceImageUrl;
+
+    public InsuranceList(String insuranceId, String userId, String relationId, String policyNo,
+                         String insuranceProviderId, String insuranceProviderDesc, String insuredName,
+                         String insuranceHolderName, String insuranceImageUrl){
+        this.insuranceId = insuranceId;
+        this.userId = userId;
+        this.relationId = relationId;
+        this.policyNo = policyNo;
+        this.insuranceProviderId = insuranceProviderId;
+        this.insuranceProviderDesc = insuranceProviderDesc;
+        this.insuredName = insuredName;
+        this.insuranceHolderName = insuranceHolderName;
+        this.insuranceImageUrl = insuranceImageUrl;
     }
 
-    public String getInsuranceCompany() {
-        return insuranceCompany;
+    public String getInsuranceId() {
+        return insuranceId;
     }
 
-    public void setInsuranceCompany(String insuranceCompany) {
-        this.insuranceCompany = insuranceCompany;
+    public void setInsuranceId(String insuranceId) {
+        this.insuranceId = insuranceId;
     }
 
-    public String getInsurancePolicy() {
-        return insurancePolicy;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setInsurancePolicy(String insurancePolicy) {
-        this.insurancePolicy = insurancePolicy;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getRelationId() {
+        return relationId;
+    }
+
+    public void setRelationId(String relationId) {
+        this.relationId = relationId;
+    }
+
+    public String getPolicyNo() {
+        return policyNo;
+    }
+
+    public void setPolicyNo(String policyNo) {
+        this.policyNo = policyNo;
+    }
+
+    public String getInsuranceProviderId() {
+        return insuranceProviderId;
+    }
+
+    public void setInsuranceProviderId(String insuranceProviderId) {
+        this.insuranceProviderId = insuranceProviderId;
+    }
+
+    public String getInsuranceProviderDesc() {
+        return insuranceProviderDesc;
+    }
+
+    public void setInsuranceProviderDesc(String insuranceProviderDesc) {
+        this.insuranceProviderDesc = insuranceProviderDesc;
+    }
+
+    public String getInsuredName() {
+        return insuredName;
+    }
+
+    public void setInsuredName(String insuredName) {
+        this.insuredName = insuredName;
+    }
+
+    public String getInsuranceHolderName() {
+        return insuranceHolderName;
+    }
+
+    public void setInsuranceHolderName(String insuranceHolderName) {
+        this.insuranceHolderName = insuranceHolderName;
+    }
+
+    public String getInsuranceImageUrl() {
+        return insuranceImageUrl;
+    }
+
+    public void setInsuranceImageUrl(String insuranceImageUrl) {
+        this.insuranceImageUrl = insuranceImageUrl;
     }
 }

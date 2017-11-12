@@ -280,6 +280,12 @@ public class AccountActivity extends AppCompatActivity {
                                     startActivity(intent);
 
                                 }
+                                else {
+                                    Intent intent = new Intent(AccountActivity.this, InsuranceListActivity.class);
+                                    intent.putExtra(InsuranceListActivity.KEY_PARAM_ACCOUNT_USER_ID, list.getAccountUserId());
+                                    intent.putExtra(InsuranceListActivity.KEY_PARAM_ACCOUNT_RELATION_ID, list.getAccountRelationId());
+                                    startActivity(intent);
+                                }
                                 dialogPlus.dismiss();
                             }
 
