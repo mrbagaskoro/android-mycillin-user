@@ -42,6 +42,7 @@ public class AboutFragment extends Fragment {
     public static String KEY_TWITTER = "KEY_TWITTER";
     public static String KEY_INSTAGRAM = "KEY_INSTAGRAM";
     public static String KEY_YOUTUBE = "KEY_YOUTUBE";
+    public static String KEY_PLAYSTORE = "KEY_PLAYSTORE";
 
     public AboutFragment() {
         // Required empty public constructor
@@ -76,14 +77,12 @@ public class AboutFragment extends Fragment {
             }
         });
 
-
         twitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openSocialMedia(KEY_TWITTER);
             }
         });
-
 
         instagram.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +91,6 @@ public class AboutFragment extends Fragment {
             }
         });
 
-
         youtube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,12 +98,10 @@ public class AboutFragment extends Fragment {
             }
         });
 
-
         playstore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ChatActivity.class);
-                startActivity(intent);
+                openSocialMedia(KEY_PLAYSTORE);
             }
         });
 
@@ -144,6 +140,11 @@ public class AboutFragment extends Fragment {
                 url = "https://www.youtube.com/channel/UCkjlt7RUv_Qi1LPUyTr0o9w/";
                 urlAlt = "https://www.youtube.com/channel/UCkjlt7RUv_Qi1LPUyTr0o9w/";
                 appPackage = "com.google.android.youtube";
+            }
+            else if(id.equals(KEY_PLAYSTORE)) {
+                url = "market://details?id=" + getContext().getPackageName();
+                urlAlt = "https://play.google.com/store/apps/details?id=" + getContext().getPackageName();
+                appPackage = "com.android.vending";
             }
 
             try {
