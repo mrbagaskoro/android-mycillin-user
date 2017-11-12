@@ -1,23 +1,19 @@
 package com.mycillin.user.activity;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -57,6 +53,10 @@ public class AccountActivity extends AppCompatActivity {
     CircleImageView userAvatar;
     @BindView(R.id.accountActivity_ll_manageAccount)
     LinearLayout manageAccount;
+    @BindView(R.id.accountActivity_ll_manageInsurance)
+    LinearLayout manageInsurance;
+    @BindView(R.id.accountActivity_ll_managePaymentMethod)
+    LinearLayout managePaymentMethod;
     @BindView(R.id.accountActivity_ll_changePassword)
     LinearLayout changePassword;
     @BindView(R.id.accountActivity_ll_signOut)
@@ -78,6 +78,10 @@ public class AccountActivity extends AppCompatActivity {
 
     private ProgressBarHandler progressBarHandler;
 
+    public static final String KEY_MANAGE_ACCOUNT = "KEY_MANAGE_ACCOUNT";
+    public static final String KEY_MANAGE_INSURANCE = "KEY_MANAGE_INSURANCE";
+    public static final String KEY_MANAGE_PAYMENT_METHOD = "KEY_MANAGE_PAYMENT_METHOD";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,9 +99,17 @@ public class AccountActivity extends AppCompatActivity {
         manageAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showManageAccountDialog();
+                showManageAccountDialog(KEY_MANAGE_ACCOUNT);
             }
         });
+
+        manageInsurance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showManageAccountDialog(KEY_MANAGE_INSURANCE);
+            }
+        });
+
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +141,7 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-    private void showManageAccountDialog() {
+    private void showManageAccountDialog(String id) {
         final DialogPlus dialogPlus = DialogPlus.newDialog(AccountActivity.this)
                 .setContentHolder(new ViewHolder(R.layout.dialog_manage_accounts_layout))
                 .setGravity(Gravity.CENTER)
@@ -138,73 +150,24 @@ public class AccountActivity extends AppCompatActivity {
 
         View dialogPlusView = dialogPlus.getHolderView();
 
-        getAccountList(dialogPlus, dialogPlusView);
+        getAccountList(dialogPlus, dialogPlusView, id);
 
         addAccountBtn = dialogPlusView.findViewById(R.id.manageAccountDialog_ib_addAccountBtn);
-        addAccountBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AccountActivity.this, AccountDetailActivity.class);
-                intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL_IS_NEW, true);
-                startActivity(intent);
-                dialogPlus.dismiss();
-            }
-        });
-    }
-
-    private void showChangePasswordDialog() {
-        /*final DialogPlus dialogPlus = DialogPlus.newDialog(AccountActivity.this)
-                .setContentHolder(new ViewHolder(R.layout.dialog_change_password_layout))
-                .setGravity(Gravity.CENTER)
-                .create();
-        dialogPlus.show();
-
-        View dialogPlusView = dialogPlus.getHolderView();*/
-
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_change_password_layout);
-        dialog.setTitle(getString(R.string.changePasswordDialog_title));
-        dialog.show();
-
-        final EditText oldPasswordEdtxt = dialog.findViewById(R.id.changePasswordDialog_et_oldPassword);
-        final EditText newPasswordEdtxt = dialog.findViewById(R.id.changePasswordDialog_et_newPassword);
-        final EditText confirmNewPasswordEdtxt = dialog.findViewById(R.id.changePasswordDialog_et_confirmNewPassword);
-        Button applyChangePasswordBtn = dialog.findViewById(R.id.changePasswordDialog_bt_applyBtn);
-        Button cancelChangePasswordBtn = dialog.findViewById(R.id.changePasswordDialog_bt_cancelBtn);
-
-        applyChangePasswordBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean isValid = true;
-                if(oldPasswordEdtxt.getText().toString().trim().equals("")) {
-                    oldPasswordEdtxt.setError(getString(R.string.loginActivity_passwordWarning));
-                    isValid = false;
+        if(id.equals(KEY_MANAGE_ACCOUNT)) {
+            addAccountBtn.setVisibility(View.VISIBLE);
+            addAccountBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(AccountActivity.this, AccountDetailActivity.class);
+                    intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL_IS_NEW, true);
+                    startActivity(intent);
+                    dialogPlus.dismiss();
                 }
-                if(newPasswordEdtxt.getText().toString().trim().equals("")) {
-                    newPasswordEdtxt.setError(getString(R.string.loginActivity_passwordWarning));
-                    isValid = false;
-                }
-                if(confirmNewPasswordEdtxt.getText().toString().trim().equals("")) {
-                    confirmNewPasswordEdtxt.setError(getString(R.string.loginActivity_passwordConfirmationWarning));
-                    isValid = false;
-                }
-                if(!confirmNewPasswordEdtxt.getText().toString().trim().equals(newPasswordEdtxt.getText().toString().trim())) {
-                    confirmNewPasswordEdtxt.setError(getString(R.string.loginActivity_passwordMatchWarning));
-                    isValid = false;
-                }
-
-                if(isValid) {
-                    doChangePassword(oldPasswordEdtxt.getText().toString(), newPasswordEdtxt.getText().toString());
-                }
-            }
-        });
-
-        cancelChangePasswordBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+            });
+        }
+        else {
+            addAccountBtn.setVisibility(View.GONE);
+        }
     }
 
     private void doSignOut() {
@@ -229,73 +192,7 @@ public class AccountActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void doChangePassword(String oldPassword, String newPassword) {
-        progressBarHandler.show();
-
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-        String token = sessionManager.getUserToken();
-        String userId = sessionManager.getUserId();
-
-        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
-
-        HashMap<String, String> params = new HashMap<>();
-        params.put("user_id", userId);
-        params.put("old_password", oldPassword);
-        params.put("new_password", newPassword);
-
-        myCillinAPI.doChangePassword(token, params).enqueue(new Callback<ModelResultChangePassword>() {
-            @Override
-            public void onResponse(@NonNull Call<ModelResultChangePassword> call, @NonNull Response<ModelResultChangePassword> response) {
-                progressBarHandler.hide();
-
-                if(response.isSuccessful()) {
-                    ModelResultChangePassword modelResultChangePassword = response.body();
-
-                    assert modelResultChangePassword != null;
-                    if(modelResultChangePassword.getResult().isStatus()) {
-                        Snackbar.make(getWindow().getDecorView().getRootView(), modelResultChangePassword.getResult().getMessage(), Snackbar.LENGTH_SHORT)
-                                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>(){
-                                    @Override
-                                    public void onDismissed(Snackbar transientBottomBar, int event) {
-                                        super.onDismissed(transientBottomBar, event);
-
-                                        SessionManager session = new SessionManager(getApplicationContext());
-                                        session.logoutUser();
-                                        finish();
-                                    }
-                                })
-                                .show();
-                    }
-                }
-                else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        String message;
-                        if(jsonObject.has("result")) {
-                            message = jsonObject.getJSONObject("result").getString("message");
-                        }
-                        else {
-
-                            message = jsonObject.getString("message");
-                        }
-                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
-                    } catch (JSONException | IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ModelResultChangePassword> call, @NonNull Throwable t) {
-                // TODO: 12/10/2017 SET FAILURE SCENARIO
-                progressBarHandler.hide();
-                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    private void getAccountList(final DialogPlus dialogPlus, final View view) {
+    private void getAccountList(final DialogPlus dialogPlus, final View view, final String id) {
         progressBarHandler.show();
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
@@ -376,10 +273,13 @@ public class AccountActivity extends AppCompatActivity {
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_BLOOD_TYPE, list.getAccountBloodType());
                                 params.put(AccountDetailActivity.KEY_PARAM_ACCOUNT_INSURANCE_ID, list.getAccountInsuranceId());
 
-                                Intent intent = new Intent(AccountActivity.this, AccountDetailActivity.class);
-                                intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL, params);
-                                intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL_IS_NEW, false);
-                                startActivity(intent);
+                                if(id.equals(KEY_MANAGE_ACCOUNT)) {
+                                    Intent intent = new Intent(AccountActivity.this, AccountDetailActivity.class);
+                                    intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL, params);
+                                    intent.putExtra(AccountDetailActivity.EXTRA_ACCOUNT_DETAIL_IS_NEW, false);
+                                    startActivity(intent);
+
+                                }
                                 dialogPlus.dismiss();
                             }
 

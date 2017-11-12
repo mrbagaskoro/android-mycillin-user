@@ -293,4 +293,6 @@
     <string name="serviceConsultationActivity_menu7Title">Andrologist</string>
     <string name="serviceConsultationActivity_menu8Title">Cardiologist</string>
     <string name="serviceConsultationActivity_menu9Title">Neurologist</string>
+    <string name="accountActivity_manageInsuranceTitle">Manage Insurance</string>
+    <string name="accountActivity_managePaymentMethodTitle">Manage Payment Method</string>
 </resources>

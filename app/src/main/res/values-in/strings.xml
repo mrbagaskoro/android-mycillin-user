@@ -288,4 +288,6 @@
     <string name="serviceConsultationActivity_menu7Title">Spesialis Andrologi</string>
     <string name="serviceConsultationActivity_menu8Title">Spesialis Jantung</string>
     <string name="serviceConsultationActivity_menu9Title">Spesialis Saraf</string>
+    <string name="accountActivity_manageInsuranceTitle">Pengaturan Asuransi</string>
+    <string name="accountActivity_managePaymentMethodTitle">Pengaturan Metode Pembayaran</string>
 </resources>

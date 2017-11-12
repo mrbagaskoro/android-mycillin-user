@@ -2,36 +2,24 @@ package com.mycillin.user.activity;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.mycillin.user.R;
-import com.mycillin.user.adapter.InsuranceAdapter;
-import com.mycillin.user.adapter.PaymentAdapter;
-import com.mycillin.user.list.AccountList;
-import com.mycillin.user.list.InsuranceList;
-import com.mycillin.user.list.PaymentList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.accountDelete.ModelResultAccountDelete;
@@ -48,7 +36,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,16 +49,6 @@ public class AccountDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.accountDetailActivity_toolbar)
     Toolbar toolbar;
-
-    @BindView(R.id.accountDetailActivity_ib_addInsurance)
-    ImageButton addInsuranceBtn;
-    @BindView(R.id.accountDetailActivity_ib_addPayment)
-    ImageButton addPaymentBtn;
-
-    @BindView(R.id.accountDetailActivity_rv_insurancesList)
-    RecyclerView insuranceRecyclerView;
-    @BindView(R.id.accountDetailActivity_rv_paymentsList)
-    RecyclerView paymentRecyclerView;
 
     @BindView(R.id.accountDetailActivity_et_relationType)
     EditText relationTypeEdtxt;
@@ -97,11 +74,6 @@ public class AccountDetailActivity extends AppCompatActivity {
     EditText bloodTypeEdtxt;
     @BindView(R.id.accountDetailActivity_cb_isAgree)
     CheckBox isAgreeCBox;
-
-    private List<InsuranceList> insuranceLists = new ArrayList<>();
-    private InsuranceAdapter insuranceAdapter;
-    private List<PaymentList> paymentLists = new ArrayList<>();
-    private PaymentAdapter paymentAdapter;
 
     public static final String EXTRA_ACCOUNT_DETAIL = "EXTRA_ACCOUNT_DETAIL";
     public static final String EXTRA_ACCOUNT_DETAIL_IS_NEW = "EXTRA_ACCOUNT_DETAIL_IS_NEW";
@@ -195,22 +167,6 @@ public class AccountDetailActivity extends AppCompatActivity {
             }
         });
 
-        addInsuranceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AccountDetailActivity.this, InsuranceActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        addPaymentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AccountDetailActivity.this, PaymentActivity.class);
-                startActivity(intent);
-            }
-        });
-
         final SpinnerDialog bloodTypeSpinnerDialog = new SpinnerDialog(AccountDetailActivity.this, bloodTypeItems, getString(R.string.accountDetailActivity_bloodTypeDropdownTitle), R.style.DialogAnimations_SmileWindow);
         bloodTypeSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
             @Override
@@ -242,35 +198,6 @@ public class AccountDetailActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-
-        getInsuranceList();
-        getPaymentList();
-    }
-
-    public void getInsuranceList() {
-        insuranceRecyclerView.setLayoutManager(new LinearLayoutManager(AccountDetailActivity.this));
-        insuranceRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        insuranceLists.clear();
-        insuranceLists.add(new InsuranceList("Prudential", "PR/535722/2016"));
-        insuranceLists.add(new InsuranceList("Medicillin", "MC/986620/2017"));
-
-        insuranceAdapter = new InsuranceAdapter(insuranceLists);
-        insuranceRecyclerView.setAdapter(insuranceAdapter);
-        insuranceAdapter.notifyDataSetChanged();
-    }
-
-    public void getPaymentList() {
-        paymentRecyclerView.setLayoutManager(new LinearLayoutManager(AccountDetailActivity.this));
-        paymentRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        paymentLists.clear();
-        paymentLists.add(new PaymentList("E-Wallet", "1019270000001"));
-        paymentLists.add(new PaymentList("PayPal", "PP-871663"));
-
-        paymentAdapter = new PaymentAdapter(paymentLists);
-        paymentRecyclerView.setAdapter(paymentAdapter);
-        paymentAdapter.notifyDataSetChanged();
     }
 
     @Override
