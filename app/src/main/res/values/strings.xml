@@ -284,4 +284,13 @@
     <string name="filterDoctorActivity_partnerType">Paramedic Type</string>
     <string name="filterDoctorActivity_partnerSpecialization">Paramedic Specialization</string>
     <string name="aboutFragment_chooseEmailMessage">Choose an Email client :</string>
+    <string name="serviceConsultationActivity_menu1Title">General Practitioners</string>
+    <string name="serviceConsultationActivity_menu2Title">Gynecology</string>
+    <string name="serviceConsultationActivity_menu3Title">Pediatrician</string>
+    <string name="serviceConsultationActivity_menu4Title">Psychiatrist</string>
+    <string name="serviceConsultationActivity_menu5Title">Internist</string>
+    <string name="serviceConsultationActivity_menu6Title">Dermatologist / Urologist</string>
+    <string name="serviceConsultationActivity_menu7Title">Andrologist</string>
+    <string name="serviceConsultationActivity_menu8Title">Cardiologist</string>
+    <string name="serviceConsultationActivity_menu9Title">Neurologist</string>
 </resources>

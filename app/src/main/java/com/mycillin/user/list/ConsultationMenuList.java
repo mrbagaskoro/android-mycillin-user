@@ -5,20 +5,20 @@ package com.mycillin.user.list;
  */
 
 public class ConsultationMenuList {
-    private String image;
+    private String id;
     private String title;
 
-    public ConsultationMenuList(String image, String title){
-        this.image = image;
+    public ConsultationMenuList(String id, String title){
+        this.id = id;
         this.title = title;
     }
 
     public String getImage() {
-        return image;
+        return id;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(String id) {
+        this.id = id;
     }
 
     public String getTitle() {

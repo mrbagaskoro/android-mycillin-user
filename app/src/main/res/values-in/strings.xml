@@ -279,4 +279,13 @@
     <string name="filterDoctorActivity_partnerType">Tipe Tenaga Medis</string>
     <string name="filterDoctorActivity_partnerSpecialization">Spesialisasi Tenaga Medis</string>
     <string name="aboutFragment_chooseEmailMessage">Pilih klien Email :</string>
+    <string name="serviceConsultationActivity_menu1Title">Dokter Umum</string>
+    <string name="serviceConsultationActivity_menu2Title">Spesialis Kandungan</string>
+    <string name="serviceConsultationActivity_menu3Title">Spesialis Anak</string>
+    <string name="serviceConsultationActivity_menu4Title">Spesialis Jiwa / Psikiatri</string>
+    <string name="serviceConsultationActivity_menu5Title">Spesialis Penyakit Dalam</string>
+    <string name="serviceConsultationActivity_menu6Title">Spesialis Kulit dan Kelamin</string>
+    <string name="serviceConsultationActivity_menu7Title">Spesialis Andrologi</string>
+    <string name="serviceConsultationActivity_menu8Title">Spesialis Jantung</string>
+    <string name="serviceConsultationActivity_menu9Title">Spesialis Saraf</string>
 </resources>
