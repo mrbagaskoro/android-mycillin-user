@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.mycillin.user.BuildConfig;
 import com.mycillin.user.R;
 import com.mycillin.user.activity.ChatActivity;
+import com.thefinestartist.finestwebview.FinestWebView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -151,7 +152,15 @@ public class AboutFragment extends Fragment {
                 intent.setPackage(appPackage);
                 startActivity(intent);
             } catch (android.content.ActivityNotFoundException e) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlAlt)));
+                new FinestWebView.Builder(getContext()).theme(R.style.WebViewTheme)
+                        .titleDefault("MyCillin")
+                        .webViewBuiltInZoomControls(true)
+                        .webViewDisplayZoomControls(true)
+                        .dividerHeight(0)
+                        .gradientDivider(false)
+                        .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit,
+                                R.anim.activity_close_enter, R.anim.activity_close_exit)
+                        .show(urlAlt);
             }
         }
     }

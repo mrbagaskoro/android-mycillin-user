@@ -93,7 +93,12 @@
         <activity android:name=".activity.ChangePasswordActivity" />
         <activity android:name=".activity.CancelActivity" />
         <activity android:name=".activity.FilterDoctorActivity" />
-        <activity android:name=".activity.ServiceConsultationActivity"></activity>
+        <activity android:name=".activity.ServiceConsultationActivity" />
+        <activity
+            android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensor"
+            android:theme="@style/FinestWebViewTheme.Light"/>
     </application>
 
 </manifest>

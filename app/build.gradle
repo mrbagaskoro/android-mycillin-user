@@ -35,7 +35,6 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:26.0.1'
     compile 'com.android.support:design:26.0.1'
     compile 'com.android.support:support-v4:26.0.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.android.gms:play-services-maps:11.2.2'
     compile 'com.google.android.gms:play-services-places:11.2.2'
     compile 'com.karumi:dexter:4.1.0'
@@ -52,6 +51,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.27.0'
     compile 'com.github.bumptech.glide:glide:4.2.0'
     compile 'org.greenrobot:greendao:3.2.2'
+    compile 'com.thefinestartist:finestwebview:1.2.7'
 
     //firebase
     compile 'com.google.firebase:firebase-messaging:11.2.2'
@@ -70,5 +70,5 @@ dependencies {
 greendao {
 
     // format versi YYMMDDHHMM.
-    schemaVersion 1711061002
+    schemaVersion 1711121101
 }

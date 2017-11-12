@@ -7,12 +7,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mycillin.user.R;
@@ -33,7 +35,9 @@ import com.mycillin.user.util.RecyclerTouchListener;
 import com.mycillin.user.util.SessionManager;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
+import com.thefinestartist.finestwebview.FinestWebView;
 
 import org.greenrobot.greendao.query.Query;
 import org.json.JSONException;
@@ -211,15 +215,19 @@ public class HomeFragment extends Fragment {
     }
 
     private void getBannerImage() {
-        final List<String> urls = new ArrayList<>();
+        final List<String> imageUrls = new ArrayList<>();
+        final List<String> imageLinks = new ArrayList<>();
 
         DaoDatabaseHelper daoDatabaseHelper = new DaoDatabaseHelper(getActivity());
         Query<Banner> query = daoDatabaseHelper.getBanner();
 
-        urls.clear();
+        imageUrls.clear();
+        imageLinks.clear();
         for (int i = 0; i < query.list().size(); i++) {
-            String imageName = query.list().get(i).getImageName();
-            urls.add(imageName);
+            String imageUrl = query.list().get(i).getImageName();
+            String imageLink = query.list().get(i).getUrlLink();
+            imageUrls.add(imageUrl);
+            imageLinks.add(imageLink);
         }
 
         carouselView.setPageCount(query.list().size());
@@ -227,8 +235,23 @@ public class HomeFragment extends Fragment {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
                 Glide.with(getContext())
-                        .load(urls.get(position))
+                        .load(imageUrls.get(position))
                         .into(imageView);
+            }
+        });
+
+        carouselView.setImageClickListener(new ImageClickListener() {
+            @Override
+            public void onClick(int position) {
+                new FinestWebView.Builder(getContext()).theme(R.style.WebViewTheme)
+                        .titleDefault("MyCillin")
+                        .webViewBuiltInZoomControls(true)
+                        .webViewDisplayZoomControls(true)
+                        .dividerHeight(0)
+                        .gradientDivider(false)
+                        .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit,
+                                R.anim.activity_close_enter, R.anim.activity_close_exit)
+                        .show(imageLinks.get(position));
             }
         });
     }
