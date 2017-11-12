@@ -42,7 +42,7 @@
     <string name="loginActivity_registerNote">Agar kami lebih dekat dengan anda, silahkan isi data berikut ini:</string>
     <string name="loginActivity_registerPassword">Password</string>
     <string name="loginActivity_tosNotes">Dengan mendaftar, saya telah membaca dan menyetujui Syarat dan Ketentuan serta Kebijakan Privasi yang ditetapkan oleh MyCillin</string>
-    <string name="nav_about_mycillin">Tentang MyCillin</string>
+    <string name="nav_about_mycillin">Tentang</string>
     <string name="nav_account">Akun</string>
     <string name="nav_e_wallet">E-Wallet</string>
     <string name="nav_home">Home</string>
