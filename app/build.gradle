@@ -54,6 +54,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.2.0'
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.thefinestartist:finestwebview:1.2.7'
+    compile 'com.otaliastudios:cameraview:1.4.0'
 
     //firebase
     compile 'com.google.firebase:firebase-messaging:11.2.2'
@@ -73,4 +74,15 @@ greendao {
 
     // format versi YYMMDDHHMM.
     schemaVersion 1711121101
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '26.0.1'
+            }
+        }
+    }
 }
