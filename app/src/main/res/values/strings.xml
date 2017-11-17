@@ -297,4 +297,9 @@
     <string name="accountActivity_managePaymentMethodTitle">Manage Payment Method</string>
     <string name="rowInsuranceList_insuranceHolderTitle">Insurance Holder</string>
     <string name="rowInsuranceList_insuredNameTitle">Insured Name</string>
+    <string name="insuranceActivity_insuranceProviderWarning">Insurance Provider is required !</string>
+    <string name="insuranceActivity_insurancePolicyNumberWarning">Insurance Policy Number is required !</string>
+    <string name="insuranceActivity_policyHolderNameWarning">Policy Holder Name is required !</string>
+    <string name="insuranceActivity_insuredNameWarning">Insured Name is required !</string>
+    <string name="insuranceActivity_imageWarning">Image is required !</string>
 </resources>

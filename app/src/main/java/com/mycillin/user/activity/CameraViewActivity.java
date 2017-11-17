@@ -32,7 +32,6 @@ public class CameraViewActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_CAMERA = 1001;
     public static final String EXTRA_WIDTH = "EXTRA_WIDTH";
     public static final String EXTRA_HEIGHT = "EXTRA_HEIGHT";
-    public static final String EXTRA_IMAGE = "EXTRA_IMAGE";
     public static final int DEFAULT_VALUE = -1;
 
     @Override
@@ -56,8 +55,8 @@ public class CameraViewActivity extends AppCompatActivity {
                     captureNativeSize = cameraView.getPictureSize();
                 }
 
+                InsuranceActivity.setImage(jpeg);
                 Intent intent = new Intent();
-                intent.putExtra(EXTRA_IMAGE, jpeg);
                 intent.putExtra(EXTRA_WIDTH, captureNativeSize.getWidth());
                 intent.putExtra(EXTRA_HEIGHT, captureNativeSize.getHeight());
                 setResult(REQUEST_CODE_CAMERA, intent);
@@ -71,7 +70,6 @@ public class CameraViewActivity extends AppCompatActivity {
         captureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("###", "onClick: WOW");
                 cameraView.capturePicture();
             }
         });

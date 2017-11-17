@@ -15,7 +15,6 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-
     <uses-feature
         android:name="android.hardware.location.gps"
         android:required="true" />
@@ -103,7 +102,7 @@
         <activity android:name=".activity.InsuranceListActivity" />
         <activity
             android:name=".activity.CameraViewActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
