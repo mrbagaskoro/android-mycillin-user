@@ -297,4 +297,5 @@
     <string name="insuranceActivity_policyHolderNameWarning">Nama Pemegang Polis wajib diisi !</string>
     <string name="insuranceActivity_insuredNameWarning">Nama Tertanggung wajib diisi !</string>
     <string name="insuranceActivity_imageWarning">Foto Asuransi wajib dilampirkan !</string>
+    <string name="insuranceActivity_insuranceProviderDropdownTitle">Pilih penyedia jasa asuransi</string>
 </resources>

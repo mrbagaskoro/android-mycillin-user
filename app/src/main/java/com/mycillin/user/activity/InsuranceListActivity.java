@@ -1,11 +1,12 @@
 package com.mycillin.user.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,17 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mycillin.user.R;
 import com.mycillin.user.adapter.InsuranceAdapter;
-import com.mycillin.user.adapter.MedicalRecordAdapter;
 import com.mycillin.user.list.InsuranceList;
-import com.mycillin.user.list.MedicalRecordList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.insuranceDelete.ModelResultInsuranceDelete;
 import com.mycillin.user.rest.insuranceList.ModelResultInsuranceList;
-import com.mycillin.user.rest.medicalRecordList.ModelResultMedicalRecordList;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
 
@@ -92,7 +90,7 @@ public class InsuranceListActivity extends AppCompatActivity {
         getInsuranceList(getIntent().getStringExtra(KEY_PARAM_ACCOUNT_RELATION_ID));
     }
 
-    public void getInsuranceList(String relationId) {
+    private void getInsuranceList(String relationId) {
         progressBarHandler.show();
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
@@ -142,7 +140,7 @@ public class InsuranceListActivity extends AppCompatActivity {
 
                             }
 
-                            insuranceAdapter = new InsuranceAdapter(getApplicationContext(), insuranceLists);
+                            insuranceAdapter = new InsuranceAdapter(InsuranceListActivity.this, insuranceLists);
                             insuranceRecyclerView.setAdapter(insuranceAdapter);
                             insuranceAdapter.notifyDataSetChanged();
                         }
@@ -173,6 +171,60 @@ public class InsuranceListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<ModelResultInsuranceList> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void deleteInsurance(String userId, final String relationId, String insuranceId) {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("relation_id", relationId);
+        params.put("member_insr_id", insuranceId);
+
+        myCillinAPI.doDeleteInsurance(token, params).enqueue(new Callback<ModelResultInsuranceDelete>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultInsuranceDelete> call, @NonNull Response<ModelResultInsuranceDelete> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultInsuranceDelete modelResultInsuranceDelete = response.body();
+
+                    assert modelResultInsuranceDelete != null;
+                    if(modelResultInsuranceDelete.getResult().isStatus()) {
+                        Snackbar.make(getWindow().getDecorView().getRootView(), R.string.accountDetailActivity_deleteSuccessMessage, Snackbar.LENGTH_SHORT).show();
+                        getInsuranceList(relationId);
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultInsuranceDelete> call, @NonNull Throwable t) {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();

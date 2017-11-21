@@ -10,6 +10,7 @@ import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
+import com.mycillin.user.rest.insuranceDelete.ModelResultInsuranceDelete;
 import com.mycillin.user.rest.insuranceInsert.ModelResultInsuranceInsert;
 import com.mycillin.user.rest.insuranceList.ModelResultInsuranceList;
 import com.mycillin.user.rest.insuranceProviderList.ModelResultInsuranceProviderList;
@@ -20,7 +21,6 @@ import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionReco
 import com.mycillin.user.rest.register.ModelResultRegister;
 import com.mycillin.user.rest.relationList.ModelResultRelationList;
 import com.mycillin.user.rest.specializationList.ModelResultSpecializationList;
-import com.mycillin.user.util.SessionManager;
 
 import java.util.HashMap;
 
@@ -32,7 +32,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -117,4 +116,7 @@ public interface MyCillinAPI {
                                                        @Part("nama_tertanggung") RequestBody insuredName,
                                                        @Part("nama_pemilik_insr") RequestBody insuranceHolder,
                                                        @Part MultipartBody.Part insuranceCardImage);
+
+    @POST("delete_member_insurance/")
+    Call<ModelResultInsuranceDelete> doDeleteInsurance(@Header("Authorization") String token, @Body HashMap<String, Object> params);
 }
