@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,11 +20,26 @@ import com.mycillin.user.fragment.EWalletFragment;
 import com.mycillin.user.fragment.HistoryFragment;
 import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.fragment.MedicalRecordFragment;
+import com.mycillin.user.rest.MyCillinAPI;
+import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.unratedList.ModelResultUnratedList;
 import com.mycillin.user.util.BottomNavigationViewHelper;
+import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ProgressBarHandler progressBarHandler;
     private boolean doubleBackToExitPressedOnce = false;
     private boolean isRated = false;
 
@@ -81,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        progressBarHandler = new ProgressBarHandler(this);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -104,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
             }
             isRated = true;
         }
+
+        //getUnratedList();
     }
 
     @Override
@@ -155,5 +174,63 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void getUnratedList() {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+
+        myCillinAPI.getUnratedList(token, params).enqueue(new Callback<ModelResultUnratedList>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultUnratedList> call, @NonNull Response<ModelResultUnratedList> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultUnratedList modelResultUnratedList = response.body();
+
+                    assert modelResultUnratedList != null;
+                    if(modelResultUnratedList.getResult().isStatus()) {
+                        int size = modelResultUnratedList.getResult().getData().size();
+                        for(int i = 0; i < size; i++) {
+                            Intent intent = new Intent(MainActivity.this, RatingActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultUnratedList> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+                Log.d("###", "onFailurex: " + t.getMessage());
+                Log.d("###", "onFailurexx: " + t.getLocalizedMessage());
+            }
+        });
     }
 }

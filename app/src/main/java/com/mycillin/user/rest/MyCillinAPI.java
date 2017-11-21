@@ -21,6 +21,7 @@ import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionReco
 import com.mycillin.user.rest.register.ModelResultRegister;
 import com.mycillin.user.rest.relationList.ModelResultRelationList;
 import com.mycillin.user.rest.specializationList.ModelResultSpecializationList;
+import com.mycillin.user.rest.unratedList.ModelResultUnratedList;
 
 import java.util.HashMap;
 
@@ -119,4 +120,7 @@ public interface MyCillinAPI {
 
     @POST("delete_member_insurance/")
     Call<ModelResultInsuranceDelete> doDeleteInsurance(@Header("Authorization") String token, @Body HashMap<String, Object> params);
+
+    @POST("rating_fill_checking/")
+    Call<ModelResultUnratedList> getUnratedList(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }
