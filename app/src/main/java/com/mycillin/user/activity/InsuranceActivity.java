@@ -38,6 +38,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +48,7 @@ import butterknife.ButterKnife;
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -259,17 +261,17 @@ public class InsuranceActivity extends AppCompatActivity {
                         String token = sessionManager.getUserToken();
                         MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
 
-                        File f = new File(getApplicationContext().getCacheDir(), "");
-                        //f.createNewFile();
+                        String fileName = sessionManager.getUserId() + "_" +
+                                getIntent().getStringExtra(InsuranceListActivity.KEY_PARAM_ACCOUNT_RELATION_ID) +
+                                "_" + insurancePolicyNumberEdtxt.getText().toString() +  "_" +
+                                selectedInsuranceProvider;
+                        File file = new File(getApplicationContext().getFilesDir(), fileName + ".jpg");
 
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
-                        byte[] bitmapdata = bos.toByteArray();
-
-                        FileOutputStream fos = new FileOutputStream(f);
-                        fos.write(bitmapdata);
-                        fos.flush();
-                        fos.close();
+                        OutputStream os;
+                        os = new FileOutputStream(file);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+                        os.flush();
+                        os.close();
 
                         RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), sessionManager.getUserId());
                         RequestBody relationId = RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra(InsuranceListActivity.KEY_PARAM_ACCOUNT_RELATION_ID));
@@ -277,7 +279,9 @@ public class InsuranceActivity extends AppCompatActivity {
                         RequestBody insuranceProviderId = RequestBody.create(MediaType.parse("text/plain"), selectedInsuranceProvider);
                         RequestBody insuredName = RequestBody.create(MediaType.parse("text/plain"), insuredNameEdtxt.getText().toString());
                         RequestBody insuranceHolder = RequestBody.create(MediaType.parse("text/plain"), policyHolderNameEdtxt.getText().toString());
-                        RequestBody insuranceCardImage = RequestBody.create(MediaType.parse("image/*"), f);
+
+                        RequestBody insuranceCardImageFile = RequestBody.create(MediaType.parse("image/*"), file);
+                        MultipartBody.Part insuranceCardImage = MultipartBody.Part.createFormData("img_insr_card", file.getName(), insuranceCardImageFile);
 
                         myCillinAPI.doInsertInsurance(token, userId, relationId, policyNo, insuranceProviderId, insuredName, insuranceHolder, insuranceCardImage)
                                 .enqueue(new Callback<ModelResultInsuranceInsert>() {

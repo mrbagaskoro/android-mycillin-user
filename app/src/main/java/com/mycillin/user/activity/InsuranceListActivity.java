@@ -86,6 +86,12 @@ public class InsuranceListActivity extends AppCompatActivity {
         getInsuranceList(getIntent().getStringExtra(KEY_PARAM_ACCOUNT_RELATION_ID));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getInsuranceList(getIntent().getStringExtra(KEY_PARAM_ACCOUNT_RELATION_ID));
+    }
+
     public void getInsuranceList(String relationId) {
         progressBarHandler.show();
 

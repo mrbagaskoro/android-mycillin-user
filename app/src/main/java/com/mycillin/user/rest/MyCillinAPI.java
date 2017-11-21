@@ -116,5 +116,5 @@ public interface MyCillinAPI {
                                                        @Part("insr_provider_id") RequestBody providerId,
                                                        @Part("nama_tertanggung") RequestBody insuredName,
                                                        @Part("nama_pemilik_insr") RequestBody insuranceHolder,
-                                                       @Part("img_insr_card") RequestBody insuranceCardImage);
+                                                       @Part MultipartBody.Part insuranceCardImage);
 }
