@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressBarHandler progressBarHandler;
     private boolean doubleBackToExitPressedOnce = false;
-    private boolean isRated = false;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -112,15 +111,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        // TODO: 22-Oct-17 DUMMY FUNCTION TO CHECK TRANSACTION FOR NON-COMPLETED RATING
-        /*if(!isRated) {
-            for(int i = 0; i < 1; i++) {
-                Intent intent = new Intent(MainActivity.this, RatingActivity.class);
-                startActivity(intent);
-            }
-            isRated = true;
-        }*/
 
         getUnratedList();
     }

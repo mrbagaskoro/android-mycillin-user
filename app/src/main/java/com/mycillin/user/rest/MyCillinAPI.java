@@ -18,6 +18,7 @@ import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.medicalRecordList.ModelResultMedicalRecordList;
 import com.mycillin.user.rest.partnerTypeList.ModelResultPartnerTypeList;
 import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionRecordList;
+import com.mycillin.user.rest.ratingInsert.ModelResultRatingInsert;
 import com.mycillin.user.rest.register.ModelResultRegister;
 import com.mycillin.user.rest.relationList.ModelResultRelationList;
 import com.mycillin.user.rest.specializationList.ModelResultSpecializationList;
@@ -123,4 +124,7 @@ public interface MyCillinAPI {
 
     @POST("rating_fill_checking/")
     Call<ModelResultUnratedList> getUnratedList(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("user_rating_feedback/")
+    Call<ModelResultRatingInsert> rateTransaction(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }

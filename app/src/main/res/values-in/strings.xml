@@ -298,4 +298,6 @@
     <string name="insuranceActivity_insuredNameWarning">Nama Tertanggung wajib diisi !</string>
     <string name="insuranceActivity_imageWarning">Foto Asuransi wajib dilampirkan !</string>
     <string name="insuranceActivity_insuranceProviderDropdownTitle">Pilih penyedia jasa asuransi</string>
+    <string name="ratingActivity_onBackPressedMessage">Mohon berikan penilaian terhadap pelayanan yang anda terima</string>
+    <string name="ratingActivity_emptyRatingMessage">Rating wajib diisi !</string>
 </resources>

@@ -303,4 +303,6 @@
     <string name="insuranceActivity_insuredNameWarning">Insured Name is required !</string>
     <string name="insuranceActivity_imageWarning">Image is required !</string>
     <string name="insuranceActivity_insuranceProviderDropdownTitle">Select a insurance provider</string>
+    <string name="ratingActivity_onBackPressedMessage">Please rate your previous transaction(s) first</string>
+    <string name="ratingActivity_emptyRatingMessage">Rating cannot be empty !</string>
 </resources>
