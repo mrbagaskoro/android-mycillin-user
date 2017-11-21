@@ -40,6 +40,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_MEDICAL_RECORD_DETAIL = "EXTRA_MEDICAL_RECORD_DETAIL";
 
+    public static final String KEY_PARAM_CREATED_DATE = "KEY_PARAM_CREATED_DATE";
     public static final String KEY_PARAM_PARTNER_ID = "KEY_PARAM_PARTNER_ID";
     public static final String KEY_PARAM_PARTNER_NAME = "KEY_PARAM_PARTNER_NAME";
     public static final String KEY_PARAM_RECORD_ID = "KEY_PARAM_RECORD_ID";
@@ -129,7 +130,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
 
         HashMap<String, String> medicalRecordDetailData = (HashMap<String, String>) getIntent().getSerializableExtra(EXTRA_MEDICAL_RECORD_DETAIL);
 
-        dateTxt.setText("null");
+        dateTxt.setText(medicalRecordDetailData.get(KEY_PARAM_CREATED_DATE));
         doctorTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PARTNER_NAME));
         diagnoseTxt.setText(medicalRecordDetailData.get(KEY_PARAM_DIAGNOSE));
         systoleTxt.setText(medicalRecordDetailData.get(KEY_PARAM_BLOOD_PRESS_UPPER));

@@ -9,7 +9,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ModelDataMedicalRecordList {
 
-
+    @SerializedName("created_date")
+    @Expose
+    private String createdDate;
     @SerializedName("partner_id")
     @Expose
     private String partnerId;
@@ -55,6 +57,14 @@ public class ModelDataMedicalRecordList {
     @SerializedName("prescription_type_desc")
     @Expose
     private String prescriptionTypeDesc;
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
 
     public String getPartnerId() {
         return partnerId;

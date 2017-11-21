@@ -115,6 +115,7 @@ public class MedicalRecordFragment extends Fragment {
                 MedicalRecordList list = medicalRecordLists.get(position);
 
                 HashMap<String, String> params = new HashMap<>();
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_CREATED_DATE, list.getCreatedDate());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_PARTNER_ID, list.getPartnerId());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_PARTNER_NAME, list.getPartnerName());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_RECORD_ID, list.getRecordId());
@@ -179,6 +180,7 @@ public class MedicalRecordFragment extends Fragment {
                             medicalRecordLists.clear();
 
                             for(int i = 0; i < size; i++) {
+                                String medicalRecordCreatedDate = modelResultMedicalRecordList.getResult().getData().get(i).getCreatedDate();
                                 String medicalRecordPartnerId = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerId();
                                 String medicalRecordPartnerName = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerName();
                                 String medicalRecordRecordId = modelResultMedicalRecordList.getResult().getData().get(i).getRecordId();
@@ -195,8 +197,12 @@ public class MedicalRecordFragment extends Fragment {
                                 String medicalRecordPrescriptionId = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionId();
                                 String medicalRecordPrescriptionTypeDesc = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionTypeDesc();
 
-                                //DateFormatter dateFormatter = new DateFormatter(getActivity(), medicalRecordCreatedDate);
-                                medicalRecordLists.add(new MedicalRecordList(medicalRecordPartnerId, medicalRecordPartnerName,
+                                DateFormatter dateFormatter = new DateFormatter(getActivity(), medicalRecordCreatedDate);
+                                medicalRecordLists.add(new MedicalRecordList(
+                                        dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_DD).toString(),
+                                        dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_MM).toString(),
+                                        dateFormatter.medicalRecordFragmentDateFormat().get(DateFormatter.KEY_YY).toString(),
+                                        medicalRecordCreatedDate, medicalRecordPartnerId, medicalRecordPartnerName,
                                         medicalRecordRecordId, medicalRecordUserId, medicalRecordServiceTypeDesc,
                                         medicalRecordBodyTemperature, medicalRecordBloodSugarLevel, medicalRecordCholesterolLevel,
                                         medicalRecordBloodPressUpper, medicalRecordBloodPressLower, medicalRecordPatientCondition,

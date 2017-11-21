@@ -5,6 +5,10 @@ package com.mycillin.user.list;
  */
 
 public class MedicalRecordList {
+    private String day;
+    private String month;
+    private String year;
+    private String createdDate;
     private String partnerId;
     private String partnerName;
     private String recordId;
@@ -21,12 +25,17 @@ public class MedicalRecordList {
     private String prescriptionId;
     private String prescriptionTypeDesc;
 
-    public MedicalRecordList(String partnerId, String partnerName, String recordId, String userId,
-                             String serviceTypeDesc, String bodyTemperature, String bloodSugarLevel,
-                             String cholesterolLevel, String bloodPressUpper, String bloodPressLower,
-                             String patientCondition, String diagnose, String prescriptionStatus,
-                             String prescriptionId, String prescriptionTypeDesc){
-        
+    public MedicalRecordList(String day, String month, String year, String createdDate, String partnerId,
+                             String partnerName, String recordId, String userId, String serviceTypeDesc,
+                             String bodyTemperature, String bloodSugarLevel, String cholesterolLevel,
+                             String bloodPressUpper, String bloodPressLower, String patientCondition,
+                             String diagnose, String prescriptionStatus, String prescriptionId,
+                             String prescriptionTypeDesc){
+
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.createdDate = createdDate;
         this.partnerId = partnerId;
         this.partnerName = partnerName;
         this.recordId = recordId;
@@ -42,6 +51,38 @@ public class MedicalRecordList {
         this.prescriptionStatus = prescriptionStatus;
         this.prescriptionId = prescriptionId;
         this.prescriptionTypeDesc = prescriptionTypeDesc;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getPartnerId() {
