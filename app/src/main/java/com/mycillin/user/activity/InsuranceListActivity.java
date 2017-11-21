@@ -78,6 +78,7 @@ public class InsuranceListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(InsuranceListActivity.this, InsuranceActivity.class);
+                intent.putExtra(KEY_PARAM_ACCOUNT_RELATION_ID, getIntent().getStringExtra(KEY_PARAM_ACCOUNT_RELATION_ID));
                 startActivity(intent);
             }
         });

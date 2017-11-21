@@ -4,7 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,18 +16,41 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mycillin.user.R;
+import com.mycillin.user.rest.MyCillinAPI;
+import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.accountInsert.ModelResultAccountInsert;
+import com.mycillin.user.rest.insuranceInsert.ModelResultInsuranceInsert;
+import com.mycillin.user.rest.insuranceProviderList.ModelResultInsuranceProviderList;
 import com.mycillin.user.util.ProgressBarHandler;
+import com.mycillin.user.util.SessionManager;
 import com.otaliastudios.cameraview.CameraUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InsuranceActivity extends AppCompatActivity {
 
@@ -33,13 +58,13 @@ public class InsuranceActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     @BindView(R.id.insuranceActivity_et_insuranceProvider)
-    TextView insuranceProviderEdtxt;
+    EditText insuranceProviderEdtxt;
     @BindView(R.id.insuranceActivity_et_insurancePolicyNumber)
-    TextView insurancePolicyNumberEdtxt;
+    EditText insurancePolicyNumberEdtxt;
     @BindView(R.id.insuranceActivity_et_policyHolderName)
-    TextView policyHolderNameEdtxt;
+    EditText policyHolderNameEdtxt;
     @BindView(R.id.insuranceActivity_et_insuredName)
-    TextView insuredNameEdtxt;
+    EditText insuredNameEdtxt;
     @BindView(R.id.insuranceActivity_iv_photoIcon)
     ImageView photoIcon;
     @BindView(R.id.insuranceActivity_iv_photoPreview)
@@ -48,6 +73,10 @@ public class InsuranceActivity extends AppCompatActivity {
     TextView imageWarningTxt;
 
     private ProgressBarHandler progressBarHandler;
+
+    private ArrayList<String> insuranceProviderItems = new ArrayList<>();
+    private HashMap<Integer, String> insuranceProviderItemsTemp = new HashMap<>();
+    private String selectedInsuranceProvider;
 
     private static WeakReference<byte[]> imagePreview;
 
@@ -65,6 +94,25 @@ public class InsuranceActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.insuranceActivity_title);
 
         progressBarHandler = new ProgressBarHandler(this);
+
+        final SpinnerDialog insuranceProviderSpinnerDialog = new SpinnerDialog(InsuranceActivity.this, insuranceProviderItems, getString(R.string.insuranceActivity_insuranceProviderDropdownTitle), R.style.DialogAnimations_SmileWindow);
+        insuranceProviderSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+            @Override
+            public void onClick(String s, int i) {
+                insuranceProviderEdtxt.setText(s);
+                for(int j = 0; j < insuranceProviderItemsTemp.size(); j++) {
+                    if(insuranceProviderItemsTemp.get(j).split(" - ")[1].equals(s)) {
+                        selectedInsuranceProvider = insuranceProviderItemsTemp.get(j).split(" - ")[0];
+                    }
+                }
+            }
+        });
+        insuranceProviderEdtxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getInsuranceProviderList(insuranceProviderSpinnerDialog);
+            }
+        });
 
         photoIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,12 +139,9 @@ public class InsuranceActivity extends AppCompatActivity {
                             photoIcon.setVisibility(View.GONE);
                             photoPreview.setVisibility(View.VISIBLE);
                             photoPreview.setImageBitmap(bitmap);
+                            imageWarningTxt.setVisibility(View.INVISIBLE);
                         }
                     });
-                }
-
-                if(photoPreview.getVisibility() == View.VISIBLE && photoIcon.getVisibility() == View.GONE) {
-                    imageWarningTxt.setVisibility(View.INVISIBLE);
                 }
             }
         }
@@ -146,7 +191,7 @@ public class InsuranceActivity extends AppCompatActivity {
                         .setPositiveButton(getString(R.string.menu_save), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO: 18-Nov-17 ADD INSURANCE
+                                doInsert();
                             }
                         })
                         .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
@@ -160,5 +205,134 @@ public class InsuranceActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void getInsuranceProviderList(final SpinnerDialog spinnerDialog) {
+        progressBarHandler.show();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+        myCillinAPI.getInsuranceProviderList().enqueue(new Callback<ModelResultInsuranceProviderList>() {
+            @Override
+            public void onResponse(Call<ModelResultInsuranceProviderList> call, Response<ModelResultInsuranceProviderList> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultInsuranceProviderList modelResultInsuranceProviderList = response.body();
+
+                    assert modelResultInsuranceProviderList != null;
+                    if(modelResultInsuranceProviderList.getResult().isStatus()) {
+
+                        insuranceProviderItems.clear();
+                        insuranceProviderItemsTemp.clear();
+                        int size = modelResultInsuranceProviderList.getResult().getData().size();
+                        for(int i = 0; i < size; i++) {
+                            String insuranceProviderId = modelResultInsuranceProviderList.getResult().getData().get(i).getInsuranceProviderId();
+                            String insuranceProviderDesc = modelResultInsuranceProviderList.getResult().getData().get(i).getInsuranceProviderDesc();
+
+                            insuranceProviderItems.add(insuranceProviderDesc);
+                            insuranceProviderItemsTemp.put(i, insuranceProviderId + " - " + insuranceProviderDesc);
+                        }
+                        spinnerDialog.showSpinerDialog();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelResultInsuranceProviderList> call, Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doInsert() {
+        progressBarHandler.show();
+
+        byte[] bytes = imagePreview == null ? null : imagePreview.get();
+        if (bytes != null) {
+            CameraUtils.decodeBitmap(bytes, 1000, 1000, new CameraUtils.BitmapCallback() {
+                @Override
+                public void onBitmapReady(Bitmap bitmap) {
+                    try {
+                        SessionManager sessionManager = new SessionManager(getApplicationContext());
+                        String token = sessionManager.getUserToken();
+                        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+                        File f = new File(getApplicationContext().getCacheDir(), "");
+                        //f.createNewFile();
+
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+                        byte[] bitmapdata = bos.toByteArray();
+
+                        FileOutputStream fos = new FileOutputStream(f);
+                        fos.write(bitmapdata);
+                        fos.flush();
+                        fos.close();
+
+                        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), sessionManager.getUserId());
+                        RequestBody relationId = RequestBody.create(MediaType.parse("text/plain"), getIntent().getStringExtra(InsuranceListActivity.KEY_PARAM_ACCOUNT_RELATION_ID));
+                        RequestBody policyNo = RequestBody.create(MediaType.parse("text/plain"), insurancePolicyNumberEdtxt.getText().toString());
+                        RequestBody insuranceProviderId = RequestBody.create(MediaType.parse("text/plain"), selectedInsuranceProvider);
+                        RequestBody insuredName = RequestBody.create(MediaType.parse("text/plain"), insuredNameEdtxt.getText().toString());
+                        RequestBody insuranceHolder = RequestBody.create(MediaType.parse("text/plain"), policyHolderNameEdtxt.getText().toString());
+                        RequestBody insuranceCardImage = RequestBody.create(MediaType.parse("image/*"), f);
+
+                        myCillinAPI.doInsertInsurance(token, userId, relationId, policyNo, insuranceProviderId, insuredName, insuranceHolder, insuranceCardImage)
+                                .enqueue(new Callback<ModelResultInsuranceInsert>() {
+                                    @Override
+                                    public void onResponse(@NonNull Call<ModelResultInsuranceInsert> call, @NonNull Response<ModelResultInsuranceInsert> response) {
+                                        progressBarHandler.hide();
+
+                                        if(response.isSuccessful()) {
+                                            ModelResultInsuranceInsert modelResultInsuranceInsert = response.body();
+
+                                            assert modelResultInsuranceInsert != null;
+                                            if(modelResultInsuranceInsert.getResult().isStatus()) {
+                                                String message = modelResultInsuranceInsert.getResult().getMessage();
+                                                Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT)
+                                                        .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                                                            @Override
+                                                            public void onDismissed(Snackbar transientBottomBar, int event) {
+                                                                super.onDismissed(transientBottomBar, event);
+                                                                finish();
+                                                            }
+                                                        })
+                                                        .show();
+                                            }
+                                        }
+                                        else {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                                String message;
+                                                if(jsonObject.has("result")) {
+                                                    message = jsonObject.getJSONObject("result").getString("message");
+                                                }
+                                                else {
+
+                                                    message = jsonObject.getString("message");
+                                                }
+                                                Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                                            } catch (JSONException | IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(@NonNull Call<ModelResultInsuranceInsert> call, @NonNull Throwable t) {
+                                        // TODO: 12/10/2017 SET FAILURE SCENARIO
+                                        progressBarHandler.hide();
+                                        Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 }

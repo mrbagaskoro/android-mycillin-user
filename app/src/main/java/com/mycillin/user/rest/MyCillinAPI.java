@@ -10,7 +10,9 @@ import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
+import com.mycillin.user.rest.insuranceInsert.ModelResultInsuranceInsert;
 import com.mycillin.user.rest.insuranceList.ModelResultInsuranceList;
+import com.mycillin.user.rest.insuranceProviderList.ModelResultInsuranceProviderList;
 import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.medicalRecordList.ModelResultMedicalRecordList;
 import com.mycillin.user.rest.partnerTypeList.ModelResultPartnerTypeList;
@@ -22,6 +24,8 @@ import com.mycillin.user.util.SessionManager;
 
 import java.util.HashMap;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -29,7 +33,9 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * Created by 16003041 on 12/10/2017.
@@ -97,4 +103,18 @@ public interface MyCillinAPI {
 
     @POST("list_member_insurance/")
     Call<ModelResultInsuranceList> getInsuranceList(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @GET("list_insr_provider/")
+    Call<ModelResultInsuranceProviderList> getInsuranceProviderList();
+
+    @Multipart
+    @POST("add_member_insurance/")
+    Call<ModelResultInsuranceInsert> doInsertInsurance(@Header("Authorization") String token,
+                                                       @Part("user_id") RequestBody userId,
+                                                       @Part("relation_id") RequestBody relationId,
+                                                       @Part("no_polis_insr") RequestBody policyNo,
+                                                       @Part("insr_provider_id") RequestBody providerId,
+                                                       @Part("nama_tertanggung") RequestBody insuredName,
+                                                       @Part("nama_pemilik_insr") RequestBody insuranceHolder,
+                                                       @Part("img_insr_card") RequestBody insuranceCardImage);
 }
