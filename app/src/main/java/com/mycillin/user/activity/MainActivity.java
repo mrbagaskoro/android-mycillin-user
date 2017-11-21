@@ -114,15 +114,15 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         // TODO: 22-Oct-17 DUMMY FUNCTION TO CHECK TRANSACTION FOR NON-COMPLETED RATING
-        if(!isRated) {
+        /*if(!isRated) {
             for(int i = 0; i < 1; i++) {
                 Intent intent = new Intent(MainActivity.this, RatingActivity.class);
                 startActivity(intent);
             }
             isRated = true;
-        }
+        }*/
 
-        //getUnratedList();
+        getUnratedList();
     }
 
     @Override
@@ -201,6 +201,10 @@ public class MainActivity extends AppCompatActivity {
                         int size = modelResultUnratedList.getResult().getData().size();
                         for(int i = 0; i < size; i++) {
                             Intent intent = new Intent(MainActivity.this, RatingActivity.class);
+                            intent.putExtra(RatingActivity.EXTRA_PARAM_CREATED_DATE, modelResultUnratedList.getResult().getData().get(i).getCreatedDate());
+                            intent.putExtra(RatingActivity.EXTRA_PARAM_BOOKING_ID, modelResultUnratedList.getResult().getData().get(i).getBookingId());
+                            intent.putExtra(RatingActivity.EXTRA_PARAM_PARTNER_ID, modelResultUnratedList.getResult().getData().get(i).getPartnerSelected());
+                            intent.putExtra(RatingActivity.EXTRA_PARAM_PARTNER_NAME, modelResultUnratedList.getResult().getData().get(i).getFullName());
                             startActivity(intent);
                         }
                     }

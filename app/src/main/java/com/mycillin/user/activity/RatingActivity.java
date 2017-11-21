@@ -18,10 +18,20 @@ public class RatingActivity extends AppCompatActivity {
     @BindView(R.id.ratingActivity_toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.ratingActivity_tv_doctorName)
+    TextView partnerNameTxt;
+    @BindView(R.id.ratingActivity_tv_bookDate)
+    TextView bookDateTxt;
+
     @BindView(R.id.ratingActivity_et_comments)
     EditText additionalComments;
     @BindView(R.id.ratingActivity_tv_commentsCounter)
     TextView ratingCounter;
+
+    public static final String EXTRA_PARAM_CREATED_DATE = "EXTRA_PARAM_CREATED_DATE";
+    public static final String EXTRA_PARAM_BOOKING_ID = "EXTRA_PARAM_BOOKING_ID";
+    public static final String EXTRA_PARAM_PARTNER_ID = "EXTRA_PARAM_PARTNER_ID";
+    public static final String EXTRA_PARAM_PARTNER_NAME = "EXTRA_PARAM_PARTNER_NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +41,14 @@ public class RatingActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.ratingActivity_title);
+
+        String createdDate = getIntent().getStringExtra(EXTRA_PARAM_CREATED_DATE);
+        String bookingId = getIntent().getStringExtra(EXTRA_PARAM_BOOKING_ID);
+        String partnerId = getIntent().getStringExtra(EXTRA_PARAM_PARTNER_ID);
+        String partnerName = getIntent().getStringExtra(EXTRA_PARAM_PARTNER_NAME);
+
+        partnerNameTxt.setText(partnerName);
+        bookDateTxt.setText(createdDate);
 
         additionalComments.addTextChangedListener(new TextWatcher() {
             @Override
