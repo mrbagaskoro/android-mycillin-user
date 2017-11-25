@@ -13,11 +13,11 @@ public class ConsultationMenuList {
         this.title = title;
     }
 
-    public String getImage() {
+    public String getId() {
         return id;
     }
 
-    public void setImage(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 

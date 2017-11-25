@@ -86,15 +86,23 @@ public class HomeFragment extends Fragment {
     private List<ConsultationMenuList> consultationMenuLists = new ArrayList<>();
     private ConsultationMenuAdapter consultationMenuAdapter;
 
-    public static final String KEY_ID_MENU_01 = "KEY_ID_MENU_01";
-    public static final String KEY_ID_MENU_02 = "KEY_ID_MENU_02";
-    public static final String KEY_ID_MENU_03 = "KEY_ID_MENU_03";
-    public static final String KEY_ID_MENU_04 = "KEY_ID_MENU_04";
-    public static final String KEY_ID_MENU_05 = "KEY_ID_MENU_05";
-    public static final String KEY_ID_MENU_06 = "KEY_ID_MENU_06";
-    public static final String KEY_ID_MENU_07 = "KEY_ID_MENU_07";
-    public static final String KEY_ID_MENU_08 = "KEY_ID_MENU_08";
-    public static final String KEY_ID_MENU_09 = "KEY_ID_MENU_09";
+    public static final String KEY_ID_MENU_ALLERGIST = "KEY_ID_MENU_ALLERGIST";
+    public static final String KEY_ID_MENU_CARDIOLOGIST = "KEY_ID_MENU_CARDIOLOGIST";
+    public static final String KEY_ID_MENU_DENTIST = "KEY_ID_MENU_DENTIST";
+    public static final String KEY_ID_MENU_DERMATOLOGIST = "KEY_ID_MENU_DERMATOLOGIST";
+    public static final String KEY_ID_MENU_GENERAL_PRACTITIONER = "KEY_ID_MENU_GENERAL_PRACTITIONER";
+    public static final String KEY_ID_MENU_INTERNIST = "KEY_ID_MENU_INTERNIST";
+    public static final String KEY_ID_MENU_NEUROLOGIST = "KEY_ID_MENU_NEUROLOGIST";
+    public static final String KEY_ID_MENU_OBGYN = "KEY_ID_MENU_OBGYN";
+    public static final String KEY_ID_MENU_OPHTHALMOLOGIST = "KEY_ID_MENU_OPHTHALMOLOGIST";
+    public static final String KEY_ID_MENU_ORTHOPAEDIST = "KEY_ID_MENU_ORTHOPAEDIST";
+    public static final String KEY_ID_MENU_OTOLARYNGOLOGIST = "KEY_ID_MENU_OTOLARYNGOLOGIST";
+    public static final String KEY_ID_MENU_PEDIATRICIAN = "KEY_ID_MENU_PEDIATRICIAN";
+    public static final String KEY_ID_MENU_PSYCHIATRIST = "KEY_ID_MENU_PSYCHIATRIST";
+    public static final String KEY_ID_MENU_PULMONOLOGIST = "KEY_ID_MENU_PULMONOLOGIST";
+    public static final String KEY_ID_MENU_RADIOLOGIST = "KEY_ID_MENU_RADIOLOGIST";
+    public static final String KEY_ID_MENU_GENERAL_SURGEON = "KEY_ID_MENU_GENERAL_SURGEON";
+    public static final String KEY_ID_MENU_UROLOGIST = "KEY_ID_MENU_UROLOGIST";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -286,17 +294,24 @@ public class HomeFragment extends Fragment {
         consultationMenuRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         consultationMenuLists.clear();
-        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_01, getString(R.string.serviceConsultationActivity_menu1Title)));
-        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_02, getString(R.string.serviceConsultationActivity_menu2Title)));
-        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_03, getString(R.string.serviceConsultationActivity_menu3Title)));
-        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_04, getString(R.string.serviceConsultationActivity_menu4Title)));
-        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_05, getString(R.string.serviceConsultationActivity_menu5Title)));
-        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_06, getString(R.string.serviceConsultationActivity_menu6Title)));
-        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_07, getString(R.string.serviceConsultationActivity_menu7Title)));
-        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_08, getString(R.string.serviceConsultationActivity_menu8Title)));
-        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_09, getString(R.string.serviceConsultationActivity_menu9Title)));
-
-        consultationMenuAdapter = new ConsultationMenuAdapter(consultationMenuLists);
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_ALLERGIST, getString(R.string.serviceConsultationActivity_menuAllergist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_CARDIOLOGIST, getString(R.string.serviceConsultationActivity_menuCardiologist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_DENTIST, getString(R.string.serviceConsultationActivity_menuDentist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_DERMATOLOGIST, getString(R.string.serviceConsultationActivity_menuDermatologist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_GENERAL_PRACTITIONER, getString(R.string.serviceConsultationActivity_menuGeneralPractitioner)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_INTERNIST, getString(R.string.serviceConsultationActivity_menuInternist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_NEUROLOGIST, getString(R.string.serviceConsultationActivity_menuNeurologist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_OBGYN, getString(R.string.serviceConsultationActivity_menuObstetricianGynecologist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_OPHTHALMOLOGIST, getString(R.string.serviceConsultationActivity_menuOphthalmologist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_ORTHOPAEDIST, getString(R.string.serviceConsultationActivity_menuOrthopaedist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_OTOLARYNGOLOGIST, getString(R.string.serviceConsultationActivity_menuOtolaryngologist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_PEDIATRICIAN, getString(R.string.serviceConsultationActivity_menuPediatrician)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_PSYCHIATRIST, getString(R.string.serviceConsultationActivity_menuPsychiatrist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_PULMONOLOGIST, getString(R.string.serviceConsultationActivity_menuPulmonologist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_RADIOLOGIST, getString(R.string.serviceConsultationActivity_menuRadiologist)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_GENERAL_SURGEON, getString(R.string.serviceConsultationActivity_menuGeneralSurgeon)));
+        consultationMenuLists.add(new ConsultationMenuList(KEY_ID_MENU_UROLOGIST, getString(R.string.serviceConsultationActivity_menuUrologist)));
+        consultationMenuAdapter = new ConsultationMenuAdapter(consultationMenuLists, getContext());
         consultationMenuRecyclerView.setAdapter(consultationMenuAdapter);
         consultationMenuAdapter.notifyDataSetChanged();
 
