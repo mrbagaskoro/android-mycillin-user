@@ -73,11 +73,11 @@ public class HomeFragment extends Fragment {
     LinearLayout goToBookDoctorService;
     @BindView(R.id.homeFragment_ll_medicalReservationService)
     LinearLayout goToMedicalReservationService;
+    @BindView(R.id.homeFragment_ll_homecareService)
+    LinearLayout goToHomeCareService;
     @BindView(R.id.homeFragment_ll_consultationService)
     LinearLayout goToConsultationService;
-    /*@BindView(R.id.homeFragment_ll_ambulanceService)
-    LinearLayout goToAmbulanceService;
-    @BindView(R.id.homeFragment_ll_redeemPrescriptionService)
+    /*@BindView(R.id.homeFragment_ll_redeemPrescriptionService)
     LinearLayout goToRedeemPrescriptionService;*/
 
     private ArrayList<String> items = new ArrayList<>();

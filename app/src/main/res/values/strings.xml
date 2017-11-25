@@ -74,6 +74,8 @@
     <string name="servicesActivity_consultationServiceDesc">An online and real time consultation service with a doctor</string>
     <string name="servicesActivity_ambulanceServiceText">AMBULANCE SERVICE</string>
     <string name="servicesActivity_ambulanceServiceDesc">An ambulance rental service close to you</string>
+    <string name="servicesActivity_homecareServiceText">HOMECARE SERVICE</string>
+    <string name="servicesActivity_homecareServiceDesc">A homecare service close to you</string>
     <string name="serviceActivity_redeemPrescriptionTitle">REDEEM PRESCRIPTION</string>
     <string name="serviceActivity_redeemPrescriptionDesc">Purchase and delivery prescription service supported by pharmacy network</string>
     <string name="serviceBookDoctorActivity_addressTitle">ADDRESS</string>

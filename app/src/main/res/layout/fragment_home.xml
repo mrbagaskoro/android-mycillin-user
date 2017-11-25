@@ -210,6 +210,58 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/homeFragment_ll_homecareService"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/frame">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="3" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_service_homecare"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:text="@string/servicesActivity_homecareServiceText"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="10dp"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:textStyle="italic"
+                            android:text="@string/servicesActivity_homecareServiceDesc"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/homeFragment_ll_consultationService"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -262,58 +314,6 @@
                 </LinearLayout>
 
                 <!--<LinearLayout
-                    android:id="@+id/homeFragment_ll_ambulanceService"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/frame">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:layout_weight="3" >
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_service_ambulance"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1" >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="10dp"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:text="@string/servicesActivity_ambulanceServiceText"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="10dp"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:textStyle="italic"
-                            android:text="@string/servicesActivity_ambulanceServiceDesc"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/homeFragment_ll_redeemPrescriptionService"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
