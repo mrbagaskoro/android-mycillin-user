@@ -2,9 +2,12 @@ package com.mycillin.user.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BaseTransientBottomBar;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,30 +15,37 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mycillin.user.R;
 import com.mycillin.user.adapter.AccountAdapter;
+import com.mycillin.user.adapter.DialogImagePickerAdapter;
 import com.mycillin.user.list.AccountList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
-import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.RecyclerTouchListener;
 import com.mycillin.user.util.SessionManager;
 import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.GridHolder;
+import com.orhanobut.dialogplus.OnItemClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
+import com.otaliastudios.cameraview.CameraUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,6 +91,8 @@ public class AccountActivity extends AppCompatActivity {
     public static final String KEY_MANAGE_ACCOUNT = "KEY_MANAGE_ACCOUNT";
     public static final String KEY_MANAGE_INSURANCE = "KEY_MANAGE_INSURANCE";
     public static final String KEY_MANAGE_PAYMENT_METHOD = "KEY_MANAGE_PAYMENT_METHOD";
+    public static final int REQUEST_CODE_GALLERY = 1002;
+    public static final int REQUEST_CODE_CAMERA = 1003;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +107,13 @@ public class AccountActivity extends AppCompatActivity {
         patientsNameTxt.setText(sessionManager.getUserFullName());
 
         progressBarHandler = new ProgressBarHandler(this);
+
+        userAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showImagePickerDialog();
+            }
+        });
 
         manageAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +157,22 @@ public class AccountActivity extends AppCompatActivity {
             Glide.with(getApplicationContext())
                     .load(sessionManager.getUserPicUrl())
                     .into(userAvatar);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK) {
+            if(requestCode == REQUEST_CODE_GALLERY) {
+                Uri selectedImage = data.getData();
+                userAvatar.setImageURI(selectedImage);
+            }
+            else if(requestCode == REQUEST_CODE_CAMERA) {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                userAvatar.setImageBitmap(photo);
+            }
         }
     }
 
@@ -321,5 +356,33 @@ public class AccountActivity extends AppCompatActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showImagePickerDialog() {
+        DialogImagePickerAdapter dialogImagePickerAdapter = new DialogImagePickerAdapter(AccountActivity.this);
+        DialogPlus dialog = DialogPlus.newDialog(this)
+                .setContentHolder(new GridHolder(2))
+                .setHeader(R.layout.dialog_image_picker_header)
+                .setCancelable(true)
+                .setGravity(Gravity.BOTTOM)
+                .setAdapter(dialogImagePickerAdapter)
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                        if(position == 0) {
+                            Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(pickPhoto , REQUEST_CODE_GALLERY);
+                            dialog.dismiss();
+                        }
+                        else if(position == 1) {
+                            Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(takePicture, REQUEST_CODE_CAMERA);
+                            dialog.dismiss();
+                        }
+                    }
+                })
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .create();
+        dialog.show();
     }
 }

@@ -315,4 +315,7 @@
     <string name="insuranceActivity_insuranceProviderDropdownTitle">Select a insurance provider</string>
     <string name="ratingActivity_onBackPressedMessage">Please rate your previous transaction(s) first</string>
     <string name="ratingActivity_emptyRatingMessage">Rating cannot be empty !</string>
+    <string name="dialogImagePickerHeader_title">SELECT IMAGE FROM :</string>
+    <string name="dialogImagePickerAdapter_galleryTitle">Gallery</string>
+    <string name="dialogImagePickerAdapter_cameraTitle">Camera</string>
 </resources>
