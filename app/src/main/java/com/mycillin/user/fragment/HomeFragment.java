@@ -272,6 +272,7 @@ public class HomeFragment extends Fragment {
                 RequestOptions requestOptions = new RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true)
+                        .placeholder(R.drawable.banner_default)
                         .fitCenter();
 
                 Glide.with(getContext())

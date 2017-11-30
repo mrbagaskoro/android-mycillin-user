@@ -424,6 +424,7 @@ public class AccountActivity extends AppCompatActivity {
             RequestOptions requestOptions = new RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
+                    .placeholder(R.drawable.ic_action_user)
                     .fitCenter();
 
             Glide.with(getApplicationContext())
