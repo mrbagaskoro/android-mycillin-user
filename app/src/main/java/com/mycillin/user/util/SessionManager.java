@@ -85,4 +85,9 @@ public class SessionManager {
     public String getUserPicUrl() {
         return sharedPreferences.getString(KEY_USER_PIC_URL, null);
     }
+
+    public void setUserPicUrl(String url) {
+        editor.putString(KEY_USER_PIC_URL, url);
+        editor.commit();
+    }
 }

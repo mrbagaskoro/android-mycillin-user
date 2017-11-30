@@ -4,6 +4,7 @@ import com.mycillin.user.rest.accountDelete.ModelResultAccountDelete;
 import com.mycillin.user.rest.accountInsert.ModelResultAccountInsert;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
 import com.mycillin.user.rest.accountPicGet.ModelResultAccountPicGet;
+import com.mycillin.user.rest.accountPicUpdate.ModelResultAccountPicUpdate;
 import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
 import com.mycillin.user.rest.bannerImage.ModelResultBannerImage;
 import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
@@ -127,4 +128,10 @@ public interface MyCillinAPI {
 
     @POST("user_rating_feedback/")
     Call<ModelResultRatingInsert> rateTransaction(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @Multipart
+    @POST("change_avatar/")
+    Call<ModelResultAccountPicUpdate> updateAccountPic(@Header("Authorization") String token,
+                                                       @Part("user_id") RequestBody userId,
+                                                       @Part MultipartBody.Part profileImg);
 }

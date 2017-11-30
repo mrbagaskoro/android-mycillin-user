@@ -1,4 +1,4 @@
-package com.mycillin.user.rest.accountPicGet;
+package com.mycillin.user.rest.accountPicUpdate;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -6,17 +6,17 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by mrbagaskoro on 28-Oct-17.
+ * Created by 16003041 on 30/11/2017.
  */
 
-public class ModelResultDataAccountPicGet {
+public class ModelResultDataAccountPicUpdate {
 
     @SerializedName("status")
     @Expose
     private boolean status;
     @SerializedName("message")
     @Expose
-    private List<ModelDataAccountPicGet> message = null;
+    private List<ModelDataAccountPicUpdate> message = null;
 
     public boolean isStatus() {
         return status;
@@ -26,11 +26,11 @@ public class ModelResultDataAccountPicGet {
         this.status = status;
     }
 
-    public List<ModelDataAccountPicGet> getMessage() {
+    public List<ModelDataAccountPicUpdate> getMessage() {
         return message;
     }
 
-    public void setMessage(List<ModelDataAccountPicGet> message) {
+    public void setMessage(List<ModelDataAccountPicUpdate> message) {
         this.message = message;
     }
 }

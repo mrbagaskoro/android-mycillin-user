@@ -1,13 +1,13 @@
-package com.mycillin.user.rest.accountPicGet;
+package com.mycillin.user.rest.accountPicUpdate;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by mrbagaskoro on 28-Oct-17.
+ * Created by 16003041 on 30/11/2017.
  */
 
-public class ModelMessageAccountList {
+public class ModelDataAccountPicUpdate {
 
     @SerializedName("user_id")
     @Expose

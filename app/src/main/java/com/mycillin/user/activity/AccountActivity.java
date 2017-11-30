@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.mycillin.user.R;
 import com.mycillin.user.adapter.AccountAdapter;
 import com.mycillin.user.adapter.DialogImagePickerAdapter;
@@ -32,6 +36,8 @@ import com.mycillin.user.list.AccountList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
+import com.mycillin.user.rest.accountPicUpdate.ModelResultAccountPicUpdate;
+import com.mycillin.user.rest.insuranceInsert.ModelResultInsuranceInsert;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.RecyclerTouchListener;
 import com.mycillin.user.util.SessionManager;
@@ -44,7 +50,11 @@ import com.otaliastudios.cameraview.CameraUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +63,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,7 +95,6 @@ public class AccountActivity extends AppCompatActivity {
 
     RecyclerView accountRecyclerView;
 
-    private ImageButton addAccountBtn;
     private List<AccountList> accountLists = new ArrayList<>();
     private AccountAdapter accountAdapter;
 
@@ -152,12 +164,13 @@ public class AccountActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
-        if(!sessionManager.getUserPicUrl().isEmpty()) {
-            Glide.with(getApplicationContext())
-                    .load(sessionManager.getUserPicUrl())
-                    .into(userAvatar);
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        loadAccountPic(sessionManager.getUserPicUrl());
     }
 
     @Override
@@ -166,12 +179,17 @@ public class AccountActivity extends AppCompatActivity {
 
         if(resultCode == RESULT_OK) {
             if(requestCode == REQUEST_CODE_GALLERY) {
-                Uri selectedImage = data.getData();
-                userAvatar.setImageURI(selectedImage);
+                try {
+                    Uri selectedImage = data.getData();
+                    Bitmap bitmapFromGallery = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                    updateAccountPic(bitmapFromGallery);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             else if(requestCode == REQUEST_CODE_CAMERA) {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
-                userAvatar.setImageBitmap(photo);
+                Bitmap bitmapFromCamera = (Bitmap) data.getExtras().get("data");
+                updateAccountPic(bitmapFromCamera);
             }
         }
     }
@@ -187,7 +205,7 @@ public class AccountActivity extends AppCompatActivity {
 
         getAccountList(dialogPlus, dialogPlusView, id);
 
-        addAccountBtn = dialogPlusView.findViewById(R.id.manageAccountDialog_ib_addAccountBtn);
+        ImageButton addAccountBtn = dialogPlusView.findViewById(R.id.manageAccountDialog_ib_addAccountBtn);
         if(id.equals(KEY_MANAGE_ACCOUNT)) {
             addAccountBtn.setVisibility(View.VISIBLE);
             addAccountBtn.setOnClickListener(new View.OnClickListener() {
@@ -384,5 +402,97 @@ public class AccountActivity extends AppCompatActivity {
                 .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
                 .create();
         dialog.show();
+    }
+
+    private void loadAccountPic(String url) {
+        if(!url.isEmpty()) {
+
+            RequestOptions requestOptions = new RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .fitCenter();
+
+            Glide.with(getApplicationContext())
+                    .load(url)
+                    .apply(requestOptions)
+                    .into(userAvatar);
+        }
+    }
+
+    private void updateAccountPic(final Bitmap bitmap) {
+        try {
+            progressBarHandler.show();
+            final SessionManager sessionManager = new SessionManager(getApplicationContext());
+            String token = sessionManager.getUserToken();
+            MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+            String fileName = "img_" + sessionManager.getUserId();
+
+            File file = new File(getApplicationContext().getFilesDir(), fileName + ".jpg");
+
+            OutputStream os = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.flush();
+            os.close();
+
+            RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), sessionManager.getUserId());
+            RequestBody profileImgFile = RequestBody.create(MediaType.parse("image/*"), file);
+            MultipartBody.Part profileImg = MultipartBody.Part.createFormData("profile_img", file.getName(), profileImgFile);
+
+            myCillinAPI.updateAccountPic(token, userId, profileImg).enqueue(new Callback<ModelResultAccountPicUpdate>() {
+                        @Override
+                        public void onResponse(@NonNull Call<ModelResultAccountPicUpdate> call, @NonNull Response<ModelResultAccountPicUpdate> response) {
+                            progressBarHandler.hide();
+
+                            if(response.isSuccessful()) {
+                                final ModelResultAccountPicUpdate modelResultAccountPicUpdate = response.body();
+
+                                assert modelResultAccountPicUpdate != null;
+                                if(modelResultAccountPicUpdate.getResult().isStatus()) {
+                                    Snackbar.make(getWindow().getDecorView().getRootView(), R.string.AccountActivity_updatePicSuccessMessage, Snackbar.LENGTH_SHORT)
+                                            .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                                                @Override
+                                                public void onDismissed(Snackbar transientBottomBar, int event) {
+                                                    super.onDismissed(transientBottomBar, event);
+
+                                                    String imageProfileUrl = modelResultAccountPicUpdate.getResult().getMessage().get(0).getImageProfile();
+                                                    sessionManager.setUserPicUrl(imageProfileUrl);
+                                                    loadAccountPic(imageProfileUrl);
+                                                    userAvatar.setImageBitmap(bitmap);
+                                                }
+                                            })
+                                            .show();
+                                }
+                            }
+                            else {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                    String message;
+                                    if(jsonObject.has("result")) {
+                                        message = jsonObject.getJSONObject("result").getString("message");
+                                    }
+                                    else {
+
+                                        message = jsonObject.getString("message");
+                                    }
+                                    Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                                } catch (JSONException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<ModelResultAccountPicUpdate> call, @NonNull Throwable t) {
+                            // TODO: 12/10/2017 SET FAILURE SCENARIO
+                            progressBarHandler.hide();
+                            Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+                        }
+                    });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
