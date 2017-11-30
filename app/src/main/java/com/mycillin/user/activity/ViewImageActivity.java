@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.mycillin.user.R;
@@ -27,6 +28,8 @@ public class ViewImageActivity extends AppCompatActivity {
         String url = getIntent().getStringExtra(EXTRA_IMAGE_URL);
 
         RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .fitCenter();
 
         Glide.with(getApplicationContext())

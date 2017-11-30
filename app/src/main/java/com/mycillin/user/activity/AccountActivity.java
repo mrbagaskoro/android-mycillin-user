@@ -21,6 +21,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +75,8 @@ public class AccountActivity extends AppCompatActivity {
 
     @BindView(R.id.accountActivity_iv_userAvatar)
     CircleImageView userAvatar;
+    @BindView(R.id.accountActivity_iv_editPicture)
+    ImageView editPictureBtn;
     @BindView(R.id.accountActivity_ll_manageAccount)
     LinearLayout manageAccount;
     @BindView(R.id.accountActivity_ll_manageInsurance)
@@ -114,13 +117,24 @@ public class AccountActivity extends AppCompatActivity {
 
         toolbar.setTitle(R.string.nav_account);
 
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        final SessionManager sessionManager = new SessionManager(getApplicationContext());
         sessionManager.checkLogin();
         patientsNameTxt.setText(sessionManager.getUserFullName());
 
         progressBarHandler = new ProgressBarHandler(this);
 
         userAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!sessionManager.getUserPicUrl().isEmpty()) {
+                    Intent intent = new Intent(AccountActivity.this, ViewImageActivity.class);
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, sessionManager.getUserPicUrl());
+                    startActivity(intent);
+                }
+            }
+        });
+
+        editPictureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showImagePickerDialog();
