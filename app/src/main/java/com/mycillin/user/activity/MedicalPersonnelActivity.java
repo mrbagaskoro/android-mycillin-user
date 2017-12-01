@@ -1,25 +1,44 @@
 package com.mycillin.user.activity;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mycillin.user.R;
 import com.mycillin.user.adapter.MedicalPersonnelAdapter;
+import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.list.MedicalPersonnelList;
+import com.mycillin.user.rest.MyCillinAPI;
+import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.findPartner.ModelResultFindPartner;
+import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.RecyclerTouchListener;
+import com.mycillin.user.util.SessionManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MedicalPersonnelActivity extends AppCompatActivity {
 
@@ -27,9 +46,28 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.medicalPersonnelActivity_rv_recyclerView)
     RecyclerView medicalPersonnelRecyclerView;
+    @BindView(R.id.medicalPersonnelActivity_ll_messageContainer)
+    LinearLayout messageContainer;
+    @BindView(R.id.medicalPersonnelActivity_tv_message)
+    TextView message;
+    @BindView(R.id.medicalPersonnelActivity_ll_searchContainer)
+    LinearLayout searchContainer;
+    @BindView(R.id.medicalPersonnelActivity_ll_recordsCountContainer)
+    LinearLayout recordsCountContainer;
+    @BindView(R.id.medicalPersonnelActivity_tv_recordsCount)
+    TextView recordsCount;
 
     private List<MedicalPersonnelList> medicalPersonnelLists = new ArrayList<>();
     private MedicalPersonnelAdapter medicalPersonneldAdapter;
+
+    public static final String EXTRA_PARTNER_TYPE_ID = "EXTRA_PARTNER_TYPE_ID";
+    public static final String EXTRA_PARTNER_SPECIALIZATION_ID = "EXTRA_PARTNER_SPECIALIZATION_ID";
+    public static final String EXTRA_PARTNER_GENDER = "EXTRA_PARTNER_GENDER";
+    public static final String EXTRA_PARTNER_BPJS_STATUS = "EXTRA_PARTNER_BPJS_STATUS";
+    public static final String EXTRA_USER_LATITUDE = "EXTRA_USER_LATITUDE";
+    public static final String EXTRA_USER_LONGITUDE = "EXTRA_USER_LONGITUDE";
+
+    private ProgressBarHandler progressBarHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +76,23 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.medicalPersonnelActivity_title);
 
-        getMedicalPersonnelList();
+        progressBarHandler = new ProgressBarHandler(this);
+
+        if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_BOOK_DOCTOR)) {
+
+            getSupportActionBar().setTitle(R.string.medicalPersonnelActivity_title);
+
+            getMedicalPersonnelList(getIntent().getStringExtra(EXTRA_PARTNER_TYPE_ID),
+                    getIntent().getStringExtra(EXTRA_PARTNER_SPECIALIZATION_ID),
+                    getIntent().getStringExtra(EXTRA_PARTNER_GENDER),
+                    getIntent().getStringExtra(EXTRA_PARTNER_BPJS_STATUS),
+                    getIntent().getStringExtra(EXTRA_USER_LATITUDE),
+                    getIntent().getStringExtra(EXTRA_USER_LONGITUDE));
+        }
+        else if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_MEDICAL_RESERVATION)) {
+
+        }
 
         medicalPersonnelRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), medicalPersonnelRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -61,17 +113,100 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
         }));
     }
 
-    private void getMedicalPersonnelList() {
-        medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());
+    private void getMedicalPersonnelList(String partnerType, String partnerSpecialization, String gender, String bpjs, String latitude, String longitude) {
+        progressBarHandler.show();
 
-        medicalPersonnelLists.clear();
-        medicalPersonnelLists.add(new MedicalPersonnelList("dr Andi Husada", "Cardiologist", "291827/II/2011", "husada.jpg"));
-        medicalPersonnelLists.add(new MedicalPersonnelList("dr Titin Hutapea", "Dentist", "471827/XI/2016", "hutapea.jpg"));
-        medicalPersonnelLists.add(new MedicalPersonnelList("dr Hotman Sitorus", "Neurologist", "362817/IV/2015", "sitorus.jpg"));
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
 
-        medicalPersonneldAdapter = new MedicalPersonnelAdapter(medicalPersonnelLists, MedicalPersonnelActivity.this);
-        medicalPersonnelRecyclerView.setAdapter(medicalPersonneldAdapter);
-        medicalPersonneldAdapter.notifyDataSetChanged();
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("partner_type_id", partnerType);
+        params.put("spesialisasi_id", partnerSpecialization);
+        params.put("gender", gender);
+        params.put("BPJS_RCV_status", bpjs);
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
+
+        myCillinAPI.findPartner(token, params).enqueue(new Callback<ModelResultFindPartner>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultFindPartner> call, @NonNull Response<ModelResultFindPartner> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultFindPartner modelResultFindPartner = response.body();
+
+                    assert modelResultFindPartner != null;
+                    if(modelResultFindPartner.getResult().isStatus()) {
+                        int size = modelResultFindPartner.getResult().getData().size();
+                        if(size > 0) {
+                            messageContainer.setVisibility(View.GONE);
+                            medicalPersonnelRecyclerView.setVisibility(View.VISIBLE);
+                            searchContainer.setVisibility(View.VISIBLE);
+                            recordsCountContainer.setVisibility(View.VISIBLE);
+                            recordsCount.setText(String.format(getResources().getString(R.string.medicalPersonnelActivity_records), size));
+
+                            medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                            medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                            medicalPersonnelLists.clear();
+
+                            for(int i = 0; i < size; i++) {
+                                String doctorId = modelResultFindPartner.getResult().getData().get(i).getUserId();
+                                String doctorName = modelResultFindPartner.getResult().getData().get(i).getFullName();
+                                String doctorType = "null";
+                                String doctorPermitt = "null";
+                                String doctorPic = "null";
+                                String doctorLatitude = modelResultFindPartner.getResult().getData().get(i).getLatitude();
+                                String doctorLongitude = modelResultFindPartner.getResult().getData().get(i).getLongitude();
+                                String doctorDistance = modelResultFindPartner.getResult().getData().get(i).getDistance();
+
+                                medicalPersonnelLists.add(new MedicalPersonnelList(doctorId, doctorName,
+                                        doctorType, doctorPermitt, doctorPic, doctorLatitude,
+                                        doctorLongitude, doctorDistance));
+
+                            }
+
+                            medicalPersonneldAdapter = new MedicalPersonnelAdapter(medicalPersonnelLists, MedicalPersonnelActivity.this);
+                            medicalPersonnelRecyclerView.setAdapter(medicalPersonneldAdapter);
+                            medicalPersonneldAdapter.notifyDataSetChanged();
+                        }
+                        else {
+                            messageContainer.setVisibility(View.VISIBLE);
+                            message.setText(R.string.medicalRecordDetailActivity_noData);
+                            medicalPersonnelRecyclerView.setVisibility(View.GONE);
+                            searchContainer.setVisibility(View.GONE);
+                            recordsCountContainer.setVisibility(View.GONE);
+                        }
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultFindPartner> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package com.mycillin.user.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import com.mycillin.user.R;
 import com.mycillin.user.rest.MyCillinAPI;
@@ -39,6 +41,8 @@ public class FilterDoctorActivity extends AppCompatActivity {
     EditText partnerTypeDropdown;
     @BindView(R.id.filterDoctorActivity_et_partnerSpecialization)
     EditText partnerSpecializationDropdown;
+    @BindView(R.id.filterDoctorActivity_rg_genderRg)
+    RadioGroup genderRadioGroup;
 
     @BindView(R.id.filterDoctorActivity_toolbar)
     Toolbar toolbar;
@@ -50,6 +54,12 @@ public class FilterDoctorActivity extends AppCompatActivity {
     private String selectedPartnerTypeId = "";
     private HashMap<Integer, String> partnerSpecializationItemsTemp = new HashMap<>();
     private String selectedPartnerSpecializationId = "";
+
+    public static final int REQUEST_CODE_FILTER = 2001;
+    public static final String EXTRA_PARTNER_TYPE_ID = "EXTRA_PARTNER_TYPE_ID";
+    public static final String EXTRA_PARTNER_SPECIALIZATION_ID = "EXTRA_PARTNER_SPECIALIZATION_ID";
+    public static final String EXTRA_PARTNER_GENDER = "EXTRA_PARTNER_GENDER";
+    public static final String EXTRA_PARTNER_BPJS_STATUS = "EXTRA_PARTNER_BPJS_STATUS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +117,7 @@ public class FilterDoctorActivity extends AppCompatActivity {
             }
         });
 
+        genderRadioGroup.check(R.id.filterDoctorActivity_rb_genderAllRb);
     }
 
     @Override
@@ -120,7 +131,27 @@ public class FilterDoctorActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_save) {
+            String selectedGender;
+            String selectedBPJSStatus = "1";
 
+            int selectedGenderId = genderRadioGroup.indexOfChild(genderRadioGroup.findViewById(genderRadioGroup.getCheckedRadioButtonId()));
+            if(selectedGenderId == 1) {
+                selectedGender = "L";
+            }
+            else if(selectedGenderId == 2) {
+                selectedGender = "P";
+            }
+            else {
+                selectedGender = "";
+            }
+
+            Intent intent = new Intent();
+            intent.putExtra(EXTRA_PARTNER_TYPE_ID, selectedPartnerTypeId);
+            intent.putExtra(EXTRA_PARTNER_SPECIALIZATION_ID, selectedPartnerSpecializationId);
+            intent.putExtra(EXTRA_PARTNER_GENDER, selectedGender);
+            intent.putExtra(EXTRA_PARTNER_BPJS_STATUS, selectedBPJSStatus);
+            setResult(RESULT_OK, intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

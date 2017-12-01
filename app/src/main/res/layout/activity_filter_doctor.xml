@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bgColor"
-    tools:context="com.mycillin.user.activity.AccountActivity">
+    tools:context="com.mycillin.user.activity.FilterDoctorActivity">
 
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -74,27 +74,27 @@
             android:text="@string/accountDetailActivity_genderDesc"/>
 
         <RadioGroup
-            android:id="@+id/accountActivity_rg_genderRg"
+            android:id="@+id/filterDoctorActivity_rg_genderRg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal" >
 
             <RadioButton
-                android:id="@+id/accountActivity_rb_genderAllRb"
+                android:id="@+id/filterDoctorActivity_rb_genderAllRb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/accountDetailActivity_allDesc"/>
 
             <RadioButton
-                android:id="@+id/accountActivity_rb_genderMaleRb"
+                android:id="@+id/filterDoctorActivity_rb_genderMaleRb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/accountDetailActivity_maleDesc"/>
 
             <RadioButton
-                android:id="@+id/accountActivity_rb_genderFemaleRb"
+                android:id="@+id/filterDoctorActivity_rb_genderFemaleRb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

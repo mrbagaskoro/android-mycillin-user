@@ -5,16 +5,34 @@ package com.mycillin.user.list;
  */
 
 public class MedicalPersonnelList {
+    private String doctorId;
     private String doctorName;
     private String doctorType;
     private String doctorPermitt;
     private String doctorPic;
+    private String doctorLatitude;
+    private String doctorLongitude;
+    private String doctorDistance;
 
-    public MedicalPersonnelList(String doctorName, String doctorType, String doctorPermitt, String doctorPic){
+    public MedicalPersonnelList(String doctorId, String doctorName, String doctorType, String doctorPermitt,
+                                String doctorPic, String doctorLatitude, String doctorLongitude,
+                                String doctorDistance){
+        this.doctorId = doctorId;
         this.doctorName = doctorName;
         this.doctorType = doctorType;
         this.doctorPermitt = doctorPermitt;
         this.doctorPic = doctorPic;
+        this.doctorLatitude = doctorLatitude;
+        this.doctorLongitude = doctorLongitude;
+        this.doctorDistance = doctorDistance;
+    }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
     }
 
     public String getDoctorName() {
@@ -47,5 +65,29 @@ public class MedicalPersonnelList {
 
     public void setDoctorPic(String doctorPic) {
         this.doctorPic = doctorPic;
+    }
+
+    public String getDoctorLatitude() {
+        return doctorLatitude;
+    }
+
+    public void setDoctorLatitude(String doctorLatitude) {
+        this.doctorLatitude = doctorLatitude;
+    }
+
+    public String getDoctorLongitude() {
+        return doctorLongitude;
+    }
+
+    public void setDoctorLongitude(String doctorLongitude) {
+        this.doctorLongitude = doctorLongitude;
+    }
+
+    public String getDoctorDistance() {
+        return doctorDistance;
+    }
+
+    public void setDoctorDistance(String doctorDistance) {
+        this.doctorDistance = doctorDistance;
     }
 }

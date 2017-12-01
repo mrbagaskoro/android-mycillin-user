@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -26,8 +25,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mycillin.user.R;
-import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.ViewHolder;
+import com.mycillin.user.fragment.HomeFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,17 +42,16 @@ public class MapServiceActivity extends AppCompatActivity {
     @BindView(R.id.serviceBookDoctorActivity_fab_filterFAB)
     FloatingActionButton filterBtn;
 
-    private EditText filterMedicalPersonelType;
-    private EditText filterSpecialistsType;
-    private EditText filterMedicalPersonelGender;
-    private Button filterCancelBtn;
-    private Button filterApplyBtn;
-
     private GoogleMap gMap;
     private LocationManager locationManager;
 
-    public static final String EXTRA_MAP_SERVICE = "EXTRA_MAP_SERVICE";
-    public static final String KEY_BOOK_DOCTOR = "KEY_BOOK_DOCTOR";
+    private String filterPartnerTypeId = "";
+    private String filterPartnerSpecializationId = "";
+    private String filterPartnerGender = "";
+    private String filterPartnerBPJSStatus = "1";
+    private double selectedLatitude;
+    private double selectedLongitude;
+
     public static final String KEY_MEDICAL_RESERVATION = "KEY_MEDICAL_RESERVATION";
 
     @Override
@@ -63,10 +60,10 @@ public class MapServiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map_service);
         ButterKnife.bind(this);
 
-        if(getIntent().getStringExtra(EXTRA_MAP_SERVICE).equals(KEY_BOOK_DOCTOR)) {
+        if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_BOOK_DOCTOR)) {
             toolbar.setTitle(getResources().getString(R.string.servicesActivity_bookDoctorTitle));
         }
-        else {
+        else if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_MEDICAL_RESERVATION)) {
             toolbar.setTitle(getResources().getString(R.string.serviceActivity_medicalReservationTitle));
         }
 
@@ -103,44 +100,48 @@ public class MapServiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MapServiceActivity.this, FilterDoctorActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, FilterDoctorActivity.REQUEST_CODE_FILTER);
             }
         });
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MapServiceActivity.this, MedicalPersonnelActivity.class);
+                intent.putExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM, getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM));
+                intent.putExtra(MedicalPersonnelActivity.EXTRA_PARTNER_TYPE_ID, filterPartnerTypeId);
+                intent.putExtra(MedicalPersonnelActivity.EXTRA_PARTNER_SPECIALIZATION_ID, filterPartnerSpecializationId);
+                intent.putExtra(MedicalPersonnelActivity.EXTRA_PARTNER_GENDER, filterPartnerGender);
+                intent.putExtra(MedicalPersonnelActivity.EXTRA_PARTNER_BPJS_STATUS, filterPartnerBPJSStatus);
+                intent.putExtra(MedicalPersonnelActivity.EXTRA_USER_LATITUDE, selectedLatitude + "");
+                intent.putExtra(MedicalPersonnelActivity.EXTRA_USER_LONGITUDE, selectedLongitude + "");
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == FilterDoctorActivity.REQUEST_CODE_FILTER) {
+            if(resultCode == RESULT_OK) {
+                filterPartnerTypeId = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_TYPE_ID);
+                filterPartnerSpecializationId = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_SPECIALIZATION_ID);
+                filterPartnerGender = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_GENDER);
+                filterPartnerBPJSStatus = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_BPJS_STATUS);
+            }
+        }
+
+
     }
 
     public void onMapSearch(Place place) {
         gMap.clear();
         gMap.addMarker(new MarkerOptions().position(place.getLatLng()).title(place.getAddress().toString()));
         gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15.0f));
-    }
 
-    public void showFilterDialog() {
-        final DialogPlus dialogPlus = DialogPlus.newDialog(MapServiceActivity.this)
-                .setContentHolder(new ViewHolder(R.layout.dialog_filter_book_doctor_layout))
-                .create();
-        dialogPlus.show();
-
-        View dialogPlusView = dialogPlus.getHolderView();
-
-        filterMedicalPersonelType = dialogPlusView.findViewById(R.id.filterBookDoctor_et_medicalPersonnelType);
-        filterSpecialistsType = dialogPlusView.findViewById(R.id.filterBookDoctor_et_specialistsType);
-        filterMedicalPersonelGender = dialogPlusView.findViewById(R.id.filterBookDoctor_et_medicalPersonnelGender);
-        filterCancelBtn = dialogPlusView.findViewById(R.id.filterBookDoctor_bt_cancelBtn);
-        filterApplyBtn = dialogPlusView.findViewById(R.id.filterBookDoctor_bt_applyBtn);
-
-        filterCancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogPlus.dismiss();
-            }
-        });
+        selectedLatitude = place.getLatLng().latitude;
+        selectedLongitude = place.getLatLng().longitude;
     }
 
     private void getLocation(final SupportMapFragment mapFragment) {
@@ -158,6 +159,9 @@ public class MapServiceActivity extends AppCompatActivity {
                             LatLng bapindo = new LatLng(location.getLatitude(), location.getLongitude());
                             gMap.addMarker(new MarkerOptions().position(bapindo).title(getResources().getString(R.string.serviceBookDoctorActivity_myLocationMarker)));
                             gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bapindo, 15.0f));
+
+                            selectedLatitude = location.getLatitude();
+                            selectedLongitude = location.getLongitude();
                         }
                     });
                 }

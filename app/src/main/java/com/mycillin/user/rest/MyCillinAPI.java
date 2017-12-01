@@ -10,6 +10,7 @@ import com.mycillin.user.rest.bannerImage.ModelResultBannerImage;
 import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
+import com.mycillin.user.rest.findPartner.ModelResultFindPartner;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
 import com.mycillin.user.rest.insuranceDelete.ModelResultInsuranceDelete;
 import com.mycillin.user.rest.insuranceInsert.ModelResultInsuranceInsert;
@@ -134,4 +135,7 @@ public interface MyCillinAPI {
     Call<ModelResultAccountPicUpdate> updateAccountPic(@Header("Authorization") String token,
                                                        @Part("user_id") RequestBody userId,
                                                        @Part MultipartBody.Part profileImg);
+
+    @POST("find_partner/")
+    Call<ModelResultFindPartner> findPartner(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }

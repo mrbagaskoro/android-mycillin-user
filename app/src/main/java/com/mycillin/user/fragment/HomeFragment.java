@@ -88,6 +88,11 @@ public class HomeFragment extends Fragment {
     private List<ConsultationMenuList> consultationMenuLists = new ArrayList<>();
     private ConsultationMenuAdapter consultationMenuAdapter;
 
+    public static final String EXTRA_SERVICE_CALLED_FROM = "EXTRA_SERVICE_CALLED_FROM";
+    public static final String KEY_BOOK_DOCTOR = "KEY_BOOK_DOCTOR";
+    public static final String KEY_MEDICAL_RESERVATION = "KEY_MEDICAL_RESERVATION";
+    public static final String KEY_BOOK_HOMECARE = "KEY_BOOK_HOMECARE";
+
     public static final String KEY_ID_MENU_ALLERGIST = "KEY_ID_MENU_ALLERGIST";
     public static final String KEY_ID_MENU_CARDIOLOGIST = "KEY_ID_MENU_CARDIOLOGIST";
     public static final String KEY_ID_MENU_DENTIST = "KEY_ID_MENU_DENTIST";
@@ -145,7 +150,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), MapServiceActivity.class);
-                intent.putExtra(MapServiceActivity.EXTRA_MAP_SERVICE, MapServiceActivity.KEY_BOOK_DOCTOR);
+                intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_BOOK_DOCTOR);
                 startActivity(intent);
             }
         });
@@ -154,7 +159,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), MapServiceActivity.class);
-                intent.putExtra(MapServiceActivity.EXTRA_MAP_SERVICE, MapServiceActivity.KEY_MEDICAL_RESERVATION);
+                intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_MEDICAL_RESERVATION);
                 startActivity(intent);
             }
         });
