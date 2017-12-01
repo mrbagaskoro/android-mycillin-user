@@ -102,9 +102,6 @@
             android:theme="@style/FinestWebViewTheme.Light" />
         <activity android:name=".activity.InsuranceListActivity" />
         <activity
-            android:name=".activity.CameraViewActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activity.ViewImageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
