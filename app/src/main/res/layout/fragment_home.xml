@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/homeFragment_ll_headerContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
         android:background="@drawable/banner_default"
         android:orientation="vertical"
         android:gravity="center">
@@ -19,11 +19,11 @@
         <com.synnapps.carouselview.CarouselView
             android:id="@+id/homeFragment_cv_carouselView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="match_parent"
             app:fillColor="#FFFFFFFF"
             app:pageColor="#00000000"
             app:radius="6dp"
-            app:slideInterval="3000"
+            app:slideInterval="6000"
             app:strokeColor="#FF777777"
             app:strokeWidth="1dp"/>
 
