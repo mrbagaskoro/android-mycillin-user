@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,10 @@ public class FilterDoctorActivity extends AppCompatActivity {
     private ProgressBarHandler progressBarHandler;
 
     private ArrayList<String> items = new ArrayList<>();
+    private HashMap<Integer, String> partnerTypeIdItemsTemp = new HashMap<>();
+    private String selectedPartnerTypeId = "";
+    private HashMap<Integer, String> partnerSpecializationItemsTemp = new HashMap<>();
+    private String selectedPartnerSpecializationId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +67,11 @@ public class FilterDoctorActivity extends AppCompatActivity {
             @Override
             public void onClick(String s, int i) {
                 partnerTypeDropdown.setText(s);
-                /*for(int j = 0; j < relationIdItemsTemp.size(); j++) {
-                    if(relationIdItemsTemp.get(j).split(" - ")[1].equals(s)) {
-                        selectedRelationId = relationIdItemsTemp.get(j).split(" - ")[0];
-                        getMedicalRecordList(selectedRelationId);
+                for(int j = 0; j < partnerTypeIdItemsTemp.size(); j++) {
+                    if(partnerTypeIdItemsTemp.get(j).split(" - ")[1].equals(s)) {
+                        selectedPartnerTypeId = partnerTypeIdItemsTemp.get(j).split(" - ")[0];
                     }
-                }*/
+                }
             }
         });
 
@@ -82,19 +87,23 @@ public class FilterDoctorActivity extends AppCompatActivity {
             @Override
             public void onClick(String s, int i) {
                 partnerSpecializationDropdown.setText(s);
-                /*for(int j = 0; j < relationIdItemsTemp.size(); j++) {
-                    if(relationIdItemsTemp.get(j).split(" - ")[1].equals(s)) {
-                        selectedRelationId = relationIdItemsTemp.get(j).split(" - ")[0];
-                        getMedicalRecordList(selectedRelationId);
+                for(int j = 0; j < partnerSpecializationItemsTemp.size(); j++) {
+                    if(partnerSpecializationItemsTemp.get(j).split(" - ")[1].equals(s)) {
+                        selectedPartnerSpecializationId = partnerSpecializationItemsTemp.get(j).split(" - ")[0];
                     }
-                }*/
+                }
             }
         });
 
         partnerSpecializationDropdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSpecialization(specializationSpinnerDialog);
+                if(!selectedPartnerTypeId.equals("")) {
+                    getSpecialization(specializationSpinnerDialog, selectedPartnerTypeId);
+                }
+                else {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), R.string.filterDoctorActivity_partnerSpecializationDropdownMessage, Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -132,14 +141,14 @@ public class FilterDoctorActivity extends AppCompatActivity {
                     assert modelResultPartnerTypeList != null;
                     if(modelResultPartnerTypeList.getResult().isStatus()) {
                         items.clear();
-                        //relationIdItemsTemp.clear();
+                        partnerTypeIdItemsTemp.clear();
                         int size = modelResultPartnerTypeList.getResult().getData().size();
                         for(int i = 0; i < size; i++) {
                             String partnerTypeId = modelResultPartnerTypeList.getResult().getData().get(i).getPartnerTypeId();
                             String partnerTypeDesc = modelResultPartnerTypeList.getResult().getData().get(i).getPartnerTypeDesc();
 
                             items.add(partnerTypeDesc);
-                            //relationIdItemsTemp.put(i, accountRelationId + " - " + accountName);
+                            partnerTypeIdItemsTemp.put(i, partnerTypeId + " - " + partnerTypeDesc);
                         }
                         spinnerDialog.showSpinerDialog();
                     }
@@ -171,11 +180,15 @@ public class FilterDoctorActivity extends AppCompatActivity {
         });
     }
 
-    private void getSpecialization(final SpinnerDialog spinnerDialog) {
+    private void getSpecialization(final SpinnerDialog spinnerDialog, String partnerTypeId) {
         progressBarHandler.show();
 
         MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
-        myCillinAPI.getSpecializationList().enqueue(new Callback<ModelResultSpecializationList>() {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("partner_type_id", partnerTypeId);
+
+        myCillinAPI.getSpecializationList(params).enqueue(new Callback<ModelResultSpecializationList>() {
             @Override
             public void onResponse(@NonNull Call<ModelResultSpecializationList> call, @NonNull Response<ModelResultSpecializationList> response) {
                 progressBarHandler.hide();
@@ -186,14 +199,14 @@ public class FilterDoctorActivity extends AppCompatActivity {
                     assert modelResultSpecializationList != null;
                     if(modelResultSpecializationList.getResult().isStatus()) {
                         items.clear();
-                        //relationIdItemsTemp.clear();
+                        partnerSpecializationItemsTemp.clear();
                         int size = modelResultSpecializationList.getResult().getData().size();
                         for(int i = 0; i < size; i++) {
                             String specializationId = modelResultSpecializationList.getResult().getData().get(i).getSpecializationId();
                             String specializationDesc = modelResultSpecializationList.getResult().getData().get(i).getSpecializationDesc();
 
                             items.add(specializationDesc);
-                            //relationIdItemsTemp.put(i, accountRelationId + " - " + accountName);
+                            partnerSpecializationItemsTemp.put(i, specializationId + " - " + specializationDesc);
                         }
                         spinnerDialog.showSpinerDialog();
                     }

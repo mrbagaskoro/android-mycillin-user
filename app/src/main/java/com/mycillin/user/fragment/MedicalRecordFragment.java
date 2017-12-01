@@ -61,7 +61,6 @@ public class MedicalRecordFragment extends Fragment {
     @BindView(R.id.medicalRecordFragment_tv_message)
     TextView message;
 
-
     private HashMap<Integer, String> relationIdItemsTemp = new HashMap<>();
     private String selectedRelationId;
 

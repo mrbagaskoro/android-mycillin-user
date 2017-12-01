@@ -97,8 +97,8 @@ public interface MyCillinAPI {
     @GET("list_partner_type/")
     Call<ModelResultPartnerTypeList> getPartnerTypeList();
 
-    @GET("list_spesialisasi/")
-    Call<ModelResultSpecializationList> getSpecializationList();
+    @POST("list_spesialisasi/")
+    Call<ModelResultSpecializationList> getSpecializationList(@Body HashMap<String, String> params);
 
     @GET("banner/")
     Call<ModelResultBannerImage> getBannerImage();
