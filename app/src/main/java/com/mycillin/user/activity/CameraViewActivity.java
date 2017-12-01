@@ -55,7 +55,7 @@ public class CameraViewActivity extends AppCompatActivity {
                     captureNativeSize = cameraView.getPictureSize();
                 }
 
-                InsuranceActivity.setImage(jpeg);
+                //InsuranceActivity.setImage(jpeg);
                 Intent intent = new Intent();
                 intent.putExtra(EXTRA_WIDTH, captureNativeSize.getWidth());
                 intent.putExtra(EXTRA_HEIGHT, captureNativeSize.getHeight());
