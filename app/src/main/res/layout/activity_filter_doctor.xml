@@ -80,10 +80,17 @@
             android:orientation="horizontal" >
 
             <RadioButton
+                android:id="@+id/accountActivity_rb_genderAllRb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/accountDetailActivity_allDesc"/>
+
+            <RadioButton
                 android:id="@+id/accountActivity_rb_genderMaleRb"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="1"
                 android:text="@string/accountDetailActivity_maleDesc"/>
 
             <RadioButton
