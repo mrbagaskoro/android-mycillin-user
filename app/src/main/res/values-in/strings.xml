@@ -316,4 +316,12 @@
     <string name="AccountActivity_updatePicSuccessMessage">Foto Berhasil Diubah</string>
     <string name="pinActivity_title">Masukan PIN anda</string>
     <string name="pinActivity_message">PIN anda tidak sesuai.</string>
+    <string name="accountActivity_changePINTitle">Ubah PIN</string>
+    <string name="changePINActivity_password">Password</string>
+    <string name="changePINActivity_PIN">PIN</string>
+    <string name="changePINActivity_confirmPIN">Konfirmasi PIN</string>
+    <string name="changePINActivity_title">Ubah PIN</string>
+    <string name="changePINActivity_PINWarning">PIN wajib diisi !</string>
+    <string name="changePINActivity_PINConfirmationWarning">Konfirmasi PIN wajib diisi !</string>
+    <string name="changePINActivity_PINMatchWarning">Konfirmasi PIN tidak sesuai !</string>
 </resources>

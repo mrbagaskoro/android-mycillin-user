@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -110,6 +110,7 @@
         <activity
             android:name=".activity.PINActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ChangePINActivity"></activity>
     </application>
 
 </manifest>

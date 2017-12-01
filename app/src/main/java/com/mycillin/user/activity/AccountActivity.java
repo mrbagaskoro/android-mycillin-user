@@ -87,6 +87,8 @@ public class AccountActivity extends AppCompatActivity {
     LinearLayout managePaymentMethod;
     @BindView(R.id.accountActivity_ll_changePassword)
     LinearLayout changePassword;
+    @BindView(R.id.accountActivity_ll_changePIN)
+    LinearLayout changePIN;
     @BindView(R.id.accountActivity_ll_signOut)
     LinearLayout signOut;
     @BindView(R.id.accountActivity_ll_termsPrivacyPolicy)
@@ -162,6 +164,14 @@ public class AccountActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //showChangePasswordDialog();
                 Intent intent = new Intent(AccountActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        changePIN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AccountActivity.this, ChangePINActivity.class);
                 startActivity(intent);
             }
         });

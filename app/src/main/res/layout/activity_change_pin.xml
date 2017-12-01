@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bgColor"
-    tools:context="com.mycillin.user.activity.ChangePasswordActivity">
+    tools:context="com.mycillin.user.activity.ChangePINActivity">
 
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/changePasswordActivity_toolbar"
+        android:id="@+id/changePINActivity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -21,8 +21,8 @@
         app:titleTextColor="@android:color/white" />
 
     <LinearLayout
-        android:id="@+id/changePasswordActivity_ll_headerContainer"
-        android:layout_below="@id/changePasswordActivity_toolbar"
+        android:id="@+id/changePINActivity_ll_headerContainer"
+        android:layout_below="@id/changePINActivity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -40,10 +40,10 @@
             app:passwordToggleEnabled="true" >
 
             <EditText
-                android:id="@+id/changePasswordActivity_et_oldPassword"
+                android:id="@+id/changePINActivity_et_password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/changePasswordDialog_old"
+                android:hint="@string/changePINActivity_password"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
@@ -55,11 +55,12 @@
             app:passwordToggleEnabled="true" >
 
             <EditText
-                android:id="@+id/changePasswordActivity_et_newPassword"
+                android:id="@+id/changePINActivity_et_PIN"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/changePasswordDialog_new"
-                android:inputType="textPassword" />
+                android:hint="@string/changePINActivity_PIN"
+                android:maxLength="4"
+                android:inputType="numberPassword" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -70,13 +71,14 @@
             app:passwordToggleEnabled="true" >
 
             <EditText
-                android:id="@+id/changePasswordActivity_et_confirmNewPassword"
+                android:id="@+id/changePINActivity_et_confirmPIN"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/changePasswordDialog_confirmNew"
-                android:inputType="textPassword" />
+                android:hint="@string/changePINActivity_confirmPIN"
+                android:maxLength="4"
+                android:inputType="numberPassword" />
         </android.support.design.widget.TextInputLayout>
-        
+
     </LinearLayout>
-    
+
 </RelativeLayout>

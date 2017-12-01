@@ -321,4 +321,12 @@
     <string name="AccountActivity_updatePicSuccessMessage">Picture Changed Successfully</string>
     <string name="pinActivity_title">Enter your PIN</string>
     <string name="pinActivity_message">Your PIN doesn\'t match.</string>
+    <string name="accountActivity_changePINTitle">Change PIN</string>
+    <string name="changePINActivity_password">Password</string>
+    <string name="changePINActivity_PIN">PIN</string>
+    <string name="changePINActivity_confirmPIN">Confirm PIN</string>
+    <string name="changePINActivity_title">Change PIN</string>
+    <string name="changePINActivity_PINWarning">PIN is required !</string>
+    <string name="changePINActivity_PINConfirmationWarning">PIN Confirmation is required !</string>
+    <string name="changePINActivity_PINMatchWarning">PIN Confirmation doesn\'t match !</string>
 </resources>
