@@ -37,8 +37,10 @@ import com.mycillin.user.list.AccountList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.accountList.ModelResultAccountList;
+import com.mycillin.user.rest.accountPicGet.ModelResultAccountPicGet;
 import com.mycillin.user.rest.accountPicUpdate.ModelResultAccountPicUpdate;
 import com.mycillin.user.rest.insuranceInsert.ModelResultInsuranceInsert;
+import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.RecyclerTouchListener;
 import com.mycillin.user.util.SessionManager;
@@ -184,7 +186,12 @@ public class AccountActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         SessionManager sessionManager = new SessionManager(getApplicationContext());
-        loadAccountPic(sessionManager.getUserPicUrl());
+        if(sessionManager.getUserPicUrl().equals("")) {
+            getUserPic();
+        }
+        else {
+            loadAccountPic(sessionManager.getUserPicUrl());
+        }
     }
 
     @Override
@@ -416,6 +423,57 @@ public class AccountActivity extends AppCompatActivity {
                 .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
                 .create();
         dialog.show();
+    }
+
+    private void getUserPic() {
+        progressBarHandler.show();
+
+        final SessionManager session = new SessionManager(getApplicationContext());
+        String token = session.getUserToken();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", session.getUserId());
+
+        myCillinAPI.getAvatar(token, params).enqueue(new Callback<ModelResultAccountPicGet>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultAccountPicGet> call, @NonNull Response<ModelResultAccountPicGet> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultAccountPicGet modelResultAccountPicGet = response.body();
+                    assert modelResultAccountPicGet != null;
+
+                    if(modelResultAccountPicGet.getResult().isStatus()) {
+                        loadAccountPic(modelResultAccountPicGet.getResult().getMessage().get(0).getImageProfile());
+                        session.setUserPicUrl(modelResultAccountPicGet.getResult().getMessage().get(0).getImageProfile());
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+                            message = "FUCK!!!" + jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultAccountPicGet> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void loadAccountPic(String url) {
