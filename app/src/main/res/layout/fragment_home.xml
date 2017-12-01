@@ -12,7 +12,7 @@
         android:id="@+id/homeFragment_ll_headerContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/banner_default"
         android:orientation="vertical"
         android:gravity="center">
 
@@ -35,6 +35,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/bgColor" />
 
         <LinearLayout
             android:id="@+id/homeFragment_ll_helpContainer"

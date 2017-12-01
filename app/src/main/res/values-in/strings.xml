@@ -324,4 +324,8 @@
     <string name="changePINActivity_PINWarning">PIN wajib diisi !</string>
     <string name="changePINActivity_PINConfirmationWarning">Konfirmasi PIN wajib diisi !</string>
     <string name="changePINActivity_PINMatchWarning">Konfirmasi PIN tidak sesuai !</string>
+    <string name="mainActivity_infoTitle">Info</string>
+    <string name="mainActivity_setupButtonTitle">Atur</string>
+    <string name="mainActivity_laterButtonTitle">Nanti</string>
+    <string name="mainActivity_setupPINMessage">Anda harus mengatur PIN anda sebelum mengakses menu Medical Record.</string>
 </resources>

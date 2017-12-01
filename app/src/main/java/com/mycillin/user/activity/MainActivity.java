@@ -1,5 +1,6 @@
 package com.mycillin.user.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,88 +35,114 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
+
     private ProgressBarHandler progressBarHandler;
+
     private boolean doubleBackToExitPressedOnce = false;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-
-            switch (item.getItemId()) {
-                case R.id.nav_home:
-                    tx.replace(R.id.mainActivity_fl_framecontainer, new HomeFragment());
-                    tx.commit();
-                    getSupportActionBar().setTitle(R.string.app_name);
-
-                    return true;
-                case R.id.nav_history:
-                    tx.replace(R.id.mainActivity_fl_framecontainer, new HistoryFragment());
-                    tx.commit();
-                    getSupportActionBar().setTitle(R.string.nav_history);
-
-                    return true;
-                case R.id.nav_medical_record:
-
-                    Intent intent = new Intent(MainActivity.this, PINActivity.class);
-                    startActivity(intent);
-
-                    tx.replace(R.id.mainActivity_fl_framecontainer, new MedicalRecordFragment());
-                    tx.commit();
-                    getSupportActionBar().setTitle(R.string.nav_medical_record);
-
-                    return true;
-                case R.id.nav_wallet:
-                    tx.replace(R.id.mainActivity_fl_framecontainer, new EWalletFragment());
-                    tx.commit();
-                    getSupportActionBar().setTitle(R.string.nav_e_wallet);
-
-                    return true;
-                case R.id.nav_about:
-                    tx.replace(R.id.mainActivity_fl_framecontainer, new AboutFragment());
-                    tx.commit();
-                    getSupportActionBar().setTitle(R.string.nav_about_mycillin);
-
-                    return true;
-            }
-
-            return false;
-        }
-
-    };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
 
         progressBarHandler = new ProgressBarHandler(this);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
 
-        // -------------------------------------------------------------------------------------- //
-        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.mainActivity_fl_framecontainer, new HomeFragment());
-        tx.commit();
-        getSupportActionBar().setTitle(R.string.app_name);
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        tx.replace(R.id.mainActivity_fl_framecontainer, new HomeFragment());
+                        tx.commit();
+                        getSupportActionBar().setTitle(R.string.app_name);
+
+                        return true;
+                    case R.id.nav_history:
+                        tx.replace(R.id.mainActivity_fl_framecontainer, new HistoryFragment());
+                        tx.commit();
+                        getSupportActionBar().setTitle(R.string.nav_history);
+
+                        return true;
+                    case R.id.nav_medical_record:
+                        SessionManager sessionManager = new SessionManager(getApplicationContext());
+
+                        if(!sessionManager.isPINAvailable()) {
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle(R.string.mainActivity_infoTitle)
+                                    .setMessage(R.string.mainActivity_setupPINMessage)
+                                    .setIcon(R.mipmap.ic_launcher)
+                                    .setPositiveButton(R.string.mainActivity_setupButtonTitle, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(MainActivity.this, ChangePINActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .setNegativeButton(R.string.mainActivity_laterButtonTitle, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            navigation.setSelectedItemId(R.id.nav_home);
+                                        }
+                                    })
+                                    .show();
+                        }
+                        else {
+                            Intent intent = new Intent(MainActivity.this, PINActivity.class);
+                            startActivity(intent);
+
+                            tx.replace(R.id.mainActivity_fl_framecontainer, new MedicalRecordFragment());
+                            tx.commit();
+                            getSupportActionBar().setTitle(R.string.nav_medical_record);
+                        }
+
+                        return true;
+                    case R.id.nav_wallet:
+                        tx.replace(R.id.mainActivity_fl_framecontainer, new EWalletFragment());
+                        tx.commit();
+                        getSupportActionBar().setTitle(R.string.nav_e_wallet);
+
+                        return true;
+                    case R.id.nav_about:
+                        tx.replace(R.id.mainActivity_fl_framecontainer, new AboutFragment());
+                        tx.commit();
+                        getSupportActionBar().setTitle(R.string.nav_about_mycillin);
+
+                        return true;
+                }
+
+                return false;
+            }
+        });
+
+        navigation.setSelectedItemId(R.id.nav_home);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        if(navigation.getSelectedItemId() == R.id.nav_medical_record && !sessionManager.isPINAvailable()) {
+            navigation.setSelectedItemId(R.id.nav_home);
+        }
 
         getUnratedList();
     }

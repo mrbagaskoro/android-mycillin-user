@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.mycillin.user.R;
 import com.mycillin.user.util.ProgressBarHandler;
+import com.mycillin.user.util.SessionManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,7 +70,10 @@ public class ChangePINActivity extends AppCompatActivity {
             }
 
             if(isValid) {
-                //doChangePassword(oldPasswordEdtxt.getText().toString(), newPasswordEdtxt.getText().toString());
+                // TODO: 01-Dec-17 DO SAVE PIN
+                SessionManager sessionManager = new SessionManager(getApplicationContext());
+                sessionManager.setPINAvailable();
+                finish();
             }
         }
 

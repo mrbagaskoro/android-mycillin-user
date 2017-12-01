@@ -329,4 +329,8 @@
     <string name="changePINActivity_PINWarning">PIN is required !</string>
     <string name="changePINActivity_PINConfirmationWarning">PIN Confirmation is required !</string>
     <string name="changePINActivity_PINMatchWarning">PIN Confirmation doesn\'t match !</string>
+    <string name="mainActivity_infoTitle">Info</string>
+    <string name="mainActivity_setupPINMessage">You need to setup your PIN before accessing Medical Record menu.</string>
+    <string name="mainActivity_setupButtonTitle">Setup</string>
+    <string name="mainActivity_laterButtonTitle">Later</string>
 </resources>
