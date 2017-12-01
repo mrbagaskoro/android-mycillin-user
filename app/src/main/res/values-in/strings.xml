@@ -310,4 +310,10 @@
     <string name="ratingActivity_emptyRatingMessage">Rating wajib diisi !</string>
     <string name="servicesActivity_homecareServiceText">LAYANAN PERAWAT</string>
     <string name="servicesActivity_homecareServiceDesc">Layan reservasi perawat dekat dengan anda</string>
+    <string name="dialogImagePickerHeader_title">PILIH GAMBAR DARI :</string>
+    <string name="dialogImagePickerAdapter_galleryTitle">Galeri</string>
+    <string name="dialogImagePickerAdapter_cameraTitle">Kamera</string>
+    <string name="AccountActivity_updatePicSuccessMessage">Foto Berhasil Diubah</string>
+    <string name="pinActivity_title">Masukan PIN anda</string>
+    <string name="pinActivity_message">PIN anda tidak sesuai.</string>
 </resources>

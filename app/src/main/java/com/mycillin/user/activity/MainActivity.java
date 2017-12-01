@@ -63,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.nav_medical_record:
+
+                    Intent intent = new Intent(MainActivity.this, PINActivity.class);
+                    startActivity(intent);
+
                     tx.replace(R.id.mainActivity_fl_framecontainer, new MedicalRecordFragment());
                     tx.commit();
                     getSupportActionBar().setTitle(R.string.nav_medical_record);

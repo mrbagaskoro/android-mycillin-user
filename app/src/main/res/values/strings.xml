@@ -319,4 +319,6 @@
     <string name="dialogImagePickerAdapter_galleryTitle">Gallery</string>
     <string name="dialogImagePickerAdapter_cameraTitle">Camera</string>
     <string name="AccountActivity_updatePicSuccessMessage">Picture Changed Successfully</string>
+    <string name="pinActivity_title">Enter your PIN</string>
+    <string name="pinActivity_message">Your PIN doesn\'t match.</string>
 </resources>
