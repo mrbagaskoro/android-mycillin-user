@@ -20,6 +20,7 @@ import com.mycillin.user.list.PartnerList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.findClinic.ModelResultFindClinic;
+import com.mycillin.user.rest.findHealthcare.ModelResultFindHealthcare;
 import com.mycillin.user.rest.findPartner.ModelResultFindPartner;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.RecyclerTouchListener;
@@ -89,9 +90,19 @@ public class PartnerListActivity extends AppCompatActivity {
                     getIntent().getStringExtra(EXTRA_USER_LONGITUDE));
         }
         else if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_MEDICAL_RESERVATION)) {
-            getSupportActionBar().setTitle("Clinics Available");
+            getSupportActionBar().setTitle(R.string.partnerListActivity_clinicTitle);
 
             getClinicList(getIntent().getStringExtra(EXTRA_PARTNER_TYPE_ID),
+                    getIntent().getStringExtra(EXTRA_PARTNER_SPECIALIZATION_ID),
+                    getIntent().getStringExtra(EXTRA_PARTNER_GENDER),
+                    getIntent().getStringExtra(EXTRA_PARTNER_BPJS_STATUS),
+                    getIntent().getStringExtra(EXTRA_USER_LATITUDE),
+                    getIntent().getStringExtra(EXTRA_USER_LONGITUDE));
+        }
+        else if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_BOOK_HEALTHCARE)) {
+            getSupportActionBar().setTitle(R.string.partnerListActivity_homecareTitle);
+
+            getHealthcareList(getIntent().getStringExtra(EXTRA_PARTNER_TYPE_ID),
                     getIntent().getStringExtra(EXTRA_PARTNER_SPECIALIZATION_ID),
                     getIntent().getStringExtra(EXTRA_PARTNER_GENDER),
                     getIntent().getStringExtra(EXTRA_PARTNER_BPJS_STATUS),
@@ -305,6 +316,103 @@ public class PartnerListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<ModelResultFindClinic> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getHealthcareList(String partnerType, String partnerSpecialization, String gender, String bpjs, String latitude, String longitude) {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("partner_type_id", partnerType);
+        params.put("spesialisasi_id", partnerSpecialization);
+        params.put("gender", gender);
+        params.put("BPJS_RCV_status", bpjs);
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
+
+        myCillinAPI.findHealthcare(token, params).enqueue(new Callback<ModelResultFindHealthcare>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultFindHealthcare> call, @NonNull Response<ModelResultFindHealthcare> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultFindHealthcare modelResultFindHealthcare = response.body();
+
+                    assert modelResultFindHealthcare != null;
+                    if(modelResultFindHealthcare.getResult().isStatus()) {
+                        int size = modelResultFindHealthcare.getResult().getData().size();
+                        if(size > 0) {
+                            messageContainer.setVisibility(View.GONE);
+                            medicalPersonnelRecyclerView.setVisibility(View.VISIBLE);
+                            searchContainer.setVisibility(View.VISIBLE);
+                            recordsCountContainer.setVisibility(View.VISIBLE);
+                            recordsCount.setText(String.format(getResources().getString(R.string.medicalPersonnelActivity_records), size));
+
+                            medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                            medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                            partnerLists.clear();
+
+                            for(int i = 0; i < size; i++) {
+                                String doctorId = modelResultFindHealthcare.getResult().getData().get(i).getUserId();
+                                String doctorName = modelResultFindHealthcare.getResult().getData().get(i).getFullName();
+                                String doctorType = "null";
+                                String doctorPermitt = "null";
+                                String doctorPic = "null";
+                                String doctorLatitude = modelResultFindHealthcare.getResult().getData().get(i).getLatitude();
+                                String doctorLongitude = modelResultFindHealthcare.getResult().getData().get(i).getLongitude();
+                                String doctorDistance = modelResultFindHealthcare.getResult().getData().get(i).getDistance();
+
+                                partnerLists.add(new PartnerList(doctorId, doctorName,
+                                        doctorType, doctorPermitt, doctorPic, doctorLatitude,
+                                        doctorLongitude, doctorDistance));
+
+                            }
+
+                            medicalPersonneldAdapter = new PartnerListAdapter(partnerLists, PartnerListActivity.this);
+                            medicalPersonnelRecyclerView.setAdapter(medicalPersonneldAdapter);
+                            medicalPersonneldAdapter.notifyDataSetChanged();
+                        }
+                        else {
+                            messageContainer.setVisibility(View.VISIBLE);
+                            message.setText(R.string.medicalRecordDetailActivity_noData);
+                            medicalPersonnelRecyclerView.setVisibility(View.GONE);
+                            searchContainer.setVisibility(View.GONE);
+                            recordsCountContainer.setVisibility(View.GONE);
+                        }
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultFindHealthcare> call, @NonNull Throwable t) {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();

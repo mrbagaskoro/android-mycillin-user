@@ -335,4 +335,6 @@
     <string name="mainActivity_laterButtonTitle">Later</string>
     <string name="accountDetailActivity_allDesc">All</string>
     <string name="filterDoctorActivity_partnerSpecializationDropdownMessage">Please select Paramedic Type first.</string>
+    <string name="partnerListActivity_clinicTitle">Clinics Available</string>
+    <string name="partnerListActivity_homecareTitle">Homecare Available</string>
 </resources>

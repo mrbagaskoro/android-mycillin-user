@@ -52,8 +52,6 @@ public class MapServiceActivity extends AppCompatActivity {
     private double selectedLatitude;
     private double selectedLongitude;
 
-    public static final String KEY_MEDICAL_RESERVATION = "KEY_MEDICAL_RESERVATION";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +63,9 @@ public class MapServiceActivity extends AppCompatActivity {
         }
         else if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_MEDICAL_RESERVATION)) {
             toolbar.setTitle(getResources().getString(R.string.serviceActivity_medicalReservationTitle));
+        }
+        else if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_BOOK_HEALTHCARE)) {
+            toolbar.setTitle(getResources().getString(R.string.servicesActivity_homecareServiceText));
         }
 
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.serviceBookDoctorActivity_fr_mapFragment);
