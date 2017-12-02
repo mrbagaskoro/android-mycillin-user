@@ -20,5 +20,4 @@ public class ModelResultFindPartner {
     public void setResult(ModelResultDataFindPartner result) {
         this.result = result;
     }
-
 }

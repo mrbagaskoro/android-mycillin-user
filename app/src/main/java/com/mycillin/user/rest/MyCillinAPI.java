@@ -10,6 +10,8 @@ import com.mycillin.user.rest.bannerImage.ModelResultBannerImage;
 import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
+import com.mycillin.user.rest.findClinic.ModelResultFindClinic;
+import com.mycillin.user.rest.findHealthcare.ModelResultFindHealthcare;
 import com.mycillin.user.rest.findPartner.ModelResultFindPartner;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
 import com.mycillin.user.rest.insuranceDelete.ModelResultInsuranceDelete;
@@ -138,4 +140,10 @@ public interface MyCillinAPI {
 
     @POST("find_partner/")
     Call<ModelResultFindPartner> findPartner(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("find_clinic/")
+    Call<ModelResultFindClinic> findClinic(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("find_healthcare/")
+    Call<ModelResultFindHealthcare> findHealthcare(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }
