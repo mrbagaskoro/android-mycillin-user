@@ -26,6 +26,7 @@ import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionReco
 import com.mycillin.user.rest.ratingInsert.ModelResultRatingInsert;
 import com.mycillin.user.rest.register.ModelResultRegister;
 import com.mycillin.user.rest.relationList.ModelResultRelationList;
+import com.mycillin.user.rest.requestTransaction.ModelResultRequestTransaction;
 import com.mycillin.user.rest.specializationList.ModelResultSpecializationList;
 import com.mycillin.user.rest.unratedList.ModelResultUnratedList;
 
@@ -150,4 +151,7 @@ public interface MyCillinAPI {
 
     @POST("detail_partner_information/")
     Call<ModelResultPartnerDetailGet> getDetailPartner(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("add_request/")
+    Call<ModelResultRequestTransaction> requestTransaction(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }
