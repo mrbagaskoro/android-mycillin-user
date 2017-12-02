@@ -354,4 +354,9 @@
     <string name="partnerDetailActivity_consultDialogMessage">Proceed to consult with our partner ?</string>
     <string name="filterDoctorActivity_BPJStitle">BPJS</string>
     <string name="filterMenu_reset">Reset</string>
+    <string name="ratingActivity_ratingDesc1">Very Bad</string>
+    <string name="ratingActivity_ratingDesc2">Bad</string>
+    <string name="ratingActivity_ratingDesc3">OK</string>
+    <string name="ratingActivity_ratingDesc4">Good</string>
+    <string name="ratingActivity_ratingDesc5">Awesome</string>
 </resources>

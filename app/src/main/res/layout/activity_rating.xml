@@ -68,6 +68,13 @@
             android:layout_height="match_parent"
             android:stepSize="1"/>
 
+        <TextView
+            android:id="@+id/ratingActivity_tv_ratingDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:visibility="invisible" />
+
         <EditText
             android:id="@+id/ratingActivity_et_comments"
             android:layout_width="fill_parent"

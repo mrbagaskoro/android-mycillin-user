@@ -45,6 +45,8 @@ public class RatingActivity extends AppCompatActivity {
     TextView bookDateTxt;
     @BindView(R.id.ratingActivity_rb_ratingBar)
     RatingBar ratingBar;
+    @BindView(R.id.ratingActivity_tv_ratingDesc)
+    TextView ratingDescTxt;
     @BindView(R.id.ratingActivity_et_comments)
     EditText additionalComments;
     @BindView(R.id.ratingActivity_tv_commentsCounter)
@@ -75,6 +77,35 @@ public class RatingActivity extends AppCompatActivity {
 
         partnerNameTxt.setText(partnerName);
         bookDateTxt.setText(createdDate);
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                if(v == 0.0) {
+                    ratingDescTxt.setVisibility(View.INVISIBLE);
+                }
+                if(v == 1.0) {
+                    ratingDescTxt.setVisibility(View.VISIBLE);
+                    ratingDescTxt.setText(R.string.ratingActivity_ratingDesc1);
+                }
+                if(v == 2.0) {
+                    ratingDescTxt.setVisibility(View.VISIBLE);
+                    ratingDescTxt.setText(R.string.ratingActivity_ratingDesc2);
+                }
+                if(v == 3.0) {
+                    ratingDescTxt.setVisibility(View.VISIBLE);
+                    ratingDescTxt.setText(R.string.ratingActivity_ratingDesc3);
+                }
+                if(v == 4.0) {
+                    ratingDescTxt.setVisibility(View.VISIBLE);
+                    ratingDescTxt.setText(R.string.ratingActivity_ratingDesc4);
+                }
+                if(v == 5.0) {
+                    ratingDescTxt.setVisibility(View.VISIBLE);
+                    ratingDescTxt.setText(R.string.ratingActivity_ratingDesc5);
+                }
+            }
+        });
 
         additionalComments.addTextChangedListener(new TextWatcher() {
             @Override
