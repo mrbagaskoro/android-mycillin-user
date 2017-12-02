@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                                     .setTitle(R.string.mainActivity_infoTitle)
                                     .setMessage(R.string.mainActivity_setupPINMessage)
                                     .setIcon(R.mipmap.ic_launcher)
+                                    .setCancelable(false)
                                     .setPositiveButton(R.string.mainActivity_setupButtonTitle, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
