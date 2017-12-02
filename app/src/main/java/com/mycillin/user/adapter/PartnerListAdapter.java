@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mycillin.user.R;
-import com.mycillin.user.list.MedicalPersonnelList;
+import com.mycillin.user.list.PartnerList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,27 +19,27 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by mrbagaskoro on 21-Sep-17.
  */
 
-public class MedicalPersonnelAdapter extends RecyclerView.Adapter<MedicalPersonnelAdapter.MyViewHolder> {
-    private List<MedicalPersonnelList> medicalPersonnelLists;
-    private ArrayList<MedicalPersonnelList> ArrayMedicalPersonnelLists;
+public class PartnerListAdapter extends RecyclerView.Adapter<PartnerListAdapter.MyViewHolder> {
+    private List<PartnerList> partnerLists;
+    private ArrayList<PartnerList> arrayPartnerLists;
     private Activity activity;
 
-    public MedicalPersonnelAdapter(List<MedicalPersonnelList> medicalRecordLists, Activity activity) {
-        this.medicalPersonnelLists = medicalRecordLists;
-        this.ArrayMedicalPersonnelLists = new ArrayList<>();
-        this.ArrayMedicalPersonnelLists.addAll(medicalRecordLists);
+    public PartnerListAdapter(List<PartnerList> partnerLists, Activity activity) {
+        this.partnerLists = partnerLists;
+        this.arrayPartnerLists = new ArrayList<>();
+        this.arrayPartnerLists.addAll(partnerLists);
         this.activity = activity;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_medical_personnel_list, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_partner_list, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final MedicalPersonnelList resultList = medicalPersonnelLists.get(position);
+        final PartnerList resultList = partnerLists.get(position);
         holder.doctorName.setText(resultList.getDoctorName());
         holder.doctorType.setText(resultList.getDoctorType());
         holder.doctorPermitt.setText(activity.getString(R.string.medicalPersonnelAdapter_doctorPermittTitle) + resultList.getDoctorPermitt());
@@ -47,7 +47,7 @@ public class MedicalPersonnelAdapter extends RecyclerView.Adapter<MedicalPersonn
 
     @Override
     public int getItemCount() {
-        return medicalPersonnelLists.size();
+        return partnerLists.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -58,10 +58,10 @@ public class MedicalPersonnelAdapter extends RecyclerView.Adapter<MedicalPersonn
 
         MyViewHolder(View itemView) {
             super(itemView);
-            doctorName = itemView.findViewById(R.id.rowMedicalRecordList_tv_doctorName);
-            doctorType = itemView.findViewById(R.id.rowMedicalRecordList_tv_doctorType);
-            doctorPermitt = itemView.findViewById(R.id.rowMedicalRecordList_tv_doctorPermit);
-            doctorPic = itemView.findViewById(R.id.rowMedicalPersonnelList_iv_personnelAvatar);
+            doctorName = itemView.findViewById(R.id.rowPartnerList_tv_doctorName);
+            doctorType = itemView.findViewById(R.id.rowPartnerList_tv_doctorType);
+            doctorPermitt = itemView.findViewById(R.id.rowPartnerList_tv_doctorPermit);
+            doctorPic = itemView.findViewById(R.id.rowPartnerList_iv_personnelAvatar);
         }
     }
 }

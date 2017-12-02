@@ -9,7 +9,7 @@
     android:padding="@dimen/spacing_small">
 
     <LinearLayout
-        android:id="@+id/rowMedicalPersonnelList_ll_personnelContainer"
+        android:id="@+id/rowPartnerList_ll_personnelContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -32,7 +32,7 @@
                 android:layout_weight="3" >
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/rowMedicalPersonnelList_iv_personnelAvatar"
+                    android:id="@+id/rowPartnerList_iv_personnelAvatar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_action_user"
@@ -54,19 +54,7 @@
                 android:layout_weight="1" >
 
                 <TextView
-                    android:id="@+id/rowMedicalRecordList_tv_doctorName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:textSize="20sp"
-                    android:textColor="@color/primaryText"
-                    android:textStyle="bold"
-                    android:text="@string/rowMedicalRecord_doctorNameDesc" />
-
-                <TextView
-                    android:id="@+id/rowMedicalRecordList_tv_doctorType"
+                    android:id="@+id/rowPartnerList_tv_doctorType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -77,7 +65,19 @@
                     android:text="Cardiologist" />
 
                 <TextView
-                    android:id="@+id/rowMedicalRecordList_tv_doctorPermit"
+                    android:id="@+id/rowPartnerList_tv_doctorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/rowMedicalRecord_doctorNameDesc"
+                    android:textColor="@color/primaryText"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/rowPartnerList_tv_doctorPermit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"

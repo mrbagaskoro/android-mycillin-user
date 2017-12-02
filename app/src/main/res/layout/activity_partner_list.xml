@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgColor"
-    tools:context="com.mycillin.user.activity.MedicalPersonnelActivity" >
+    tools:context="com.mycillin.user.activity.PartnerListActivity" >
 
     <android.support.v7.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/medicalPersonnelActivity_toolbar"
+        android:id="@+id/partnerListActivity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -20,8 +20,8 @@
         app:titleTextColor="@android:color/white" />
 
     <LinearLayout
-        android:id="@+id/medicalPersonnelActivity_ll_searchContainer"
-        android:layout_below="@+id/medicalPersonnelActivity_toolbar"
+        android:id="@+id/partnerListActivity_ll_searchContainer"
+        android:layout_below="@+id/partnerListActivity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -30,7 +30,7 @@
         android:visibility="gone" >
 
         <EditText
-            android:id="@+id/medicalPersonnelActivity_et_search"
+            android:id="@+id/partnerListActivity_et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/medicalPersonnelActivity_search"
@@ -40,8 +40,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/medicalPersonnelActivity_ll_recordsCountContainer"
-        android:layout_below="@+id/medicalPersonnelActivity_ll_searchContainer"
+        android:id="@+id/partnerListActivity_ll_recordsCountContainer"
+        android:layout_below="@+id/partnerListActivity_ll_searchContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -49,7 +49,7 @@
         android:visibility="gone" >
 
         <TextView
-            android:id="@+id/medicalPersonnelActivity_tv_recordsCount"
+            android:id="@+id/partnerListActivity_tv_recordsCount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center" />
@@ -57,13 +57,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_below="@+id/medicalPersonnelActivity_ll_recordsCountContainer"
+        android:layout_below="@+id/partnerListActivity_ll_recordsCountContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/medicalPersonnelActivity_ll_messageContainer"
+            android:id="@+id/partnerListActivity_ll_messageContainer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:visibility="visible">
@@ -78,7 +78,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/medicalPersonnelActivity_tv_message"
+                        android:id="@+id/partnerListActivity_tv_message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -95,7 +95,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/medicalPersonnelActivity_rv_recyclerView"
+            android:id="@+id/partnerListActivity_rv_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="20dp"

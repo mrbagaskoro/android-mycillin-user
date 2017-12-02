@@ -9,16 +9,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mycillin.user.R;
-import com.mycillin.user.adapter.MedicalPersonnelAdapter;
+import com.mycillin.user.adapter.PartnerListAdapter;
 import com.mycillin.user.fragment.HomeFragment;
-import com.mycillin.user.list.MedicalPersonnelList;
+import com.mycillin.user.list.PartnerList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.findPartner.ModelResultFindPartner;
@@ -40,25 +38,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MedicalPersonnelActivity extends AppCompatActivity {
+public class PartnerListActivity extends AppCompatActivity {
 
-    @BindView(R.id.medicalPersonnelActivity_toolbar)
+    @BindView(R.id.partnerListActivity_toolbar)
     Toolbar toolbar;
-    @BindView(R.id.medicalPersonnelActivity_rv_recyclerView)
+    @BindView(R.id.partnerListActivity_rv_recyclerView)
     RecyclerView medicalPersonnelRecyclerView;
-    @BindView(R.id.medicalPersonnelActivity_ll_messageContainer)
+    @BindView(R.id.partnerListActivity_ll_messageContainer)
     LinearLayout messageContainer;
-    @BindView(R.id.medicalPersonnelActivity_tv_message)
+    @BindView(R.id.partnerListActivity_tv_message)
     TextView message;
-    @BindView(R.id.medicalPersonnelActivity_ll_searchContainer)
+    @BindView(R.id.partnerListActivity_ll_searchContainer)
     LinearLayout searchContainer;
-    @BindView(R.id.medicalPersonnelActivity_ll_recordsCountContainer)
+    @BindView(R.id.partnerListActivity_ll_recordsCountContainer)
     LinearLayout recordsCountContainer;
-    @BindView(R.id.medicalPersonnelActivity_tv_recordsCount)
+    @BindView(R.id.partnerListActivity_tv_recordsCount)
     TextView recordsCount;
 
-    private List<MedicalPersonnelList> medicalPersonnelLists = new ArrayList<>();
-    private MedicalPersonnelAdapter medicalPersonneldAdapter;
+    private List<PartnerList> partnerLists = new ArrayList<>();
+    private PartnerListAdapter medicalPersonneldAdapter;
 
     public static final String EXTRA_PARTNER_TYPE_ID = "EXTRA_PARTNER_TYPE_ID";
     public static final String EXTRA_PARTNER_SPECIALIZATION_ID = "EXTRA_PARTNER_SPECIALIZATION_ID";
@@ -72,7 +70,7 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_medical_personnel);
+        setContentView(R.layout.activity_partner_list);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -97,9 +95,9 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
         medicalPersonnelRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), medicalPersonnelRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                MedicalPersonnelList list = medicalPersonnelLists.get(position);
+                PartnerList list = partnerLists.get(position);
 
-                Intent intent = new Intent(MedicalPersonnelActivity.this, MedicalPersonnelDetailActivity.class);
+                Intent intent = new Intent(PartnerListActivity.this, MedicalPersonnelDetailActivity.class);
                 intent.putExtra(MedicalPersonnelDetailActivity.KEY_FLAG_DOCTOR_NAME, list.getDoctorName());
                 intent.putExtra(MedicalPersonnelDetailActivity.KEY_FLAG_DOCTOR_TYPE, list.getDoctorType());
                 intent.putExtra(MedicalPersonnelDetailActivity.KEY_FLAG_DOCTOR_PERMITT, list.getDoctorPermitt());
@@ -152,7 +150,7 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
                             medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                             medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-                            medicalPersonnelLists.clear();
+                            partnerLists.clear();
 
                             for(int i = 0; i < size; i++) {
                                 String doctorId = modelResultFindPartner.getResult().getData().get(i).getUserId();
@@ -164,13 +162,13 @@ public class MedicalPersonnelActivity extends AppCompatActivity {
                                 String doctorLongitude = modelResultFindPartner.getResult().getData().get(i).getLongitude();
                                 String doctorDistance = modelResultFindPartner.getResult().getData().get(i).getDistance();
 
-                                medicalPersonnelLists.add(new MedicalPersonnelList(doctorId, doctorName,
+                                partnerLists.add(new PartnerList(doctorId, doctorName,
                                         doctorType, doctorPermitt, doctorPic, doctorLatitude,
                                         doctorLongitude, doctorDistance));
 
                             }
 
-                            medicalPersonneldAdapter = new MedicalPersonnelAdapter(medicalPersonnelLists, MedicalPersonnelActivity.this);
+                            medicalPersonneldAdapter = new PartnerListAdapter(partnerLists, PartnerListActivity.this);
                             medicalPersonnelRecyclerView.setAdapter(medicalPersonneldAdapter);
                             medicalPersonneldAdapter.notifyDataSetChanged();
                         }

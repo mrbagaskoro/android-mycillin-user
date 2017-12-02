@@ -4,7 +4,7 @@ package com.mycillin.user.list;
  * Created by mrbagaskoro on 21-Sep-17.
  */
 
-public class MedicalPersonnelList {
+public class PartnerList {
     private String doctorId;
     private String doctorName;
     private String doctorType;
@@ -14,9 +14,9 @@ public class MedicalPersonnelList {
     private String doctorLongitude;
     private String doctorDistance;
 
-    public MedicalPersonnelList(String doctorId, String doctorName, String doctorType, String doctorPermitt,
-                                String doctorPic, String doctorLatitude, String doctorLongitude,
-                                String doctorDistance){
+    public PartnerList(String doctorId, String doctorName, String doctorType, String doctorPermitt,
+                       String doctorPic, String doctorLatitude, String doctorLongitude,
+                       String doctorDistance){
         this.doctorId = doctorId;
         this.doctorName = doctorName;
         this.doctorType = doctorType;

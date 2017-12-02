@@ -106,14 +106,14 @@ public class MapServiceActivity extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MapServiceActivity.this, MedicalPersonnelActivity.class);
+                Intent intent = new Intent(MapServiceActivity.this, PartnerListActivity.class);
                 intent.putExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM, getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM));
-                intent.putExtra(MedicalPersonnelActivity.EXTRA_PARTNER_TYPE_ID, filterPartnerTypeId);
-                intent.putExtra(MedicalPersonnelActivity.EXTRA_PARTNER_SPECIALIZATION_ID, filterPartnerSpecializationId);
-                intent.putExtra(MedicalPersonnelActivity.EXTRA_PARTNER_GENDER, filterPartnerGender);
-                intent.putExtra(MedicalPersonnelActivity.EXTRA_PARTNER_BPJS_STATUS, filterPartnerBPJSStatus);
-                intent.putExtra(MedicalPersonnelActivity.EXTRA_USER_LATITUDE, selectedLatitude + "");
-                intent.putExtra(MedicalPersonnelActivity.EXTRA_USER_LONGITUDE, selectedLongitude + "");
+                intent.putExtra(PartnerListActivity.EXTRA_PARTNER_TYPE_ID, filterPartnerTypeId);
+                intent.putExtra(PartnerListActivity.EXTRA_PARTNER_SPECIALIZATION_ID, filterPartnerSpecializationId);
+                intent.putExtra(PartnerListActivity.EXTRA_PARTNER_GENDER, filterPartnerGender);
+                intent.putExtra(PartnerListActivity.EXTRA_PARTNER_BPJS_STATUS, filterPartnerBPJSStatus);
+                intent.putExtra(PartnerListActivity.EXTRA_USER_LATITUDE, selectedLatitude + "");
+                intent.putExtra(PartnerListActivity.EXTRA_USER_LONGITUDE, selectedLongitude + "");
                 startActivity(intent);
             }
         });
