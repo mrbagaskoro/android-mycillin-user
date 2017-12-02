@@ -6,7 +6,79 @@
     android:orientation="vertical"
     tools:context="com.mycillin.user.activity.PartnerDetailActivity">
 
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/partnerDetailActivity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@android:color/white" />
+
+    <LinearLayout
+        android:id="@+id/partnerDetailActivity_ll_headerContainer"
+        android:layout_below="@+id/partnerDetailActivity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgColor"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/accountActivity_iv_userAvatar"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/ic_action_user"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#FF000000"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/partnerDetailActivity_tv_doctorName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/primaryText"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:text="@string/rowMedicalRecord_doctorNameDesc" />
+
+                <TextView
+                    android:id="@+id/partnerDetailActivity_tv_doctorType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/secondaryText"
+                    android:text="@string/medicalPersonnelDetail_doctorType"/>
+
+                <RatingBar
+                    android:id="@+id/partnerDetailActivity_rb_doctorRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    style="@style/Base.Widget.AppCompat.RatingBar.Small"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--<RelativeLayout
         android:id="@+id/partnerDetailActivity_ll_headerContainer"
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -47,7 +119,7 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <LinearLayout
         android:id="@+id/partnerDetailActivity_ll_infoContainer"
@@ -60,25 +132,41 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:background="?attr/selectableItemBackground"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/medicalPersonnelAdapter_doctorPermittTitle" />
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:text="@string/medicalPersonnelAdapter_doctorPermittTitle"
+                android:textColor="@color/primaryText"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/partnerDetailActivity_tv_doctorPermitt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:paddingBottom="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/medicalPersonnelDetail_doctorPermitt"
+                android:textColor="@color/primaryText"
                 android:textSize="15sp"
-                android:textStyle="bold"
-                android:text="@string/medicalPersonnelDetail_doctorPermitt" />
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/partnerDetailActivity_clickSIPPTitle"
+                android:textColor="@color/secondaryText"
+                android:textSize="10sp"
+                android:textStyle="italic" />
 
         </LinearLayout>
 
@@ -90,250 +178,155 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingTop="10dp">
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="vertical" >
 
-            <RatingBar
-                android:id="@+id/partnerDetailActivity_rb_doctorRating"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/Base.Widget.AppCompat.RatingBar.Indicator"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="12sp"
+                android:textColor="@color/primaryText"
+                android:text="@string/medicalPersonnelAdapter_doctorPermittTitle2" />
+
+            <TextView
+                android:id="@+id/partnerDetailActivity_tv_doctorPermitt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/primaryText"
+                android:text="@string/medicalPersonnelDetail_doctorPermitt" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:textSize="10sp"
+                android:textColor="@color/secondaryText"
+                android:textStyle="italic"
+                android:text="@string/partnerDetailActivity_clickSTRTitle" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <View
-        android:layout_above="@+id/partnerDetailActivity_sv_bodyContainer"
+        android:id="@+id/partnerDetailActivity_v_view1"
+        android:layout_below="@+id/partnerDetailActivity_ll_infoContainer"
         android:layout_width="fill_parent"
         android:layout_height="1dip"
         android:background="@color/bgColor" />
 
-    <ScrollView
-        android:id="@+id/partnerDetailActivity_sv_bodyContainer"
-        android:layout_below="@+id/partnerDetailActivity_ll_infoContainer"
-        android:layout_above="@+id/partnerDetailActivity_rl_footerContainer"
+    <LinearLayout
+        android:id="@+id/partnerDetailActivity_ll_descriptionContainer"
+        android:layout_below="@+id/partnerDetailActivity_v_view1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp" >
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
 
-        <LinearLayout
-            android:id="@+id/partnerDetailActivity_ll_bodyContainer"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:gravity="center" />
 
-            <LinearLayout
-                android:id="@+id/partnerDetailActivity_ll_availabilityContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal" >
+    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_weight="5" >
+    <View
+        android:id="@+id/partnerDetailActivity_v_view2"
+        android:layout_below="@+id/partnerDetailActivity_ll_descriptionContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/bgColor" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher"/>
+    <LinearLayout
+        android:id="@+id/partnerDetailActivity_ll_yearOfWorksContainer"
+        android:layout_below="@+id/partnerDetailActivity_v_view2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-                </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/secondaryText"
+            android:text="@string/partnerDetailActivity_yearOfWorkTitle" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1" >
+        <TextView
+            android:id="@+id/partnerDetailActivity_tv_doctorYearOfWorks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/primaryText"
+            android:text="@string/medicalPersonnelDetail_experienceInfo" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/medicalPersonnelDetail_availabilityInfo"/>
+    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/partnerDetailActivity_tv_doctorAvailability"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:text="@string/medicalPersonnelDetail_availability"/>
+    <View
+        android:id="@+id/partnerDetailActivity_v_view3"
+        android:layout_below="@+id/partnerDetailActivity_ll_yearOfWorksContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/bgColor" />
 
-                </LinearLayout>
+    <LinearLayout
+        android:id="@+id/partnerDetailActivity_ll_workplaceContainer"
+        android:layout_below="@+id/partnerDetailActivity_v_view3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-            </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/secondaryText"
+            android:text="@string/partnerDetailActivity_workplaceTitle" />
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/bgColor" />
+        <TextView
+            android:id="@+id/partnerDetailActivity_tv_doctorWorkplace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/primaryText"
+            android:text="@string/medicalPersonnelDetail_hospitalInfo" />
 
-            <LinearLayout
-                android:id="@+id/partnerDetailActivity_ll_experienceContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal" >
+    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_weight="5" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1" >
-
-                    <TextView
-                        android:id="@+id/partnerDetailActivity_tv_doctorExperience"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:text="@string/medicalPersonnelDetail_experienceInfo"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/bgColor" />
-
-            <LinearLayout
-                android:id="@+id/partnerDetailActivity_ll_hospitalContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_weight="5" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1" >
-
-                    <TextView
-                        android:id="@+id/partnerDetailActivity_tv_doctorHospital"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:text="@string/medicalPersonnelDetail_hospitalInfo"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/bgColor" />
-
-            <LinearLayout
-                android:id="@+id/partnerDetailActivity_ll_educationContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_weight="5" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1" >
-
-                    <TextView
-                        android:id="@+id/partnerDetailActivity_tv_doctorEducation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:text="@string/medicalPersonnelDetail_educationInfo"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dip"
-                android:background="@color/bgColor" />
-
-        </LinearLayout>
-
-    </ScrollView>
+    <View
+        android:id="@+id/partnerDetailActivity_v_view4"
+        android:layout_below="@+id/partnerDetailActivity_ll_workplaceContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/bgColor" />
 
     <View
         android:layout_above="@+id/partnerDetailActivity_rl_footerContainer"
@@ -357,7 +350,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingTop="10dp"
                 android:layout_weight="1">
@@ -380,11 +373,13 @@
                     android:textColor="@color/primaryText"
                     android:textStyle="bold"
                     android:text="@string/medicalPersonnelDetail_feeAmount"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
+                    android:textSize="12sp"
                     android:textStyle="italic"
                     android:text="@string/medicalPersonnelDetail_feeTwoInfo"/>
 

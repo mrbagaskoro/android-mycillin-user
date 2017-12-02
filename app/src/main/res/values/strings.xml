@@ -337,4 +337,10 @@
     <string name="filterDoctorActivity_partnerSpecializationDropdownMessage">Please select Paramedic Type first.</string>
     <string name="partnerListActivity_clinicTitle">Clinics Available</string>
     <string name="partnerListActivity_homecareTitle">Homecare Available</string>
+    <string name="medicalPersonnelAdapter_doctorPermittTitle2">STR Number :</string>
+    <string name="partnerDetailActivity_title">Detail</string>
+    <string name="partnerDetailActivity_clickSIPPTitle">(Click to view SIPP)</string>
+    <string name="partnerDetailActivity_clickSTRTitle">(Click to view STR)</string>
+    <string name="partnerDetailActivity_yearOfWorkTitle">Year(s) of works</string>
+    <string name="partnerDetailActivity_workplaceTitle">Workplace Institution</string>
 </resources>

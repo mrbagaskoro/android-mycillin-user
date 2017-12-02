@@ -2,6 +2,7 @@ package com.mycillin.user.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.mycillin.user.R;
@@ -22,11 +23,16 @@ public class PartnerDetailActivity extends AppCompatActivity {
     @BindView(R.id.partnerDetailActivity_tv_doctorPermitt)
     TextView doctorPermitt;
 
+    @BindView(R.id.partnerDetailActivity_toolbar)
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partner_detail);
         ButterKnife.bind(this);
+
+        toolbar.setTitle(R.string.partnerDetailActivity_title);
 
         doctorName.setText(getIntent().getStringExtra(KEY_FLAG_DOCTOR_NAME));
         doctorType.setText(getIntent().getStringExtra(KEY_FLAG_DOCTOR_TYPE));

@@ -332,4 +332,10 @@
     <string name="filterDoctorActivity_partnerSpecializationDropdownMessage">Mohon pilih Tipe Tenaga Medis terlebih dahulu.</string>
     <string name="partnerListActivity_clinicTitle">Praktek Dokter Tersedia</string>
     <string name="partnerListActivity_homecareTitle">Perawat Tersedia</string>
+    <string name="medicalPersonnelAdapter_doctorPermittTitle2">No. STR :</string>
+    <string name="partnerDetailActivity_title">Detil</string>
+    <string name="partnerDetailActivity_clickSIPPTitle">(Klik untuk melihat SIPP)</string>
+    <string name="partnerDetailActivity_clickSTRTitle">(Klik untuk melihat STR)</string>
+    <string name="partnerDetailActivity_yearOfWorkTitle">Lama kerja</string>
+    <string name="partnerDetailActivity_workplaceTitle">Institusi bekerja</string>
 </resources>
