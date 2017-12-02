@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -46,9 +47,11 @@ public class MapServiceActivity extends AppCompatActivity {
     private LocationManager locationManager;
 
     private String filterPartnerTypeId = "";
+    private String filterPartnerTypeDesc = "";
     private String filterPartnerSpecializationId = "";
+    private String filterPartnerSpecializationDesc = "";
     private String filterPartnerGender = "";
-    private String filterPartnerBPJSStatus = "1";
+    private String filterPartnerBPJSStatus = "0";
     private double selectedLatitude;
     private double selectedLongitude;
 
@@ -101,6 +104,12 @@ public class MapServiceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MapServiceActivity.this, FilterDoctorActivity.class);
+                intent.putExtra(FilterDoctorActivity.EXTRA_PARTNER_TYPE_ID, filterPartnerTypeId);
+                intent.putExtra(FilterDoctorActivity.EXTRA_PARTNER_TYPE_DESC, filterPartnerTypeDesc);
+                intent.putExtra(FilterDoctorActivity.EXTRA_PARTNER_SPECIALIZATION_ID, filterPartnerSpecializationId);
+                intent.putExtra(FilterDoctorActivity.EXTRA_PARTNER_SPECIALIZATION_DESC, filterPartnerSpecializationDesc);
+                intent.putExtra(FilterDoctorActivity.EXTRA_PARTNER_GENDER, filterPartnerGender);
+                intent.putExtra(FilterDoctorActivity.EXTRA_PARTNER_BPJS_STATUS, filterPartnerBPJSStatus);
                 startActivityForResult(intent, FilterDoctorActivity.REQUEST_CODE_FILTER);
             }
         });
@@ -128,7 +137,9 @@ public class MapServiceActivity extends AppCompatActivity {
         if (requestCode == FilterDoctorActivity.REQUEST_CODE_FILTER) {
             if(resultCode == RESULT_OK) {
                 filterPartnerTypeId = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_TYPE_ID);
+                filterPartnerTypeDesc = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_TYPE_DESC);
                 filterPartnerSpecializationId = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_SPECIALIZATION_ID);
+                filterPartnerSpecializationDesc = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_SPECIALIZATION_DESC);
                 filterPartnerGender = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_GENDER);
                 filterPartnerBPJSStatus = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_BPJS_STATUS);
             }

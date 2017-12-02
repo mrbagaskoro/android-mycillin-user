@@ -176,7 +176,7 @@
     <string name="medicalPersonnelDetail_hospitalInfo">RS Mitra Keluarga, Depok</string>
     <string name="medicalPersonnelDetail_educationInfo">FK UI 2004</string>
     <string name="medicalPersonnelDetail_feeInfo">Estimated Fee</string>
-    <string name="medicalPersonnelDetail_feeAmount">Rp 200.000</string>
+    <string name="medicalPersonnelDetail_feeAmount">Rp MAHAL KK</string>
     <string name="medicalPersonnelDetail_feeTwoInfo">Additional charges may apply</string>
     <string name="medicalPersonnelDetail_radioGroupTitle">Pay with:</string>
     <string name="medicalPersonnelDetail_cash">Cash</string>
@@ -352,4 +352,6 @@
     <string name="partnerDetailActivity_paymentValidationMessage">Please select your payment method first.</string>
     <string name="partnerDetailActivity_consultDialogTitle">Consult</string>
     <string name="partnerDetailActivity_consultDialogMessage">Proceed to consult with our partner ?</string>
+    <string name="filterDoctorActivity_BPJStitle">BPJS</string>
+    <string name="filterMenu_reset">Reset</string>
 </resources>

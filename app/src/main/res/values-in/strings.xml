@@ -170,7 +170,7 @@
     <string name="medicalPersonnelDetail_educationInfo">FK UI 2004</string>
     <string name="medicalPersonnelDetail_experienceInfo">10 tahun praktek sejak 20017</string>
     <string name="medicalPersonnelDetail_feeInfo">Perkiraan Biaya</string>
-    <string name="medicalPersonnelDetail_feeAmount">Rp 200.000</string>
+    <string name="medicalPersonnelDetail_feeAmount">Rp MAHAL KK</string>
     <string name="medicalPersonnelDetail_feeTwoInfo">Mungkin berlaku biaya tambahan</string>
     <string name="medicalPersonnelDetail_hospitalEWallet">E-Wallet</string>
     <string name="medicalPersonnelDetail_hospitalInfo">RS Mitra Keluarga, Depok</string>
@@ -347,4 +347,6 @@
     <string name="partnerDetailActivity_paymentValidationMessage">Silahkan pilih metode pembayaran terlebih dahulu.</string>
     <string name="partnerDetailActivity_consultDialogTitle">Konsultasi</string>
     <string name="partnerDetailActivity_consultDialogMessage">Anda yakin akan melanjutkan konsultasi dengan partner kami ?</string>
+    <string name="filterDoctorActivity_BPJStitle">BPJS</string>
+    <string name="filterMenu_reset">Reset</string>
 </resources>
