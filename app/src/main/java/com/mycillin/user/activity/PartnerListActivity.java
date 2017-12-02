@@ -97,10 +97,10 @@ public class PartnerListActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 PartnerList list = partnerLists.get(position);
 
-                Intent intent = new Intent(PartnerListActivity.this, MedicalPersonnelDetailActivity.class);
-                intent.putExtra(MedicalPersonnelDetailActivity.KEY_FLAG_DOCTOR_NAME, list.getDoctorName());
-                intent.putExtra(MedicalPersonnelDetailActivity.KEY_FLAG_DOCTOR_TYPE, list.getDoctorType());
-                intent.putExtra(MedicalPersonnelDetailActivity.KEY_FLAG_DOCTOR_PERMITT, list.getDoctorPermitt());
+                Intent intent = new Intent(PartnerListActivity.this, PartnerDetailActivity.class);
+                intent.putExtra(PartnerDetailActivity.KEY_FLAG_DOCTOR_NAME, list.getDoctorName());
+                intent.putExtra(PartnerDetailActivity.KEY_FLAG_DOCTOR_TYPE, list.getDoctorType());
+                intent.putExtra(PartnerDetailActivity.KEY_FLAG_DOCTOR_PERMITT, list.getDoctorPermitt());
                 startActivity(intent);
             }
 
