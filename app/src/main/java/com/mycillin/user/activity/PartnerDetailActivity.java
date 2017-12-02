@@ -1,10 +1,12 @@
 package com.mycillin.user.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -83,6 +85,9 @@ public class PartnerDetailActivity extends AppCompatActivity {
 
     private ProgressBarHandler progressBarHandler;
 
+    String selectedPartnerPicURL = "";
+    String selectedPartnerSIPPURL = "";
+    String selectedPartnerSTRURL = "";
     String selectedPartnerId = "";
     String selectedPartnerTypeId = "";
     String selectedPartnerSpecializationId = "";
@@ -102,6 +107,47 @@ public class PartnerDetailActivity extends AppCompatActivity {
         getPartnerDetail(partnerId);
 
         doctorFee.setText(getResources().getString(R.string.medicalPersonnelDetail_feeAmount));
+
+        doctorAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!selectedPartnerPicURL.equals("")) {
+                    Intent intent = new Intent(PartnerDetailActivity.this, ViewImageActivity.class);
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, selectedPartnerPicURL);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        SIPPContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!selectedPartnerSIPPURL.equals("")) {
+                    Intent intent = new Intent(PartnerDetailActivity.this, ViewImageActivity.class);
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, selectedPartnerSIPPURL);
+                    startActivity(intent);
+                }
+                else {
+                    String message = getString(R.string.partnerDetailActivity_SIPPmessage);
+                    Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        STRContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!selectedPartnerSTRURL.equals("")) {
+                    Intent intent = new Intent(PartnerDetailActivity.this, ViewImageActivity.class);
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, selectedPartnerSTRURL);
+                    startActivity(intent);
+                }
+                else {
+                    String message = getString(R.string.partnerDetailActivity_STRmessage);
+                    Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         payWithRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -124,12 +170,28 @@ public class PartnerDetailActivity extends AppCompatActivity {
                     Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
                 }
                 else {
-                    doRequest(getIntent().getStringExtra(HomeFragment.EXTRA_RELATION_ID),
-                            selectedPartnerId, selectedPartnerTypeId, selectedPartnerSpecializationId,
-                            getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM),
-                            selectedPaymentMethodId, "TEST",
-                            getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LATITUDE),
-                            getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LONGITUDE));
+                    new AlertDialog.Builder(PartnerDetailActivity.this)
+                            .setTitle(R.string.partnerDetailActivity_requestDialogTitle)
+                            .setMessage(R.string.partnerDetailActivity_requestDialogMessage)
+                            .setIcon(R.mipmap.ic_launcher)
+                            .setPositiveButton(getString(R.string.partnerDetailActivity_requestDialogTitle), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    doRequest(getIntent().getStringExtra(HomeFragment.EXTRA_RELATION_ID),
+                                            selectedPartnerId, selectedPartnerTypeId, selectedPartnerSpecializationId,
+                                            getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM),
+                                            selectedPaymentMethodId, "TEST",
+                                            getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LATITUDE),
+                                            getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LONGITUDE));
+                                }
+                            })
+                            .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
                 }
             }
         });
@@ -192,6 +254,16 @@ public class PartnerDetailActivity extends AppCompatActivity {
                                     .load(profilePhoto)
                                     .apply(requestOptions)
                                     .into(doctorAvatar);
+
+                            selectedPartnerPicURL = profilePhoto;
+                        }
+
+                        if(!SIPPhoto.equals("")) {
+                            selectedPartnerSIPPURL = SIPPhoto;
+                        }
+
+                        if(!STRPhoto.equals("")) {
+                            selectedPartnerSTRURL = STRPhoto;
                         }
 
                         doctorName.setText(fullName);

@@ -344,4 +344,8 @@
     <string name="partnerDetailActivity_yearOfWorkTitle">Year(s) of works</string>
     <string name="partnerDetailActivity_workplaceTitle">Workplace Institution</string>
     <string name="partnerDetailActivity_yearsValue">%1$s Year(s)</string>
+    <string name="partnerDetailActivity_SIPPmessage">We are sorry, SIPP is not available at the moment.</string>
+    <string name="partnerDetailActivity_STRmessage">We are sorry, STR is not available at the moment.</string>
+    <string name="partnerDetailActivity_requestDialogTitle">Request</string>
+    <string name="partnerDetailActivity_requestDialogMessage">Proceed to request our partner ?</string>
 </resources>

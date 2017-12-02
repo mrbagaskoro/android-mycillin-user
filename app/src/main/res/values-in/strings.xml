@@ -339,4 +339,8 @@
     <string name="partnerDetailActivity_yearOfWorkTitle">Lama kerja</string>
     <string name="partnerDetailActivity_workplaceTitle">Institusi bekerja</string>
     <string name="partnerDetailActivity_yearsValue">%1$s Tahun</string>
+    <string name="partnerDetailActivity_SIPPmessage">Mohon maaf, SIPP belum tersedia saat ini.</string>
+    <string name="partnerDetailActivity_STRmessage">Mohon maaf, STR belum tersedia saat ini.</string>
+    <string name="partnerDetailActivity_requestDialogTitle">Request</string>
+    <string name="partnerDetailActivity_requestDialogMessage">Anda yakin akan menlanjutkan request dengan partner ini ?</string>
 </resources>
