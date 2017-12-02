@@ -22,6 +22,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
 import com.mycillin.user.activity.ChatActivity;
 import com.mycillin.user.activity.MapServiceActivity;
+import com.mycillin.user.activity.PartnerListActivity;
 import com.mycillin.user.adapter.ConsultationMenuAdapter;
 import com.mycillin.user.database.Banner;
 import com.mycillin.user.list.ConsultationMenuList;
@@ -93,25 +94,27 @@ public class HomeFragment extends Fragment {
     public static final String EXTRA_RELATION_ID = "EXTRA_RELATION_ID";
     public static final String KEY_BOOK_DOCTOR = "00";
     public static final String KEY_MEDICAL_RESERVATION = "01";
+    public static final String KEY_CONSULTATION = "02";
     public static final String KEY_BOOK_HEALTHCARE = "05";
 
+    public static final String KEY_ID_MENU_PEDIATRICIAN = "00";
+    public static final String KEY_ID_MENU_GENERAL_SURGEON = "03";
+    public static final String KEY_ID_MENU_PULMONOLOGIST = "05";
+    public static final String KEY_ID_MENU_NEUROLOGIST = "08";
+    public static final String KEY_ID_MENU_CARDIOLOGIST = "09";
+    public static final String KEY_ID_MENU_OPHTHALMOLOGIST = "10";
+    public static final String KEY_ID_MENU_DERMATOLOGIST = "11";
+    public static final String KEY_ID_MENU_INTERNIST = "12";
+    public static final String KEY_ID_MENU_OTOLARYNGOLOGIST = "13";
+    public static final String KEY_ID_MENU_UROLOGIST = "14";
+    public static final String KEY_ID_MENU_OBGYN = "15";
+
     public static final String KEY_ID_MENU_ALLERGIST = "KEY_ID_MENU_ALLERGIST";
-    public static final String KEY_ID_MENU_CARDIOLOGIST = "KEY_ID_MENU_CARDIOLOGIST";
     public static final String KEY_ID_MENU_DENTIST = "KEY_ID_MENU_DENTIST";
-    public static final String KEY_ID_MENU_DERMATOLOGIST = "KEY_ID_MENU_DERMATOLOGIST";
     public static final String KEY_ID_MENU_GENERAL_PRACTITIONER = "KEY_ID_MENU_GENERAL_PRACTITIONER";
-    public static final String KEY_ID_MENU_INTERNIST = "KEY_ID_MENU_INTERNIST";
-    public static final String KEY_ID_MENU_NEUROLOGIST = "KEY_ID_MENU_NEUROLOGIST";
-    public static final String KEY_ID_MENU_OBGYN = "KEY_ID_MENU_OBGYN";
-    public static final String KEY_ID_MENU_OPHTHALMOLOGIST = "KEY_ID_MENU_OPHTHALMOLOGIST";
     public static final String KEY_ID_MENU_ORTHOPAEDIST = "KEY_ID_MENU_ORTHOPAEDIST";
-    public static final String KEY_ID_MENU_OTOLARYNGOLOGIST = "KEY_ID_MENU_OTOLARYNGOLOGIST";
-    public static final String KEY_ID_MENU_PEDIATRICIAN = "KEY_ID_MENU_PEDIATRICIAN";
     public static final String KEY_ID_MENU_PSYCHIATRIST = "KEY_ID_MENU_PSYCHIATRIST";
-    public static final String KEY_ID_MENU_PULMONOLOGIST = "KEY_ID_MENU_PULMONOLOGIST";
     public static final String KEY_ID_MENU_RADIOLOGIST = "KEY_ID_MENU_RADIOLOGIST";
-    public static final String KEY_ID_MENU_GENERAL_SURGEON = "KEY_ID_MENU_GENERAL_SURGEON";
-    public static final String KEY_ID_MENU_UROLOGIST = "KEY_ID_MENU_UROLOGIST";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -201,9 +204,14 @@ public class HomeFragment extends Fragment {
         goToConsultationService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainContainer.setVisibility(View.GONE);
-                consultationContainer.setVisibility(View.VISIBLE);
-                getConsultationMenu();
+                if(selectedRelationId.equals("")) {
+                    getAccountList(spinnerDialog);
+                }
+                else {
+                    mainContainer.setVisibility(View.GONE);
+                    consultationContainer.setVisibility(View.VISIBLE);
+                    getConsultationMenu();
+                }
             }
         });
 
@@ -211,8 +219,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 ConsultationMenuList list = consultationMenuLists.get(position);
-
-                Intent intent = new Intent(getContext(), ChatActivity.class);
+                Intent intent = new Intent(getContext(), PartnerListActivity.class);
+                intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_CONSULTATION);
+                intent.putExtra(EXTRA_RELATION_ID, selectedRelationId);
+                intent.putExtra(PartnerListActivity.EXTRA_PARTNER_TYPE_ID, "03");
+                intent.putExtra(PartnerListActivity.EXTRA_PARTNER_SPECIALIZATION_ID, list.getId());
+                intent.putExtra(PartnerListActivity.EXTRA_PARTNER_GENDER, "");
                 startActivity(intent);
             }
 

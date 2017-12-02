@@ -25,6 +25,7 @@ import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.partnerDetailGet.ModelResultPartnerDetailGet;
+import com.mycillin.user.rest.requestConsultation.ModelResultRequestConsultation;
 import com.mycillin.user.rest.requestTransaction.ModelResultRequestTransaction;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
@@ -73,6 +74,10 @@ public class PartnerDetailActivity extends AppCompatActivity {
     TextView doctorWorkArea;
     @BindView(R.id.partnerDetailActivity_tv_doctorFee)
     TextView doctorFee;
+    @BindView(R.id.partnerDetailActivity_v_paymentSeparator)
+    View paymentSeparator;
+    @BindView(R.id.partnerDetailActivity_ll_paymentContainer)
+    LinearLayout paymentContainer;
     @BindView(R.id.partnerDetailActivity_rg_radioGroup)
     RadioGroup payWithRadioGroup;
     @BindView(R.id.partnerDetailActivity_bt_requestBtn)
@@ -161,28 +166,29 @@ public class PartnerDetailActivity extends AppCompatActivity {
             }
         });
 
+        if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
+            paymentSeparator.setVisibility(View.INVISIBLE);
+            paymentContainer.setVisibility(View.INVISIBLE);
+        }
+        else {
+            paymentSeparator.setVisibility(View.VISIBLE);
+            paymentContainer.setVisibility(View.VISIBLE);
+        }
+
         requestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(selectedPaymentMethodId.equals("")) {
-                    String message = "Please select your payment method first.";
-                    Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
-                }
-                else {
+                if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
                     new AlertDialog.Builder(PartnerDetailActivity.this)
-                            .setTitle(R.string.partnerDetailActivity_requestDialogTitle)
-                            .setMessage(R.string.partnerDetailActivity_requestDialogMessage)
+                            .setTitle(R.string.partnerDetailActivity_consultDialogTitle)
+                            .setMessage(R.string.partnerDetailActivity_consultDialogMessage)
                             .setIcon(R.mipmap.ic_launcher)
-                            .setPositiveButton(getString(R.string.partnerDetailActivity_requestDialogTitle), new DialogInterface.OnClickListener() {
+                            .setPositiveButton(getString(R.string.partnerDetailActivity_consultDialogTitle), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    doRequest(getIntent().getStringExtra(HomeFragment.EXTRA_RELATION_ID),
+                                    doConsult(getIntent().getStringExtra(HomeFragment.EXTRA_RELATION_ID),
                                             selectedPartnerId, selectedPartnerTypeId, selectedPartnerSpecializationId,
-                                            getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM),
-                                            selectedPaymentMethodId, "TEST",
-                                            getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LATITUDE),
-                                            getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LONGITUDE));
+                                            "TEST");
                                 }
                             })
                             .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
@@ -192,6 +198,36 @@ public class PartnerDetailActivity extends AppCompatActivity {
                                 }
                             })
                             .show();
+                }
+                else {
+                    if(selectedPaymentMethodId.equals("")) {
+                        String message = getString(R.string.partnerDetailActivity_paymentValidationMessage);
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    }
+                    else {
+                        new AlertDialog.Builder(PartnerDetailActivity.this)
+                                .setTitle(R.string.partnerDetailActivity_requestDialogTitle)
+                                .setMessage(R.string.partnerDetailActivity_requestDialogMessage)
+                                .setIcon(R.mipmap.ic_launcher)
+                                .setPositiveButton(getString(R.string.partnerDetailActivity_requestDialogTitle), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        doRequest(getIntent().getStringExtra(HomeFragment.EXTRA_RELATION_ID),
+                                                selectedPartnerId, selectedPartnerTypeId, selectedPartnerSpecializationId,
+                                                getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM),
+                                                selectedPaymentMethodId, "TEST",
+                                                getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LATITUDE),
+                                                getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LONGITUDE));
+                                    }
+                                })
+                                .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
+                    }
                 }
             }
         });
@@ -387,6 +423,81 @@ public class PartnerDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<ModelResultRequestTransaction> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    private void doConsult(String relationId, String partnerId, String partnerTypeId, String partnerSpecializationId,
+                          String promoCode) {
+
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("relation_id", relationId);
+        params.put("partner_selected", partnerId);
+        params.put("partner_type_id", partnerTypeId);
+        params.put("spesialisasi_id", partnerSpecializationId);
+        params.put("promo_code", promoCode);
+
+        myCillinAPI.requestConsultation(token, params).enqueue(new Callback<ModelResultRequestConsultation>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultRequestConsultation> call, @NonNull Response<ModelResultRequestConsultation> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultRequestConsultation modelResultRequestConsultation = response.body();
+
+                    assert modelResultRequestConsultation != null;
+                    if(modelResultRequestConsultation.getResult().isStatus()) {
+                        Snackbar.make(getWindow().getDecorView().getRootView(), modelResultRequestConsultation.getResult().getMessage(), Snackbar.LENGTH_SHORT)
+                                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                                    @Override
+                                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                                        super.onDismissed(transientBottomBar, event);
+
+                                        Intent intent = new Intent(PartnerDetailActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .show();
+                    }
+                    else {
+                        Snackbar.make(getWindow().getDecorView().getRootView(), modelResultRequestConsultation.getResult().getMessage(), Snackbar.LENGTH_LONG).show();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultRequestConsultation> call, @NonNull Throwable t) {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();

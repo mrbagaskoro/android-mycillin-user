@@ -348,4 +348,8 @@
     <string name="partnerDetailActivity_STRmessage">We are sorry, STR is not available at the moment.</string>
     <string name="partnerDetailActivity_requestDialogTitle">Request</string>
     <string name="partnerDetailActivity_requestDialogMessage">Proceed to request our partner ?</string>
+    <string name="partnerListActivity_consultationTitle">Consultation Available</string>
+    <string name="partnerDetailActivity_paymentValidationMessage">Please select your payment method first.</string>
+    <string name="partnerDetailActivity_consultDialogTitle">Consult</string>
+    <string name="partnerDetailActivity_consultDialogMessage">Proceed to consult with our partner ?</string>
 </resources>

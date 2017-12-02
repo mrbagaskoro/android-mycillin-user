@@ -342,5 +342,9 @@
     <string name="partnerDetailActivity_SIPPmessage">Mohon maaf, SIPP belum tersedia saat ini.</string>
     <string name="partnerDetailActivity_STRmessage">Mohon maaf, STR belum tersedia saat ini.</string>
     <string name="partnerDetailActivity_requestDialogTitle">Request</string>
-    <string name="partnerDetailActivity_requestDialogMessage">Anda yakin akan menlanjutkan request dengan partner ini ?</string>
+    <string name="partnerDetailActivity_requestDialogMessage">Anda yakin akan menlanjutkan request dengan partner kami ?</string>
+    <string name="partnerListActivity_consultationTitle">Konsultasi Tersedia</string>
+    <string name="partnerDetailActivity_paymentValidationMessage">Silahkan pilih metode pembayaran terlebih dahulu.</string>
+    <string name="partnerDetailActivity_consultDialogTitle">Konsultasi</string>
+    <string name="partnerDetailActivity_consultDialogMessage">Anda yakin akan melanjutkan konsultasi dengan partner kami ?</string>
 </resources>

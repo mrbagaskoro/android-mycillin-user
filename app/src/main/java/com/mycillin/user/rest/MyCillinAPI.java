@@ -11,6 +11,7 @@ import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
 import com.mycillin.user.rest.findClinic.ModelResultFindClinic;
+import com.mycillin.user.rest.findConsultation.ModelResultFindConsultation;
 import com.mycillin.user.rest.findHealthcare.ModelResultFindHealthcare;
 import com.mycillin.user.rest.findPartner.ModelResultFindPartner;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
@@ -26,6 +27,7 @@ import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionReco
 import com.mycillin.user.rest.ratingInsert.ModelResultRatingInsert;
 import com.mycillin.user.rest.register.ModelResultRegister;
 import com.mycillin.user.rest.relationList.ModelResultRelationList;
+import com.mycillin.user.rest.requestConsultation.ModelResultRequestConsultation;
 import com.mycillin.user.rest.requestTransaction.ModelResultRequestTransaction;
 import com.mycillin.user.rest.specializationList.ModelResultSpecializationList;
 import com.mycillin.user.rest.unratedList.ModelResultUnratedList;
@@ -154,4 +156,10 @@ public interface MyCillinAPI {
 
     @POST("add_request/")
     Call<ModelResultRequestTransaction> requestTransaction(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("find_consultation/")
+    Call<ModelResultFindConsultation> findConsultation(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("user_booking_consultation/")
+    Call<ModelResultRequestConsultation> requestConsultation(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }
