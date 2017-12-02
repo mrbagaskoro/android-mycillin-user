@@ -15,6 +15,8 @@ import com.mycillin.user.rest.findConsultation.ModelResultFindConsultation;
 import com.mycillin.user.rest.findHealthcare.ModelResultFindHealthcare;
 import com.mycillin.user.rest.findPartner.ModelResultFindPartner;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
+import com.mycillin.user.rest.historyCompleted.ModelResultHistoryCompleted;
+import com.mycillin.user.rest.historyOnProgress.ModelResultHistoryOnProgress;
 import com.mycillin.user.rest.insuranceDelete.ModelResultInsuranceDelete;
 import com.mycillin.user.rest.insuranceInsert.ModelResultInsuranceInsert;
 import com.mycillin.user.rest.insuranceList.ModelResultInsuranceList;
@@ -162,4 +164,10 @@ public interface MyCillinAPI {
 
     @POST("user_booking_consultation/")
     Call<ModelResultRequestConsultation> requestConsultation(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("list_history_onprogress/")
+    Call<ModelResultHistoryOnProgress> getHistoryOnProgress(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("list_history_completed/")
+    Call<ModelResultHistoryCompleted> getHistoryCompleted(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }
