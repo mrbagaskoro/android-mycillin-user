@@ -145,7 +145,9 @@ public class MainActivity extends AppCompatActivity {
             navigation.setSelectedItemId(R.id.nav_home);
         }
 
-        getUnratedList();
+        if(navigation.getSelectedItemId() == R.id.nav_home) {
+            getUnratedList();
+        }
     }
 
     @Override
