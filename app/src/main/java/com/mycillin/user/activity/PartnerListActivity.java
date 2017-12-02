@@ -19,6 +19,7 @@ import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.list.PartnerList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.findClinic.ModelResultFindClinic;
 import com.mycillin.user.rest.findPartner.ModelResultFindPartner;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.RecyclerTouchListener;
@@ -78,10 +79,9 @@ public class PartnerListActivity extends AppCompatActivity {
         progressBarHandler = new ProgressBarHandler(this);
 
         if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_BOOK_DOCTOR)) {
-
             getSupportActionBar().setTitle(R.string.medicalPersonnelActivity_title);
 
-            getMedicalPersonnelList(getIntent().getStringExtra(EXTRA_PARTNER_TYPE_ID),
+            getDoctorList(getIntent().getStringExtra(EXTRA_PARTNER_TYPE_ID),
                     getIntent().getStringExtra(EXTRA_PARTNER_SPECIALIZATION_ID),
                     getIntent().getStringExtra(EXTRA_PARTNER_GENDER),
                     getIntent().getStringExtra(EXTRA_PARTNER_BPJS_STATUS),
@@ -89,7 +89,14 @@ public class PartnerListActivity extends AppCompatActivity {
                     getIntent().getStringExtra(EXTRA_USER_LONGITUDE));
         }
         else if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_MEDICAL_RESERVATION)) {
+            getSupportActionBar().setTitle("Clinics Available");
 
+            getClinicList(getIntent().getStringExtra(EXTRA_PARTNER_TYPE_ID),
+                    getIntent().getStringExtra(EXTRA_PARTNER_SPECIALIZATION_ID),
+                    getIntent().getStringExtra(EXTRA_PARTNER_GENDER),
+                    getIntent().getStringExtra(EXTRA_PARTNER_BPJS_STATUS),
+                    getIntent().getStringExtra(EXTRA_USER_LATITUDE),
+                    getIntent().getStringExtra(EXTRA_USER_LONGITUDE));
         }
 
         medicalPersonnelRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), medicalPersonnelRecyclerView, new RecyclerTouchListener.ClickListener() {
@@ -111,7 +118,7 @@ public class PartnerListActivity extends AppCompatActivity {
         }));
     }
 
-    private void getMedicalPersonnelList(String partnerType, String partnerSpecialization, String gender, String bpjs, String latitude, String longitude) {
+    private void getDoctorList(String partnerType, String partnerSpecialization, String gender, String bpjs, String latitude, String longitude) {
         progressBarHandler.show();
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
@@ -201,6 +208,103 @@ public class PartnerListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<ModelResultFindPartner> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getClinicList(String partnerType, String partnerSpecialization, String gender, String bpjs, String latitude, String longitude) {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("partner_type_id", partnerType);
+        params.put("spesialisasi_id", partnerSpecialization);
+        params.put("gender", gender);
+        params.put("BPJS_RCV_status", bpjs);
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
+
+        myCillinAPI.findClinic(token, params).enqueue(new Callback<ModelResultFindClinic>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultFindClinic> call, @NonNull Response<ModelResultFindClinic> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultFindClinic modelResultFindClinic = response.body();
+
+                    assert modelResultFindClinic != null;
+                    if(modelResultFindClinic.getResult().isStatus()) {
+                        int size = modelResultFindClinic.getResult().getData().size();
+                        if(size > 0) {
+                            messageContainer.setVisibility(View.GONE);
+                            medicalPersonnelRecyclerView.setVisibility(View.VISIBLE);
+                            searchContainer.setVisibility(View.VISIBLE);
+                            recordsCountContainer.setVisibility(View.VISIBLE);
+                            recordsCount.setText(String.format(getResources().getString(R.string.medicalPersonnelActivity_records), size));
+
+                            medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                            medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                            partnerLists.clear();
+
+                            for(int i = 0; i < size; i++) {
+                                String doctorId = modelResultFindClinic.getResult().getData().get(i).getUserId();
+                                String doctorName = modelResultFindClinic.getResult().getData().get(i).getFullName();
+                                String doctorType = "null";
+                                String doctorPermitt = "null";
+                                String doctorPic = "null";
+                                String doctorLatitude = modelResultFindClinic.getResult().getData().get(i).getLatitude();
+                                String doctorLongitude = modelResultFindClinic.getResult().getData().get(i).getLongitude();
+                                String doctorDistance = modelResultFindClinic.getResult().getData().get(i).getDistance();
+
+                                partnerLists.add(new PartnerList(doctorId, doctorName,
+                                        doctorType, doctorPermitt, doctorPic, doctorLatitude,
+                                        doctorLongitude, doctorDistance));
+
+                            }
+
+                            medicalPersonneldAdapter = new PartnerListAdapter(partnerLists, PartnerListActivity.this);
+                            medicalPersonnelRecyclerView.setAdapter(medicalPersonneldAdapter);
+                            medicalPersonneldAdapter.notifyDataSetChanged();
+                        }
+                        else {
+                            messageContainer.setVisibility(View.VISIBLE);
+                            message.setText(R.string.medicalRecordDetailActivity_noData);
+                            medicalPersonnelRecyclerView.setVisibility(View.GONE);
+                            searchContainer.setVisibility(View.GONE);
+                            recordsCountContainer.setVisibility(View.GONE);
+                        }
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultFindClinic> call, @NonNull Throwable t) {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
