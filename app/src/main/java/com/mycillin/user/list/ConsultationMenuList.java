@@ -7,10 +7,14 @@ package com.mycillin.user.list;
 public class ConsultationMenuList {
     private String id;
     private String title;
+    private String typeId;
+    private String specializationId;
 
-    public ConsultationMenuList(String id, String title){
+    public ConsultationMenuList(String id, String title, String typeId, String specializationId){
         this.id = id;
         this.title = title;
+        this.typeId = typeId;
+        this.specializationId = specializationId;
     }
 
     public String getId() {
@@ -27,5 +31,21 @@ public class ConsultationMenuList {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getSpecializationId() {
+        return specializationId;
+    }
+
+    public void setSpecializationId(String specializationId) {
+        this.specializationId = specializationId;
     }
 }
