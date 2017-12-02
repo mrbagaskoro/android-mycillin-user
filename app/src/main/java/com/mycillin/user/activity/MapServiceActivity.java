@@ -109,6 +109,7 @@ public class MapServiceActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MapServiceActivity.this, PartnerListActivity.class);
                 intent.putExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM, getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM));
+                intent.putExtra(HomeFragment.EXTRA_RELATION_ID, getIntent().getStringExtra(HomeFragment.EXTRA_RELATION_ID));
                 intent.putExtra(PartnerListActivity.EXTRA_PARTNER_TYPE_ID, filterPartnerTypeId);
                 intent.putExtra(PartnerListActivity.EXTRA_PARTNER_SPECIALIZATION_ID, filterPartnerSpecializationId);
                 intent.putExtra(PartnerListActivity.EXTRA_PARTNER_GENDER, filterPartnerGender);

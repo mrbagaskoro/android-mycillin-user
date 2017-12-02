@@ -117,7 +117,10 @@ public class PartnerListActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(PartnerListActivity.this, PartnerDetailActivity.class);
                 intent.putExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM, getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM));
+                intent.putExtra(HomeFragment.EXTRA_RELATION_ID, getIntent().getStringExtra(HomeFragment.EXTRA_RELATION_ID));
                 intent.putExtra(PartnerDetailActivity.KEY_FLAG_PARTNER_ID, list.getDoctorId());
+                intent.putExtra(EXTRA_USER_LATITUDE, getIntent().getStringExtra(EXTRA_USER_LATITUDE));
+                intent.putExtra(EXTRA_USER_LONGITUDE, getIntent().getStringExtra(EXTRA_USER_LONGITUDE));
                 startActivity(intent);
             }
 

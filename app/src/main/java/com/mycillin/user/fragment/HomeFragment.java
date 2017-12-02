@@ -79,8 +79,6 @@ public class HomeFragment extends Fragment {
     LinearLayout goToHomeCareService;
     @BindView(R.id.homeFragment_ll_consultationService)
     LinearLayout goToConsultationService;
-    /*@BindView(R.id.homeFragment_ll_redeemPrescriptionService)
-    LinearLayout goToRedeemPrescriptionService;*/
 
     private ArrayList<String> items = new ArrayList<>();
     private ProgressBarHandler progressBarHandler;
@@ -88,10 +86,14 @@ public class HomeFragment extends Fragment {
     private List<ConsultationMenuList> consultationMenuLists = new ArrayList<>();
     private ConsultationMenuAdapter consultationMenuAdapter;
 
+    private HashMap<Integer, String> relationIdItemsTemp = new HashMap<>();
+    private String selectedRelationId = "";
+
     public static final String EXTRA_SERVICE_CALLED_FROM = "EXTRA_SERVICE_CALLED_FROM";
-    public static final String KEY_BOOK_DOCTOR = "KEY_BOOK_DOCTOR";
-    public static final String KEY_MEDICAL_RESERVATION = "KEY_MEDICAL_RESERVATION";
-    public static final String KEY_BOOK_HEALTHCARE = "KEY_BOOK_HEALTHCARE";
+    public static final String EXTRA_RELATION_ID = "EXTRA_RELATION_ID";
+    public static final String KEY_BOOK_DOCTOR = "00";
+    public static final String KEY_MEDICAL_RESERVATION = "01";
+    public static final String KEY_BOOK_HEALTHCARE = "05";
 
     public static final String KEY_ID_MENU_ALLERGIST = "KEY_ID_MENU_ALLERGIST";
     public static final String KEY_ID_MENU_CARDIOLOGIST = "KEY_ID_MENU_CARDIOLOGIST";
@@ -136,6 +138,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(String s, int i) {
                 tvDropdown.setText(s);
+                for(int j = 0; j < relationIdItemsTemp.size(); j++) {
+                    if(relationIdItemsTemp.get(j).split(" - ")[1].equals(s)) {
+                        selectedRelationId = relationIdItemsTemp.get(j).split(" - ")[0];
+                    }
+                }
             }
         });
 
@@ -149,27 +156,45 @@ public class HomeFragment extends Fragment {
         goToBookDoctorService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), MapServiceActivity.class);
-                intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_BOOK_DOCTOR);
-                startActivity(intent);
+                if(selectedRelationId.equals("")) {
+                    getAccountList(spinnerDialog);
+                }
+                else {
+                    Intent intent = new Intent(getContext(), MapServiceActivity.class);
+                    intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_BOOK_DOCTOR);
+                    intent.putExtra(EXTRA_RELATION_ID, selectedRelationId);
+                    startActivity(intent);
+                }
             }
         });
 
         goToMedicalReservationService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), MapServiceActivity.class);
-                intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_MEDICAL_RESERVATION);
-                startActivity(intent);
+                if(selectedRelationId.equals("")) {
+                    getAccountList(spinnerDialog);
+                }
+                else {
+                    Intent intent = new Intent(getContext(), MapServiceActivity.class);
+                    intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_MEDICAL_RESERVATION);
+                    intent.putExtra(EXTRA_RELATION_ID, selectedRelationId);
+                    startActivity(intent);
+                }
             }
         });
 
         goToHomeCareService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), MapServiceActivity.class);
-                intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_BOOK_HEALTHCARE);
-                startActivity(intent);
+                if(selectedRelationId.equals("")) {
+                    getAccountList(spinnerDialog);
+                }
+                else {
+                    Intent intent = new Intent(getContext(), MapServiceActivity.class);
+                    intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_BOOK_HEALTHCARE);
+                    intent.putExtra(EXTRA_RELATION_ID, selectedRelationId);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -179,6 +204,29 @@ public class HomeFragment extends Fragment {
                 mainContainer.setVisibility(View.GONE);
                 consultationContainer.setVisibility(View.VISIBLE);
                 getConsultationMenu();
+            }
+        });
+
+        consultationMenuRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), consultationMenuRecyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                ConsultationMenuList list = consultationMenuLists.get(position);
+
+                Intent intent = new Intent(getContext(), ChatActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+        backToMainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainContainer.setVisibility(View.VISIBLE);
+                consultationContainer.setVisibility(View.GONE);
             }
         });
 
@@ -211,6 +259,7 @@ public class HomeFragment extends Fragment {
                     if(modelResultAccountList.getResult().isStatus()) {
 
                         items.clear();
+                        relationIdItemsTemp.clear();
                         int size = modelResultAccountList.getResult().getData().size();
                         for(int i = 0; i < size; i++) {
                             String accountPic = "pic_01.jpg";
@@ -232,6 +281,7 @@ public class HomeFragment extends Fragment {
                             String accountInsuranceId = modelResultAccountList.getResult().getData().get(i).getInsuranceId();
 
                             items.add(accountName);
+                            relationIdItemsTemp.put(i, accountRelationId + " - " + accountName);
                         }
                         spinnerDialog.showSpinerDialog();
                     }
@@ -337,28 +387,5 @@ public class HomeFragment extends Fragment {
         consultationMenuAdapter = new ConsultationMenuAdapter(consultationMenuLists, getContext());
         consultationMenuRecyclerView.setAdapter(consultationMenuAdapter);
         consultationMenuAdapter.notifyDataSetChanged();
-
-        consultationMenuRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), consultationMenuRecyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                ConsultationMenuList list = consultationMenuLists.get(position);
-
-                Intent intent = new Intent(getContext(), ChatActivity.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
-
-        backToMainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mainContainer.setVisibility(View.VISIBLE);
-                consultationContainer.setVisibility(View.GONE);
-            }
-        });
     }
 }

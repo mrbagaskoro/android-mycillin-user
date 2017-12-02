@@ -1,11 +1,14 @@
 package com.mycillin.user.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -20,6 +23,7 @@ import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.partnerDetailGet.ModelResultPartnerDetailGet;
+import com.mycillin.user.rest.requestTransaction.ModelResultRequestTransaction;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
 
@@ -79,6 +83,11 @@ public class PartnerDetailActivity extends AppCompatActivity {
 
     private ProgressBarHandler progressBarHandler;
 
+    String selectedPartnerId = "";
+    String selectedPartnerTypeId = "";
+    String selectedPartnerSpecializationId = "";
+    String selectedPaymentMethodId = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,11 +98,42 @@ public class PartnerDetailActivity extends AppCompatActivity {
 
         progressBarHandler = new ProgressBarHandler(this);
 
-        String calledFrom = getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM);
         String partnerId = getIntent().getStringExtra(KEY_FLAG_PARTNER_ID);
         getPartnerDetail(partnerId);
 
         doctorFee.setText(getResources().getString(R.string.medicalPersonnelDetail_feeAmount));
+
+        payWithRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i == R.id.partnerDetailActivity_rb_radioButtonCash) {
+                    selectedPaymentMethodId = "00";
+                }
+                else if(i == R.id.partnerDetailActivity_rb_radioButtonEWallet) {
+                    selectedPaymentMethodId = "03";
+                }
+            }
+        });
+
+        requestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(selectedPaymentMethodId.equals("")) {
+                    String message = "Please select your payment method first.";
+                    Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                }
+                else {
+                    doRequest(getIntent().getStringExtra(HomeFragment.EXTRA_RELATION_ID),
+                            selectedPartnerId, selectedPartnerTypeId, selectedPartnerSpecializationId,
+                            getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM),
+                            selectedPaymentMethodId, "TEST",
+                            getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LATITUDE),
+                            getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LONGITUDE));
+                }
+            }
+        });
+
     }
 
     private void getPartnerDetail(String partnerId) {
@@ -140,8 +180,6 @@ public class PartnerDetailActivity extends AppCompatActivity {
                         String workInstitution = modelResultPartnerDetailGet.getResult().getData().get(0).getNamaInstitusi() == null ? "" : modelResultPartnerDetailGet.getResult().getData().get(0).getNamaInstitusi();
                         String ratingValue = modelResultPartnerDetailGet.getResult().getData().get(0).getRating() == null ? "" : modelResultPartnerDetailGet.getResult().getData().get(0).getRating();
 
-                        Log.d("###", "onResponse: " + ratingValue);
-
                         if(!profilePhoto.equals("")) {
 
                             RequestOptions requestOptions = new RequestOptions()
@@ -174,6 +212,10 @@ public class PartnerDetailActivity extends AppCompatActivity {
                         doctorWorkplace.setText(workInstitution);
                         doctorWorkAddress.setText(workAddress);
                         doctorWorkArea.setText(workArea);
+
+                        selectedPartnerId = userId;
+                        selectedPartnerTypeId = partnerTypeId;
+                        selectedPartnerSpecializationId = specializationId;
                     }
                 }
                 else {
@@ -201,5 +243,84 @@ public class PartnerDetailActivity extends AppCompatActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void doRequest(String relationId, String partnerId, String partnerTypeId, String partnerSpecializationId,
+                           String menu, String paymentMethodId, String promoCode, String latitude, String longitude) {
+
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("relation_id", relationId);
+        params.put("partner_selected", partnerId);
+        params.put("partner_type_id", partnerTypeId);
+        params.put("spesialisasi_id", partnerSpecializationId);
+        params.put("service_type_id", menu);
+        params.put("pymt_methode_id", paymentMethodId);
+        params.put("promo_code", promoCode);
+        params.put("latitude_request", latitude);
+        params.put("longitude_request", longitude);
+
+        myCillinAPI.requestTransaction(token, params).enqueue(new Callback<ModelResultRequestTransaction>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultRequestTransaction> call, @NonNull Response<ModelResultRequestTransaction> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultRequestTransaction modelResultRequestTransaction = response.body();
+
+                    assert modelResultRequestTransaction != null;
+                    if(modelResultRequestTransaction.getResult().isStatus()) {
+                        Snackbar.make(getWindow().getDecorView().getRootView(), modelResultRequestTransaction.getResult().getMessage(), Snackbar.LENGTH_SHORT)
+                                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                                    @Override
+                                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                                        super.onDismissed(transientBottomBar, event);
+
+                                        Intent intent = new Intent(PartnerDetailActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .show();
+                    }
+                    else {
+                        Snackbar.make(getWindow().getDecorView().getRootView(), modelResultRequestTransaction.getResult().getMessage(), Snackbar.LENGTH_LONG).show();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultRequestTransaction> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 }
