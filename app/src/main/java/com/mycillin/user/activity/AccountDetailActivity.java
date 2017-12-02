@@ -118,6 +118,9 @@ public class AccountDetailActivity extends AppCompatActivity {
 
         isNew = getIntent().getBooleanExtra(EXTRA_ACCOUNT_DETAIL_IS_NEW, true);
         if(!isNew) {
+
+            relationTypeEdtxt.setVisibility(View.GONE);
+
             accountDetailData = (HashMap<String, String>) getIntent().getSerializableExtra(EXTRA_ACCOUNT_DETAIL);
 
             relationTypeEdtxt.setText(accountDetailData.get(KEY_PARAM_ACCOUNT_RELATION_TYPE));
