@@ -116,9 +116,8 @@ public class PartnerListActivity extends AppCompatActivity {
                 PartnerList list = partnerLists.get(position);
 
                 Intent intent = new Intent(PartnerListActivity.this, PartnerDetailActivity.class);
-                intent.putExtra(PartnerDetailActivity.KEY_FLAG_DOCTOR_NAME, list.getDoctorName());
-                intent.putExtra(PartnerDetailActivity.KEY_FLAG_DOCTOR_TYPE, list.getDoctorType());
-                intent.putExtra(PartnerDetailActivity.KEY_FLAG_DOCTOR_PERMITT, list.getDoctorPermitt());
+                intent.putExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM, getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM));
+                intent.putExtra(PartnerDetailActivity.KEY_FLAG_PARTNER_ID, list.getDoctorId());
                 startActivity(intent);
             }
 

@@ -338,4 +338,5 @@
     <string name="partnerDetailActivity_clickSTRTitle">(Klik untuk melihat STR)</string>
     <string name="partnerDetailActivity_yearOfWorkTitle">Lama kerja</string>
     <string name="partnerDetailActivity_workplaceTitle">Institusi bekerja</string>
+    <string name="partnerDetailActivity_yearsValue">%1$s Tahun</string>
 </resources>

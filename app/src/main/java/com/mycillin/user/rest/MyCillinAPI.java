@@ -20,6 +20,7 @@ import com.mycillin.user.rest.insuranceList.ModelResultInsuranceList;
 import com.mycillin.user.rest.insuranceProviderList.ModelResultInsuranceProviderList;
 import com.mycillin.user.rest.login.ModelResultLogin;
 import com.mycillin.user.rest.medicalRecordList.ModelResultMedicalRecordList;
+import com.mycillin.user.rest.partnerDetailGet.ModelResultPartnerDetailGet;
 import com.mycillin.user.rest.partnerTypeList.ModelResultPartnerTypeList;
 import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionRecordList;
 import com.mycillin.user.rest.ratingInsert.ModelResultRatingInsert;
@@ -146,4 +147,7 @@ public interface MyCillinAPI {
 
     @POST("find_healthcare/")
     Call<ModelResultFindHealthcare> findHealthcare(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("detail_partner_information/")
+    Call<ModelResultPartnerDetailGet> getDetailPartner(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }
