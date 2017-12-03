@@ -354,4 +354,8 @@
     <string name="ratingActivity_ratingDesc3">OK</string>
     <string name="ratingActivity_ratingDesc4">Baik</string>
     <string name="ratingActivity_ratingDesc5">Mengagumkan</string>
+    <string name="historyInProgressDetail_bookingId">Booking Id</string>
+    <string name="historyInProgressDetail_orderDate">Tanggal Pemesanan</string>
+    <string name="historyInProgressDetail_serviceType">Tipe Layanan</string>
+    <string name="historyInProgressDetail_payment">Pembayaran</string>
 </resources>

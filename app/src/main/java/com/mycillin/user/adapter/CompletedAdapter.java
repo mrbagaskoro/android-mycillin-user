@@ -6,7 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
+import com.mycillin.user.fragment.HistoryCompletedFragment;
 import com.mycillin.user.list.CompletedList;
 
 import java.util.ArrayList;
@@ -21,11 +25,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.MyViewHolder> {
     private List<CompletedList> completedLists;
     private ArrayList<CompletedList> arraCompletedLists;
+    private HistoryCompletedFragment historyCompletedFragment;
 
-    public CompletedAdapter(List<CompletedList> completedLists) {
+    public CompletedAdapter(List<CompletedList> completedLists, HistoryCompletedFragment historyCompletedFragment) {
         this.completedLists = completedLists;
         this.arraCompletedLists = new ArrayList<>();
         this.arraCompletedLists.addAll(completedLists);
+        this.historyCompletedFragment = historyCompletedFragment;
     }
 
     @Override
@@ -37,10 +43,23 @@ public class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.MyVi
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         CompletedList resultList = completedLists.get(position);
-        holder.doctorName.setText(resultList.getBookDoctor());
-        holder.bookType.setText(resultList.getBookType());
-        holder.bookDate.setText(resultList.getBookDate());
-        holder.bookTime.setText(resultList.getBookTime());
+        holder.doctorName.setText(resultList.getPartnerName());
+        holder.bookType.setText(resultList.getServiceTypeDesc());
+        holder.bookDate.setText(resultList.getOrderDate());
+        holder.bookTime.setText(resultList.getOrderTime());
+
+        if(!resultList.getPartnerPic().equals("")) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .placeholder(R.drawable.ic_action_user)
+                    .fitCenter();
+
+            Glide.with(historyCompletedFragment.getContext())
+                    .load(resultList.getPartnerPic())
+                    .apply(requestOptions)
+                    .into(holder.doctorPic);
+        }
     }
 
     @Override

@@ -359,4 +359,8 @@
     <string name="ratingActivity_ratingDesc3">OK</string>
     <string name="ratingActivity_ratingDesc4">Good</string>
     <string name="ratingActivity_ratingDesc5">Awesome</string>
+    <string name="historyInProgressDetail_bookingId">Booking Id</string>
+    <string name="historyInProgressDetail_orderDate">Order Date</string>
+    <string name="historyInProgressDetail_serviceType">Service Type</string>
+    <string name="historyInProgressDetail_payment">Payment</string>
 </resources>

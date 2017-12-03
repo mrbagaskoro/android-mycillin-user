@@ -106,7 +106,7 @@
                     android:paddingEnd="10dp"
                     android:textSize="12sp"
                     android:textColor="@color/secondaryText"
-                    android:text="Booking Id" />
+                    android:text="@string/historyInProgressDetail_bookingId" />
 
                 <TextView
                     android:id="@+id/historyInProgressDetailActivity_tv_bookingId"
@@ -117,8 +117,7 @@
                     android:paddingBottom="10dp"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="@color/primaryText"
-                    android:text="A12345"/>
+                    android:textColor="@color/primaryText" />
 
             </LinearLayout>
 
@@ -141,7 +140,7 @@
                     android:paddingEnd="10dp"
                     android:textSize="12sp"
                     android:textColor="@color/secondaryText"
-                    android:text="Order Date" />
+                    android:text="@string/historyInProgressDetail_orderDate" />
 
                 <TextView
                     android:id="@+id/historyInProgressDetailActivity_tv_date"
@@ -152,8 +151,7 @@
                     android:paddingBottom="10dp"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="@color/primaryText"
-                    android:text="2017-10-11"/>
+                    android:textColor="@color/primaryText" />
 
             </LinearLayout>
 
@@ -176,7 +174,7 @@
                     android:paddingEnd="10dp"
                     android:textSize="12sp"
                     android:textColor="@color/secondaryText"
-                    android:text="Service Type" />
+                    android:text="@string/historyInProgressDetail_serviceType" />
 
                 <TextView
                     android:id="@+id/historyInProgressDetailActivity_tv_serviceType"
@@ -187,8 +185,7 @@
                     android:paddingBottom="10dp"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="@color/primaryText"
-                    android:text="IN HOUSE DOCTOR"/>
+                    android:textColor="@color/primaryText" />
 
             </LinearLayout>
 
@@ -211,7 +208,7 @@
                     android:paddingEnd="10dp"
                     android:textSize="12sp"
                     android:textColor="@color/secondaryText"
-                    android:text="Payment" />
+                    android:text="@string/historyInProgressDetail_payment" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -227,8 +224,7 @@
                         android:paddingBottom="10dp"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        android:textColor="@color/primaryText"
-                        android:text="CASH"/>
+                        android:textColor="@color/primaryText" />
 
                     <TextView
                         android:id="@+id/historyInProgressDetailActivity_tv_price"
@@ -241,8 +237,7 @@
                         android:gravity="end"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="Rp 200.000"/>
+                        android:textColor="@color/colorPrimaryDark" />
 
                 </LinearLayout>
 
@@ -256,166 +251,6 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <!--<LinearLayout
-        android:id="@+id/historyInProgressDetailActivity_ll_headerContainer"
-        android:layout_below="@+id/historyInProgressDetailActivity_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:id="@+id/rowCompletedList_ll_mainContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground"
-            android:orientation="horizontal" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:orientation="horizontal" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/historyInProgressDetailActivity_iv_doctorAvatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:src="@drawable/ic_action_user"
-                        app:civ_border_width="1dp"
-                        app:civ_border_color="@color/black"/>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/bgColor" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1" >
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingBottom="10dp"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/historyInProgressDetailActivity_tv_doctorName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="10dp"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/primaryText"
-                            android:text="@string/rowMedicalRecord_doctorNameDesc" />
-
-                        <TextView
-                            android:id="@+id/historyInProgressDetailActivity_tv_bookDate"
-                            android:layout_toEndOf="@+id/historyInProgressDetailActivity_tv_doctorName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/secondaryText"
-                            android:text="@string/rowEWalletHistoryList_date" />
-
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="10dp"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/historyInProgressDetailActivity_tv_bookType"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="10dp"
-                            android:textSize="15sp"
-                            android:textColor="@color/secondaryText"
-                            android:text="@string/rowInProgressList_bookType" />
-
-                        <TextView
-                            android:id="@+id/historyInProgressDetailActivity_tv_bookLocation"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="10dp"
-                            android:textSize="15sp"
-                            android:textColor="@color/secondaryText"
-                            android:text="@string/historyInProgressDetailActivity_addressInfo" />
-
-
-                        <TextView
-                            android:id="@+id/historyInProgressDetailActivity_tv_bookFee"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="10dp"
-                            android:textSize="15sp"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:text="@string/medicalPersonnelDetail_feeAmount" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:gravity="end"
-                    android:orientation="vertical" >
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>-->
-
-    <!--<LinearLayout
-        android:id="@+id/historyInProgressDetailActivity_ll_mainContainer"
-        android:layout_below="@+id/historyInProgressDetailActivity_ll_headerContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/historyInProgressDetailActivity_fr_mapFragment"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="com.mycillin.user.activity.MapsActivity" />
-
-    </LinearLayout>-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/historyInProgressDetailActivity_fab_cancelFAB"
