@@ -132,44 +132,51 @@ public class HistoryInProgressFragment extends Fragment {
                     if(modelResultHistoryOnProgress.getResult().isStatus()) {
                         int size = modelResultHistoryOnProgress.getResult().getData().size();
                         if(size > 0) {
-                            messageContainer.setVisibility(View.GONE);
-                            inProgressRecyclerView.setVisibility(View.VISIBLE);
-
-                            inProgressRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                            inProgressRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-                            inProgressLists.clear();
-
-                            for(int i = 0; i < size; i++) {
-                                String orderDate = modelResultHistoryOnProgress.getResult().getData().get(i).getOrderDate() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getOrderDate();
-                                String orderTime = modelResultHistoryOnProgress.getResult().getData().get(i).getOrderDate() == null ? "" : orderDate.split(" ")[1];
-                                String bookingId = modelResultHistoryOnProgress.getResult().getData().get(i).getBookingId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getBookingId();
-                                String serviceTypeId = modelResultHistoryOnProgress.getResult().getData().get(i).getServiceTypeId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getServiceTypeId();
-                                String serviceTypeDesc = modelResultHistoryOnProgress.getResult().getData().get(i).getServiceTypeDesc() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getServiceTypeDesc();
-                                String partnerId = modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerSelected() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerSelected();
-                                String partnerName = modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerName() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerName();
-                                String partnerTypeId = modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerTypeId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerTypeId();
-                                String partnerTypeDesc = "null";
-                                String partnerSpecializationId = modelResultHistoryOnProgress.getResult().getData().get(i).getSpesialisasiId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getSpesialisasiId();
-                                String partnerSpecializationDesc = "null";
-                                String partnerPic = modelResultHistoryOnProgress.getResult().getData().get(i).getProfilePhoto() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getProfilePhoto();
-                                String mobileNo = modelResultHistoryOnProgress.getResult().getData().get(i).getMobileNo() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getMobileNo();
-                                String rating = modelResultHistoryOnProgress.getResult().getData().get(i).getRating() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getRating();
-                                String paymentId = modelResultHistoryOnProgress.getResult().getData().get(i).getPymtMethodeId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPymtMethodeId();
-                                String paymentDesc = modelResultHistoryOnProgress.getResult().getData().get(i).getPymtMethodeDesc() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPymtMethodeDesc();
-                                String promoCode = modelResultHistoryOnProgress.getResult().getData().get(i).getPromoCode() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPromoCode();
-                                String priceAmount = modelResultHistoryOnProgress.getResult().getData().get(i).getPriceAmount() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPriceAmount();
-
-                                inProgressLists.add(new InProgressList(orderDate.split(" ")[0],
-                                        orderTime, bookingId, serviceTypeId, serviceTypeDesc,
-                                        partnerId, partnerName, partnerTypeId, partnerTypeDesc,
-                                        partnerSpecializationId, partnerSpecializationDesc, partnerPic,
-                                        mobileNo, rating, paymentId, paymentDesc, promoCode, priceAmount));
+                            if(size == 1 && modelResultHistoryOnProgress.getResult().getData().get(0).getBookingId() == null) {
+                                messageContainer.setVisibility(View.VISIBLE);
+                                message.setText(R.string.medicalRecordDetailActivity_noData);
+                                inProgressRecyclerView.setVisibility(View.GONE);
                             }
+                            else {
+                                messageContainer.setVisibility(View.GONE);
+                                inProgressRecyclerView.setVisibility(View.VISIBLE);
 
-                            inProgressAdapter = new InProgressAdapter(inProgressLists, HistoryInProgressFragment.this);
-                            inProgressRecyclerView.setAdapter(inProgressAdapter);
-                            inProgressAdapter.notifyDataSetChanged();
+                                inProgressRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                inProgressRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                                inProgressLists.clear();
+
+                                for(int i = 0; i < size; i++) {
+                                    String orderDate = modelResultHistoryOnProgress.getResult().getData().get(i).getOrderDate() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getOrderDate();
+                                    String orderTime = modelResultHistoryOnProgress.getResult().getData().get(i).getOrderDate() == null ? "" : orderDate.split(" ")[1];
+                                    String bookingId = modelResultHistoryOnProgress.getResult().getData().get(i).getBookingId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getBookingId();
+                                    String serviceTypeId = modelResultHistoryOnProgress.getResult().getData().get(i).getServiceTypeId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getServiceTypeId();
+                                    String serviceTypeDesc = modelResultHistoryOnProgress.getResult().getData().get(i).getServiceTypeDesc() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getServiceTypeDesc();
+                                    String partnerId = modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerSelected() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerSelected();
+                                    String partnerName = modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerName() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerName();
+                                    String partnerTypeId = modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerTypeId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPartnerTypeId();
+                                    String partnerTypeDesc = "null";
+                                    String partnerSpecializationId = modelResultHistoryOnProgress.getResult().getData().get(i).getSpesialisasiId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getSpesialisasiId();
+                                    String partnerSpecializationDesc = "null";
+                                    String partnerPic = modelResultHistoryOnProgress.getResult().getData().get(i).getProfilePhoto() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getProfilePhoto();
+                                    String mobileNo = modelResultHistoryOnProgress.getResult().getData().get(i).getMobileNo() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getMobileNo();
+                                    String rating = modelResultHistoryOnProgress.getResult().getData().get(i).getRating() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getRating();
+                                    String paymentId = modelResultHistoryOnProgress.getResult().getData().get(i).getPymtMethodeId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPymtMethodeId();
+                                    String paymentDesc = modelResultHistoryOnProgress.getResult().getData().get(i).getPymtMethodeDesc() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPymtMethodeDesc();
+                                    String promoCode = modelResultHistoryOnProgress.getResult().getData().get(i).getPromoCode() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPromoCode();
+                                    String priceAmount = modelResultHistoryOnProgress.getResult().getData().get(i).getPriceAmount() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPriceAmount();
+
+                                    inProgressLists.add(new InProgressList(orderDate.split(" ")[0],
+                                            orderTime, bookingId, serviceTypeId, serviceTypeDesc,
+                                            partnerId, partnerName, partnerTypeId, partnerTypeDesc,
+                                            partnerSpecializationId, partnerSpecializationDesc, partnerPic,
+                                            mobileNo, rating, paymentId, paymentDesc, promoCode, priceAmount));
+                                }
+
+                                inProgressAdapter = new InProgressAdapter(inProgressLists, HistoryInProgressFragment.this);
+                                inProgressRecyclerView.setAdapter(inProgressAdapter);
+                                inProgressAdapter.notifyDataSetChanged();
+                            }
                         }
                         else {
                             messageContainer.setVisibility(View.VISIBLE);

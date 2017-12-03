@@ -141,52 +141,59 @@ public class HistoryCompletedFragment extends Fragment {
                     if(modelResultHistoryCompleted.getResult().isStatus()) {
                         int size = modelResultHistoryCompleted.getResult().getData().size();
                         if(size > 0) {
-                            messageContainer.setVisibility(View.GONE);
-                            completedRecyclerView.setVisibility(View.VISIBLE);
-
-                            completedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                            completedRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-                            completedListList.clear();
-
-                            for(int i = 0; i < size; i++) {
-                                String orderDate = modelResultHistoryCompleted.getResult().getData().get(i).getOrderDate() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getOrderDate();
-                                String orderTime = modelResultHistoryCompleted.getResult().getData().get(i).getOrderDate() == null ? "" : orderDate.split(" ")[1];
-                                String bookingId = modelResultHistoryCompleted.getResult().getData().get(i).getBookingId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getBookingId();
-                                String serviceTypeId = modelResultHistoryCompleted.getResult().getData().get(i).getServiceTypeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getServiceTypeId();
-                                String serviceTypeDesc = modelResultHistoryCompleted.getResult().getData().get(i).getServiceTypeDesc() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getServiceTypeDesc();
-                                String partnerId = modelResultHistoryCompleted.getResult().getData().get(i).getPartnerSelected() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPartnerSelected();
-                                String partnerName = modelResultHistoryCompleted.getResult().getData().get(i).getPartnerName() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPartnerName();
-                                String partnerTypeId = modelResultHistoryCompleted.getResult().getData().get(i).getPartnerTypeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPartnerTypeId();
-                                String partnerTypeDesc = "null";
-                                String partnerSpecializationId = modelResultHistoryCompleted.getResult().getData().get(i).getSpesialisasiId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getSpesialisasiId();
-                                String partnerSpecializationDesc = "null";
-                                String partnerPic = modelResultHistoryCompleted.getResult().getData().get(i).getProfilePhoto() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getProfilePhoto();
-                                String mobileNo = modelResultHistoryCompleted.getResult().getData().get(i).getMobileNo() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getMobileNo();
-                                String rating = modelResultHistoryCompleted.getResult().getData().get(i).getRating() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getRating();
-                                String paymentId = modelResultHistoryCompleted.getResult().getData().get(i).getPymtMethodeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPymtMethodeId();
-                                String paymentDesc = modelResultHistoryCompleted.getResult().getData().get(i).getPymtMethodeDesc() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPymtMethodeDesc();
-                                String promoCode = modelResultHistoryCompleted.getResult().getData().get(i).getPromoCode() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPromoCode();
-                                String priceAmount = modelResultHistoryCompleted.getResult().getData().get(i).getPriceAmount() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPriceAmount();
-                                String cancelBy = modelResultHistoryCompleted.getResult().getData().get(i).getCancelBy() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getCancelBy();
-                                String cancelReasonByUser = modelResultHistoryCompleted.getResult().getData().get(i).getCancelReasonByUser() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getCancelReasonByUser();
-                                String cancelReasonByPartner = modelResultHistoryCompleted.getResult().getData().get(i).getCancelReasonByPartner() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getCancelReasonByPartner();
-                                String diagnose = modelResultHistoryCompleted.getResult().getData().get(i).getDiagnosa() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getDiagnosa();
-                                String actionDesc = modelResultHistoryCompleted.getResult().getData().get(i).getActionTypeDesc() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getActionTypeDesc();
-                                String prescriptionTypeId = modelResultHistoryCompleted.getResult().getData().get(i).getPrescriptionTypeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPrescriptionTypeId();
-
-                                completedListList.add(new CompletedList(orderDate.split(" ")[0],
-                                        orderTime, bookingId, serviceTypeId, serviceTypeDesc,
-                                        partnerId, partnerName, partnerTypeId, partnerTypeDesc,
-                                        partnerSpecializationId, partnerSpecializationDesc, partnerPic,
-                                        mobileNo, rating, paymentId, paymentDesc, promoCode, priceAmount,
-                                        cancelBy, cancelReasonByUser, cancelReasonByPartner, diagnose,
-                                        actionDesc, prescriptionTypeId));
+                            if(size == 1 && modelResultHistoryCompleted.getResult().getData().get(0).getBookingId() == null) {
+                                messageContainer.setVisibility(View.VISIBLE);
+                                message.setText(R.string.medicalRecordDetailActivity_noData);
+                                completedRecyclerView.setVisibility(View.GONE);
                             }
+                            else {
+                                messageContainer.setVisibility(View.GONE);
+                                completedRecyclerView.setVisibility(View.VISIBLE);
 
-                            completedAdapter = new CompletedAdapter(completedListList, HistoryCompletedFragment.this);
-                            completedRecyclerView.setAdapter(completedAdapter);
-                            completedAdapter.notifyDataSetChanged();
+                                completedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                                completedRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                                completedListList.clear();
+
+                                for(int i = 0; i < size; i++) {
+                                    String orderDate = modelResultHistoryCompleted.getResult().getData().get(i).getOrderDate() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getOrderDate();
+                                    String orderTime = modelResultHistoryCompleted.getResult().getData().get(i).getOrderDate() == null ? "" : orderDate.split(" ")[1];
+                                    String bookingId = modelResultHistoryCompleted.getResult().getData().get(i).getBookingId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getBookingId();
+                                    String serviceTypeId = modelResultHistoryCompleted.getResult().getData().get(i).getServiceTypeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getServiceTypeId();
+                                    String serviceTypeDesc = modelResultHistoryCompleted.getResult().getData().get(i).getServiceTypeDesc() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getServiceTypeDesc();
+                                    String partnerId = modelResultHistoryCompleted.getResult().getData().get(i).getPartnerSelected() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPartnerSelected();
+                                    String partnerName = modelResultHistoryCompleted.getResult().getData().get(i).getPartnerName() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPartnerName();
+                                    String partnerTypeId = modelResultHistoryCompleted.getResult().getData().get(i).getPartnerTypeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPartnerTypeId();
+                                    String partnerTypeDesc = "null";
+                                    String partnerSpecializationId = modelResultHistoryCompleted.getResult().getData().get(i).getSpesialisasiId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getSpesialisasiId();
+                                    String partnerSpecializationDesc = "null";
+                                    String partnerPic = modelResultHistoryCompleted.getResult().getData().get(i).getProfilePhoto() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getProfilePhoto();
+                                    String mobileNo = modelResultHistoryCompleted.getResult().getData().get(i).getMobileNo() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getMobileNo();
+                                    String rating = modelResultHistoryCompleted.getResult().getData().get(i).getRating() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getRating();
+                                    String paymentId = modelResultHistoryCompleted.getResult().getData().get(i).getPymtMethodeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPymtMethodeId();
+                                    String paymentDesc = modelResultHistoryCompleted.getResult().getData().get(i).getPymtMethodeDesc() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPymtMethodeDesc();
+                                    String promoCode = modelResultHistoryCompleted.getResult().getData().get(i).getPromoCode() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPromoCode();
+                                    String priceAmount = modelResultHistoryCompleted.getResult().getData().get(i).getPriceAmount() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPriceAmount();
+                                    String cancelBy = modelResultHistoryCompleted.getResult().getData().get(i).getCancelBy() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getCancelBy();
+                                    String cancelReasonByUser = modelResultHistoryCompleted.getResult().getData().get(i).getCancelReasonByUser() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getCancelReasonByUser();
+                                    String cancelReasonByPartner = modelResultHistoryCompleted.getResult().getData().get(i).getCancelReasonByPartner() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getCancelReasonByPartner();
+                                    String diagnose = modelResultHistoryCompleted.getResult().getData().get(i).getDiagnosa() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getDiagnosa();
+                                    String actionDesc = modelResultHistoryCompleted.getResult().getData().get(i).getActionTypeDesc() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getActionTypeDesc();
+                                    String prescriptionTypeId = modelResultHistoryCompleted.getResult().getData().get(i).getPrescriptionTypeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPrescriptionTypeId();
+
+                                    completedListList.add(new CompletedList(orderDate.split(" ")[0],
+                                            orderTime, bookingId, serviceTypeId, serviceTypeDesc,
+                                            partnerId, partnerName, partnerTypeId, partnerTypeDesc,
+                                            partnerSpecializationId, partnerSpecializationDesc, partnerPic,
+                                            mobileNo, rating, paymentId, paymentDesc, promoCode, priceAmount,
+                                            cancelBy, cancelReasonByUser, cancelReasonByPartner, diagnose,
+                                            actionDesc, prescriptionTypeId));
+                                }
+
+                                completedAdapter = new CompletedAdapter(completedListList, HistoryCompletedFragment.this);
+                                completedRecyclerView.setAdapter(completedAdapter);
+                                completedAdapter.notifyDataSetChanged();
+                            }
                         }
                         else {
                             messageContainer.setVisibility(View.VISIBLE);
