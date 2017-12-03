@@ -139,6 +139,7 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
         }
         bookingId.setText(orderBookingId);
         bookDate.setText(orderDate);
+        bookType.setText(orderServiceTypeDesc);
         paymentType.setText(paymentDesc);
         priceAmount.setText(priceAmt);
         diagnoseInfo.setText(diagnose);

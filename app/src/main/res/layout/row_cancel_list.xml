@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    android:orientation="vertical"
-    android:padding="@dimen/spacing_small">
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/rowCancelList_ll_bodyContainer"
@@ -16,10 +15,7 @@
         <LinearLayout
             android:id="@+id/rowCancelList_ll_reasons"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground"
@@ -35,9 +31,8 @@
                     android:id="@+id/rowCancelList_ll_reasonsText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_margin="10dp"
+                    android:text="AAAAAAAAAAAAAAAAAAAAAA"
                     android:textSize="15sp" />
 
             </LinearLayout>

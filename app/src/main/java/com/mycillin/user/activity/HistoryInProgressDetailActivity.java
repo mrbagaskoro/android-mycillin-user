@@ -82,7 +82,7 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
 
         String orderDate = getIntent().getStringExtra(KEY_FLAG_ORDER_DATE);
         String orderTime = getIntent().getStringExtra(KEY_FLAG_ORDER_TIME);
-        String orderBookingId = getIntent().getStringExtra(KEY_FLAG_BOOKING_ID);
+        final String orderBookingId = getIntent().getStringExtra(KEY_FLAG_BOOKING_ID);
         String orderServiceTypeId = getIntent().getStringExtra(KEY_FLAG_SERVICE_TYPE_ID);
         String orderServiceTypeDesc = getIntent().getStringExtra(KEY_FLAG_SERVICE_TYPE_DESC);
         String partnerId = getIntent().getStringExtra(KEY_FLAG_PARTNER_ID);
@@ -124,6 +124,7 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
         }
         bookingId.setText(orderBookingId);
         bookDate.setText(orderDate);
+        bookType.setText(orderServiceTypeDesc);
         paymentType.setText(paymentDesc);
         priceAmount.setText(priceAmt);
 
@@ -150,6 +151,7 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HistoryInProgressDetailActivity.this, CancelActivity.class);
+                intent.putExtra(CancelActivity.EXTRA_KEY_BOOKING_ID, orderBookingId);
                 startActivity(intent);
             }
         });

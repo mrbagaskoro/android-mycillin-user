@@ -358,4 +358,7 @@
     <string name="historyInProgressDetail_orderDate">Tanggal Pemesanan</string>
     <string name="historyInProgressDetail_serviceType">Tipe Layanan</string>
     <string name="historyInProgressDetail_payment">Pembayaran</string>
+    <string name="cancelActivity_cancelDialogTitle">Batalkan</string>
+    <string name="cancelActivity_cancelDialogMessage">Anda yakin akan membatalkan pemesanan ini ?</string>
+    <string name="cancelActivity_noDialogTitle">Tidak</string>
 </resources>

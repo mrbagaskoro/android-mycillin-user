@@ -29,6 +29,7 @@ import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionReco
 import com.mycillin.user.rest.ratingInsert.ModelResultRatingInsert;
 import com.mycillin.user.rest.register.ModelResultRegister;
 import com.mycillin.user.rest.relationList.ModelResultRelationList;
+import com.mycillin.user.rest.requestCancel.ModelResultRequestCancel;
 import com.mycillin.user.rest.requestConsultation.ModelResultRequestConsultation;
 import com.mycillin.user.rest.requestTransaction.ModelResultRequestTransaction;
 import com.mycillin.user.rest.specializationList.ModelResultSpecializationList;
@@ -170,4 +171,7 @@ public interface MyCillinAPI {
 
     @POST("list_history_completed/")
     Call<ModelResultHistoryCompleted> getHistoryCompleted(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("user_cancel_transaction/")
+    Call<ModelResultRequestCancel> requestCancel(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }

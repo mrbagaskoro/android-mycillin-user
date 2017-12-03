@@ -363,4 +363,7 @@
     <string name="historyInProgressDetail_orderDate">Order Date</string>
     <string name="historyInProgressDetail_serviceType">Service Type</string>
     <string name="historyInProgressDetail_payment">Payment</string>
+    <string name="cancelActivity_cancelDialogTitle">Cancel</string>
+    <string name="cancelActivity_cancelDialogMessage">Are you sure you want to cancel this booking ?</string>
+    <string name="cancelActivity_noDialogTitle">No</string>
 </resources>

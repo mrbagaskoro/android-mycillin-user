@@ -428,8 +428,6 @@ public class PartnerDetailActivity extends AppCompatActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     private void doConsult(String relationId, String partnerId, String partnerTypeId, String partnerSpecializationId,
