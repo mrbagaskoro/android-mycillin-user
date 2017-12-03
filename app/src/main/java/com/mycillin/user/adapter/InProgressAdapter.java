@@ -6,7 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
+import com.mycillin.user.fragment.HistoryInProgressFragment;
 import com.mycillin.user.list.InProgressList;
 
 import java.util.ArrayList;
@@ -21,11 +25,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class InProgressAdapter extends RecyclerView.Adapter<InProgressAdapter.MyViewHolder> {
     private List<InProgressList> inProgressLists;
     private ArrayList<InProgressList> arrayInProgressLists;
+    private HistoryInProgressFragment historyInProgressFragment;
 
-    public InProgressAdapter(List<InProgressList> inProgressLists) {
+    public InProgressAdapter(List<InProgressList> inProgressLists, HistoryInProgressFragment historyInProgressFragment) {
         this.inProgressLists = inProgressLists;
         this.arrayInProgressLists = new ArrayList<>();
         this.arrayInProgressLists.addAll(inProgressLists);
+        this.historyInProgressFragment = historyInProgressFragment;
     }
 
     @Override
@@ -37,10 +43,23 @@ public class InProgressAdapter extends RecyclerView.Adapter<InProgressAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         InProgressList resultList = inProgressLists.get(position);
-        holder.doctorName.setText(resultList.getBookDoctor());
-        holder.bookType.setText(resultList.getBookType());
-        holder.bookDate.setText(resultList.getBookDate());
-        holder.bookTime.setText(resultList.getBookTime());
+        holder.doctorName.setText(resultList.getPartnerName());
+        holder.bookType.setText(resultList.getServiceTypeDesc());
+        holder.bookDate.setText(resultList.getOrderDate());
+        holder.bookTime.setText(resultList.getOrderTime());
+
+        if(!resultList.getPartnerPic().equals("")) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .placeholder(R.drawable.ic_action_user)
+                    .fitCenter();
+
+            Glide.with(historyInProgressFragment.getContext())
+                    .load(resultList.getPartnerPic())
+                    .apply(requestOptions)
+                    .into(holder.doctorPic);
+        }
     }
 
     @Override
