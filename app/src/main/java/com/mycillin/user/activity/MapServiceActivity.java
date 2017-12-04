@@ -73,6 +73,12 @@ public class MapServiceActivity extends AppCompatActivity {
 
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.serviceBookDoctorActivity_fr_mapFragment);
         getLocation(mapFragment);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                gMap = googleMap;
+            }
+        });
 
         PlaceAutocompleteFragment placeAutocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.serviceBookDoctorActivity_fr_placeAutoCompleteFragment);
@@ -144,8 +150,6 @@ public class MapServiceActivity extends AppCompatActivity {
                 filterPartnerBPJSStatus = data.getStringExtra(FilterDoctorActivity.EXTRA_PARTNER_BPJS_STATUS);
             }
         }
-
-
     }
 
     public void onMapSearch(Place place) {
