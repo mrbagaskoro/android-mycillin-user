@@ -9,8 +9,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,6 +57,8 @@ public class PartnerListActivity extends AppCompatActivity {
     TextView message;
     @BindView(R.id.partnerListActivity_ll_searchContainer)
     LinearLayout searchContainer;
+    @BindView(R.id.partnerListActivity_et_search)
+    EditText searchEdtxt;
     @BindView(R.id.partnerListActivity_ll_recordsCountContainer)
     LinearLayout recordsCountContainer;
     @BindView(R.id.partnerListActivity_tv_recordsCount)
@@ -119,6 +124,25 @@ public class PartnerListActivity extends AppCompatActivity {
                     getIntent().getStringExtra(EXTRA_PARTNER_GENDER));
         }
 
+        searchEdtxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String query = searchEdtxt.getText().toString();
+                medicalPersonneldAdapter.search(query);
+                recordsCount.setText(getString(R.string.medicalPersonnelActivity_records, partnerLists.size()));
+            }
+        });
+
         medicalPersonnelRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), medicalPersonnelRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -174,7 +198,7 @@ public class PartnerListActivity extends AppCompatActivity {
                             medicalPersonnelRecyclerView.setVisibility(View.VISIBLE);
                             searchContainer.setVisibility(View.VISIBLE);
                             recordsCountContainer.setVisibility(View.VISIBLE);
-                            recordsCount.setText(String.format(getResources().getString(R.string.medicalPersonnelActivity_records), size));
+                            recordsCount.setText(getString(R.string.medicalPersonnelActivity_records, size));
 
                             medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                             medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -271,7 +295,7 @@ public class PartnerListActivity extends AppCompatActivity {
                             medicalPersonnelRecyclerView.setVisibility(View.VISIBLE);
                             searchContainer.setVisibility(View.VISIBLE);
                             recordsCountContainer.setVisibility(View.VISIBLE);
-                            recordsCount.setText(String.format(getResources().getString(R.string.medicalPersonnelActivity_records), size));
+                            recordsCount.setText(getString(R.string.medicalPersonnelActivity_records, size));
 
                             medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                             medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -368,7 +392,7 @@ public class PartnerListActivity extends AppCompatActivity {
                             medicalPersonnelRecyclerView.setVisibility(View.VISIBLE);
                             searchContainer.setVisibility(View.VISIBLE);
                             recordsCountContainer.setVisibility(View.VISIBLE);
-                            recordsCount.setText(String.format(getResources().getString(R.string.medicalPersonnelActivity_records), size));
+                            recordsCount.setText(getString(R.string.medicalPersonnelActivity_records, size));
 
                             medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                             medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -462,7 +486,7 @@ public class PartnerListActivity extends AppCompatActivity {
                             medicalPersonnelRecyclerView.setVisibility(View.VISIBLE);
                             searchContainer.setVisibility(View.VISIBLE);
                             recordsCountContainer.setVisibility(View.VISIBLE);
-                            recordsCount.setText(String.format(getResources().getString(R.string.medicalPersonnelActivity_records), size));
+                            recordsCount.setText(getString(R.string.medicalPersonnelActivity_records, size));
 
                             medicalPersonnelRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                             medicalPersonnelRecyclerView.setItemAnimator(new DefaultItemAnimator());

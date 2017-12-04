@@ -12,6 +12,7 @@ import com.mycillin.user.list.PartnerList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -48,6 +49,29 @@ public class PartnerListAdapter extends RecyclerView.Adapter<PartnerListAdapter.
     @Override
     public int getItemCount() {
         return partnerLists.size();
+    }
+
+    public void search(String query) {
+        query = query.toLowerCase(Locale.getDefault());
+        partnerLists.clear();
+        for(PartnerList partnerList : arrayPartnerLists) {
+            if(partnerList.getDoctorName() != null){
+                if(partnerList.getDoctorName().toLowerCase(Locale.getDefault()).contains(query)) {
+                    partnerLists.add(partnerList);
+                }
+            }
+            else if(partnerList.getDoctorType() != null){
+                if(partnerList.getDoctorType().toLowerCase(Locale.getDefault()).contains(query)) {
+                    partnerLists.add(partnerList);
+                }
+            }
+            else if(partnerList.getDoctorPermitt() != null){
+                if(partnerList.getDoctorPermitt().toLowerCase(Locale.getDefault()).contains(query)) {
+                    partnerLists.add(partnerList);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
