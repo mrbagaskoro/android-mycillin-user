@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,8 @@ import retrofit2.Response;
 
 public class HistoryInProgressFragment extends Fragment {
 
+    @BindView(R.id.historyInProgressFragment_sr_swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.historyInProgressFragment_rv_recyclerView)
     RecyclerView inProgressRecyclerView;
     @BindView(R.id.historyInProgressFragment_ll_messageContainer)
@@ -71,6 +74,14 @@ public class HistoryInProgressFragment extends Fragment {
         progressBarHandler = new ProgressBarHandler(getContext());
 
         getInProgressList();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getInProgressList();
+            }
+        });
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
 
         inProgressRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), inProgressRecyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -124,6 +135,7 @@ public class HistoryInProgressFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ModelResultHistoryOnProgress> call, @NonNull Response<ModelResultHistoryOnProgress> response) {
                 progressBarHandler.hide();
+                swipeRefreshLayout.setRefreshing(false);
 
                 if(response.isSuccessful()) {
                     ModelResultHistoryOnProgress modelResultHistoryOnProgress = response.body();
