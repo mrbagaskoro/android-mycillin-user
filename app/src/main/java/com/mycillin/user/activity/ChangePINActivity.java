@@ -68,6 +68,14 @@ public class ChangePINActivity extends AppCompatActivity {
                 confirmPINEdtxt.setError(getString(R.string.changePINActivity_PINMatchWarning));
                 isValid = false;
             }
+            if(PINEdtxt.getText().toString().trim().length() != 4) {
+                PINEdtxt.setError(getString(R.string.changePINActivity_PINLengthWarning));
+                isValid = false;
+            }
+            if(confirmPINEdtxt.getText().toString().trim().length() != 4) {
+                confirmPINEdtxt.setError(getString(R.string.changePINActivity_PINConfirmationLengthWarning));
+                isValid = false;
+            }
 
             if(isValid) {
                 // TODO: 01-Dec-17 DO SAVE PIN
