@@ -60,6 +60,11 @@ public class PartnerListAdapter extends RecyclerView.Adapter<PartnerListAdapter.
                     .apply(requestOptions)
                     .into(holder.doctorPic);
         }
+
+        if(!resultList.getDoctorDistance().equals("")) {
+            String distance = ((Math.round(Double.parseDouble(resultList.getDoctorDistance()) * 100.0)) / 100.0) + "";
+            holder.doctorDistance.setText(distance + " KM");
+        }
     }
 
     @Override
@@ -94,6 +99,7 @@ public class PartnerListAdapter extends RecyclerView.Adapter<PartnerListAdapter.
         private TextView doctorName;
         private TextView doctorType;
         private TextView doctorPermitt;
+        private TextView doctorDistance;
         private CircleImageView doctorPic;
 
         MyViewHolder(View itemView) {
@@ -101,6 +107,7 @@ public class PartnerListAdapter extends RecyclerView.Adapter<PartnerListAdapter.
             doctorName = itemView.findViewById(R.id.rowPartnerList_tv_doctorName);
             doctorType = itemView.findViewById(R.id.rowPartnerList_tv_doctorType);
             doctorPermitt = itemView.findViewById(R.id.rowPartnerList_tv_doctorPermit);
+            doctorDistance = itemView.findViewById(R.id.rowPartnerList_tv_doctorDistance);
             doctorPic = itemView.findViewById(R.id.rowPartnerList_iv_personnelAvatar);
         }
     }
