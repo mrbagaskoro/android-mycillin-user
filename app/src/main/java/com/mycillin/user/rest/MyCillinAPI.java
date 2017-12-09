@@ -106,8 +106,8 @@ public interface MyCillinAPI {
     @POST("detail_prescription/")
     Call<ModelResultPrescriptionRecordList> getPrescriptionRecordList(@Header("Authorization") String token, @Body HashMap<String, String> params);
 
-    @GET("list_partner_type/")
-    Call<ModelResultPartnerTypeList> getPartnerTypeList();
+    @POST("list_partner_type/")
+    Call<ModelResultPartnerTypeList> getPartnerTypeList(@Header("Authorization") String token, @Body HashMap<String, String> params);
 
     @POST("list_spesialisasi/")
     Call<ModelResultSpecializationList> getSpecializationList(@Body HashMap<String, String> params);

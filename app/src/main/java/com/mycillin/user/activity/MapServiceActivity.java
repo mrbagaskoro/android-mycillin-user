@@ -116,6 +116,7 @@ public class MapServiceActivity extends AppCompatActivity {
                 intent.putExtra(FilterDoctorActivity.EXTRA_PARTNER_SPECIALIZATION_DESC, filterPartnerSpecializationDesc);
                 intent.putExtra(FilterDoctorActivity.EXTRA_PARTNER_GENDER, filterPartnerGender);
                 intent.putExtra(FilterDoctorActivity.EXTRA_PARTNER_BPJS_STATUS, filterPartnerBPJSStatus);
+                intent.putExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM, getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM));
                 startActivityForResult(intent, FilterDoctorActivity.REQUEST_CODE_FILTER);
             }
         });

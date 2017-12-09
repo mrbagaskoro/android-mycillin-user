@@ -17,11 +17,13 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 
 import com.mycillin.user.R;
+import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.partnerTypeList.ModelResultPartnerTypeList;
 import com.mycillin.user.rest.specializationList.ModelResultSpecializationList;
 import com.mycillin.user.util.ProgressBarHandler;
+import com.mycillin.user.util.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,7 +128,7 @@ public class FilterDoctorActivity extends AppCompatActivity {
         partnerTypeDropdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getPartnerType(partnerTypeSpinnerDialog);
+                getPartnerType(partnerTypeSpinnerDialog, getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM));
             }
         });
 
@@ -228,11 +230,18 @@ public class FilterDoctorActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void getPartnerType(final SpinnerDialog spinnerDialog) {
+    private void getPartnerType(final SpinnerDialog spinnerDialog, String serviceTypeId) {
         progressBarHandler.show();
 
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+
         MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
-        myCillinAPI.getPartnerTypeList().enqueue(new Callback<ModelResultPartnerTypeList>() {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("service_type_id", serviceTypeId);
+
+        myCillinAPI.getPartnerTypeList(token, params).enqueue(new Callback<ModelResultPartnerTypeList>() {
             @Override
             public void onResponse(@NonNull Call<ModelResultPartnerTypeList> call, @NonNull Response<ModelResultPartnerTypeList> response) {
                 progressBarHandler.hide();
