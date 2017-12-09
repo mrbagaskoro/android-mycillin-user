@@ -24,13 +24,14 @@ public class MedicalRecordList {
     private String prescriptionStatus;
     private String prescriptionId;
     private String prescriptionTypeDesc;
+    private String prescriptionImg;
 
     public MedicalRecordList(String day, String month, String year, String createdDate, String partnerId,
                              String partnerName, String recordId, String userId, String serviceTypeDesc,
                              String bodyTemperature, String bloodSugarLevel, String cholesterolLevel,
                              String bloodPressUpper, String bloodPressLower, String patientCondition,
                              String diagnose, String prescriptionStatus, String prescriptionId,
-                             String prescriptionTypeDesc){
+                             String prescriptionTypeDesc, String prescriptionImg){
 
         this.day = day;
         this.month = month;
@@ -51,6 +52,7 @@ public class MedicalRecordList {
         this.prescriptionStatus = prescriptionStatus;
         this.prescriptionId = prescriptionId;
         this.prescriptionTypeDesc = prescriptionTypeDesc;
+        this.prescriptionImg = prescriptionImg;
     }
 
     public String getDay() {
@@ -203,5 +205,13 @@ public class MedicalRecordList {
 
     public void setPrescriptionTypeDesc(String prescriptionTypeDesc) {
         this.prescriptionTypeDesc = prescriptionTypeDesc;
+    }
+
+    public String getPrescriptionImg() {
+        return prescriptionImg;
+    }
+
+    public void setPrescriptionImg(String prescriptionImg) {
+        this.prescriptionImg = prescriptionImg;
     }
 }

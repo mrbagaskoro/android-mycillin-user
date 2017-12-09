@@ -130,6 +130,7 @@ public class MedicalRecordFragment extends Fragment {
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_STATUS, list.getPrescriptionStatus());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_ID, list.getPrescriptionId());
                 params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_TYPE_DESC, list.getServiceTypeDesc());
+                params.put(MedicalRecordDetailActivity.KEY_PARAM_PRESCRIPTION_IMG, list.getPrescriptionImg());
 
                 Intent intent = new Intent(getContext(), MedicalRecordDetailActivity.class);
                 intent.putExtra(MedicalRecordDetailActivity.EXTRA_MEDICAL_RECORD_DETAIL, params);
@@ -179,22 +180,23 @@ public class MedicalRecordFragment extends Fragment {
                             medicalRecordLists.clear();
 
                             for(int i = 0; i < size; i++) {
-                                String medicalRecordCreatedDate = modelResultMedicalRecordList.getResult().getData().get(i).getCreatedDate();
-                                String medicalRecordPartnerId = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerId();
-                                String medicalRecordPartnerName = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerName();
-                                String medicalRecordRecordId = modelResultMedicalRecordList.getResult().getData().get(i).getRecordId();
-                                String medicalRecordUserId = modelResultMedicalRecordList.getResult().getData().get(i).getUserId();
-                                String medicalRecordServiceTypeDesc = modelResultMedicalRecordList.getResult().getData().get(i).getServiceTypeDesc();
-                                String medicalRecordBodyTemperature = modelResultMedicalRecordList.getResult().getData().get(i).getBodyTemperature();
-                                String medicalRecordBloodSugarLevel = modelResultMedicalRecordList.getResult().getData().get(i).getBloodSugarLevel();
-                                String medicalRecordCholesterolLevel = modelResultMedicalRecordList.getResult().getData().get(i).getCholesterolLevel();
-                                String medicalRecordBloodPressUpper = modelResultMedicalRecordList.getResult().getData().get(i).getBloodPressUpper();
-                                String medicalRecordBloodPressLower = modelResultMedicalRecordList.getResult().getData().get(i).getBloodPressLower();
-                                String medicalRecordPatientCondition = modelResultMedicalRecordList.getResult().getData().get(i).getPatientCondition();
-                                String medicalRecordDiagnose = modelResultMedicalRecordList.getResult().getData().get(i).getDiagnosa();
-                                String medicalRecordPrescriptionStatus = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionStatus();
-                                String medicalRecordPrescriptionId = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionId();
-                                String medicalRecordPrescriptionTypeDesc = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionTypeDesc();
+                                String medicalRecordCreatedDate = modelResultMedicalRecordList.getResult().getData().get(i).getCreatedDate() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getCreatedDate();
+                                String medicalRecordPartnerId = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerId() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getPartnerId();
+                                String medicalRecordPartnerName = modelResultMedicalRecordList.getResult().getData().get(i).getPartnerName() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getPartnerName();
+                                String medicalRecordRecordId = modelResultMedicalRecordList.getResult().getData().get(i).getRecordId() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getRecordId();
+                                String medicalRecordUserId = modelResultMedicalRecordList.getResult().getData().get(i).getUserId() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getUserId();
+                                String medicalRecordServiceTypeDesc = modelResultMedicalRecordList.getResult().getData().get(i).getServiceTypeDesc() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getServiceTypeDesc();
+                                String medicalRecordBodyTemperature = modelResultMedicalRecordList.getResult().getData().get(i).getBodyTemperature() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getBodyTemperature();
+                                String medicalRecordBloodSugarLevel = modelResultMedicalRecordList.getResult().getData().get(i).getBloodSugarLevel() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getBloodSugarLevel();
+                                String medicalRecordCholesterolLevel = modelResultMedicalRecordList.getResult().getData().get(i).getCholesterolLevel() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getCholesterolLevel();
+                                String medicalRecordBloodPressUpper = modelResultMedicalRecordList.getResult().getData().get(i).getBloodPressUpper() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getBloodPressUpper();
+                                String medicalRecordBloodPressLower = modelResultMedicalRecordList.getResult().getData().get(i).getBloodPressLower() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getBloodPressLower();
+                                String medicalRecordPatientCondition = modelResultMedicalRecordList.getResult().getData().get(i).getPatientCondition() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getPatientCondition();
+                                String medicalRecordDiagnose = modelResultMedicalRecordList.getResult().getData().get(i).getDiagnosa() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getDiagnosa();
+                                String medicalRecordPrescriptionStatus = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionStatus() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionStatus();
+                                String medicalRecordPrescriptionId = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionId() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionId();
+                                String medicalRecordPrescriptionTypeDesc = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionTypeDesc() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionTypeDesc();
+                                String medicalRecordPrescriptionImg = modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionImg() == null ? "" : modelResultMedicalRecordList.getResult().getData().get(i).getPrescriptionImg();
 
                                 DateFormatter dateFormatter = new DateFormatter(getActivity(), medicalRecordCreatedDate);
                                 medicalRecordLists.add(new MedicalRecordList(
@@ -206,7 +208,7 @@ public class MedicalRecordFragment extends Fragment {
                                         medicalRecordBodyTemperature, medicalRecordBloodSugarLevel, medicalRecordCholesterolLevel,
                                         medicalRecordBloodPressUpper, medicalRecordBloodPressLower, medicalRecordPatientCondition,
                                         medicalRecordDiagnose, medicalRecordPrescriptionStatus, medicalRecordPrescriptionId,
-                                        medicalRecordPrescriptionTypeDesc)
+                                        medicalRecordPrescriptionTypeDesc, medicalRecordPrescriptionImg)
                                 );
                             }
 

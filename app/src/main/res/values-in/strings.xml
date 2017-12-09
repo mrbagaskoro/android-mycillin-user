@@ -361,4 +361,8 @@
     <string name="cancelActivity_cancelDialogTitle">Batalkan</string>
     <string name="cancelActivity_cancelDialogMessage">Anda yakin akan membatalkan pemesanan ini ?</string>
     <string name="cancelActivity_noDialogTitle">Tidak</string>
+    <string name="changePINActivity_PINLengthWarning">PIN harus memiliki 4 angka</string>
+    <string name="changePINActivity_PINConfirmationLengthWarning">Konfirmasi PIN harus memiliki 4 angka</string>
+    <string name="medicalRecordDetailActivity_clickPrescriptionImage">Klik untuk melihat resep obat</string>
+    <string name="medicalRecordDetailActivity_prescriptionImageNotAvailableMessage">Maaf resep obat tidak tersedia.</string>
 </resources>

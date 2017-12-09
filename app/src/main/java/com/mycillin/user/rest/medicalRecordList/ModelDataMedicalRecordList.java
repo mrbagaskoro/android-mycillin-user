@@ -57,6 +57,9 @@ public class ModelDataMedicalRecordList {
     @SerializedName("prescription_type_desc")
     @Expose
     private String prescriptionTypeDesc;
+    @SerializedName("prescription_img")
+    @Expose
+    private String prescriptionImg;
 
     public String getCreatedDate() {
         return createdDate;
@@ -184,5 +187,13 @@ public class ModelDataMedicalRecordList {
 
     public void setPrescriptionTypeDesc(String prescriptionTypeDesc) {
         this.prescriptionTypeDesc = prescriptionTypeDesc;
+    }
+
+    public String getPrescriptionImg() {
+        return prescriptionImg;
+    }
+
+    public void setPrescriptionImg(String prescriptionImg) {
+        this.prescriptionImg = prescriptionImg;
     }
 }

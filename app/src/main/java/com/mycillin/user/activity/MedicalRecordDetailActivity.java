@@ -1,5 +1,6 @@
 package com.mycillin.user.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -56,6 +57,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
     public static final String KEY_PARAM_PRESCRIPTION_STATUS = "KEY_PARAM_PRESCRIPTION_STATUS";
     public static final String KEY_PARAM_PRESCRIPTION_ID = "KEY_PARAM_PRESCRIPTION_ID";
     public static final String KEY_PARAM_PRESCRIPTION_TYPE_DESC = "KEY_PARAM_PRESCRIPTION_TYPE_DESC";
+    public static final String KEY_PARAM_PRESCRIPTION_IMG = "KEY_PARAM_PRESCRIPTION_IMG";
 
     @BindView(R.id.medicalRecordDetailActivity_toolbar)
     Toolbar toolbar;
@@ -104,6 +106,8 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
     ImageView prescriptionTitleIcon;
     @BindView(R.id.medicalRecordDetailActivity_ll_prescriptionContentContainer)
     LinearLayout prescriptionContentContainer;
+    @BindView(R.id.medicalRecordDetailActivity_ll_clickPrescriptionImageContainer)
+    LinearLayout clickPrescriptionImageContainer;
 
     @BindView(R.id.medicalRecordDetailActivity_rv_recyclerView)
     RecyclerView medicalRecordDetailRecyclerView;
@@ -128,7 +132,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
 
         progressBarHandler = new ProgressBarHandler(this);
 
-        HashMap<String, String> medicalRecordDetailData = (HashMap<String, String>) getIntent().getSerializableExtra(EXTRA_MEDICAL_RECORD_DETAIL);
+        final HashMap<String, String> medicalRecordDetailData = (HashMap<String, String>) getIntent().getSerializableExtra(EXTRA_MEDICAL_RECORD_DETAIL);
 
         dateTxt.setText(medicalRecordDetailData.get(KEY_PARAM_CREATED_DATE));
         doctorTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PARTNER_NAME));
@@ -140,6 +144,20 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
         cholesterolTxt.setText(medicalRecordDetailData.get(KEY_PARAM_CHOLESTEROL_LEVEL));
         conditionTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PATIENT_CONDITION));
         //actionTxt.setText(medicalRecordDetailData.get(KEY_PARAM_PARTNER_ID));
+
+        clickPrescriptionImageContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!medicalRecordDetailData.get(KEY_PARAM_PRESCRIPTION_IMG).equals("")) {
+                    Intent intent = new Intent(MedicalRecordDetailActivity.this, ViewImageActivity.class);
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, medicalRecordDetailData.get(KEY_PARAM_PRESCRIPTION_IMG));
+                    startActivity(intent);
+                }
+                else {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), R.string.medicalRecordDetailActivity_prescriptionImageNotAvailableMessage, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         accordionMenu();
         getPrescriptionList(medicalRecordDetailData.get(KEY_PARAM_PRESCRIPTION_ID));
@@ -153,6 +171,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
         actionContentContainer.setVisibility(View.GONE);
         actionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
         prescriptionContentContainer.setVisibility(View.GONE);
+        clickPrescriptionImageContainer.setVisibility(View.GONE);
         prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
 
         diagnoseTitleContainer.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +192,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
                 actionContentContainer.setVisibility(View.GONE);
                 actionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
                 prescriptionContentContainer.setVisibility(View.GONE);
+                clickPrescriptionImageContainer.setVisibility(View.GONE);
                 prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
             }
         });
@@ -195,6 +215,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
                 actionContentContainer.setVisibility(View.GONE);
                 actionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
                 prescriptionContentContainer.setVisibility(View.GONE);
+                clickPrescriptionImageContainer.setVisibility(View.GONE);
                 prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
             }
         });
@@ -217,6 +238,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
                 resultContentContainer.setVisibility(View.GONE);
                 resultTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
                 prescriptionContentContainer.setVisibility(View.GONE);
+                clickPrescriptionImageContainer.setVisibility(View.GONE);
                 prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
             }
         });
@@ -227,10 +249,12 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
                 prescriptionTitleIcon.setImageResource(android.R.color.transparent);
                 if(prescriptionContentContainer.getVisibility() == View.VISIBLE) {
                     prescriptionContentContainer.setVisibility(View.GONE);
+                    clickPrescriptionImageContainer.setVisibility(View.GONE);
                     prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_down_black);
                 }
                 else {
                     prescriptionContentContainer.setVisibility(View.VISIBLE);
+                    clickPrescriptionImageContainer.setVisibility(View.VISIBLE);
                     prescriptionTitleIcon.setBackgroundResource(R.drawable.ic_arrow_drop_up_black);
                 }
 

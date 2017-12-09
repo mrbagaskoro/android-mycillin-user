@@ -476,6 +476,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerHorizontal="true"
                                     android:layout_centerVertical="true"
+                                    android:padding="10dp"
                                     android:gravity="center"
                                     android:textColor="@color/black"
                                     android:textSize="15sp"
@@ -494,6 +495,30 @@
                         android:visibility="gone">
 
                     </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="@color/bgColor" />
+
+                <LinearLayout
+                    android:id="@+id/medicalRecordDetailActivity_ll_clickPrescriptionImageContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="?attr/selectableItemBackground"
+                    android:visibility="gone" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:gravity="end"
+                        android:text="@string/medicalRecordDetailActivity_clickPrescriptionImage"
+                        android:textSize="12sp"
+                        android:layout_weight="1" />
 
                 </LinearLayout>
 
