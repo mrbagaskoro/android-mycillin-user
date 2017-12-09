@@ -25,8 +25,10 @@ import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.partnerDetailGet.ModelResultPartnerDetailGet;
+import com.mycillin.user.rest.priceGet.ModelResultPriceGet;
 import com.mycillin.user.rest.requestConsultation.ModelResultRequestConsultation;
 import com.mycillin.user.rest.requestTransaction.ModelResultRequestTransaction;
+import com.mycillin.user.util.CurrencyTextWatcherTextView;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
 
@@ -111,7 +113,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
         String partnerId = getIntent().getStringExtra(KEY_FLAG_PARTNER_ID);
         getPartnerDetail(partnerId);
 
-        doctorFee.setText(getResources().getString(R.string.medicalPersonnelDetail_feeAmount));
+        doctorFee.setText("-");
 
         doctorAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,11 +159,17 @@ public class PartnerDetailActivity extends AppCompatActivity {
         payWithRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
                 if(i == R.id.partnerDetailActivity_rb_radioButtonCash) {
                     selectedPaymentMethodId = "00";
                 }
                 else if(i == R.id.partnerDetailActivity_rb_radioButtonEWallet) {
                     selectedPaymentMethodId = "03";
+                }
+
+                if(i != -1) {
+                    getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
+                            selectedPartnerTypeId, selectedPartnerSpecializationId);
                 }
             }
         });
@@ -503,5 +511,77 @@ public class PartnerDetailActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void getPrice(String serviceTypeId, String paymentMethodId, String partnerTypeId, String partnerSpecializationId) {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("service_type_id", serviceTypeId);
+        params.put("pymt_methode_id", paymentMethodId);
+        params.put("partner_type_id", partnerTypeId);
+        params.put("spesialisasi_id", partnerSpecializationId);
+
+        myCillinAPI.getPrice(token, params).enqueue(new Callback<ModelResultPriceGet>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultPriceGet> call, @NonNull Response<ModelResultPriceGet> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultPriceGet modelResultPriceGet = response.body();
+
+                    assert modelResultPriceGet != null;
+                    if(modelResultPriceGet.getResult().isStatus()) {
+                        int size = modelResultPriceGet.getResult().getData().size();
+                        if(size > 0) {
+                            String price = modelResultPriceGet.getResult().getData().get(0).getPriceAmount();
+
+                            doctorFee.addTextChangedListener(new CurrencyTextWatcherTextView(doctorFee));
+                            doctorFee.setText(price);
+                        }
+                        else {
+                            payWithRadioGroup.clearCheck();
+                            selectedPaymentMethodId = "";
+                            doctorFee.setText("-");
+                        }
+                    }
+                    else {
+                        payWithRadioGroup.clearCheck();
+                        selectedPaymentMethodId = "";
+                    }
+                }
+                else {
+                    payWithRadioGroup.clearCheck();
+                    selectedPaymentMethodId = "";
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultPriceGet> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                payWithRadioGroup.clearCheck();
+                selectedPaymentMethodId = "";
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

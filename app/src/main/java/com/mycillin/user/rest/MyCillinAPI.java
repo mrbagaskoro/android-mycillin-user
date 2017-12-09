@@ -27,6 +27,7 @@ import com.mycillin.user.rest.medicalRecordList.ModelResultMedicalRecordList;
 import com.mycillin.user.rest.partnerDetailGet.ModelResultPartnerDetailGet;
 import com.mycillin.user.rest.partnerTypeList.ModelResultPartnerTypeList;
 import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionRecordList;
+import com.mycillin.user.rest.priceGet.ModelResultPriceGet;
 import com.mycillin.user.rest.ratingInsert.ModelResultRatingInsert;
 import com.mycillin.user.rest.register.ModelResultRegister;
 import com.mycillin.user.rest.relationList.ModelResultRelationList;
@@ -178,4 +179,7 @@ public interface MyCillinAPI {
 
     @GET("bigbanner/")
     Call<ModelResultBannerImageBig> getBannerImageBig();
+
+    @POST("service_price/")
+    Call<ModelResultPriceGet> getPrice(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }
