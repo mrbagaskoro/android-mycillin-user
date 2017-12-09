@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
@@ -74,6 +75,10 @@ public class PartnerDetailActivity extends AppCompatActivity {
     TextView doctorWorkAddress;
     @BindView(R.id.partnerDetailActivity_tv_doctorWorkArea)
     TextView doctorWorkArea;
+    @BindView(R.id.partnerDetailActivity_et_promoCodeEdtxt)
+    EditText promoCodeEdtxt;
+    @BindView(R.id.partnerDetailActivity_bt_checkPromoCodeBtn)
+    Button checkPromoCodeBtn;
     @BindView(R.id.partnerDetailActivity_tv_doctorFee)
     TextView doctorFee;
     @BindView(R.id.partnerDetailActivity_v_paymentSeparator)
@@ -186,6 +191,9 @@ public class PartnerDetailActivity extends AppCompatActivity {
         requestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                final String promoCode = promoCodeEdtxt.getText().toString().trim();
+
                 if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
                     new AlertDialog.Builder(PartnerDetailActivity.this)
                             .setTitle(R.string.partnerDetailActivity_consultDialogTitle)
@@ -196,7 +204,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     doConsult(getIntent().getStringExtra(HomeFragment.EXTRA_RELATION_ID),
                                             selectedPartnerId, selectedPartnerTypeId, selectedPartnerSpecializationId,
-                                            "TEST");
+                                            promoCode);
                                 }
                             })
                             .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
@@ -223,7 +231,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
                                         doRequest(getIntent().getStringExtra(HomeFragment.EXTRA_RELATION_ID),
                                                 selectedPartnerId, selectedPartnerTypeId, selectedPartnerSpecializationId,
                                                 getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM),
-                                                selectedPaymentMethodId, "TEST",
+                                                selectedPaymentMethodId, promoCode,
                                                 getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LATITUDE),
                                                 getIntent().getStringExtra(PartnerListActivity.EXTRA_USER_LONGITUDE));
                                     }

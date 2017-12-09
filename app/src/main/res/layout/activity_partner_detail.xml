@@ -76,231 +76,244 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/partnerDetailActivity_ll_infoContainer"
+    <ScrollView
+        android:id="@+id/partnerDetailActivity_sv_scrollView"
         android:layout_below="@+id/partnerDetailActivity_ll_headerContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal" >
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/partnerDetailActivity_ll_sippContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:background="?attr/selectableItemBackground"
-            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/partnerDetailActivity_ll_infoContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:paddingTop="5dp"
-                android:text="@string/medicalPersonnelAdapter_doctorPermittTitle"
-                android:textColor="@color/primaryText"
-                android:textSize="12sp" />
+                android:background="@color/white"
+                android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/partnerDetailActivity_tv_doctorPermitt"
-                android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/partnerDetailActivity_ll_sippContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/medicalPersonnelAdapter_doctorPermittTitle"
+                        android:textColor="@color/primaryText"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/partnerDetailActivity_tv_doctorPermitt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:textColor="@color/primaryText"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="5dp"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:text="@string/partnerDetailActivity_clickSIPPTitle"
+                        android:textColor="@color/secondaryText"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dip"
+                    android:layout_height="fill_parent"
+                    android:background="@color/bgColor" />
+
+                <LinearLayout
+                    android:id="@+id/partnerDetailActivity_ll_strContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/primaryText"
+                        android:text="@string/medicalPersonnelAdapter_doctorPermittTitle2" />
+
+                    <TextView
+                        android:id="@+id/partnerDetailActivity_tv_doctorPermitt2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="5dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/secondaryText"
+                        android:textStyle="italic"
+                        android:text="@string/partnerDetailActivity_clickSTRTitle" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/partnerDetailActivity_v_view1"
+                android:layout_below="@+id/partnerDetailActivity_ll_infoContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/bgColor" />
+
+            <LinearLayout
+                android:id="@+id/partnerDetailActivity_ll_descriptionContainer"
+                android:layout_below="@+id/partnerDetailActivity_v_view1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:textColor="@color/primaryText"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:background="@color/white" >
 
-            <TextView
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/partnerDetailActivity_tv_doctorDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/partnerDetailActivity_v_view2"
+                android:layout_below="@+id/partnerDetailActivity_ll_descriptionContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/bgColor" />
+
+            <LinearLayout
+                android:id="@+id/partnerDetailActivity_ll_yearOfWorksContainer"
+                android:layout_below="@+id/partnerDetailActivity_v_view2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:text="@string/partnerDetailActivity_clickSIPPTitle"
-                android:textColor="@color/secondaryText"
-                android:textSize="10sp"
-                android:textStyle="italic" />
+                android:background="@color/white"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/secondaryText"
+                    android:text="@string/partnerDetailActivity_yearOfWorkTitle" />
 
-        <View
-            android:layout_width="1dip"
-            android:layout_height="fill_parent"
-            android:background="@color/bgColor" />
+                <TextView
+                    android:id="@+id/partnerDetailActivity_tv_doctorYearOfWorks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primaryText" />
 
-        <LinearLayout
-            android:id="@+id/partnerDetailActivity_ll_strContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:orientation="vertical" >
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <View
+                android:id="@+id/partnerDetailActivity_v_view3"
+                android:layout_below="@+id/partnerDetailActivity_ll_yearOfWorksContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/bgColor" />
+
+            <LinearLayout
+                android:id="@+id/partnerDetailActivity_ll_workplaceContainer"
+                android:layout_below="@+id/partnerDetailActivity_v_view3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textSize="12sp"
-                android:textColor="@color/primaryText"
-                android:text="@string/medicalPersonnelAdapter_doctorPermittTitle2" />
+                android:background="@color/white"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/partnerDetailActivity_tv_doctorPermitt2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/primaryText" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/secondaryText"
+                    android:text="@string/partnerDetailActivity_workplaceTitle" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-                android:textSize="10sp"
-                android:textColor="@color/secondaryText"
-                android:textStyle="italic"
-                android:text="@string/partnerDetailActivity_clickSTRTitle" />
+                <TextView
+                    android:id="@+id/partnerDetailActivity_tv_doctorWorkplace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primaryText" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/partnerDetailActivity_tv_doctorWorkAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primaryText" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/partnerDetailActivity_tv_doctorWorkArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primaryText" />
 
-    <View
-        android:id="@+id/partnerDetailActivity_v_view1"
-        android:layout_below="@+id/partnerDetailActivity_ll_infoContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/bgColor" />
+            </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/partnerDetailActivity_ll_descriptionContainer"
-        android:layout_below="@+id/partnerDetailActivity_v_view1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white" >
+            <View
+                android:id="@+id/partnerDetailActivity_v_view4"
+                android:layout_below="@+id/partnerDetailActivity_ll_workplaceContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/bgColor" />
 
-        <TextView
-            android:id="@+id/partnerDetailActivity_tv_doctorDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:gravity="center" />
+        </RelativeLayout>
 
-    </LinearLayout>
-
-    <View
-        android:id="@+id/partnerDetailActivity_v_view2"
-        android:layout_below="@+id/partnerDetailActivity_ll_descriptionContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/bgColor" />
-
-    <LinearLayout
-        android:id="@+id/partnerDetailActivity_ll_yearOfWorksContainer"
-        android:layout_below="@+id/partnerDetailActivity_v_view2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textSize="12sp"
-            android:textColor="@color/secondaryText"
-            android:text="@string/partnerDetailActivity_yearOfWorkTitle" />
-
-        <TextView
-            android:id="@+id/partnerDetailActivity_tv_doctorYearOfWorks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/primaryText" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/partnerDetailActivity_v_view3"
-        android:layout_below="@+id/partnerDetailActivity_ll_yearOfWorksContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@color/bgColor" />
-
-    <LinearLayout
-        android:id="@+id/partnerDetailActivity_ll_workplaceContainer"
-        android:layout_below="@+id/partnerDetailActivity_v_view3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textSize="12sp"
-            android:textColor="@color/secondaryText"
-            android:text="@string/partnerDetailActivity_workplaceTitle" />
-
-        <TextView
-            android:id="@+id/partnerDetailActivity_tv_doctorWorkplace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/primaryText" />
-
-        <TextView
-            android:id="@+id/partnerDetailActivity_tv_doctorWorkAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/primaryText" />
-
-        <TextView
-            android:id="@+id/partnerDetailActivity_tv_doctorWorkArea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/primaryText" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/partnerDetailActivity_v_view4"
-        android:layout_below="@+id/partnerDetailActivity_ll_workplaceContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@color/bgColor" />
+    </ScrollView>
 
     <View
         android:layout_above="@+id/partnerDetailActivity_rl_footerContainer"
@@ -317,7 +330,44 @@
         android:background="@color/white">
 
         <LinearLayout
+            android:id="@+id/partnerDetailActivity_ll_promoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1" >
+
+                <EditText
+                    android:id="@+id/partnerDetailActivity_et_promoCodeEdtxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/partnerDetailActivity_promoCodeTitle" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/partnerDetailActivity_bt_checkPromoCodeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_no_rad_accent"
+                android:text="@string/partnerDetailActivity_checkPromoCodeTitle"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_below="@+id/partnerDetailActivity_ll_promoContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/bgColor" />
+
+        <LinearLayout
             android:id="@+id/partnerDetailActivity_ll_estimatedFee"
+            android:layout_below="@+id/partnerDetailActivity_ll_promoContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >

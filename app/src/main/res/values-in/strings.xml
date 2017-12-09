@@ -365,4 +365,6 @@
     <string name="changePINActivity_PINConfirmationLengthWarning">Konfirmasi PIN harus memiliki 4 angka</string>
     <string name="medicalRecordDetailActivity_clickPrescriptionImage">Klik untuk melihat resep obat</string>
     <string name="medicalRecordDetailActivity_prescriptionImageNotAvailableMessage">Maaf resep obat tidak tersedia.</string>
+    <string name="partnerDetailActivity_promoCodeTitle">Kode Promo</string>
+    <string name="partnerDetailActivity_checkPromoCodeTitle">CEK</string>
 </resources>

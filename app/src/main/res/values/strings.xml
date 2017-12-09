@@ -370,4 +370,6 @@
     <string name="changePINActivity_PINConfirmationLengthWarning">PIN Confirmation must be 4 digits</string>
     <string name="medicalRecordDetailActivity_clickPrescriptionImage">Click to view Prescription Image</string>
     <string name="medicalRecordDetailActivity_prescriptionImageNotAvailableMessage">We are sorry Prescription Image is not available.</string>
+    <string name="partnerDetailActivity_promoCodeTitle">Promo Code</string>
+    <string name="partnerDetailActivity_checkPromoCodeTitle">CHECK</string>
 </resources>
