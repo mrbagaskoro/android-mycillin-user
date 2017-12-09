@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
 import com.mycillin.user.list.PartnerList;
 
@@ -44,6 +47,19 @@ public class PartnerListAdapter extends RecyclerView.Adapter<PartnerListAdapter.
         holder.doctorName.setText(resultList.getDoctorName());
         holder.doctorType.setText(resultList.getDoctorType());
         holder.doctorPermitt.setText(activity.getString(R.string.medicalPersonnelAdapter_doctorPermittTitle) + resultList.getDoctorPermitt());
+
+        if(!resultList.getDoctorPic().equals("")) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .placeholder(R.drawable.ic_action_user)
+                    .fitCenter();
+
+            Glide.with(activity)
+                    .load(resultList.getDoctorPic())
+                    .apply(requestOptions)
+                    .into(holder.doctorPic);
+        }
     }
 
     @Override

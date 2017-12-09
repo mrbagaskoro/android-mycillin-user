@@ -24,6 +24,12 @@ public class ModelDataFindClinic {
     @SerializedName("full_name")
     @Expose
     private String fullName;
+    @SerializedName("profile_photo")
+    @Expose
+    private String profilePhoto;
+    @SerializedName("no_SIP")
+    @Expose
+    private String noSIP;
     @SerializedName("wilayah_kerja")
     @Expose
     private String wilayahKerja;
@@ -66,6 +72,22 @@ public class ModelDataFindClinic {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
+    public String getNoSIP() {
+        return noSIP;
+    }
+
+    public void setNoSIP(String noSIP) {
+        this.noSIP = noSIP;
     }
 
     public String getWilayahKerja() {

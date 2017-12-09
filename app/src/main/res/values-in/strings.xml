@@ -160,7 +160,7 @@
     <string name="medicalPersonnelActivity_records">%1$d Data ditemukan</string>
     <string name="medicalPersonnelActivity_search">Cari</string>
     <string name="medicalPersonnelActivity_title">Tenaga Medis Tersedia</string>
-    <string name="medicalPersonnelAdapter_doctorPermittTitle">No. SIPP:</string>
+    <string name="medicalPersonnelAdapter_doctorPermittTitle">No. SIPP: </string>
     <string name="medicalPersonnelDetailActivity_request">PESAN</string>
     <string name="medicalPersonnelDetail_availability">21.00 WIB</string>
     <string name="medicalPersonnelDetail_availabilityInfo">Tersedia sampai:</string>

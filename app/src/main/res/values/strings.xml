@@ -167,7 +167,7 @@
     <string name="medicalPersonnelActivity_search">Search</string>
     <string name="medicalPersonnelActivity_records">%1$d Record(s) found</string>
     <string name="medicalPersonnelActivity_title">Medical Personnel Available</string>
-    <string name="medicalPersonnelAdapter_doctorPermittTitle">SIPP Number:</string>
+    <string name="medicalPersonnelAdapter_doctorPermittTitle">SIPP Number: </string>
     <string name="medicalPersonnelDetail_doctorType">Cardiologist</string>
     <string name="medicalPersonnelDetail_doctorPermitt">291827/II/2011</string>
     <string name="medicalPersonnelDetail_availabilityInfo">Available until:</string>

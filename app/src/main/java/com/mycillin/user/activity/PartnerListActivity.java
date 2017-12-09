@@ -206,14 +206,14 @@ public class PartnerListActivity extends AppCompatActivity {
                             partnerLists.clear();
 
                             for(int i = 0; i < size; i++) {
-                                String doctorId = modelResultFindPartner.getResult().getData().get(i).getUserId();
-                                String doctorName = modelResultFindPartner.getResult().getData().get(i).getFullName();
-                                String doctorType = "null";
-                                String doctorPermitt = "null";
-                                String doctorPic = "null";
-                                String doctorLatitude = modelResultFindPartner.getResult().getData().get(i).getLatitude();
-                                String doctorLongitude = modelResultFindPartner.getResult().getData().get(i).getLongitude();
-                                String doctorDistance = modelResultFindPartner.getResult().getData().get(i).getDistance();
+                                String doctorId = modelResultFindPartner.getResult().getData().get(i).getUserId() == null ? "" : modelResultFindPartner.getResult().getData().get(i).getUserId();
+                                String doctorName = modelResultFindPartner.getResult().getData().get(i).getFullName() == null ? "" : modelResultFindPartner.getResult().getData().get(i).getFullName();
+                                String doctorType = "PAK TOMMI TOLONG KELUARKAN DESC TIPE / DESC SPESIALISASI DOKTER DONG";
+                                String doctorPermitt = modelResultFindPartner.getResult().getData().get(i).getNoSIP() == null ? "" : modelResultFindPartner.getResult().getData().get(i).getNoSIP();
+                                String doctorPic = modelResultFindPartner.getResult().getData().get(i).getProfilePhoto() == null ? "" : modelResultFindPartner.getResult().getData().get(i).getProfilePhoto();
+                                String doctorLatitude = modelResultFindPartner.getResult().getData().get(i).getLatitude() == null ? "" : modelResultFindPartner.getResult().getData().get(i).getLatitude();
+                                String doctorLongitude = modelResultFindPartner.getResult().getData().get(i).getLongitude() == null ? "" : modelResultFindPartner.getResult().getData().get(i).getLongitude();
+                                String doctorDistance = modelResultFindPartner.getResult().getData().get(i).getDistance() == null ? "" : modelResultFindPartner.getResult().getData().get(i).getDistance();
 
                                 partnerLists.add(new PartnerList(doctorId, doctorName,
                                         doctorType, doctorPermitt, doctorPic, doctorLatitude,
@@ -303,14 +303,14 @@ public class PartnerListActivity extends AppCompatActivity {
                             partnerLists.clear();
 
                             for(int i = 0; i < size; i++) {
-                                String doctorId = modelResultFindClinic.getResult().getData().get(i).getUserId();
-                                String doctorName = modelResultFindClinic.getResult().getData().get(i).getFullName();
-                                String doctorType = "null";
-                                String doctorPermitt = "null";
-                                String doctorPic = "null";
-                                String doctorLatitude = modelResultFindClinic.getResult().getData().get(i).getLatitude();
-                                String doctorLongitude = modelResultFindClinic.getResult().getData().get(i).getLongitude();
-                                String doctorDistance = modelResultFindClinic.getResult().getData().get(i).getDistance();
+                                String doctorId = modelResultFindClinic.getResult().getData().get(i).getUserId() == null ? "" : modelResultFindClinic.getResult().getData().get(i).getUserId();
+                                String doctorName = modelResultFindClinic.getResult().getData().get(i).getFullName() == null ? "" : modelResultFindClinic.getResult().getData().get(i).getFullName();
+                                String doctorType = "PAK TOMMI TOLONG KELUARKAN DESC TIPE / DESC SPESIALISASI DOKTER DONG";
+                                String doctorPermitt = modelResultFindClinic.getResult().getData().get(i).getNoSIP() == null ? "" : modelResultFindClinic.getResult().getData().get(i).getNoSIP();
+                                String doctorPic = modelResultFindClinic.getResult().getData().get(i).getProfilePhoto() == null ? "" : modelResultFindClinic.getResult().getData().get(i).getProfilePhoto();
+                                String doctorLatitude = modelResultFindClinic.getResult().getData().get(i).getLatitude() == null ? "" : modelResultFindClinic.getResult().getData().get(i).getLatitude();
+                                String doctorLongitude = modelResultFindClinic.getResult().getData().get(i).getLongitude() == null ? "" : modelResultFindClinic.getResult().getData().get(i).getLongitude();
+                                String doctorDistance = modelResultFindClinic.getResult().getData().get(i).getDistance() == null ? "" : modelResultFindClinic.getResult().getData().get(i).getDistance();
 
                                 partnerLists.add(new PartnerList(doctorId, doctorName,
                                         doctorType, doctorPermitt, doctorPic, doctorLatitude,
@@ -400,14 +400,14 @@ public class PartnerListActivity extends AppCompatActivity {
                             partnerLists.clear();
 
                             for(int i = 0; i < size; i++) {
-                                String doctorId = modelResultFindHealthcare.getResult().getData().get(i).getUserId();
-                                String doctorName = modelResultFindHealthcare.getResult().getData().get(i).getFullName();
-                                String doctorType = "null";
-                                String doctorPermitt = "null";
-                                String doctorPic = "null";
-                                String doctorLatitude = modelResultFindHealthcare.getResult().getData().get(i).getLatitude();
-                                String doctorLongitude = modelResultFindHealthcare.getResult().getData().get(i).getLongitude();
-                                String doctorDistance = modelResultFindHealthcare.getResult().getData().get(i).getDistance();
+                                String doctorId = modelResultFindHealthcare.getResult().getData().get(i).getUserId() == null ? "" : modelResultFindHealthcare.getResult().getData().get(i).getUserId();
+                                String doctorName = modelResultFindHealthcare.getResult().getData().get(i).getFullName() == null ? "" : modelResultFindHealthcare.getResult().getData().get(i).getFullName();
+                                String doctorType = "PAK TOMMI TOLONG KELUARKAN DESC TIPE / DESC SPESIALISASI DOKTER DONG";
+                                String doctorPermitt = modelResultFindHealthcare.getResult().getData().get(i).getNoSIP() == null ? "" : modelResultFindHealthcare.getResult().getData().get(i).getNoSIP();
+                                String doctorPic = modelResultFindHealthcare.getResult().getData().get(i).getProfilePhoto() == null ? "" : modelResultFindHealthcare.getResult().getData().get(i).getProfilePhoto();
+                                String doctorLatitude = modelResultFindHealthcare.getResult().getData().get(i).getLatitude() == null ? "" : modelResultFindHealthcare.getResult().getData().get(i).getLatitude();
+                                String doctorLongitude = modelResultFindHealthcare.getResult().getData().get(i).getLongitude() == null ? "" : modelResultFindHealthcare.getResult().getData().get(i).getLongitude();
+                                String doctorDistance = modelResultFindHealthcare.getResult().getData().get(i).getDistance() == null ? "" : modelResultFindHealthcare.getResult().getData().get(i).getDistance();
 
                                 partnerLists.add(new PartnerList(doctorId, doctorName,
                                         doctorType, doctorPermitt, doctorPic, doctorLatitude,
@@ -494,11 +494,11 @@ public class PartnerListActivity extends AppCompatActivity {
                             partnerLists.clear();
 
                             for(int i = 0; i < size; i++) {
-                                String doctorId = modelResultFindConsultation.getResult().getData().get(i).getUserId();
-                                String doctorName = modelResultFindConsultation.getResult().getData().get(i).getFullName();
-                                String doctorType = "null";
-                                String doctorPermitt = "null";
-                                String doctorPic = "null";
+                                String doctorId = modelResultFindConsultation.getResult().getData().get(i).getUserId() == null ? "" : modelResultFindConsultation.getResult().getData().get(i).getUserId();
+                                String doctorName = modelResultFindConsultation.getResult().getData().get(i).getFullName() == null ? "" : modelResultFindConsultation.getResult().getData().get(i).getFullName();
+                                String doctorType = "PAK TOMMI TOLONG KELUARKAN DESC TIPE / DESC SPESIALISASI DOKTER DONG";
+                                String doctorPermitt = modelResultFindConsultation.getResult().getData().get(i).getNoSIP() == null ? "" : modelResultFindConsultation.getResult().getData().get(i).getNoSIP();
+                                String doctorPic = modelResultFindConsultation.getResult().getData().get(i).getProfilePhoto() == null ? "" : modelResultFindConsultation.getResult().getData().get(i).getProfilePhoto();
                                 String doctorLatitude = "";
                                 String doctorLongitude = "";
                                 String doctorDistance = "";
