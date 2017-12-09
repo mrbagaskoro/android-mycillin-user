@@ -35,8 +35,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -108,7 +108,10 @@
         <activity
             android:name=".activity.PINActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ChangePINActivity"></activity>
+        <activity android:name=".activity.ChangePINActivity" />
+        <activity
+            android:name=".activity.BigBannerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

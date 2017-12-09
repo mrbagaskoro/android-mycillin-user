@@ -133,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = new Intent(MainActivity.this, BigBannerActivity.class);
+        startActivity(intent);
+
         navigation.setSelectedItemId(R.id.nav_home);
     }
 

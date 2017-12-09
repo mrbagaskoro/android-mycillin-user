@@ -3,6 +3,8 @@ package com.mycillin.user.util;
 import android.app.Activity;
 
 import com.mycillin.user.database.Banner;
+import com.mycillin.user.database.BannerBig;
+import com.mycillin.user.database.BannerBigDao;
 import com.mycillin.user.database.BannerDao;
 import com.mycillin.user.database.DaoSession;
 
@@ -26,5 +28,11 @@ public class DaoDatabaseHelper {
         BannerDao bannerDao = daoSession.getBannerDao();
 
         return bannerDao.queryBuilder().build();
+    }
+
+    public Query<BannerBig> getBannerBig() {
+        BannerBigDao bannerBigDao = daoSession.getBannerBigDao();
+
+        return bannerBigDao.queryBuilder().build();
     }
 }

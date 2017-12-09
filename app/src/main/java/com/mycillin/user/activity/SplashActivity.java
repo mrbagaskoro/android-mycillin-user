@@ -19,11 +19,14 @@ import com.ahmedjazzar.rosetta.LanguagesListDialogFragment;
 import com.mycillin.user.BuildConfig;
 import com.mycillin.user.R;
 import com.mycillin.user.database.Banner;
+import com.mycillin.user.database.BannerBig;
+import com.mycillin.user.database.BannerBigDao;
 import com.mycillin.user.database.BannerDao;
 import com.mycillin.user.database.DaoSession;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.bannerImage.ModelResultBannerImage;
+import com.mycillin.user.rest.bannerImageBig.ModelResultBannerImageBig;
 import com.mycillin.user.util.ApplicationPreferencesManager;
 import com.mycillin.user.util.BaseApplication;
 import com.mycillin.user.util.LanguageOptions;
@@ -108,6 +111,56 @@ public class SplashActivity extends AppCompatActivity {
                         BannerDao bannerDao = daoSession.getBannerDao();
                         bannerDao.insertOrReplaceInTx(bannerList);
 
+                        getBannerBig(applicationPreferencesManager);
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultBannerImage> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBar.setVisibility(View.GONE);
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getBannerBig(final ApplicationPreferencesManager applicationPreferencesManager) {
+        progressBar.setVisibility(View.VISIBLE);
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+        myCillinAPI.getBannerImageBig().enqueue(new Callback<ModelResultBannerImageBig>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultBannerImageBig> call, @NonNull Response<ModelResultBannerImageBig> response) {
+                progressBar.setVisibility(View.GONE);
+
+                if(response.isSuccessful()) {
+                    ModelResultBannerImageBig modelResultBannerImageBig = response.body();
+
+                    assert modelResultBannerImageBig != null;
+                    if(modelResultBannerImageBig.getResult().isStatus()) {
+                        List<BannerBig> bannerBigList = modelResultBannerImageBig.getResult().getData();
+
+                        DaoSession daoSession = ((BaseApplication) getApplication()).getDaoSession();
+                        BannerBigDao bannerBigDao = daoSession.getBannerBigDao();
+                        bannerBigDao.insertOrReplaceInTx(bannerBigList);
+
                         if(applicationPreferencesManager.isIntroDone()) {
                             Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -141,7 +194,7 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<ModelResultBannerImage> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ModelResultBannerImageBig> call, @NonNull Throwable t) {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
                 progressBar.setVisibility(View.GONE);
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();

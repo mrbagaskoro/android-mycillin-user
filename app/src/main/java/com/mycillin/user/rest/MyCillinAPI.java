@@ -7,6 +7,7 @@ import com.mycillin.user.rest.accountPicGet.ModelResultAccountPicGet;
 import com.mycillin.user.rest.accountPicUpdate.ModelResultAccountPicUpdate;
 import com.mycillin.user.rest.accountUpdate.ModelResultAccountUpdate;
 import com.mycillin.user.rest.bannerImage.ModelResultBannerImage;
+import com.mycillin.user.rest.bannerImageBig.ModelResultBannerImageBig;
 import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
@@ -174,4 +175,7 @@ public interface MyCillinAPI {
 
     @POST("user_cancel_transaction/")
     Call<ModelResultRequestCancel> requestCancel(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @GET("bigbanner/")
+    Call<ModelResultBannerImageBig> getBannerImageBig();
 }
