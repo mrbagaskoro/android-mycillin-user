@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mycillin.user.R;
 import com.mycillin.user.fragment.HomeFragment;
+import com.mycillin.user.util.CurrencyTextWatcherTextView;
 
 import java.util.ArrayList;
 
@@ -152,6 +153,8 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
         bookDate.setText(orderDate);
         bookType.setText(orderServiceTypeDesc);
         paymentType.setText(paymentDesc);
+
+        priceAmount.addTextChangedListener(new CurrencyTextWatcherTextView(priceAmount));
         priceAmount.setText(priceAmt);
 
         doctorPic.setOnClickListener(new View.OnClickListener() {

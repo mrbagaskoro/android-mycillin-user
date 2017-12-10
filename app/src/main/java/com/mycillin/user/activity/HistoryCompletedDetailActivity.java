@@ -19,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mycillin.user.R;
+import com.mycillin.user.util.CurrencyTextWatcherTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -141,7 +142,10 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
         bookDate.setText(orderDate);
         bookType.setText(orderServiceTypeDesc);
         paymentType.setText(paymentDesc);
+
+        priceAmount.addTextChangedListener(new CurrencyTextWatcherTextView(priceAmount));
         priceAmount.setText(priceAmt);
+
         diagnoseInfo.setText(diagnose);
         actionInfo.setText(actionTypeDesc);
 
