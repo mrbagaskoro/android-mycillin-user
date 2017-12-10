@@ -54,6 +54,24 @@ public class ModelDataHistoryOnProgress {
     @SerializedName("price_amount")
     @Expose
     private String priceAmount;
+    @SerializedName("booking_status_id")
+    @Expose
+    private String bookingStatusId;
+    @SerializedName("cancel_status")
+    @Expose
+    private String cancelStatus;
+    @SerializedName("latitude_request")
+    @Expose
+    private String latitudeOrigin;
+    @SerializedName("longitude_request")
+    @Expose
+    private String longitudeOrigin;
+    @SerializedName("latitude_praktik")
+    @Expose
+    private String latitudeDestination;
+    @SerializedName("longitude_praktik")
+    @Expose
+    private String longitudeDestination;
 
     public String getOrderDate() {
         return orderDate;
@@ -173,5 +191,53 @@ public class ModelDataHistoryOnProgress {
 
     public void setPriceAmount(String priceAmount) {
         this.priceAmount = priceAmount;
+    }
+
+    public String getBookingStatusId() {
+        return bookingStatusId;
+    }
+
+    public void setBookingStatusId(String bookingStatusId) {
+        this.bookingStatusId = bookingStatusId;
+    }
+
+    public String getCancelStatus() {
+        return cancelStatus;
+    }
+
+    public void setCancelStatus(String cancelStatus) {
+        this.cancelStatus = cancelStatus;
+    }
+
+    public String getLatitudeOrigin() {
+        return latitudeOrigin;
+    }
+
+    public void setLatitudeOrigin(String latitudeOrigin) {
+        this.latitudeOrigin = latitudeOrigin;
+    }
+
+    public String getLongitudeOrigin() {
+        return longitudeOrigin;
+    }
+
+    public void setLongitudeOrigin(String longitudeOrigin) {
+        this.longitudeOrigin = longitudeOrigin;
+    }
+
+    public String getLatitudeDestination() {
+        return latitudeDestination;
+    }
+
+    public void setLatitudeDestination(String latitudeDestination) {
+        this.latitudeDestination = latitudeDestination;
+    }
+
+    public String getLongitudeDestination() {
+        return longitudeDestination;
+    }
+
+    public void setLongitudeDestination(String longitudeDestination) {
+        this.longitudeDestination = longitudeDestination;
     }
 }

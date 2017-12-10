@@ -1,15 +1,25 @@
 package com.mycillin.user.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.GoogleDirection;
+import com.akexorcist.googledirection.constant.AvoidType;
+import com.akexorcist.googledirection.constant.TransportMode;
+import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.model.Route;
+import com.akexorcist.googledirection.util.DirectionConverter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -18,8 +28,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mycillin.user.R;
+import com.mycillin.user.fragment.HomeFragment;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +66,8 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
     TextView paymentType;
     @BindView(R.id.historyInProgressDetailActivity_tv_price)
     TextView priceAmount;
+    @BindView(R.id.historyCompletedDetailActivity_ll_mapContainer)
+    LinearLayout mapContainer;
 
     public static String KEY_FLAG_ORDER_DATE = "KEY_FLAG_ORDER_DATE";
     public static String KEY_FLAG_ORDER_TIME = "KEY_FLAG_ORDER_TIME";
@@ -71,6 +87,14 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
     public static String KEY_FLAG_PAYMENT_DESC = "KEY_FLAG_PAYMENT_DESC";
     public static String KEY_FLAG_PROMO_CODE = "KEY_FLAG_PROMO_CODE";
     public static String KEY_FLAG_PRICE_AMOUNT = "KEY_FLAG_PRICE_AMOUNT";
+    public static String KEY_FLAG_BOOKING_STATUS_ID = "KEY_FLAG_BOOKING_STATUS_ID";
+    public static String KEY_FLAG_CANCEL_STATUS = "KEY_FLAG_CANCEL_STATUS";
+    public static String KEY_FLAG_LATITUDE_ORIGIN = "KEY_FLAG_LATITUDE_ORIGIN";
+    public static String KEY_FLAG_LONGITUDE_ORIGIN = "KEY_FLAG_LONGITUDE_ORIGIN";
+    public static String KEY_FLAG_LATITUDE_DESTINATION = "KEY_FLAG_LATITUDE_DESTINATION";
+    public static String KEY_FLAG_LONGITUDE_DESTINATION = "KEY_FLAG_LONGITUDE_DESTINATION";
+
+    private GoogleMap gMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +122,8 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
         String paymentDesc = getIntent().getStringExtra(KEY_FLAG_PAYMENT_DESC);
         String promoCode = getIntent().getStringExtra(KEY_FLAG_PROMO_CODE);
         String priceAmt = getIntent().getStringExtra(KEY_FLAG_PRICE_AMOUNT);
+        String bookingStatusId = getIntent().getStringExtra(KEY_FLAG_BOOKING_STATUS_ID);
+        String cancelStatus = getIntent().getStringExtra(KEY_FLAG_CANCEL_STATUS);
 
         if(!partnerPic.equals("")) {
             RequestOptions requestOptions = new RequestOptions()
@@ -155,5 +181,61 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if(orderServiceTypeId.equals(HomeFragment.KEY_MEDICAL_RESERVATION)) {
+
+            double latitudeOrigin = Double.parseDouble(getIntent().getStringExtra(KEY_FLAG_LATITUDE_ORIGIN));
+            double longitudeOrigin = Double.parseDouble(getIntent().getStringExtra(KEY_FLAG_LONGITUDE_ORIGIN));
+            double latitudeDestination = Double.parseDouble(getIntent().getStringExtra(KEY_FLAG_LATITUDE_DESTINATION));
+            double longitudeDestination = Double.parseDouble(getIntent().getStringExtra(KEY_FLAG_LONGITUDE_DESTINATION));
+
+            getDirection(new LatLng(latitudeOrigin, longitudeOrigin),
+                    new LatLng(latitudeDestination, longitudeDestination));
+        }
+    }
+
+    private void getDirection(final LatLng origin, final LatLng destination) {
+        mapContainer.setVisibility(View.VISIBLE);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.historyInProgressDetailActivity_fr_mapFragment);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                gMap = googleMap;
+            }
+        });
+
+        GoogleDirection.withServerKey(getResources().getString(R.string.google_directions_key))
+                .from(origin)
+                .to(destination)
+                .transportMode(TransportMode.DRIVING)
+                .avoid(AvoidType.FERRIES)
+                .execute(new DirectionCallback() {
+                    @Override
+                    public void onDirectionSuccess(Direction direction, String s) {
+                        if(direction.isOK()) {
+                            Route route = direction.getRouteList().get(0);
+                            gMap.addMarker(new MarkerOptions().position(origin));
+                            gMap.addMarker(new MarkerOptions().position(destination));
+
+                            ArrayList<LatLng> directionPositionList = route.getLegList().get(0).getDirectionPoint();
+                            gMap.addPolyline(DirectionConverter.createPolyline(getApplicationContext(),
+                                    directionPositionList, 5, Color.RED));
+
+                            LatLng southwest = route.getBound().getSouthwestCoordination().getCoordination();
+                            LatLng northeast = route.getBound().getNortheastCoordination().getCoordination();
+                            LatLngBounds bounds = new LatLngBounds(southwest, northeast);
+                            gMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+                        }
+                        else {
+                            Snackbar.make(getWindow().getDecorView().getRootView(), direction.getStatus(), Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onDirectionFailure(Throwable throwable) {
+                        Snackbar.make(getWindow().getDecorView().getRootView(), throwable.getMessage(), Snackbar.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

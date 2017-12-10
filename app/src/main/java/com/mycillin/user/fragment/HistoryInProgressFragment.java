@@ -107,6 +107,12 @@ public class HistoryInProgressFragment extends Fragment {
                 intent.putExtra(HistoryInProgressDetailActivity.KEY_FLAG_PAYMENT_DESC, list.getPaymentDesc());
                 intent.putExtra(HistoryInProgressDetailActivity.KEY_FLAG_PROMO_CODE, list.getPromoCode());
                 intent.putExtra(HistoryInProgressDetailActivity.KEY_FLAG_PRICE_AMOUNT, list.getPriceAmount());
+                intent.putExtra(HistoryInProgressDetailActivity.KEY_FLAG_BOOKING_STATUS_ID, list.getBookingStatusId());
+                intent.putExtra(HistoryInProgressDetailActivity.KEY_FLAG_CANCEL_STATUS, list.getCancelStatus());
+                intent.putExtra(HistoryInProgressDetailActivity.KEY_FLAG_LATITUDE_ORIGIN, list.getLatitudeOrigin());
+                intent.putExtra(HistoryInProgressDetailActivity.KEY_FLAG_LONGITUDE_ORIGIN, list.getLongitudeOrigin());
+                intent.putExtra(HistoryInProgressDetailActivity.KEY_FLAG_LATITUDE_DESTINATION, list.getLatitudeDestination());
+                intent.putExtra(HistoryInProgressDetailActivity.KEY_FLAG_LONGITUDE_DESTINATION, list.getLongitudeDestination());
                 startActivity(intent);
             }
 
@@ -177,12 +183,20 @@ public class HistoryInProgressFragment extends Fragment {
                                     String paymentDesc = modelResultHistoryOnProgress.getResult().getData().get(i).getPymtMethodeDesc() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPymtMethodeDesc();
                                     String promoCode = modelResultHistoryOnProgress.getResult().getData().get(i).getPromoCode() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPromoCode();
                                     String priceAmount = modelResultHistoryOnProgress.getResult().getData().get(i).getPriceAmount() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getPriceAmount();
+                                    String bookingStatusId = modelResultHistoryOnProgress.getResult().getData().get(i).getBookingStatusId() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getBookingStatusId();
+                                    String cancelStatus = modelResultHistoryOnProgress.getResult().getData().get(i).getCancelStatus() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getCancelStatus();
+                                    String latitudeOrigin = modelResultHistoryOnProgress.getResult().getData().get(i).getLatitudeOrigin() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getLatitudeOrigin();
+                                    String longitudeOrigin = modelResultHistoryOnProgress.getResult().getData().get(i).getLongitudeOrigin() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getLongitudeOrigin();
+                                    String latitudeDestination = modelResultHistoryOnProgress.getResult().getData().get(i).getLatitudeDestination() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getLatitudeDestination();
+                                    String longitudeDestination = modelResultHistoryOnProgress.getResult().getData().get(i).getLongitudeDestination() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getLongitudeDestination();
 
                                     inProgressLists.add(new InProgressList(orderDate.split(" ")[0],
                                             orderTime, bookingId, serviceTypeId, serviceTypeDesc,
                                             partnerId, partnerName, partnerTypeId, partnerTypeDesc,
                                             partnerSpecializationId, partnerSpecializationDesc, partnerPic,
-                                            mobileNo, rating, paymentId, paymentDesc, promoCode, priceAmount));
+                                            mobileNo, rating, paymentId, paymentDesc, promoCode, priceAmount,
+                                            bookingStatusId, cancelStatus, latitudeOrigin, longitudeOrigin,
+                                            latitudeDestination, longitudeDestination));
                                 }
 
                                 inProgressAdapter = new InProgressAdapter(inProgressLists, HistoryInProgressFragment.this);

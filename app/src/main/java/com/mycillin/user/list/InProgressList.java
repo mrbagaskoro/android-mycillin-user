@@ -23,12 +23,20 @@ public class InProgressList {
     private String paymentDesc;
     private String promoCode;
     private String priceAmount;
+    private String bookingStatusId;
+    private String cancelStatus;
+    private String latitudeOrigin;
+    private String longitudeOrigin;
+    private String latitudeDestination;
+    private String longitudeDestination;
 
     public InProgressList(String orderDate, String orderTime, String bookingId, String serviceTypeId,
                           String serviceTypeDesc, String partnerId, String partnerName, String partnerTypeId,
                           String partnerTypeDesc, String partnerSpecializationId, String partnerSpecializationDesc,
                           String partnerPic, String mobileNo, String rating, String paymentId,
-                          String paymentDesc, String promoCode, String priceAmount){
+                          String paymentDesc, String promoCode, String priceAmount, String bookingStatusId,
+                          String cancelStatus, String latitudeOrigin, String longitudeOrigin,
+                          String latitudeDestination, String longitudeDestination){
 
         this.orderDate = orderDate;
         this.orderTime = orderTime;
@@ -48,6 +56,12 @@ public class InProgressList {
         this.paymentDesc = paymentDesc;
         this.promoCode = promoCode;
         this.priceAmount = priceAmount;
+        this.bookingStatusId = bookingStatusId;
+        this.cancelStatus = cancelStatus;
+        this.latitudeOrigin = latitudeOrigin;
+        this.longitudeOrigin = longitudeOrigin;
+        this.latitudeDestination = latitudeDestination;
+        this.longitudeDestination = longitudeDestination;
     }
 
     public String getOrderDate() {
@@ -192,5 +206,53 @@ public class InProgressList {
 
     public void setPriceAmount(String priceAmount) {
         this.priceAmount = priceAmount;
+    }
+
+    public String getBookingStatusId() {
+        return bookingStatusId;
+    }
+
+    public void setBookingStatusId(String bookingStatusId) {
+        this.bookingStatusId = bookingStatusId;
+    }
+
+    public String getCancelStatus() {
+        return cancelStatus;
+    }
+
+    public void setCancelStatus(String cancelStatus) {
+        this.cancelStatus = cancelStatus;
+    }
+
+    public String getLatitudeOrigin() {
+        return latitudeOrigin;
+    }
+
+    public void setLatitudeOrigin(String latitudeOrigin) {
+        this.latitudeOrigin = latitudeOrigin;
+    }
+
+    public String getLongitudeOrigin() {
+        return longitudeOrigin;
+    }
+
+    public void setLongitudeOrigin(String longitudeOrigin) {
+        this.longitudeOrigin = longitudeOrigin;
+    }
+
+    public String getLatitudeDestination() {
+        return latitudeDestination;
+    }
+
+    public void setLatitudeDestination(String latitudeDestination) {
+        this.latitudeDestination = latitudeDestination;
+    }
+
+    public String getLongitudeDestination() {
+        return longitudeDestination;
+    }
+
+    public void setLongitudeDestination(String longitudeDestination) {
+        this.longitudeDestination = longitudeDestination;
     }
 }

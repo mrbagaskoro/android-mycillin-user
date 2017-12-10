@@ -1,0 +1,5 @@
+<resources>
+    <string name="google_directions_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyCbkwep7lAFx5ibgy8Aez7SX1RcTIRdf4I
+    </string>
+</resources>
