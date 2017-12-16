@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.akexorcist.googledirection.DirectionCallback;
@@ -48,6 +49,8 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
     FloatingActionButton callBtn;
     @BindView(R.id.historyInProgressDetailActivity_fab_cancelFAB)
     FloatingActionButton cancelBtn;
+    @BindView(R.id.historyInProgressDetailActivity_fab_directionFAB)
+    FloatingActionButton directionBtn;
 
     @BindView(R.id.historyInProgressDetailActivity_iv_userAvatar)
     CircleImageView doctorPic;
@@ -67,8 +70,8 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
     TextView paymentType;
     @BindView(R.id.historyInProgressDetailActivity_tv_price)
     TextView priceAmount;
-    @BindView(R.id.historyCompletedDetailActivity_ll_mapContainer)
-    LinearLayout mapContainer;
+    @BindView(R.id.historyCompletedDetailActivity_rl_mapContainer)
+    RelativeLayout mapContainer;
 
     public static String KEY_FLAG_ORDER_DATE = "KEY_FLAG_ORDER_DATE";
     public static String KEY_FLAG_ORDER_TIME = "KEY_FLAG_ORDER_TIME";
@@ -189,11 +192,26 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
 
             double latitudeOrigin = Double.parseDouble(getIntent().getStringExtra(KEY_FLAG_LATITUDE_ORIGIN));
             double longitudeOrigin = Double.parseDouble(getIntent().getStringExtra(KEY_FLAG_LONGITUDE_ORIGIN));
-            double latitudeDestination = Double.parseDouble(getIntent().getStringExtra(KEY_FLAG_LATITUDE_DESTINATION));
-            double longitudeDestination = Double.parseDouble(getIntent().getStringExtra(KEY_FLAG_LONGITUDE_DESTINATION));
+            final double latitudeDestination = Double.parseDouble(getIntent().getStringExtra(KEY_FLAG_LATITUDE_DESTINATION));
+            final double longitudeDestination = Double.parseDouble(getIntent().getStringExtra(KEY_FLAG_LONGITUDE_DESTINATION));
 
             getDirection(new LatLng(latitudeOrigin, longitudeOrigin),
                     new LatLng(latitudeDestination, longitudeDestination));
+
+            directionBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        Uri uri = Uri.parse("google.navigation:q=" + latitudeDestination + "," + longitudeDestination + "&mode=d&avoid=f");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        intent.setPackage("com.google.android.apps.maps");
+                        startActivity(intent);
+                    } catch (android.content.ActivityNotFoundException e) {
+                        String message = getString(R.string.historyInProgressDetailActivity_googleMapsApk);
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 

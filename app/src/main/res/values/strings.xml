@@ -373,4 +373,5 @@
     <string name="partnerDetailActivity_promoCodeTitle">Promo Code</string>
     <string name="partnerDetailActivity_checkPromoCodeTitle">CHECK</string>
     <string name="partnerDetailActivity_paymentMethodDropdownTitle">Select a payment method</string>
+    <string name="historyInProgressDetailActivity_googleMapsApk">You need Google Maps installed before using this feature</string>
 </resources>
