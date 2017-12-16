@@ -372,4 +372,5 @@
     <string name="medicalRecordDetailActivity_prescriptionImageNotAvailableMessage">We are sorry Prescription Image is not available.</string>
     <string name="partnerDetailActivity_promoCodeTitle">Promo Code</string>
     <string name="partnerDetailActivity_checkPromoCodeTitle">CHECK</string>
+    <string name="partnerDetailActivity_paymentMethodDropdownTitle">Select a payment method</string>
 </resources>

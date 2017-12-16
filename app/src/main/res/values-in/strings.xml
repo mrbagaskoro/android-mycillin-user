@@ -367,4 +367,5 @@
     <string name="medicalRecordDetailActivity_prescriptionImageNotAvailableMessage">Maaf resep obat tidak tersedia.</string>
     <string name="partnerDetailActivity_promoCodeTitle">Kode Promo</string>
     <string name="partnerDetailActivity_checkPromoCodeTitle">CEK</string>
+    <string name="partnerDetailActivity_paymentMethodDropdownTitle">Pilih metode pembayaran</string>
 </resources>

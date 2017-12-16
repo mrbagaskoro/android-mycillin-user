@@ -26,6 +26,7 @@ import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.partnerDetailGet.ModelResultPartnerDetailGet;
+import com.mycillin.user.rest.paymentMethodeList.ModelResultPaymentMethodeList;
 import com.mycillin.user.rest.priceGet.ModelResultPriceGet;
 import com.mycillin.user.rest.requestConsultation.ModelResultRequestConsultation;
 import com.mycillin.user.rest.requestTransaction.ModelResultRequestTransaction;
@@ -38,11 +39,14 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -85,8 +89,8 @@ public class PartnerDetailActivity extends AppCompatActivity {
     View paymentSeparator;
     @BindView(R.id.partnerDetailActivity_ll_paymentContainer)
     LinearLayout paymentContainer;
-    @BindView(R.id.partnerDetailActivity_rg_radioGroup)
-    RadioGroup payWithRadioGroup;
+    @BindView(R.id.partnerDetailActivity_et_paymentDropdown)
+    EditText paymentDropdown;
     @BindView(R.id.partnerDetailActivity_bt_requestBtn)
     Button requestBtn;
 
@@ -94,6 +98,9 @@ public class PartnerDetailActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     public static String KEY_FLAG_PARTNER_ID = "KEY_FLAG_PARTNER_ID";
+
+    private ArrayList<String> items = new ArrayList<>();
+    private HashMap<Integer, String> paymentMethodIdItemsTemp = new HashMap<>();
 
     private ProgressBarHandler progressBarHandler;
 
@@ -161,21 +168,26 @@ public class PartnerDetailActivity extends AppCompatActivity {
             }
         });
 
-        payWithRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        final SpinnerDialog spinnerDialog = new SpinnerDialog(PartnerDetailActivity.this, items, getString(R.string.partnerDetailActivity_paymentMethodDropdownTitle), R.style.DialogAnimations_SmileWindow);
+        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+            public void onClick(String s, int i) {
+                paymentDropdown.setText(s);
+                for(int j = 0; j < paymentMethodIdItemsTemp.size(); j++) {
+                    if(paymentMethodIdItemsTemp.get(j).split(" - ")[1].equals(s)) {
+                        selectedPaymentMethodId = paymentMethodIdItemsTemp.get(j).split(" - ")[0];
 
-                if(i == R.id.partnerDetailActivity_rb_radioButtonCash) {
-                    selectedPaymentMethodId = "00";
+                        getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
+                                selectedPartnerTypeId, selectedPartnerSpecializationId);
+                    }
                 }
-                else if(i == R.id.partnerDetailActivity_rb_radioButtonEWallet) {
-                    selectedPaymentMethodId = "03";
-                }
+            }
+        });
 
-                if(i != -1) {
-                    getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
-                            selectedPartnerTypeId, selectedPartnerSpecializationId);
-                }
+        paymentDropdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPaymentMethod(spinnerDialog);
             }
         });
 
@@ -248,6 +260,61 @@ public class PartnerDetailActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getPaymentMethod(final SpinnerDialog spinnerDialog) {
+        progressBarHandler.show();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        myCillinAPI.getPaymentMethodList().enqueue(new Callback<ModelResultPaymentMethodeList>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultPaymentMethodeList> call, @NonNull Response<ModelResultPaymentMethodeList> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultPaymentMethodeList modelResultPaymentMethodeList = response.body();
+
+                    assert modelResultPaymentMethodeList != null;
+                    if(modelResultPaymentMethodeList.getResult().isStatus()) {
+                        items.clear();
+                        paymentMethodIdItemsTemp.clear();
+                        int size = modelResultPaymentMethodeList.getResult().getData().size();
+                        for(int i = 0; i < size; i++) {
+                            String paymentId = modelResultPaymentMethodeList.getResult().getData().get(i).getPaymentMethodeId();
+                            String paymentDesc = modelResultPaymentMethodeList.getResult().getData().get(i).getPaymentMethodeDesc();
+
+                            items.add(paymentDesc);
+                            paymentMethodIdItemsTemp.put(i, paymentId + " - " + paymentDesc);
+                        }
+                        spinnerDialog.showSpinerDialog();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultPaymentMethodeList> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getPartnerDetail(String partnerId) {
@@ -553,18 +620,18 @@ public class PartnerDetailActivity extends AppCompatActivity {
                             doctorFee.setText(price);
                         }
                         else {
-                            payWithRadioGroup.clearCheck();
+                            paymentDropdown.setText("");
                             selectedPaymentMethodId = "";
                             doctorFee.setText("-");
                         }
                     }
                     else {
-                        payWithRadioGroup.clearCheck();
+                        paymentDropdown.setText("");
                         selectedPaymentMethodId = "";
                     }
                 }
                 else {
-                    payWithRadioGroup.clearCheck();
+                    paymentDropdown.setText("");
                     selectedPaymentMethodId = "";
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
@@ -585,7 +652,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<ModelResultPriceGet> call, @NonNull Throwable t) {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
-                payWithRadioGroup.clearCheck();
+                paymentDropdown.setText("");
                 selectedPaymentMethodId = "";
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
