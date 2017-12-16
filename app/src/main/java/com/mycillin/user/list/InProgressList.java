@@ -29,6 +29,7 @@ public class InProgressList {
     private String longitudeOrigin;
     private String latitudeDestination;
     private String longitudeDestination;
+    private String bookingStatusDesc;
 
     public InProgressList(String orderDate, String orderTime, String bookingId, String serviceTypeId,
                           String serviceTypeDesc, String partnerId, String partnerName, String partnerTypeId,
@@ -36,7 +37,7 @@ public class InProgressList {
                           String partnerPic, String mobileNo, String rating, String paymentId,
                           String paymentDesc, String promoCode, String priceAmount, String bookingStatusId,
                           String cancelStatus, String latitudeOrigin, String longitudeOrigin,
-                          String latitudeDestination, String longitudeDestination){
+                          String latitudeDestination, String longitudeDestination, String bookingStatusDesc){
 
         this.orderDate = orderDate;
         this.orderTime = orderTime;
@@ -62,6 +63,7 @@ public class InProgressList {
         this.longitudeOrigin = longitudeOrigin;
         this.latitudeDestination = latitudeDestination;
         this.longitudeDestination = longitudeDestination;
+        this.bookingStatusDesc = bookingStatusDesc;
     }
 
     public String getOrderDate() {
@@ -254,5 +256,13 @@ public class InProgressList {
 
     public void setLongitudeDestination(String longitudeDestination) {
         this.longitudeDestination = longitudeDestination;
+    }
+
+    public String getBookingStatusDesc() {
+        return bookingStatusDesc;
+    }
+
+    public void setBookingStatusDesc(String bookingStatusDesc) {
+        this.bookingStatusDesc = bookingStatusDesc;
     }
 }

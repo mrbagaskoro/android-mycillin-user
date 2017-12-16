@@ -14,7 +14,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="?attr/selectableItemBackground"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,6 +110,29 @@
                     android:text="@string/medicalPersonnelDetail_availability" />
 
             </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bgColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/frame_alt">
+
+            <TextView
+                android:id="@+id/rowInProgressList_tv_bookStatusDesc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:gravity="end"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@string/medicalPersonnelDetail_availability" />
 
         </LinearLayout>
 

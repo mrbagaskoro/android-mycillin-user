@@ -189,6 +189,7 @@ public class HistoryInProgressFragment extends Fragment {
                                     String longitudeOrigin = modelResultHistoryOnProgress.getResult().getData().get(i).getLongitudeOrigin() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getLongitudeOrigin();
                                     String latitudeDestination = modelResultHistoryOnProgress.getResult().getData().get(i).getLatitudeDestination() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getLatitudeDestination();
                                     String longitudeDestination = modelResultHistoryOnProgress.getResult().getData().get(i).getLongitudeDestination() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getLongitudeDestination();
+                                    String bookingStatusDesc = modelResultHistoryOnProgress.getResult().getData().get(i).getBookingStatusDesc() == null ? "" : modelResultHistoryOnProgress.getResult().getData().get(i).getBookingStatusDesc();
 
                                     inProgressLists.add(new InProgressList(orderDate.split(" ")[0],
                                             orderTime, bookingId, serviceTypeId, serviceTypeDesc,
@@ -196,7 +197,7 @@ public class HistoryInProgressFragment extends Fragment {
                                             partnerSpecializationId, partnerSpecializationDesc, partnerPic,
                                             mobileNo, rating, paymentId, paymentDesc, promoCode, priceAmount,
                                             bookingStatusId, cancelStatus, latitudeOrigin, longitudeOrigin,
-                                            latitudeDestination, longitudeDestination));
+                                            latitudeDestination, longitudeDestination, bookingStatusDesc));
                                 }
 
                                 inProgressAdapter = new InProgressAdapter(inProgressLists, HistoryInProgressFragment.this);

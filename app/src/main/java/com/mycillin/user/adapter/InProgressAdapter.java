@@ -47,6 +47,7 @@ public class InProgressAdapter extends RecyclerView.Adapter<InProgressAdapter.My
         holder.bookType.setText(resultList.getServiceTypeDesc());
         holder.bookDate.setText(resultList.getOrderDate());
         holder.bookTime.setText(resultList.getOrderTime());
+        holder.bookStatusDesc.setText(resultList.getBookingStatusDesc());
 
         if(!resultList.getPartnerPic().equals("")) {
             RequestOptions requestOptions = new RequestOptions()
@@ -72,6 +73,7 @@ public class InProgressAdapter extends RecyclerView.Adapter<InProgressAdapter.My
         private TextView bookType;
         private TextView bookDate;
         private TextView bookTime;
+        private TextView bookStatusDesc;
         private CircleImageView doctorPic;
 
 
@@ -81,6 +83,7 @@ public class InProgressAdapter extends RecyclerView.Adapter<InProgressAdapter.My
             bookType = itemView.findViewById(R.id.rowInProgressList_tv_bookType);
             bookDate = itemView.findViewById(R.id.rowInProgressList_tv_bookDate);
             bookTime = itemView.findViewById(R.id.rowInProgressList_tv_bookTime);
+            bookStatusDesc = itemView.findViewById(R.id.rowInProgressList_tv_bookStatusDesc);
             doctorPic = itemView.findViewById(R.id.rowInProgressList_iv_doctorAvatar);
         }
     }

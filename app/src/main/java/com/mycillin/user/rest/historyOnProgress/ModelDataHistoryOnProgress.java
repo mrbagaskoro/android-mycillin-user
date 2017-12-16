@@ -72,6 +72,9 @@ public class ModelDataHistoryOnProgress {
     @SerializedName("longitude_praktik")
     @Expose
     private String longitudeDestination;
+    @SerializedName("booking_status_desc")
+    @Expose
+    private String bookingStatusDesc;
 
     public String getOrderDate() {
         return orderDate;
@@ -239,5 +242,13 @@ public class ModelDataHistoryOnProgress {
 
     public void setLongitudeDestination(String longitudeDestination) {
         this.longitudeDestination = longitudeDestination;
+    }
+
+    public String getBookingStatusDesc() {
+        return bookingStatusDesc;
+    }
+
+    public void setBookingStatusDesc(String bookingStatusDesc) {
+        this.bookingStatusDesc = bookingStatusDesc;
     }
 }
