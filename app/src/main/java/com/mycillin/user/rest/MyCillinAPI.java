@@ -27,6 +27,7 @@ import com.mycillin.user.rest.medicalRecordList.ModelResultMedicalRecordList;
 import com.mycillin.user.rest.partnerDetailGet.ModelResultPartnerDetailGet;
 import com.mycillin.user.rest.partnerTypeList.ModelResultPartnerTypeList;
 import com.mycillin.user.rest.pinGet.ModelResultPinGet;
+import com.mycillin.user.rest.pinSet.ModelResultPinSet;
 import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionRecordList;
 import com.mycillin.user.rest.priceGet.ModelResultPriceGet;
 import com.mycillin.user.rest.ratingInsert.ModelResultRatingInsert;
@@ -186,4 +187,7 @@ public interface MyCillinAPI {
 
     @POST("get_pin_no/")
     Call<ModelResultPinGet> getPin(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("set_pin_no/")
+    Call<ModelResultPinSet> setPin(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }
