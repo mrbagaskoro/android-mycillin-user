@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 
 import com.mycillin.user.activity.LoginActivity;
 
-import java.util.Map;
-
 /**
  * Created by 16003041 on 13/10/2017.
  */
@@ -22,7 +20,6 @@ public class SessionManager {
     private static final String KEY_USER_ID = "USER_ID";
     private static final String KEY_TOKEN = "TOKEN";
     private static final String KEY_USER_PIC_URL = "USER_PIC_URL";
-    private static final String KEY_IS_PIN_AVAILABLE = "IS_PIN_AVAILABLE";
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -89,15 +86,6 @@ public class SessionManager {
 
     public void setUserPicUrl(String url) {
         editor.putString(KEY_USER_PIC_URL, url);
-        editor.commit();
-    }
-
-    public boolean isPINAvailable() {
-        return sharedPreferences.getBoolean(KEY_IS_PIN_AVAILABLE, false);
-    }
-
-    public void setPINAvailable() {
-        editor.putBoolean(KEY_IS_PIN_AVAILABLE, true);
         editor.commit();
     }
 }

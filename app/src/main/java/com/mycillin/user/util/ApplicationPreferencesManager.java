@@ -8,6 +8,7 @@ public class ApplicationPreferencesManager {
     public static final String KEY_USER_PREFERED_LANGUAGE = "USER_PREFERED_LANGUAGE";
     private static final String KEY_IS_SELECT_LANGUAGE = "IS_SELECT_LANGUAGE";
     private static final String KEY_IS_INTRO_DONE = "IS_INTRO_DONE";
+    private static final String KEY_IS_FIRST_LAUNCHED = "KEY_IS_FIRST_LAUNCHED";
 
     public static final String DEFAULT_VALUE = "-1";
     private static final String PREF_NAME = "ApplicationPreferencesManager";
@@ -41,5 +42,21 @@ public class ApplicationPreferencesManager {
 
     public boolean isIntroDone() {
         return sharedPreferences.getBoolean(KEY_IS_INTRO_DONE, false);
+    }
+
+    public void firstLaunched() {
+        editor.putBoolean(KEY_IS_FIRST_LAUNCHED, true);
+
+        editor.commit();
+    }
+
+    public void notFirstLaunched() {
+        editor.putBoolean(KEY_IS_FIRST_LAUNCHED, false);
+
+        editor.commit();
+    }
+
+    public boolean isFirstLaunched() {
+        return sharedPreferences.getBoolean(KEY_IS_FIRST_LAUNCHED, false);
     }
 }

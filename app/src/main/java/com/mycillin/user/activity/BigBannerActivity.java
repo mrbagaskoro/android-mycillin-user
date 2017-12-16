@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
 import com.mycillin.user.database.BannerBig;
+import com.mycillin.user.util.ApplicationPreferencesManager;
 import com.mycillin.user.util.DaoDatabaseHelper;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
@@ -35,6 +36,9 @@ public class BigBannerActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         getBigBannerImage();
+
+        ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
+        applicationPreferencesManager.notFirstLaunched();
     }
 
     private void getBigBannerImage() {

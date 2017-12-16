@@ -74,6 +74,8 @@ public class SplashActivity extends AppCompatActivity {
         else {
             getBanner(applicationPreferencesManager);
         }
+
+        applicationPreferencesManager.firstLaunched();
     }
 
     private void defineLanguage() {

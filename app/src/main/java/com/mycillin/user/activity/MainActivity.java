@@ -1,6 +1,5 @@
 package com.mycillin.user.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,6 +23,7 @@ import com.mycillin.user.fragment.MedicalRecordFragment;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.unratedList.ModelResultUnratedList;
+import com.mycillin.user.util.ApplicationPreferencesManager;
 import com.mycillin.user.util.BottomNavigationViewHelper;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
@@ -109,8 +108,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = new Intent(MainActivity.this, BigBannerActivity.class);
-        startActivity(intent);
+        ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
+        if(applicationPreferencesManager.isFirstLaunched()) {
+            Intent intent = new Intent(MainActivity.this, BigBannerActivity.class);
+            startActivity(intent);
+        }
 
         navigation.setSelectedItemId(R.id.nav_home);
     }
@@ -118,11 +120,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        SessionManager sessionManager = new SessionManager(getApplicationContext());
-        if(navigation.getSelectedItemId() == R.id.nav_medical_record && !sessionManager.isPINAvailable()) {
-            navigation.setSelectedItemId(R.id.nav_home);
-        }
 
         if(navigation.getSelectedItemId() == R.id.nav_home) {
             getUnratedList();
