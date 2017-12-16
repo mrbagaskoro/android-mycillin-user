@@ -22,24 +22,24 @@ public class Banner {
     @SerializedName("url_link")
     @Expose
     private String urlLink;
-    @SerializedName("image_name")
-    @Expose
-    private String imageName;
     @SerializedName("start_date")
     @Expose
     private String startDate;
     @SerializedName("end_date")
     @Expose
     private String endDate;
+    @SerializedName("base_data")
+    @Expose
+    private String baseData;
 
-    @Generated(hash = 1557948810)
-    public Banner(String imageId, String urlLink, String imageName,
-            String startDate, String endDate) {
+    @Generated(hash = 1142504453)
+    public Banner(String imageId, String urlLink, String startDate, String endDate,
+            String baseData) {
         this.imageId = imageId;
         this.urlLink = urlLink;
-        this.imageName = imageName;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.baseData = baseData;
     }
 
     @Generated(hash = 2026719322)
@@ -52,14 +52,6 @@ public class Banner {
 
     public void setImageId(String imageId) {
         this.imageId = imageId;
-    }
-
-    public String getImageName() {
-        return this.imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
     }
 
     public String getStartDate() {
@@ -84,5 +76,13 @@ public class Banner {
 
     public void setUrlLink(String urlLink) {
         this.urlLink = urlLink;
+    }
+
+    public String getBaseData() {
+        return baseData;
+    }
+
+    public void setBaseData(String baseData) {
+        this.baseData = baseData;
     }
 }

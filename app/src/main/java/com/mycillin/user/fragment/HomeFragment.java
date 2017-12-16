@@ -1,6 +1,7 @@
 package com.mycillin.user.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
@@ -325,18 +328,18 @@ public class HomeFragment extends Fragment {
     }
 
     private void getBannerImage() {
-        final List<String> imageUrls = new ArrayList<>();
+        final List<String> imageData = new ArrayList<>();
         final List<String> imageLinks = new ArrayList<>();
 
         DaoDatabaseHelper daoDatabaseHelper = new DaoDatabaseHelper(getActivity());
         Query<Banner> query = daoDatabaseHelper.getBanner();
 
-        imageUrls.clear();
+        imageData.clear();
         imageLinks.clear();
         for (int i = 0; i < query.list().size(); i++) {
-            String imageUrl = query.list().get(i).getImageName();
+            String baseData = query.list().get(i).getBaseData();
             String imageLink = query.list().get(i).getUrlLink();
-            imageUrls.add(imageUrl);
+            imageData.add(baseData);
             imageLinks.add(imageLink);
         }
 
@@ -350,8 +353,10 @@ public class HomeFragment extends Fragment {
                         .placeholder(R.drawable.banner_default)
                         .fitCenter();
 
+                byte[] imageByteArray = Base64.decode(imageData.get(position), Base64.DEFAULT);
+
                 Glide.with(getContext())
-                        .load(imageUrls.get(position))
+                        .load(imageByteArray)
                         .apply(requestOptions)
                         .into(imageView);
             }
