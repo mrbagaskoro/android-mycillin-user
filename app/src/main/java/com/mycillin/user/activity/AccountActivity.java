@@ -459,7 +459,7 @@ public class AccountActivity extends AppCompatActivity {
                             message = jsonObject.getJSONObject("result").getString("message");
                         }
                         else {
-                            message = "FUCK!!!" + jsonObject.getString("message");
+                            message = jsonObject.getString("message");
                         }
                         Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
                     } catch (JSONException | IOException e) {

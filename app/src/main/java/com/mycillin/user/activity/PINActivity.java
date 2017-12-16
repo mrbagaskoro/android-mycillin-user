@@ -1,9 +1,13 @@
 package com.mycillin.user.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +16,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mycillin.user.R;
+import com.mycillin.user.rest.MyCillinAPI;
+import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.pinGet.ModelResultPinGet;
+import com.mycillin.user.util.ProgressBarHandler;
+import com.mycillin.user.util.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PINActivity extends AppCompatActivity {
 
@@ -53,13 +71,19 @@ public class PINActivity extends AppCompatActivity {
 
     private int pinCounter = 0;
     private String pinValue = "";
-    private String pinTemp = "6969";
+    private String pinTemp = "";
+
+    private ProgressBarHandler progressBarHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin);
         ButterKnife.bind(this);
+
+        progressBarHandler = new ProgressBarHandler(this);
+
+        getPin();
 
         button0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -412,6 +436,86 @@ public class PINActivity extends AppCompatActivity {
         Intent intent = new Intent(PINActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    private void getPin() {
+        progressBarHandler.show();
+
+        final SessionManager session = new SessionManager(getApplicationContext());
+        String token = session.getUserToken();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", session.getUserId());
+
+        myCillinAPI.getPin(token, params).enqueue(new Callback<ModelResultPinGet>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultPinGet> call, @NonNull Response<ModelResultPinGet> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultPinGet modelResultPinGet = response.body();
+                    assert modelResultPinGet != null;
+
+                    if(modelResultPinGet.getResult().isStatus()) {
+                        pinTemp = modelResultPinGet.getResult().getData().getPinNo();
+                    }
+                    else {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                            String message;
+                            if(jsonObject.has("result")) {
+                                message = jsonObject.getJSONObject("result").getString("message");
+                            }
+                            else {
+                                message = jsonObject.getString("message");
+                            }
+                            Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+
+                            new AlertDialog.Builder(PINActivity.this)
+                                    .setTitle(R.string.mainActivity_infoTitle)
+                                    .setMessage(R.string.mainActivity_setupPINMessage)
+                                    .setIcon(R.mipmap.ic_launcher)
+                                    .setCancelable(false)
+                                    .setPositiveButton(R.string.mainActivity_setupButtonTitle, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(PINActivity.this, ChangePINActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .show();
+
+                        } catch (JSONException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultPinGet> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void accessGranted() {

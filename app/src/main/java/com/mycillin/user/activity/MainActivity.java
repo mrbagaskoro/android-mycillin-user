@@ -82,37 +82,13 @@ public class MainActivity extends AppCompatActivity {
 
                         return true;
                     case R.id.nav_medical_record:
-                        SessionManager sessionManager = new SessionManager(getApplicationContext());
 
-                        if(!sessionManager.isPINAvailable()) {
-                            new AlertDialog.Builder(MainActivity.this)
-                                    .setTitle(R.string.mainActivity_infoTitle)
-                                    .setMessage(R.string.mainActivity_setupPINMessage)
-                                    .setIcon(R.mipmap.ic_launcher)
-                                    .setCancelable(false)
-                                    .setPositiveButton(R.string.mainActivity_setupButtonTitle, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Intent intent = new Intent(MainActivity.this, ChangePINActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    })
-                                    .setNegativeButton(R.string.mainActivity_laterButtonTitle, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            navigation.setSelectedItemId(R.id.nav_home);
-                                        }
-                                    })
-                                    .show();
-                        }
-                        else {
-                            Intent intent = new Intent(MainActivity.this, PINActivity.class);
-                            startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this, PINActivity.class);
+                        startActivity(intent);
 
-                            tx.replace(R.id.mainActivity_fl_framecontainer, new MedicalRecordFragment());
-                            tx.commit();
-                            getSupportActionBar().setTitle(R.string.nav_medical_record);
-                        }
+                        tx.replace(R.id.mainActivity_fl_framecontainer, new MedicalRecordFragment());
+                        tx.commit();
+                        getSupportActionBar().setTitle(R.string.nav_medical_record);
 
                         return true;
                     case R.id.nav_wallet:
