@@ -374,4 +374,7 @@
     <string name="partnerDetailActivity_checkPromoCodeTitle">CHECK</string>
     <string name="partnerDetailActivity_paymentMethodDropdownTitle">Select a payment method</string>
     <string name="historyInProgressDetailActivity_googleMapsApk">You need Google Maps installed before using this feature</string>
+    <string name="servicesActivity_facilityServiceTitle">FIND MEDICAL FACILITY</string>
+    <string name="servicesActivity_facilityServiceDesc">Find and Locate nearest medical facilities from your place</string>
+    <string name="mapsInfoWindow_navigationClickInfo">Click To Start Navigation</string>
 </resources>

@@ -13,6 +13,7 @@ import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
 import com.mycillin.user.rest.findClinic.ModelResultFindClinic;
 import com.mycillin.user.rest.findConsultation.ModelResultFindConsultation;
+import com.mycillin.user.rest.findFacility.ModelResultFindFacility;
 import com.mycillin.user.rest.findHealthcare.ModelResultFindHealthcare;
 import com.mycillin.user.rest.findPartner.ModelResultFindPartner;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
@@ -194,4 +195,7 @@ public interface MyCillinAPI {
 
     @GET("list_payment_methode/")
     Call<ModelResultPaymentMethodeList> getPaymentMethodList();
+
+    @POST("find_nearest_med_facility/")
+    Call<ModelResultFindFacility> findFacility(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }

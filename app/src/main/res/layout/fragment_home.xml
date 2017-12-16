@@ -318,8 +318,8 @@
 
                 </LinearLayout>
 
-                <!--<LinearLayout
-                    android:id="@+id/homeFragment_ll_redeemPrescriptionService"
+                <LinearLayout
+                    android:id="@+id/homeFragment_ll_findFacilityService"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -336,7 +336,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_service_meds"/>
+                            android:src="@mipmap/ic_launcher"/>
 
                     </LinearLayout>
 
@@ -355,7 +355,7 @@
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimaryDark"
-                            android:text="@string/serviceActivity_redeemPrescriptionTitle"/>
+                            android:text="@string/servicesActivity_facilityServiceTitle"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -364,11 +364,11 @@
                             android:paddingStart="10dp"
                             android:paddingEnd="10dp"
                             android:textStyle="italic"
-                            android:text="@string/serviceActivity_redeemPrescriptionDesc"/>
+                            android:text="@string/servicesActivity_facilityServiceDesc"/>
 
                     </LinearLayout>
 
-                </LinearLayout>-->
+                </LinearLayout>
 
             </LinearLayout>
 

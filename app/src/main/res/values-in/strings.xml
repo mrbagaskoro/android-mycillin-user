@@ -369,4 +369,7 @@
     <string name="partnerDetailActivity_checkPromoCodeTitle">CEK</string>
     <string name="partnerDetailActivity_paymentMethodDropdownTitle">Pilih metode pembayaran</string>
     <string name="historyInProgressDetailActivity_googleMapsApk">Anda perlu menginstall Google Maps untuk menggunakan fitur ini</string>
+    <string name="servicesActivity_facilityServiceTitle">CARI FASILITAS KESEHATAN</string>
+    <string name="servicesActivity_facilityServiceDesc">Cari dan Temukan fasilitas kesehatan terdekat dari tempat anda</string>
+    <string name="mapsInfoWindow_navigationClickInfo">Klik untuk memulai navigasi</string>
 </resources>

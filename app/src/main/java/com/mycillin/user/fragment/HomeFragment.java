@@ -24,6 +24,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
 import com.mycillin.user.activity.ChatActivity;
+import com.mycillin.user.activity.FindFacilityActivity;
 import com.mycillin.user.activity.MapServiceActivity;
 import com.mycillin.user.activity.PartnerListActivity;
 import com.mycillin.user.adapter.ConsultationMenuAdapter;
@@ -83,6 +84,8 @@ public class HomeFragment extends Fragment {
     LinearLayout goToHomeCareService;
     @BindView(R.id.homeFragment_ll_consultationService)
     LinearLayout goToConsultationService;
+    @BindView(R.id.homeFragment_ll_findFacilityService)
+    LinearLayout goToFindFacilityService;
 
     private ArrayList<String> items = new ArrayList<>();
     private ProgressBarHandler progressBarHandler;
@@ -214,6 +217,14 @@ public class HomeFragment extends Fragment {
                     consultationContainer.setVisibility(View.VISIBLE);
                     getConsultationMenu();
                 }
+            }
+        });
+
+        goToFindFacilityService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FindFacilityActivity.class);
+                startActivity(intent);
             }
         });
 

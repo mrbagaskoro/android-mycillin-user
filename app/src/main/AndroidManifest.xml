@@ -112,6 +112,7 @@
         <activity
             android:name=".activity.BigBannerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.FindFacilityActivity"></activity>
     </application>
 
 </manifest>
