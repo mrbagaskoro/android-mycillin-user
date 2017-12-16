@@ -46,6 +46,7 @@ public class PartnerListAdapter extends RecyclerView.Adapter<PartnerListAdapter.
         final PartnerList resultList = partnerLists.get(position);
         holder.doctorName.setText(resultList.getDoctorName());
         holder.doctorType.setText(resultList.getDoctorType());
+        holder.doctorSpecialization.setText(resultList.getDoctorSpecialization());
         holder.doctorPermitt.setText(activity.getString(R.string.medicalPersonnelAdapter_doctorPermittTitle) + resultList.getDoctorPermitt());
 
         if(!resultList.getDoctorPic().equals("")) {
@@ -98,6 +99,7 @@ public class PartnerListAdapter extends RecyclerView.Adapter<PartnerListAdapter.
     class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView doctorName;
         private TextView doctorType;
+        private TextView doctorSpecialization;
         private TextView doctorPermitt;
         private TextView doctorDistance;
         private CircleImageView doctorPic;
@@ -106,6 +108,7 @@ public class PartnerListAdapter extends RecyclerView.Adapter<PartnerListAdapter.
             super(itemView);
             doctorName = itemView.findViewById(R.id.rowPartnerList_tv_doctorName);
             doctorType = itemView.findViewById(R.id.rowPartnerList_tv_doctorType);
+            doctorSpecialization = itemView.findViewById(R.id.rowPartnerList_tv_doctorSpecialization);
             doctorPermitt = itemView.findViewById(R.id.rowPartnerList_tv_doctorPermit);
             doctorDistance = itemView.findViewById(R.id.rowPartnerList_tv_doctorDistance);
             doctorPic = itemView.findViewById(R.id.rowPartnerList_iv_personnelAvatar);

@@ -58,23 +58,39 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/rowPartnerList_tv_doctorType"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:textSize="15sp"
-                        android:textStyle="italic"
-                        android:textColor="@color/secondaryText"
-                        android:text="Cardiologist" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/rowPartnerList_tv_doctorType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:textSize="12sp"
+                            android:textStyle="italic"
+                            android:textColor="@color/secondaryText" />
+
+                        <TextView
+                            android:id="@+id/rowPartnerList_tv_doctorSpecialization"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:textSize="12sp"
+                            android:textStyle="italic"
+                            android:textColor="@color/secondaryText" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/rowPartnerList_tv_doctorDistance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:gravity="end"

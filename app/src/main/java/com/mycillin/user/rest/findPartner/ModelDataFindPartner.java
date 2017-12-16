@@ -33,6 +33,12 @@ public class ModelDataFindPartner {
     @SerializedName("wilayah_kerja")
     @Expose
     private String wilayahKerja;
+    @SerializedName("partner_type_desc")
+    @Expose
+    private String partnerTypeDesc;
+    @SerializedName("spesialisasi_desc")
+    @Expose
+    private String spesialisasiDesc;
 
     public String getUserId() {
         return userId;
@@ -96,5 +102,21 @@ public class ModelDataFindPartner {
 
     public void setWilayahKerja(String wilayahKerja) {
         this.wilayahKerja = wilayahKerja;
+    }
+
+    public String getPartnerTypeDesc() {
+        return partnerTypeDesc;
+    }
+
+    public void setPartnerTypeDesc(String partnerTypeDesc) {
+        this.partnerTypeDesc = partnerTypeDesc;
+    }
+
+    public String getSpesialisasiDesc() {
+        return spesialisasiDesc;
+    }
+
+    public void setSpesialisasiDesc(String spesialisasiDesc) {
+        this.spesialisasiDesc = spesialisasiDesc;
     }
 }

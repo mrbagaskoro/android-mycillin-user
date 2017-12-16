@@ -8,18 +8,20 @@ public class PartnerList {
     private String doctorId;
     private String doctorName;
     private String doctorType;
+    private String doctorSpecialization;
     private String doctorPermitt;
     private String doctorPic;
     private String doctorLatitude;
     private String doctorLongitude;
     private String doctorDistance;
 
-    public PartnerList(String doctorId, String doctorName, String doctorType, String doctorPermitt,
-                       String doctorPic, String doctorLatitude, String doctorLongitude,
+    public PartnerList(String doctorId, String doctorName, String doctorType, String doctorSpecialization,
+                       String doctorPermitt, String doctorPic, String doctorLatitude, String doctorLongitude,
                        String doctorDistance){
         this.doctorId = doctorId;
         this.doctorName = doctorName;
         this.doctorType = doctorType;
+        this.doctorSpecialization = doctorSpecialization;
         this.doctorPermitt = doctorPermitt;
         this.doctorPic = doctorPic;
         this.doctorLatitude = doctorLatitude;
@@ -49,6 +51,14 @@ public class PartnerList {
 
     public void setDoctorType(String doctorType) {
         this.doctorType = doctorType;
+    }
+
+    public String getDoctorSpecialization() {
+        return doctorSpecialization;
+    }
+
+    public void setDoctorSpecialization(String doctorSpecialization) {
+        this.doctorSpecialization = doctorSpecialization;
     }
 
     public String getDoctorPermitt() {
