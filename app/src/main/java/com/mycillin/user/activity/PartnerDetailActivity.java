@@ -22,14 +22,18 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
+import com.mycillin.user.firebase.FirebaseManager;
 import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.firebaseGet.ModelResultDataFirebaseGet;
+import com.mycillin.user.rest.firebaseGet.ModelResultFirebaseGet;
 import com.mycillin.user.rest.partnerDetailGet.ModelResultPartnerDetailGet;
 import com.mycillin.user.rest.paymentMethodeList.ModelResultPaymentMethodeList;
 import com.mycillin.user.rest.priceGet.ModelResultPriceGet;
 import com.mycillin.user.rest.requestConsultation.ModelResultRequestConsultation;
 import com.mycillin.user.rest.requestTransaction.ModelResultRequestTransaction;
+import com.mycillin.user.util.Configs;
 import com.mycillin.user.util.CurrencyTextWatcherTextView;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
@@ -41,12 +45,17 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -111,6 +120,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
     String selectedPartnerTypeId = "";
     String selectedPartnerSpecializationId = "";
     String selectedPaymentMethodId = "";
+    String doctorFirebaseToken = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +140,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
         doctorAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!selectedPartnerPicURL.equals("")) {
+                if (!selectedPartnerPicURL.equals("")) {
                     Intent intent = new Intent(PartnerDetailActivity.this, ViewImageActivity.class);
                     intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, selectedPartnerPicURL);
                     startActivity(intent);
@@ -141,12 +151,11 @@ public class PartnerDetailActivity extends AppCompatActivity {
         SIPPContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!selectedPartnerSIPPURL.equals("")) {
+                if (!selectedPartnerSIPPURL.equals("")) {
                     Intent intent = new Intent(PartnerDetailActivity.this, ViewImageActivity.class);
                     intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, selectedPartnerSIPPURL);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     String message = getString(R.string.partnerDetailActivity_SIPPmessage);
                     Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
                 }
@@ -156,12 +165,11 @@ public class PartnerDetailActivity extends AppCompatActivity {
         STRContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!selectedPartnerSTRURL.equals("")) {
+                if (!selectedPartnerSTRURL.equals("")) {
                     Intent intent = new Intent(PartnerDetailActivity.this, ViewImageActivity.class);
                     intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, selectedPartnerSTRURL);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     String message = getString(R.string.partnerDetailActivity_STRmessage);
                     Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
                 }
@@ -173,8 +181,8 @@ public class PartnerDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(String s, int i) {
                 paymentDropdown.setText(s);
-                for(int j = 0; j < paymentMethodIdItemsTemp.size(); j++) {
-                    if(paymentMethodIdItemsTemp.get(j).split(" - ")[1].equals(s)) {
+                for (int j = 0; j < paymentMethodIdItemsTemp.size(); j++) {
+                    if (paymentMethodIdItemsTemp.get(j).split(" - ")[1].equals(s)) {
                         selectedPaymentMethodId = paymentMethodIdItemsTemp.get(j).split(" - ")[0];
 
                         getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
@@ -191,11 +199,10 @@ public class PartnerDetailActivity extends AppCompatActivity {
             }
         });
 
-        if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
+        if (getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
             paymentSeparator.setVisibility(View.INVISIBLE);
             paymentContainer.setVisibility(View.INVISIBLE);
-        }
-        else {
+        } else {
             paymentSeparator.setVisibility(View.VISIBLE);
             paymentContainer.setVisibility(View.VISIBLE);
         }
@@ -206,7 +213,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
 
                 final String promoCode = promoCodeEdtxt.getText().toString().trim();
 
-                if(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
+                if (getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
                     new AlertDialog.Builder(PartnerDetailActivity.this)
                             .setTitle(R.string.partnerDetailActivity_consultDialogTitle)
                             .setMessage(R.string.partnerDetailActivity_consultDialogMessage)
@@ -226,13 +233,11 @@ public class PartnerDetailActivity extends AppCompatActivity {
                                 }
                             })
                             .show();
-                }
-                else {
-                    if(selectedPaymentMethodId.equals("")) {
+                } else {
+                    if (selectedPaymentMethodId.equals("")) {
                         String message = getString(R.string.partnerDetailActivity_paymentValidationMessage);
                         Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         new AlertDialog.Builder(PartnerDetailActivity.this)
                                 .setTitle(R.string.partnerDetailActivity_requestDialogTitle)
                                 .setMessage(R.string.partnerDetailActivity_requestDialogMessage)
@@ -259,7 +264,53 @@ public class PartnerDetailActivity extends AppCompatActivity {
                 }
             }
         });
+        getPartnerfirebase();
+    }
 
+    private void getPartnerfirebase() {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+
+        myCillinAPI.getFirebaseToken(token, params).enqueue(new Callback<ModelResultFirebaseGet>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultFirebaseGet> call, @NonNull Response<ModelResultFirebaseGet> response) {
+                progressBarHandler.hide();
+                if (response.isSuccessful()) {
+                    ModelResultFirebaseGet modelResultDataFirebaseGet = response.body();
+                    assert modelResultDataFirebaseGet != null;
+                    doctorFirebaseToken = modelResultDataFirebaseGet.getResult().getData().get(0).getToken();
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if (jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        } else {
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                    getPartnerfirebase();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultFirebaseGet> call, @NonNull Throwable t) {
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), "Firebase : " + t.getMessage(), Snackbar.LENGTH_SHORT).show();
+                getPartnerfirebase();
+            }
+        });
     }
 
     private void getPaymentMethod(final SpinnerDialog spinnerDialog) {
@@ -272,15 +323,15 @@ public class PartnerDetailActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<ModelResultPaymentMethodeList> call, @NonNull Response<ModelResultPaymentMethodeList> response) {
                 progressBarHandler.hide();
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     ModelResultPaymentMethodeList modelResultPaymentMethodeList = response.body();
 
                     assert modelResultPaymentMethodeList != null;
-                    if(modelResultPaymentMethodeList.getResult().isStatus()) {
+                    if (modelResultPaymentMethodeList.getResult().isStatus()) {
                         items.clear();
                         paymentMethodIdItemsTemp.clear();
                         int size = modelResultPaymentMethodeList.getResult().getData().size();
-                        for(int i = 0; i < size; i++) {
+                        for (int i = 0; i < size; i++) {
                             String paymentId = modelResultPaymentMethodeList.getResult().getData().get(i).getPaymentMethodeId();
                             String paymentDesc = modelResultPaymentMethodeList.getResult().getData().get(i).getPaymentMethodeDesc();
 
@@ -289,15 +340,13 @@ public class PartnerDetailActivity extends AppCompatActivity {
                         }
                         spinnerDialog.showSpinerDialog();
                     }
-                }
-                else {
+                } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         String message;
-                        if(jsonObject.has("result")) {
+                        if (jsonObject.has("result")) {
                             message = jsonObject.getJSONObject("result").getString("message");
-                        }
-                        else {
+                        } else {
 
                             message = jsonObject.getString("message");
                         }
@@ -333,11 +382,11 @@ public class PartnerDetailActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<ModelResultPartnerDetailGet> call, @NonNull Response<ModelResultPartnerDetailGet> response) {
                 progressBarHandler.hide();
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     ModelResultPartnerDetailGet modelResultPartnerDetailGet = response.body();
 
                     assert modelResultPartnerDetailGet != null;
-                    if(modelResultPartnerDetailGet.getResult().isStatus()) {
+                    if (modelResultPartnerDetailGet.getResult().isStatus()) {
                         String userId = modelResultPartnerDetailGet.getResult().getData().get(0).getUserId() == null ? "" : modelResultPartnerDetailGet.getResult().getData().get(0).getUserId();
                         String fullName = modelResultPartnerDetailGet.getResult().getData().get(0).getFullName() == null ? "" : modelResultPartnerDetailGet.getResult().getData().get(0).getFullName();
                         String profilePhoto = modelResultPartnerDetailGet.getResult().getData().get(0).getProfilePhoto() == null ? "" : modelResultPartnerDetailGet.getResult().getData().get(0).getProfilePhoto();
@@ -361,7 +410,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
                         String workInstitution = modelResultPartnerDetailGet.getResult().getData().get(0).getNamaInstitusi() == null ? "" : modelResultPartnerDetailGet.getResult().getData().get(0).getNamaInstitusi();
                         String ratingValue = modelResultPartnerDetailGet.getResult().getData().get(0).getRating() == null ? "" : modelResultPartnerDetailGet.getResult().getData().get(0).getRating();
 
-                        if(!profilePhoto.equals("")) {
+                        if (!profilePhoto.equals("")) {
 
                             RequestOptions requestOptions = new RequestOptions()
                                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -377,23 +426,22 @@ public class PartnerDetailActivity extends AppCompatActivity {
                             selectedPartnerPicURL = profilePhoto;
                         }
 
-                        if(!SIPPhoto.equals("")) {
+                        if (!SIPPhoto.equals("")) {
                             selectedPartnerSIPPURL = SIPPhoto;
                         }
 
-                        if(!STRPhoto.equals("")) {
+                        if (!STRPhoto.equals("")) {
                             selectedPartnerSTRURL = STRPhoto;
                         }
 
                         doctorName.setText(fullName);
-                        if(partnerTypeId.equals("03")) {
+                        if (partnerTypeId.equals("03")) {
                             doctorType.setText(specializationDesc);
-                        }
-                        else {
+                        } else {
                             doctorType.setText(partnerTypeDesc);
                         }
                         doctorRating.setMax(5);
-                        if(!ratingValue.equals("")) {
+                        if (!ratingValue.equals("")) {
                             doctorRating.setRating(Float.parseFloat(ratingValue));
                         }
                         doctorSIPPPermitt.setText(SIP);
@@ -408,15 +456,13 @@ public class PartnerDetailActivity extends AppCompatActivity {
                         selectedPartnerTypeId = partnerTypeId;
                         selectedPartnerSpecializationId = specializationId;
                     }
-                }
-                else {
+                } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         String message;
-                        if(jsonObject.has("result")) {
+                        if (jsonObject.has("result")) {
                             message = jsonObject.getJSONObject("result").getString("message");
-                        }
-                        else {
+                        } else {
 
                             message = jsonObject.getString("message");
                         }
@@ -464,11 +510,11 @@ public class PartnerDetailActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<ModelResultRequestTransaction> call, @NonNull Response<ModelResultRequestTransaction> response) {
                 progressBarHandler.hide();
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     ModelResultRequestTransaction modelResultRequestTransaction = response.body();
-
                     assert modelResultRequestTransaction != null;
-                    if(modelResultRequestTransaction.getResult().isStatus()) {
+                    if (modelResultRequestTransaction.getResult().isStatus()) {
+                        sendNotification();
                         Snackbar.make(getWindow().getDecorView().getRootView(), modelResultRequestTransaction.getResult().getMessage(), Snackbar.LENGTH_SHORT)
                                 .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
                                     @Override
@@ -481,19 +527,16 @@ public class PartnerDetailActivity extends AppCompatActivity {
                                     }
                                 })
                                 .show();
-                    }
-                    else {
+                    } else {
                         Snackbar.make(getWindow().getDecorView().getRootView(), modelResultRequestTransaction.getResult().getMessage(), Snackbar.LENGTH_LONG).show();
                     }
-                }
-                else {
+                } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         String message;
-                        if(jsonObject.has("result")) {
+                        if (jsonObject.has("result")) {
                             message = jsonObject.getJSONObject("result").getString("message");
-                        }
-                        else {
+                        } else {
 
                             message = jsonObject.getString("message");
                         }
@@ -514,7 +557,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
     }
 
     private void doConsult(String relationId, String partnerId, String partnerTypeId, String partnerSpecializationId,
-                          String promoCode) {
+                           String promoCode) {
 
         progressBarHandler.show();
 
@@ -537,11 +580,12 @@ public class PartnerDetailActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<ModelResultRequestConsultation> call, @NonNull Response<ModelResultRequestConsultation> response) {
                 progressBarHandler.hide();
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     ModelResultRequestConsultation modelResultRequestConsultation = response.body();
 
                     assert modelResultRequestConsultation != null;
-                    if(modelResultRequestConsultation.getResult().isStatus()) {
+                    if (modelResultRequestConsultation.getResult().isStatus()) {
+                        sendNotification();
                         Snackbar.make(getWindow().getDecorView().getRootView(), modelResultRequestConsultation.getResult().getMessage(), Snackbar.LENGTH_SHORT)
                                 .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
                                     @Override
@@ -554,19 +598,16 @@ public class PartnerDetailActivity extends AppCompatActivity {
                                     }
                                 })
                                 .show();
-                    }
-                    else {
+                    } else {
                         Snackbar.make(getWindow().getDecorView().getRootView(), modelResultRequestConsultation.getResult().getMessage(), Snackbar.LENGTH_LONG).show();
                     }
-                }
-                else {
+                } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         String message;
-                        if(jsonObject.has("result")) {
+                        if (jsonObject.has("result")) {
                             message = jsonObject.getJSONObject("result").getString("message");
-                        }
-                        else {
+                        } else {
 
                             message = jsonObject.getString("message");
                         }
@@ -607,39 +648,35 @@ public class PartnerDetailActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<ModelResultPriceGet> call, @NonNull Response<ModelResultPriceGet> response) {
                 progressBarHandler.hide();
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     ModelResultPriceGet modelResultPriceGet = response.body();
 
                     assert modelResultPriceGet != null;
-                    if(modelResultPriceGet.getResult().isStatus()) {
+                    if (modelResultPriceGet.getResult().isStatus()) {
                         int size = modelResultPriceGet.getResult().getData().size();
-                        if(size > 0) {
+                        if (size > 0) {
                             String price = modelResultPriceGet.getResult().getData().get(0).getPriceAmount();
 
                             doctorFee.addTextChangedListener(new CurrencyTextWatcherTextView(doctorFee));
                             doctorFee.setText(price);
-                        }
-                        else {
+                        } else {
                             paymentDropdown.setText("");
                             selectedPaymentMethodId = "";
                             doctorFee.setText("-");
                         }
-                    }
-                    else {
+                    } else {
                         paymentDropdown.setText("");
                         selectedPaymentMethodId = "";
                     }
-                }
-                else {
+                } else {
                     paymentDropdown.setText("");
                     selectedPaymentMethodId = "";
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         String message;
-                        if(jsonObject.has("result")) {
+                        if (jsonObject.has("result")) {
                             message = jsonObject.getJSONObject("result").getString("message");
-                        }
-                        else {
+                        } else {
                             message = jsonObject.getString("message");
                         }
                         Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
@@ -656,6 +693,73 @@ public class PartnerDetailActivity extends AppCompatActivity {
                 selectedPaymentMethodId = "";
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sendNotification() {
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        Map<String, String> paramsNotif = new HashMap<>();
+        paramsNotif.put("body", "You Have New Request");
+        paramsNotif.put("click_action", "HOME");
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("to", doctorFirebaseToken);
+        params.put("notification", paramsNotif);
+
+        JSONObject jsonObject = new JSONObject(params);
+        Log.d("#8#8#", "sendNotif: " + jsonObject);
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url("https://fcm.googleapis.com/fcm/send")
+                .post(body)
+                .addHeader("content-type", "application/json; charset=utf-8")
+                .addHeader("Authorization", "key=AAAAbynyk1I:APA91bENZXh3N4QC-HrUy4ApIVe8CnW3F0k5mG5OXdUMApskyFTKDYnjd6Pdwko-hqvkekZoH5KxtC-gyxu0-XoXcItm9PJYGw9zzrc5Wbzr6CY3FuaSvXb7MCYMNfmNEVmUWZA8SqB5")
+                .build();
+
+        client.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull okhttp3.Call call, @NonNull okhttp3.Response response) throws IOException {
+                String result = response.body().string();
+                Log.d("#8#8#", "onResponse: " + result);
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        if (jsonObject.has("result")) {
+                            boolean status = jsonObject.getJSONObject("result").getBoolean("status");
+                            if (status) {
+                                Log.d("#8#8#", "onResponse: SIP");
+                            } else {
+                                String message = jsonObject.getJSONObject("result").getString("message");
+                                Log.d("#8#8#", "onResponse: SIP" + message);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        String message;
+                        if (jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        } else {
+                            message = jsonObject.getString("message");
+                        }
+
+                        Log.d("#8#8#", "onResponse: gagal" + message);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
     }

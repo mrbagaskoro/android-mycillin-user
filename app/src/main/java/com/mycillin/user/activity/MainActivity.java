@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.mycillin.user.R;
+import com.mycillin.user.firebase.FirebaseManager;
 import com.mycillin.user.fragment.AboutFragment;
 import com.mycillin.user.fragment.EWalletFragment;
 import com.mycillin.user.fragment.HistoryFragment;
@@ -25,6 +26,7 @@ import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.unratedList.ModelResultUnratedList;
 import com.mycillin.user.util.ApplicationPreferencesManager;
 import com.mycillin.user.util.BottomNavigationViewHelper;
+import com.mycillin.user.util.Configs;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
 
@@ -33,9 +35,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,19 +116,84 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
-        if(applicationPreferencesManager.isFirstLaunched()) {
+        if (applicationPreferencesManager.isFirstLaunched()) {
             Intent intent = new Intent(MainActivity.this, BigBannerActivity.class);
             startActivity(intent);
         }
 
+        sendTokenFirebase();
         navigation.setSelectedItemId(R.id.nav_home);
+    }
+
+    private void sendTokenFirebase() {
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        FirebaseManager firebaseManager = new FirebaseManager(getApplicationContext());
+        Map<String, Object> params = new HashMap<>();
+        params.put("user_id", sessionManager.getUserId());
+        params.put("token", firebaseManager.getFirebaseToken());
+
+        JSONObject jsonObject = new JSONObject(params);
+        Log.d("#8#8#", "sendTokenFirebase: " + params);
+
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(JSON, jsonObject.toString());
+        Request request = new Request.Builder()
+                .url(Configs.RETROFIT_BASE_URL + "detail_token_fcm_patient/")
+                .post(body)
+                .addHeader("content-type", "application/json; charset=utf-8")
+                .addHeader("Authorization", sessionManager.getUserToken())
+                .build();
+
+        client.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull okhttp3.Call call, @NonNull okhttp3.Response response) throws IOException {
+                String result = response.body().string();
+                Log.d("#8#8#", "onResponse: " + result);
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        if (jsonObject.has("result")) {
+                            boolean status = jsonObject.getJSONObject("result").getBoolean("status");
+                            if (status) {
+                                Log.d("#8#8#", "onResponse: SIP");
+                            } else {
+                                String message = jsonObject.getJSONObject("result").getString("message");
+                                Log.d("#8#8#", "onResponse: SIP" + message);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        String message;
+                        if (jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        } else {
+                            message = jsonObject.getString("message");
+                        }
+
+                        Log.d("#8#8#", "onResponse: gagal" + message);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if(navigation.getSelectedItemId() == R.id.nav_home) {
+        if (navigation.getSelectedItemId() == R.id.nav_home) {
             getUnratedList();
         }
     }
@@ -159,8 +231,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
 
             return true;
-        }
-        else if(id == R.id.action_invite) {
+        } else if (id == R.id.action_invite) {
             SessionManager sessionManager = new SessionManager(getApplicationContext());
             String userId = sessionManager.getUserId();
             String link = " http://mycillin.com/services/web/registration/" + userId;
@@ -194,13 +265,13 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<ModelResultUnratedList> call, @NonNull Response<ModelResultUnratedList> response) {
                 progressBarHandler.hide();
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     ModelResultUnratedList modelResultUnratedList = response.body();
 
                     assert modelResultUnratedList != null;
-                    if(modelResultUnratedList.getResult().isStatus()) {
+                    if (modelResultUnratedList.getResult().isStatus()) {
                         int size = modelResultUnratedList.getResult().getData().size();
-                        for(int i = 0; i < size; i++) {
+                        for (int i = 0; i < size; i++) {
                             Intent intent = new Intent(MainActivity.this, RatingActivity.class);
                             intent.putExtra(RatingActivity.EXTRA_PARAM_CREATED_DATE, modelResultUnratedList.getResult().getData().get(i).getCreatedDate());
                             intent.putExtra(RatingActivity.EXTRA_PARAM_BOOKING_ID, modelResultUnratedList.getResult().getData().get(i).getBookingId());
@@ -209,15 +280,13 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     }
-                }
-                else {
+                } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         String message;
-                        if(jsonObject.has("result")) {
+                        if (jsonObject.has("result")) {
                             message = jsonObject.getJSONObject("result").getString("message");
-                        }
-                        else {
+                        } else {
 
                             message = jsonObject.getString("message");
                         }

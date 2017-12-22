@@ -16,6 +16,7 @@ import com.mycillin.user.rest.findConsultation.ModelResultFindConsultation;
 import com.mycillin.user.rest.findFacility.ModelResultFindFacility;
 import com.mycillin.user.rest.findHealthcare.ModelResultFindHealthcare;
 import com.mycillin.user.rest.findPartner.ModelResultFindPartner;
+import com.mycillin.user.rest.firebaseGet.ModelResultFirebaseGet;
 import com.mycillin.user.rest.forgotPassword.ModelResultForgotPassword;
 import com.mycillin.user.rest.historyCompleted.ModelResultHistoryCompleted;
 import com.mycillin.user.rest.historyOnProgress.ModelResultHistoryOnProgress;
@@ -198,4 +199,7 @@ public interface MyCillinAPI {
 
     @POST("find_nearest_med_facility/")
     Call<ModelResultFindFacility> findFacility(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("detail_token_fcm_patient/")
+    Call<ModelResultFirebaseGet> getFirebaseToken(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }
