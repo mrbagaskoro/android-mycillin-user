@@ -1,7 +1,6 @@
 package com.mycillin.user.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -19,13 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
-import com.mycillin.user.activity.ChatActivity;
 import com.mycillin.user.activity.FindFacilityActivity;
-import com.mycillin.user.activity.MapServiceActivity;
+import com.mycillin.user.activity.FindServiceActivity;
 import com.mycillin.user.activity.PartnerListActivity;
 import com.mycillin.user.adapter.ConsultationMenuAdapter;
 import com.mycillin.user.database.Banner;
@@ -168,7 +165,7 @@ public class HomeFragment extends Fragment {
                     getAccountList(spinnerDialog);
                 }
                 else {
-                    Intent intent = new Intent(getContext(), MapServiceActivity.class);
+                    Intent intent = new Intent(getContext(), FindServiceActivity.class);
                     intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_BOOK_DOCTOR);
                     intent.putExtra(EXTRA_RELATION_ID, selectedRelationId);
                     startActivity(intent);
@@ -183,7 +180,7 @@ public class HomeFragment extends Fragment {
                     getAccountList(spinnerDialog);
                 }
                 else {
-                    Intent intent = new Intent(getContext(), MapServiceActivity.class);
+                    Intent intent = new Intent(getContext(), FindServiceActivity.class);
                     intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_MEDICAL_RESERVATION);
                     intent.putExtra(EXTRA_RELATION_ID, selectedRelationId);
                     startActivity(intent);
@@ -198,7 +195,7 @@ public class HomeFragment extends Fragment {
                     getAccountList(spinnerDialog);
                 }
                 else {
-                    Intent intent = new Intent(getContext(), MapServiceActivity.class);
+                    Intent intent = new Intent(getContext(), FindServiceActivity.class);
                     intent.putExtra(EXTRA_SERVICE_CALLED_FROM, KEY_BOOK_HEALTHCARE);
                     intent.putExtra(EXTRA_RELATION_ID, selectedRelationId);
                     startActivity(intent);

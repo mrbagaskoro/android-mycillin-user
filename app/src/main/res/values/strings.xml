@@ -378,5 +378,8 @@
     <string name="servicesActivity_facilityServiceDesc">Find and Locate nearest medical facilities from your place</string>
     <string name="mapsInfoWindow_navigationClickInfo">Click To Start Navigation</string>
     <string name="default_notification_channel_id" translatable="false">default_channel_notification</string>
+    <string name="findServiceActivity_requestLocationTitle">Request Location</string>
+    <string name="findServiceActivity_currentLocationTitle">Current Location</string>
+    <string name="findServiceActivity_searchLocationTitle">Search Location</string>
 
 </resources>

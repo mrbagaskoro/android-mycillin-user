@@ -373,5 +373,8 @@
     <string name="servicesActivity_facilityServiceDesc">Cari dan Temukan fasilitas kesehatan terdekat dari tempat anda</string>
     <string name="mapsInfoWindow_navigationClickInfo">Klik untuk memulai navigasi</string>
     <string name="default_notification_channel_id" translatable="false">default_channel_notification</string>
+    <string name="findServiceActivity_requestLocationTitle">Lokasi Request</string>
+    <string name="findServiceActivity_currentLocationTitle">Lokasi Saat Ini</string>
+    <string name="findServiceActivity_searchLocationTitle">Cari Lokasi</string>
 
 </resources>
