@@ -1,19 +1,17 @@
 package com.mycillin.user.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -31,11 +29,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mycillin.user.R;
+import com.mycillin.user.adapter.FacilityAdapter;
 import com.mycillin.user.list.FacilityList;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
 import com.mycillin.user.rest.findFacility.ModelResultFindFacility;
-import com.mycillin.user.adapter.FacilityAdapter;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
 
@@ -219,7 +217,7 @@ public class FindFacilityActivity extends AppCompatActivity {
                                 MarkerOptions markerOptions = new MarkerOptions();
                                 markerOptions.position(facility)
                                         .title(facilityName)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_facility_marker));
 
                                 FacilityList facilityList = new FacilityList();
                                 facilityList.setImage(facilityPicture);
