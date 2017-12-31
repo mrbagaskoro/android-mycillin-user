@@ -150,7 +150,7 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!medicalRecordDetailData.get(KEY_PARAM_PRESCRIPTION_IMG).equals("")) {
                     Intent intent = new Intent(MedicalRecordDetailActivity.this, ViewImageActivity.class);
-                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, medicalRecordDetailData.get(KEY_PARAM_PRESCRIPTION_IMG));
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_BASE_DATA, medicalRecordDetailData.get(KEY_PARAM_PRESCRIPTION_IMG));
                     startActivity(intent);
                 }
                 else {

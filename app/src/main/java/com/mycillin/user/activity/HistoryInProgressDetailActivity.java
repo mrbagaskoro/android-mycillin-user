@@ -165,7 +165,7 @@ public class HistoryInProgressDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!partnerPic.equals("")) {
                     Intent intent = new Intent(HistoryInProgressDetailActivity.this, ViewImageActivity.class);
-                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, partnerPic);
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_BASE_DATA, partnerPic);
                     startActivity(intent);
                 }
             }

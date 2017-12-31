@@ -142,7 +142,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!selectedPartnerPicURL.equals("")) {
                     Intent intent = new Intent(PartnerDetailActivity.this, ViewImageActivity.class);
-                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, selectedPartnerPicURL);
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_BASE_DATA, selectedPartnerPicURL);
                     startActivity(intent);
                 }
             }
@@ -153,7 +153,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!selectedPartnerSIPPURL.equals("")) {
                     Intent intent = new Intent(PartnerDetailActivity.this, ViewImageActivity.class);
-                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, selectedPartnerSIPPURL);
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_BASE_DATA, selectedPartnerSIPPURL);
                     startActivity(intent);
                 } else {
                     String message = getString(R.string.partnerDetailActivity_SIPPmessage);
@@ -167,7 +167,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!selectedPartnerSTRURL.equals("")) {
                     Intent intent = new Intent(PartnerDetailActivity.this, ViewImageActivity.class);
-                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, selectedPartnerSTRURL);
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_BASE_DATA, selectedPartnerSTRURL);
                     startActivity(intent);
                 } else {
                     String message = getString(R.string.partnerDetailActivity_STRmessage);

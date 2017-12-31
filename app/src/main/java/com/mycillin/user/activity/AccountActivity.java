@@ -15,6 +15,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +124,7 @@ public class AccountActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!sessionManager.getUserPicUrl().isEmpty()) {
                     Intent intent = new Intent(AccountActivity.this, ViewImageActivity.class);
-                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, sessionManager.getUserPicUrl());
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_BASE_DATA, sessionManager.getUserPicBaseData());
                     startActivity(intent);
                 }
             }
@@ -187,11 +188,11 @@ public class AccountActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         SessionManager sessionManager = new SessionManager(getApplicationContext());
-        if(sessionManager.getUserPicUrl().equals("")) {
+        if(sessionManager.getUserPicBaseData().equals("")) {
             getUserPic();
         }
         else {
-            loadAccountPic(sessionManager.getUserPicUrl());
+            loadAccountPic(sessionManager.getUserPicBaseData());
         }
     }
 
@@ -447,8 +448,10 @@ public class AccountActivity extends AppCompatActivity {
                     assert modelResultAccountPicGet != null;
 
                     if(modelResultAccountPicGet.getResult().isStatus()) {
-                        loadAccountPic(modelResultAccountPicGet.getResult().getMessage().get(0).getImageProfile());
-                        session.setUserPicUrl(modelResultAccountPicGet.getResult().getMessage().get(0).getImageProfile());
+                        session.setUserPicUrl(modelResultAccountPicGet.getResult().getData().get(0).getImageProfile());
+                        session.setUserPicBaseData(modelResultAccountPicGet.getResult().getData().get(0).getBaseData());
+
+                        loadAccountPic(modelResultAccountPicGet.getResult().getData().get(0).getBaseData());
                     }
                 }
                 else {
@@ -479,15 +482,16 @@ public class AccountActivity extends AppCompatActivity {
 
     private void loadAccountPic(String url) {
         if(!url.isEmpty()) {
-
             RequestOptions requestOptions = new RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
-                    .placeholder(R.drawable.ic_action_user)
+                    .placeholder(R.drawable.banner_default)
                     .fitCenter();
 
+            byte[] imageByteArray = Base64.decode(url, Base64.DEFAULT);
+
             Glide.with(getApplicationContext())
-                    .load(url)
+                    .load(imageByteArray)
                     .apply(requestOptions)
                     .into(userAvatar);
         }
@@ -529,9 +533,12 @@ public class AccountActivity extends AppCompatActivity {
                                                 public void onDismissed(Snackbar transientBottomBar, int event) {
                                                     super.onDismissed(transientBottomBar, event);
 
-                                                    String imageProfileUrl = modelResultAccountPicUpdate.getResult().getMessage().get(0).getImageProfile();
+                                                    String imageProfileUrl = modelResultAccountPicUpdate.getResult().getData().get(0).getImageProfile();
+                                                    String imageProfileBaseData = modelResultAccountPicUpdate.getResult().getData().get(0).getBaseData();
                                                     sessionManager.setUserPicUrl(imageProfileUrl);
-                                                    loadAccountPic(imageProfileUrl);
+                                                    sessionManager.setUserPicBaseData(imageProfileBaseData);
+
+                                                    loadAccountPic(imageProfileBaseData);
                                                     userAvatar.setImageBitmap(bitmap);
                                                 }
                                             })

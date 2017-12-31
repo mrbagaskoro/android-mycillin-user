@@ -20,6 +20,7 @@ public class SessionManager {
     private static final String KEY_USER_ID = "USER_ID";
     private static final String KEY_TOKEN = "TOKEN";
     private static final String KEY_USER_PIC_URL = "USER_PIC_URL";
+    private static final String KEY_USER_PIC_BASE_DATA = "USER_PIC_BASE_DATA";
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -32,13 +33,14 @@ public class SessionManager {
         editor = sharedPreferences.edit();
     }
 
-    public void createLoginSession(String email, String fullName, String userId, String token, String url) {
+    public void createLoginSession(String email, String fullName, String userId, String token, String url, String baseData) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_FULLNAME, fullName);
         editor.putString(KEY_USER_ID, userId);
         editor.putString(KEY_TOKEN, token);
         editor.putString(KEY_USER_PIC_URL, url);
+        editor.putString(KEY_USER_PIC_BASE_DATA, baseData);
 
         editor.commit();
     }
@@ -86,6 +88,15 @@ public class SessionManager {
 
     public void setUserPicUrl(String url) {
         editor.putString(KEY_USER_PIC_URL, url);
+        editor.commit();
+    }
+
+    public String getUserPicBaseData() {
+        return sharedPreferences.getString(KEY_USER_PIC_BASE_DATA, null);
+    }
+
+    public void setUserPicBaseData(String baseData) {
+        editor.putString(KEY_USER_PIC_BASE_DATA, baseData);
         editor.commit();
     }
 }

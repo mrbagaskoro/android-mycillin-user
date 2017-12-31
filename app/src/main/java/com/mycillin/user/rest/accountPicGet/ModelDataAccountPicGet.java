@@ -15,6 +15,9 @@ public class ModelDataAccountPicGet {
     @SerializedName("image_profile")
     @Expose
     private String imageProfile;
+    @SerializedName("base_data")
+    @Expose
+    private String baseData;
 
     public String getUserId() {
         return userId;
@@ -30,5 +33,13 @@ public class ModelDataAccountPicGet {
 
     public void setImageProfile(String imageProfile) {
         this.imageProfile = imageProfile;
+    }
+
+    public String getBaseData() {
+        return baseData;
+    }
+
+    public void setBaseData(String baseData) {
+        this.baseData = baseData;
     }
 }

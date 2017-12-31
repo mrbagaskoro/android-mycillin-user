@@ -154,7 +154,7 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!partnerPic.equals("")) {
                     Intent intent = new Intent(HistoryCompletedDetailActivity.this, ViewImageActivity.class);
-                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, partnerPic);
+                    intent.putExtra(ViewImageActivity.EXTRA_IMAGE_BASE_DATA, partnerPic);
                     startActivity(intent);
                 }
             }

@@ -57,7 +57,7 @@ public class InsuranceAdapter extends RecyclerView.Adapter<InsuranceAdapter.MyVi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(insuranceListActivity, ViewImageActivity.class);
-                intent.putExtra(ViewImageActivity.EXTRA_IMAGE_URL, resultList.getInsuranceImageUrl());
+                intent.putExtra(ViewImageActivity.EXTRA_IMAGE_BASE_DATA, resultList.getInsuranceImageUrl());
                 insuranceListActivity.startActivity(intent);
             }
         });

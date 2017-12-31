@@ -398,6 +398,7 @@ public class LoginActivity extends AppCompatActivity {
                             modelResultLogin.getResult().getData().getFullName(),
                             modelResultLogin.getResult().getData().getUserId(),
                             modelResultLogin.getResult().getToken(),
+                            "",
                             ""
                     );
 
@@ -597,7 +598,7 @@ public class LoginActivity extends AppCompatActivity {
                                         modelResultFacebookLogin.getResult().getData().getFullName(),
                                         modelResultFacebookLogin.getResult().getData().getUserId(),
                                         modelResultFacebookLogin.getResult().getToken(),
-                                        picture
+                                        picture, ""
                                 );
 
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -630,66 +631,5 @@ public class LoginActivity extends AppCompatActivity {
                         Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    private void getUserPic(final ModelResultLogin modelResultLogin) {
-        progressBarHandler.show();
-
-        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
-
-        HashMap<String, String> params = new HashMap<>();
-        params.put("user_id", modelResultLogin.getResult().getData().getUserId());
-
-        String token = modelResultLogin.getResult().getToken();
-        Log.d("###", "token: " + token);
-
-        myCillinAPI.getAvatar(token, params).enqueue(new Callback<ModelResultAccountPicGet>() {
-            @Override
-            public void onResponse(@NonNull Call<ModelResultAccountPicGet> call, @NonNull Response<ModelResultAccountPicGet> response) {
-                progressBarHandler.hide();
-
-                if(response.isSuccessful()) {
-                    ModelResultAccountPicGet modelResultAccountPicGet = response.body();
-                    assert modelResultAccountPicGet != null;
-
-                    if(modelResultAccountPicGet.getResult().isStatus()) {
-                        SessionManager session = new SessionManager(getApplicationContext());
-                        session.createLoginSession(
-                                modelResultLogin.getResult().getData().getEmail(),
-                                modelResultLogin.getResult().getData().getFullName(),
-                                modelResultLogin.getResult().getData().getUserId(),
-                                modelResultLogin.getResult().getToken(),
-                                modelResultAccountPicGet.getResult().getMessage().get(0).getImageProfile()
-                                );
-
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-                else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        String message;
-                        if(jsonObject.has("result")) {
-                            message = jsonObject.getJSONObject("result").getString("message");
-                        }
-                        else {
-                            message = jsonObject.getString("message");
-                        }
-                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
-                    } catch (JSONException | IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ModelResultAccountPicGet> call, @NonNull Throwable t) {
-                // TODO: 12/10/2017 SET FAILURE SCENARIO
-                progressBarHandler.hide();
-                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
-            }
-        });
     }
 }

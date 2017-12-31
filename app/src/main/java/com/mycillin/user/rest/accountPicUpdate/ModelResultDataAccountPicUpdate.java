@@ -14,9 +14,9 @@ public class ModelResultDataAccountPicUpdate {
     @SerializedName("status")
     @Expose
     private boolean status;
-    @SerializedName("message")
+    @SerializedName("data")
     @Expose
-    private List<ModelDataAccountPicUpdate> message = null;
+    private List<ModelDataAccountPicUpdate> data = null;
 
     public boolean isStatus() {
         return status;
@@ -26,11 +26,11 @@ public class ModelResultDataAccountPicUpdate {
         this.status = status;
     }
 
-    public List<ModelDataAccountPicUpdate> getMessage() {
-        return message;
+    public List<ModelDataAccountPicUpdate> getData() {
+        return data;
     }
 
-    public void setMessage(List<ModelDataAccountPicUpdate> message) {
-        this.message = message;
+    public void setData(List<ModelDataAccountPicUpdate> data) {
+        this.data = data;
     }
 }
