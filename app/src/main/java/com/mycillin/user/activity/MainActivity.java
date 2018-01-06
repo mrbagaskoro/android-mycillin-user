@@ -1,5 +1,6 @@
 package com.mycillin.user.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -98,9 +100,22 @@ public class MainActivity extends AppCompatActivity {
 
                         return true;
                     case R.id.nav_wallet:
-                        tx.replace(R.id.mainActivity_fl_framecontainer, new EWalletFragment());
+                        /*tx.replace(R.id.mainActivity_fl_framecontainer, new EWalletFragment());
                         tx.commit();
-                        getSupportActionBar().setTitle(R.string.nav_e_wallet);
+                        getSupportActionBar().setTitle(R.string.nav_e_wallet);*/
+
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle(getString(R.string.mainActivity_infoTitle))
+                                .setCancelable(false)
+                                .setMessage(R.string.mainActivity_comingSoonMessage)
+                                .setIcon(R.mipmap.ic_launcher)
+                                .setPositiveButton(getString(R.string.ratingActivity_ratingDesc3), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        navigation.setSelectedItemId(R.id.nav_home);
+                                    }
+                                })
+                                .show();
 
                         return true;
                     case R.id.nav_about:

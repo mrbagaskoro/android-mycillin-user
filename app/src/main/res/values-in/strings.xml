@@ -376,5 +376,6 @@
     <string name="findServiceActivity_requestLocationTitle">Lokasi Request</string>
     <string name="findServiceActivity_currentLocationTitle">Lokasi Saat Ini</string>
     <string name="findServiceActivity_searchLocationTitle">Cari Lokasi</string>
+    <string name="mainActivity_comingSoonMessage">Fitur ini akan segera hadir !</string>
 
 </resources>

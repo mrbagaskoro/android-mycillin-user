@@ -381,5 +381,6 @@
     <string name="findServiceActivity_requestLocationTitle">Request Location</string>
     <string name="findServiceActivity_currentLocationTitle">Current Location</string>
     <string name="findServiceActivity_searchLocationTitle">Search Location</string>
+    <string name="mainActivity_comingSoonMessage">This feature is coming soon !</string>
 
 </resources>

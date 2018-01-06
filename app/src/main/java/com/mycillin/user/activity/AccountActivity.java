@@ -151,6 +151,23 @@ public class AccountActivity extends AppCompatActivity {
             }
         });
 
+        managePaymentMethod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(AccountActivity.this)
+                        .setTitle(getString(R.string.mainActivity_infoTitle))
+                        .setMessage(R.string.mainActivity_comingSoonMessage)
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setPositiveButton(getString(R.string.ratingActivity_ratingDesc3), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .show();
+            }
+        });
+
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
