@@ -382,5 +382,8 @@
     <string name="findServiceActivity_currentLocationTitle">Current Location</string>
     <string name="findServiceActivity_searchLocationTitle">Search Location</string>
     <string name="mainActivity_comingSoonMessage">This feature is coming soon !</string>
+    <string name="historyCompletedDetailActivity_emailReceiptTitle">Send Receipt ?</string>
+    <string name="historyCompletedDetailActivity_emailReceiptMessage">Do you want to send the receipt to your email account ?</string>
+    <string name="historyCompletedDetailActivity_send">Send</string>
 
 </resources>

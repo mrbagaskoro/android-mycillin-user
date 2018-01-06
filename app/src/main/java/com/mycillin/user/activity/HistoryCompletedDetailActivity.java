@@ -1,6 +1,10 @@
 package com.mycillin.user.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,11 +23,25 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mycillin.user.R;
+import com.mycillin.user.rest.MyCillinAPI;
+import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.emailReceipt.ModelResultEmailReceipt;
 import com.mycillin.user.util.CurrencyTextWatcherTextView;
+import com.mycillin.user.util.ProgressBarHandler;
+import com.mycillin.user.util.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HistoryCompletedDetailActivity extends AppCompatActivity {
 
@@ -52,10 +70,12 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
     TextView diagnoseInfo;
     @BindView(R.id.historyCompletedDetailActivity_tv_actionInfo)
     TextView actionInfo;
-    @BindView(R.id.historyCompletedDetailActivity_bt_redeemPrescriptionBtn)
-    Button redeemBtn;
+    @BindView(R.id.historyCompletedDetailActivity_bt_emailReceiptBtn)
+    Button emailReceiptBtn;
     @BindView(R.id.historyCompletedDetailActivity_bt_emailDiagnosisBtn)
-    Button emailBtn;
+    Button emailDiagnosisBtn;
+
+    private ProgressBarHandler progressBarHandler;
 
     public static String KEY_FLAG_ORDER_DATE = "KEY_FLAG_ORDER_DATE";
     public static String KEY_FLAG_ORDER_TIME = "KEY_FLAG_ORDER_TIME";
@@ -90,9 +110,11 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
 
         toolbar.setTitle(getResources().getString(R.string.historyFragment_completedTitle));
 
+        progressBarHandler = new ProgressBarHandler(this);
+
         String orderDate = getIntent().getStringExtra(KEY_FLAG_ORDER_DATE);
         String orderTime = getIntent().getStringExtra(KEY_FLAG_ORDER_TIME);
-        String orderBookingId = getIntent().getStringExtra(KEY_FLAG_BOOKING_ID);
+        final String orderBookingId = getIntent().getStringExtra(KEY_FLAG_BOOKING_ID);
         String orderServiceTypeId = getIntent().getStringExtra(KEY_FLAG_SERVICE_TYPE_ID);
         String orderServiceTypeDesc = getIntent().getStringExtra(KEY_FLAG_SERVICE_TYPE_DESC);
         String partnerId = getIntent().getStringExtra(KEY_FLAG_PARTNER_ID);
@@ -157,6 +179,83 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
                     intent.putExtra(ViewImageActivity.EXTRA_IMAGE_BASE_DATA, partnerPic);
                     startActivity(intent);
                 }
+            }
+        });
+
+        emailReceiptBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(HistoryCompletedDetailActivity.this)
+                        .setTitle(R.string.historyCompletedDetailActivity_emailReceiptTitle)
+                        .setMessage(R.string.historyCompletedDetailActivity_emailReceiptMessage)
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setPositiveButton(R.string.historyCompletedDetailActivity_send, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sendEmailReceipt(orderBookingId);
+                            }
+                        })
+                        .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
+    }
+
+    private void sendEmailReceipt(String bookingId) {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("booking_id", bookingId);
+
+        myCillinAPI.sendEmailReceipt(token, params).enqueue(new Callback<ModelResultEmailReceipt>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultEmailReceipt> call, @NonNull Response<ModelResultEmailReceipt> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultEmailReceipt modelResultEmailReceipt = response.body();
+
+                    assert modelResultEmailReceipt != null;
+                    if(modelResultEmailReceipt.getResult().isStatus()) {
+                        String message = modelResultEmailReceipt.getResult().getMessage();
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultEmailReceipt> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
     }

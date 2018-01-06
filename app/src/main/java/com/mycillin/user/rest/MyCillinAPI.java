@@ -10,6 +10,7 @@ import com.mycillin.user.rest.bannerImage.ModelResultBannerImage;
 import com.mycillin.user.rest.bannerImageBig.ModelResultBannerImageBig;
 import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
+import com.mycillin.user.rest.emailReceipt.ModelResultEmailReceipt;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
 import com.mycillin.user.rest.findClinic.ModelResultFindClinic;
 import com.mycillin.user.rest.findConsultation.ModelResultFindConsultation;
@@ -202,4 +203,7 @@ public interface MyCillinAPI {
 
     @POST("detail_token_fcm_patient/")
     Call<ModelResultFirebaseGet> getFirebaseToken(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("email_e_receipt/")
+    Call<ModelResultEmailReceipt> sendEmailReceipt(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }

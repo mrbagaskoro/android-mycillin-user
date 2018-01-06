@@ -377,5 +377,8 @@
     <string name="findServiceActivity_currentLocationTitle">Lokasi Saat Ini</string>
     <string name="findServiceActivity_searchLocationTitle">Cari Lokasi</string>
     <string name="mainActivity_comingSoonMessage">Fitur ini akan segera hadir !</string>
+    <string name="historyCompletedDetailActivity_emailReceiptTitle">Kirim Struk ?</string>
+    <string name="historyCompletedDetailActivity_emailReceiptMessage">Anda ingin mengirim struk ke alamat email anda ?</string>
+    <string name="historyCompletedDetailActivity_send">Kirim</string>
 
 </resources>

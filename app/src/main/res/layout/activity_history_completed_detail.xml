@@ -366,7 +366,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/historyCompletedDetailActivity_bt_redeemPrescriptionBtn"
+                android:id="@+id/historyCompletedDetailActivity_bt_emailReceiptBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_no_rad_accent"
