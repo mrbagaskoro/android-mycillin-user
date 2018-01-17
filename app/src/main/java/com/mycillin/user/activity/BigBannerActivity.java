@@ -3,6 +3,8 @@ package com.mycillin.user.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +31,8 @@ public class BigBannerActivity extends AppCompatActivity {
 
     @BindView(R.id.bigBannerActivity_cv_carouselView)
     CarouselView bigBanner;
+    @BindView(R.id.bigBannerActivity_ib_closeButton)
+    ImageButton closeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,13 @@ public class BigBannerActivity extends AppCompatActivity {
 
         ApplicationPreferencesManager applicationPreferencesManager = new ApplicationPreferencesManager(getApplicationContext());
         applicationPreferencesManager.notFirstLaunched();
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void getBigBannerImage() {

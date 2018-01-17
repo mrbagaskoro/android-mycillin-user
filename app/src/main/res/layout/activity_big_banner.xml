@@ -18,4 +18,19 @@
         app:strokeColor="#FF777777"
         app:strokeWidth="1dp"/>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true" >
+
+        <ImageButton
+            android:id="@+id/bigBannerActivity_ib_closeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_action_cancel"/>
+
+    </RelativeLayout>
+
 </RelativeLayout>
