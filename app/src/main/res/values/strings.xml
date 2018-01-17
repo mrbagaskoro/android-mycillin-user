@@ -385,5 +385,7 @@
     <string name="historyCompletedDetailActivity_emailReceiptTitle">Send Receipt ?</string>
     <string name="historyCompletedDetailActivity_emailReceiptMessage">Do you want to send the receipt to your email account ?</string>
     <string name="historyCompletedDetailActivity_send">Send</string>
+    <string name="historyCompletedDetailActivity_emailMedicalRecordTitle">Send Medical Record ?</string>
+    <string name="historyCompletedDetailActivity_emailMedicalRecordMessage">Do you want to send the medical record to your email account ?</string>
 
 </resources>

@@ -380,5 +380,7 @@
     <string name="historyCompletedDetailActivity_emailReceiptTitle">Kirim Struk ?</string>
     <string name="historyCompletedDetailActivity_emailReceiptMessage">Anda ingin mengirim struk ke alamat email anda ?</string>
     <string name="historyCompletedDetailActivity_send">Kirim</string>
+    <string name="historyCompletedDetailActivity_emailMedicalRecordTitle">Kirim Rekam Medis ?</string>
+    <string name="historyCompletedDetailActivity_emailMedicalRecordMessage">Anda ingin mengirim rekam medis ke alamat email anda ?</string>
 
 </resources>

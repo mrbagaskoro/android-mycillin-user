@@ -10,6 +10,7 @@ import com.mycillin.user.rest.bannerImage.ModelResultBannerImage;
 import com.mycillin.user.rest.bannerImageBig.ModelResultBannerImageBig;
 import com.mycillin.user.rest.cancelReasonList.ModelResultCancelReasonList;
 import com.mycillin.user.rest.changePassword.ModelResultChangePassword;
+import com.mycillin.user.rest.emailMedicalRecord.ModelResultEmailMedicalRecord;
 import com.mycillin.user.rest.emailReceipt.ModelResultEmailReceipt;
 import com.mycillin.user.rest.facebookLogin.ModelResultFacebookLogin;
 import com.mycillin.user.rest.findClinic.ModelResultFindClinic;
@@ -206,4 +207,7 @@ public interface MyCillinAPI {
 
     @POST("email_e_receipt/")
     Call<ModelResultEmailReceipt> sendEmailReceipt(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("email_record/")
+    Call<ModelResultEmailMedicalRecord> sendEmailMedicalRecord(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }

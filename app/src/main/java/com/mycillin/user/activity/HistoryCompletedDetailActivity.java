@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.mycillin.user.R;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
+import com.mycillin.user.rest.emailMedicalRecord.ModelResultEmailMedicalRecord;
 import com.mycillin.user.rest.emailReceipt.ModelResultEmailReceipt;
 import com.mycillin.user.util.CurrencyTextWatcherTextView;
 import com.mycillin.user.util.ProgressBarHandler;
@@ -204,6 +205,29 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
                         .show();
             }
         });
+
+        emailDiagnosisBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(HistoryCompletedDetailActivity.this)
+                        .setTitle(R.string.historyCompletedDetailActivity_emailMedicalRecordTitle)
+                        .setMessage(R.string.historyCompletedDetailActivity_emailMedicalRecordMessage)
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setPositiveButton(R.string.historyCompletedDetailActivity_send, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sendEmailMedicalRecord(orderBookingId);
+                            }
+                        })
+                        .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
     }
 
     private void sendEmailReceipt(String bookingId) {
@@ -253,6 +277,60 @@ public class HistoryCompletedDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<ModelResultEmailReceipt> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sendEmailMedicalRecord(String bookingId) {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+        String userId = sessionManager.getUserId();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("user_id", userId);
+        params.put("booking_id", bookingId);
+
+        myCillinAPI.sendEmailMedicalRecord(token, params).enqueue(new Callback<ModelResultEmailMedicalRecord>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultEmailMedicalRecord> call, @NonNull Response<ModelResultEmailMedicalRecord> response) {
+                progressBarHandler.hide();
+
+                if(response.isSuccessful()) {
+                    ModelResultEmailMedicalRecord modelResultEmailMedicalRecord = response.body();
+
+                    assert modelResultEmailMedicalRecord != null;
+                    if(modelResultEmailMedicalRecord.getResult().isStatus()) {
+                        String message = modelResultEmailMedicalRecord.getResult().getMessage();
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if(jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        }
+                        else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultEmailMedicalRecord> call, @NonNull Throwable t) {
                 // TODO: 12/10/2017 SET FAILURE SCENARIO
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
