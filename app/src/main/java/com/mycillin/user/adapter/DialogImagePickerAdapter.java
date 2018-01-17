@@ -57,11 +57,11 @@ public class DialogImagePickerAdapter extends BaseAdapter {
         switch (position) {
             case 0:
                 viewHolder.textView.setText(R.string.dialogImagePickerAdapter_galleryTitle);
-                viewHolder.imageView.setImageResource(R.mipmap.ic_launcher);
+                viewHolder.imageView.setImageResource(R.drawable.ic_menu_gallery);
                 break;
             case 1:
                 viewHolder.textView.setText(R.string.dialogImagePickerAdapter_cameraTitle);
-                viewHolder.imageView.setImageResource(R.mipmap.ic_launcher);
+                viewHolder.imageView.setImageResource(R.drawable.ic_menu_camera);
                 break;
         }
 
