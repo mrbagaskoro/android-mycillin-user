@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -70,6 +69,8 @@ public class FindServiceActivity extends AppCompatActivity {
     Switch BPJSSwitch;
     @BindView(R.id.findServiceActivity_bt_searchBtn)
     Button searchBtn;
+    @BindView(R.id.findServiceActivity_tv_clearLocation)
+    TextView clearLocationTxt;
 
     private ProgressBarHandler progressBarHandler;
     private LocationManager locationManager;
@@ -209,9 +210,6 @@ public class FindServiceActivity extends AppCompatActivity {
                 else if(i == R.id.findServiceActivity_rb_genderFemaleRb) {
                     selectedGender = "P";
                 }
-
-
-                Log.d("PU3", "getDoctorList: " + selectedGender);
             }
         });
 
@@ -253,6 +251,15 @@ public class FindServiceActivity extends AppCompatActivity {
 
                     startActivity(intent);
                 }
+            }
+        });
+
+        clearLocationTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                radioGroupLocation.clearCheck();
+                placeInfoTxt.setVisibility(View.GONE);
+                placeInfoTxt.setText("");
             }
         });
     }

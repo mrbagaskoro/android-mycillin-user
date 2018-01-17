@@ -387,5 +387,6 @@
     <string name="historyCompletedDetailActivity_send">Send</string>
     <string name="historyCompletedDetailActivity_emailMedicalRecordTitle">Send Medical Record ?</string>
     <string name="historyCompletedDetailActivity_emailMedicalRecordMessage">Do you want to send the medical record to your email account ?</string>
+    <string name="findServiceActivity_clearTitle">CLEAR</string>
 
 </resources>

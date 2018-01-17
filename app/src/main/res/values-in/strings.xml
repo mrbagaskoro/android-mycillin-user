@@ -382,5 +382,6 @@
     <string name="historyCompletedDetailActivity_send">Kirim</string>
     <string name="historyCompletedDetailActivity_emailMedicalRecordTitle">Kirim Rekam Medis ?</string>
     <string name="historyCompletedDetailActivity_emailMedicalRecordMessage">Anda ingin mengirim rekam medis ke alamat email anda ?</string>
+    <string name="findServiceActivity_clearTitle">HAPUS</string>
 
 </resources>
