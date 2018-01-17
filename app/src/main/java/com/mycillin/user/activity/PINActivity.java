@@ -75,6 +75,8 @@ public class PINActivity extends AppCompatActivity {
 
     private ProgressBarHandler progressBarHandler;
 
+    public static final int REQUEST_CREATE_PIN = 1011;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -438,6 +440,19 @@ public class PINActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CREATE_PIN) {
+            if(resultCode == RESULT_OK || resultCode == RESULT_CANCELED) {
+                Intent intent = new Intent(PINActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        }
+    }
+
     private void getPin() {
         progressBarHandler.show();
 
@@ -499,7 +514,7 @@ public class PINActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = new Intent(PINActivity.this, ChangePINActivity.class);
-                                        startActivity(intent);
+                                        startActivityForResult(intent, REQUEST_CREATE_PIN);
                                     }
                                 })
                                 .show();
