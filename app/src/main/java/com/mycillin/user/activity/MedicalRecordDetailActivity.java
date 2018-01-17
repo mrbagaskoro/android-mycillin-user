@@ -1,9 +1,12 @@
 package com.mycillin.user.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -115,6 +118,8 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
     LinearLayout messageContainer;
     @BindView(R.id.medicalRecordDetailActivity_tv_message)
     TextView message;
+    @BindView(R.id.medicalRecordDetailActivity_fab_emailFAB)
+    FloatingActionButton emailFAB;
 
     private List<PrescriptionRecordList> prescriptionRecordLists = new ArrayList<>();
     private PrescriptionRecordAdapter prescriptionRecordAdapter;
@@ -156,6 +161,29 @@ public class MedicalRecordDetailActivity extends AppCompatActivity {
                 else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), R.string.medicalRecordDetailActivity_prescriptionImageNotAvailableMessage, Snackbar.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        emailFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(MedicalRecordDetailActivity.this)
+                        .setTitle(R.string.historyCompletedDetailActivity_emailMedicalRecordTitle)
+                        .setMessage(R.string.historyCompletedDetailActivity_emailMedicalRecordMessage)
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setPositiveButton(R.string.historyCompletedDetailActivity_send, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //sendEmailMedicalRecord(orderBookingId);
+                            }
+                        })
+                        .setNegativeButton(R.string.accountActivity_cancelTitle, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
             }
         });
 
