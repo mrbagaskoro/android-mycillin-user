@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -199,15 +200,18 @@ public class FindServiceActivity extends AppCompatActivity {
         genderRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if(i == R.id.filterDoctorActivity_rb_genderAllRb) {
+                if(i == R.id.findServiceActivity_rb_genderAllRb) {
                     selectedGender = "";
                 }
-                else if(i == R.id.filterDoctorActivity_rb_genderMaleRb) {
+                else if(i == R.id.findServiceActivity_rb_genderMaleRb) {
                     selectedGender = "L";
                 }
-                else if(i == R.id.filterDoctorActivity_rb_genderFemaleRb) {
+                else if(i == R.id.findServiceActivity_rb_genderFemaleRb) {
                     selectedGender = "P";
                 }
+
+
+                Log.d("PU3", "getDoctorList: " + selectedGender);
             }
         });
 
