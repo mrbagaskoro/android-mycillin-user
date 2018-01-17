@@ -264,20 +264,19 @@ public class PartnerDetailActivity extends AppCompatActivity {
                 }
             }
         });
-        getPartnerfirebase();
+        getPartnerfirebase(partnerId);
     }
 
-    private void getPartnerfirebase() {
+    private void getPartnerfirebase(final String partnerId) {
         progressBarHandler.show();
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
         String token = sessionManager.getUserToken();
-        String userId = sessionManager.getUserId();
 
         MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("user_id", userId);
+        params.put("user_id", partnerId);
 
         myCillinAPI.getFirebaseToken(token, params).enqueue(new Callback<ModelResultFirebaseGet>() {
             @Override
@@ -300,7 +299,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
-                    getPartnerfirebase();
+                    getPartnerfirebase(partnerId);
                 }
             }
 
@@ -308,7 +307,7 @@ public class PartnerDetailActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<ModelResultFirebaseGet> call, @NonNull Throwable t) {
                 progressBarHandler.hide();
                 Snackbar.make(getWindow().getDecorView().getRootView(), "Firebase : " + t.getMessage(), Snackbar.LENGTH_SHORT).show();
-                getPartnerfirebase();
+                getPartnerfirebase(partnerId);
             }
         });
     }
