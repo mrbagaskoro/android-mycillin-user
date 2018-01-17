@@ -74,7 +74,7 @@ dependencies {
 greendao {
 
     // format versi YYMMDDHHMM.
-    schemaVersion 1712161002
+    schemaVersion 1801171026
 }
 
 configurations.all {

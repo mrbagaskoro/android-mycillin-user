@@ -31,21 +31,22 @@ public class BannerBig {
     @SerializedName("end_date")
     @Expose
     private String endDate;
-
-    @Generated(hash = 1973582241)
+    @SerializedName("base_data")
+    @Expose
+    private String baseData;
+    @Generated(hash = 337060831)
     public BannerBig(String imageId, String urlLink, String imageName,
-            String startDate, String endDate) {
+            String startDate, String endDate, String baseData) {
         this.imageId = imageId;
         this.urlLink = urlLink;
         this.imageName = imageName;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.baseData = baseData;
     }
-
     @Generated(hash = 419270683)
     public BannerBig() {
     }
-
     public String getImageId() {
         return this.imageId;
     }
@@ -75,5 +76,11 @@ public class BannerBig {
     }
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+    public String getBaseData() {
+        return this.baseData;
+    }
+    public void setBaseData(String baseData) {
+        this.baseData = baseData;
     }
 }

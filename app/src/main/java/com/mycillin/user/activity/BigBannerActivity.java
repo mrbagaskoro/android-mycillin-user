@@ -2,6 +2,7 @@ package com.mycillin.user.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -42,51 +43,59 @@ public class BigBannerActivity extends AppCompatActivity {
     }
 
     private void getBigBannerImage() {
-        final List<String> imageUrls = new ArrayList<>();
+        final List<String> imageData = new ArrayList<>();
         final List<String> imageLinks = new ArrayList<>();
 
         DaoDatabaseHelper daoDatabaseHelper = new DaoDatabaseHelper(BigBannerActivity.this);
         Query<BannerBig> query = daoDatabaseHelper.getBannerBig();
 
-        imageUrls.clear();
+        imageData.clear();
         imageLinks.clear();
-        for (int i = 0; i < query.list().size(); i++) {
-            String imageUrl = query.list().get(i).getImageName();
-            String imageLink = query.list().get(i).getUrlLink();
-            imageUrls.add(imageUrl);
-            imageLinks.add(imageLink);
+
+        if(query.list().size() > 0) {
+            for (int i = 0; i < query.list().size(); i++) {
+                String baseData = query.list().get(i).getBaseData();
+                String imageLink = query.list().get(i).getUrlLink();
+                imageData.add(baseData);
+                imageLinks.add(imageLink);
+            }
+
+            bigBanner.setPageCount(query.list().size());
+            bigBanner.setImageListener(new ImageListener() {
+                @Override
+                public void setImageForPosition(int position, ImageView imageView) {
+                    RequestOptions requestOptions = new RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
+                            .placeholder(R.drawable.banner_default)
+                            .fitCenter();
+
+                    byte[] imageByteArray = Base64.decode(imageData.get(position), Base64.DEFAULT);
+
+                    Glide.with(getApplicationContext())
+                            .load(imageByteArray)
+                            .apply(requestOptions)
+                            .into(imageView);
+                }
+            });
+
+            bigBanner.setImageClickListener(new ImageClickListener() {
+                @Override
+                public void onClick(int position) {
+                    new FinestWebView.Builder(getApplicationContext()).theme(R.style.WebViewTheme)
+                            .titleDefault("MyCillin")
+                            .webViewBuiltInZoomControls(true)
+                            .webViewDisplayZoomControls(true)
+                            .dividerHeight(0)
+                            .gradientDivider(false)
+                            .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit,
+                                    R.anim.activity_close_enter, R.anim.activity_close_exit)
+                            .show(imageLinks.get(position));
+                }
+            });
         }
-
-        bigBanner.setPageCount(query.list().size());
-        bigBanner.setImageListener(new ImageListener() {
-            @Override
-            public void setImageForPosition(int position, ImageView imageView) {
-                RequestOptions requestOptions = new RequestOptions()
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .skipMemoryCache(true)
-                        .placeholder(R.drawable.banner_default)
-                        .fitCenter();
-
-                Glide.with(getApplicationContext())
-                        .load(imageUrls.get(position))
-                        .apply(requestOptions)
-                        .into(imageView);
-            }
-        });
-
-        bigBanner.setImageClickListener(new ImageClickListener() {
-            @Override
-            public void onClick(int position) {
-                new FinestWebView.Builder(getApplicationContext()).theme(R.style.WebViewTheme)
-                        .titleDefault("MyCillin")
-                        .webViewBuiltInZoomControls(true)
-                        .webViewDisplayZoomControls(true)
-                        .dividerHeight(0)
-                        .gradientDivider(false)
-                        .setCustomAnimations(R.anim.activity_open_enter, R.anim.activity_open_exit,
-                                R.anim.activity_close_enter, R.anim.activity_close_exit)
-                        .show(imageLinks.get(position));
-            }
-        });
+        else {
+            finish();
+        }
     }
 }
