@@ -473,20 +473,6 @@ public class PINActivity extends AppCompatActivity {
                             }
                             Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
 
-                            new AlertDialog.Builder(PINActivity.this)
-                                    .setTitle(R.string.mainActivity_infoTitle)
-                                    .setMessage(R.string.mainActivity_setupPINMessage)
-                                    .setIcon(R.mipmap.ic_launcher)
-                                    .setCancelable(false)
-                                    .setPositiveButton(R.string.mainActivity_setupButtonTitle, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            Intent intent = new Intent(PINActivity.this, ChangePINActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    })
-                                    .show();
-
                         } catch (JSONException | IOException e) {
                             e.printStackTrace();
                         }
@@ -503,6 +489,21 @@ public class PINActivity extends AppCompatActivity {
                             message = jsonObject.getString("message");
                         }
                         Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+
+                        new AlertDialog.Builder(PINActivity.this)
+                                .setTitle(R.string.mainActivity_infoTitle)
+                                .setMessage(R.string.mainActivity_setupPINMessage)
+                                .setIcon(R.mipmap.ic_launcher)
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.mainActivity_setupButtonTitle, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(PINActivity.this, ChangePINActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .show();
+
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
