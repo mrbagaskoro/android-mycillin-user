@@ -4,7 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/bg_login"
     android:animateLayoutChanges="true">
 
     <RelativeLayout
@@ -85,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/primaryText"
                 android:text="@string/loginActivity_tosNotes" />
 
         </LinearLayout>
@@ -298,7 +297,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_small"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@color/primaryText"
                 android:text="@string/loginActivity_forgotPassword" />
 
         </LinearLayout>
