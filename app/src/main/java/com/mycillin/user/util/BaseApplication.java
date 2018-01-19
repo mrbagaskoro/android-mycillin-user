@@ -9,6 +9,7 @@ import com.mycillin.user.database.DaoMaster;
 import com.mycillin.user.database.DaoSession;
 
 import io.fabric.sdk.android.Fabric;
+
 import org.greenrobot.greendao.database.Database;
 
 public class BaseApplication extends Application {
@@ -18,11 +19,8 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        final Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics(), new CrashlyticsNdk())
-                .debuggable(true)
-                .build();
-        Fabric.with(fabric);
+
+        Fabric.with(this, new Crashlytics());
 
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "mycillin-user-db");
         Database db = helper.getWritableDb();
