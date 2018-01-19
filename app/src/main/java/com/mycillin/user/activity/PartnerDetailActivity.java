@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -22,11 +21,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
-import com.mycillin.user.firebase.FirebaseManager;
 import com.mycillin.user.fragment.HomeFragment;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
-import com.mycillin.user.rest.firebaseGet.ModelResultDataFirebaseGet;
 import com.mycillin.user.rest.firebaseGet.ModelResultFirebaseGet;
 import com.mycillin.user.rest.partnerDetailGet.ModelResultPartnerDetailGet;
 import com.mycillin.user.rest.paymentMethodeList.ModelResultPaymentMethodeList;
@@ -34,14 +31,12 @@ import com.mycillin.user.rest.priceGet.ModelResultPriceGet;
 import com.mycillin.user.rest.promoCheck.ModelResultPromoCheck;
 import com.mycillin.user.rest.requestConsultation.ModelResultRequestConsultation;
 import com.mycillin.user.rest.requestTransaction.ModelResultRequestTransaction;
-import com.mycillin.user.util.Configs;
 import com.mycillin.user.util.CurrencyTextWatcherTextView;
 import com.mycillin.user.util.ProgressBarHandler;
 import com.mycillin.user.util.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;

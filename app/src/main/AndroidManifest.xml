@@ -91,7 +91,12 @@
         <activity android:name=".activity.HistoryInProgressDetailActivity" />
         <activity android:name=".activity.HistoryCompletedDetailActivity" />
         <activity android:name=".activity.RatingActivity" />
-        <activity android:name=".activity.ChatActivity" />
+        <activity android:name=".activity.ChatActivity">
+            <intent-filter>
+                <action android:name="CHAT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.TermsAndPrivacyPolicyActivity" />
         <activity android:name=".activity.ChangePasswordActivity" />
         <activity android:name=".activity.CancelActivity" />

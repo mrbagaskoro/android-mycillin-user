@@ -28,6 +28,12 @@ import butterknife.ButterKnife;
 
 public class ChatActivity extends AppCompatActivity {
 
+    public static String KEY_FLAG_CHAT_PATIENT_ID = "CHAT_PATIENT_ID";
+    public static String KEY_FLAG_CHAT_PATIENT_NAME = "CHAT_PATIENT_NAME";
+    public static String KEY_FLAG_CHAT_USER_ID = "CHAT_USER_ID";
+    public static String KEY_FLAG_CHAT_USER_NAME = "CHAT_USER_NAME";
+    public static String KEY_FLAG_CHAT_BOOKING_ID = "CHAT_BOOKING_ID";
+
     @BindView(R.id.chat_ll_reference1)
     LinearLayout layoutRef1;
     @BindView(R.id.chat_rl_reference2)
@@ -39,17 +45,26 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.chat_scrollView)
     ScrollView svScroll;
 
+    private String patientID;
+    private String patientName;
+    private String doctorID;
+    private String doctorName;
+    private String bookingID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
 
-        final DatabaseReference user1 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://android-mycillin-1507307522195.firebaseio.com/messages/11111_22222");
-        final DatabaseReference user2 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://android-mycillin-1507307522195.firebaseio.com/messages/22222_11111");
+        patientID = getIntent().getStringExtra(KEY_FLAG_CHAT_PATIENT_ID);
+        patientName = getIntent().getStringExtra(KEY_FLAG_CHAT_PATIENT_NAME);
+        doctorID = getIntent().getStringExtra(KEY_FLAG_CHAT_USER_ID);
+        doctorName = getIntent().getStringExtra(KEY_FLAG_CHAT_USER_NAME);
+        bookingID = getIntent().getStringExtra(KEY_FLAG_CHAT_BOOKING_ID);
 
-        //final DatabaseReference user2 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://android-mycillin-1507307522195.firebaseio.com/messages/11111_22222");
-        //final DatabaseReference user1 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://android-mycillin-1507307522195.firebaseio.com/messages/22222_11111");
+        final DatabaseReference user2 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://android-mycillin-1507307522195.firebaseio.com/messages/" + patientID + "_" + doctorID + "");
+        final DatabaseReference user1 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://android-mycillin-1507307522195.firebaseio.com/messages/" + doctorID + "_" + patientID + "");
 
         ivSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,20 +73,11 @@ public class ChatActivity extends AppCompatActivity {
                 if (!messageText.equals("")) {
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("message", messageText);
-                    map.put("user", "M Bagas");
+                    map.put("user", patientName);
                     user1.push().setValue(map);
                     user2.push().setValue(map);
                     etMessageArea.setText("");
                 }
-
-                /*if(!messageText.equals("")){
-                    Map<String, String> map = new HashMap<String, String>();
-                    map.put("message", messageText);
-                    map.put("user", "22222");
-                    user1.push().setValue(map);
-                    user2.push().setValue(map);
-                    etMessageArea.setText("");
-                }*/
             }
         });
 

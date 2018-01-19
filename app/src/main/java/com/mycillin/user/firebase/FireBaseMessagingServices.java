@@ -1,9 +1,20 @@
 package com.mycillin.user.firebase;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.mycillin.user.R;
+import com.mycillin.user.activity.ChatActivity;
+import com.mycillin.user.activity.MainActivity;
+import com.mycillin.user.util.SessionManager;
 
 public class FireBaseMessagingServices extends FirebaseMessagingService {
     private final String EXTRA_NOTIFICATION_REQUEST = "REQUEST";
@@ -94,13 +105,12 @@ public class FireBaseMessagingServices extends FirebaseMessagingService {
      * @param messageBody FCM message body received.
      */
     private void sendNotification(String messageBody, String titleMessage, String flagFrom) {
-        /*SessionManager sessionManager = new SessionManager(this);
+        SessionManager sessionManager = new SessionManager(this);
         switch (flagFrom) {
             case EXTRA_NOTIFICATION_REQUEST:
-                Timber.tag("#8#8#").d("sendNotification1: ");
-                Intent intent = new Intent(this, HomeActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 *//* Request code *//*, intent,
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                         PendingIntent.FLAG_ONE_SHOT);
 
                 String channelId = getString(R.string.default_notification_channel_id);
@@ -118,14 +128,13 @@ public class FireBaseMessagingServices extends FirebaseMessagingService {
                         (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
                 if (notificationManager != null) {
-                    notificationManager.notify(0 *//* ID of notification *//*, notificationBuilder.build());
+                    notificationManager.notify(0, notificationBuilder.build());
                 }
                 break;
             case EXTRA_NOTIFICATION_CHAT:
-                Timber.tag("#8#8#").d("sendNotification2: ");
                 Intent intentChat = new Intent(this, ChatActivity.class);
                 intentChat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                PendingIntent pendingIntentChat = PendingIntent.getActivity(this, 0 *//* Request code *//*, intentChat,
+                PendingIntent pendingIntentChat = PendingIntent.getActivity(this, 0, intentChat,
                         PendingIntent.FLAG_ONE_SHOT);
 
                 String channelIdChat = getString(R.string.default_notification_channel_id);
@@ -134,7 +143,7 @@ public class FireBaseMessagingServices extends FirebaseMessagingService {
                         new NotificationCompat.Builder(this, channelIdChat)
                                 .setSmallIcon(R.mipmap.ic_launcher)
                                 .setContentTitle(sessionManager.getUserFullName())
-                                .setContentText("You Have New Message")
+                                .setContentText("You Have New Chat")
                                 .setAutoCancel(true)
                                 .setSound(defaultSoundUriChat)
                                 .setContentIntent(pendingIntentChat);
@@ -143,14 +152,13 @@ public class FireBaseMessagingServices extends FirebaseMessagingService {
                         (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
                 if (notificationManagerChat != null) {
-                    notificationManagerChat.notify(0 *//* ID of notification *//*, notificationBuilderChat.build());
+                    notificationManagerChat.notify(0, notificationBuilderChat.build());
                 }
                 break;
             case EXTRA_NOTIFICATION_BLAST:
-                Timber.tag("#8#8#").d("sendNotification3: ");
-                Intent intentBlast = new Intent(this, HomeActivity.class);
+                Intent intentBlast = new Intent(this, MainActivity.class);
                 intentBlast.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                PendingIntent pendingIntentBlast = PendingIntent.getActivity(this, 0 *//* Request code *//*, intentBlast,
+                PendingIntent pendingIntentBlast = PendingIntent.getActivity(this, 0, intentBlast,
                         PendingIntent.FLAG_ONE_SHOT);
 
                 String channelIdBlast = getString(R.string.default_notification_channel_id);
@@ -168,9 +176,9 @@ public class FireBaseMessagingServices extends FirebaseMessagingService {
                         (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
                 if (notificationManagerBlast != null) {
-                    notificationManagerBlast.notify(0 *//* ID of notification *//*, notificationBuilderBlast.build());
+                    notificationManagerBlast.notify(0, notificationBuilderBlast.build());
                 }
                 break;
-        }*/
+        }
     }
 }
