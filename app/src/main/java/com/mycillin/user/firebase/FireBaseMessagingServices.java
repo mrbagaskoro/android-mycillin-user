@@ -16,6 +16,13 @@ import com.mycillin.user.activity.ChatActivity;
 import com.mycillin.user.activity.MainActivity;
 import com.mycillin.user.util.SessionManager;
 
+import java.util.Map;
+
+import static com.mycillin.user.activity.ChatActivity.KEY_FLAG_CHAT_PATIENT_ID;
+import static com.mycillin.user.activity.ChatActivity.KEY_FLAG_CHAT_PATIENT_NAME;
+import static com.mycillin.user.activity.ChatActivity.KEY_FLAG_CHAT_USER_ID;
+import static com.mycillin.user.activity.ChatActivity.KEY_FLAG_CHAT_USER_NAME;
+
 public class FireBaseMessagingServices extends FirebaseMessagingService {
     private final String EXTRA_NOTIFICATION_REQUEST = "REQUEST";
     private final String EXTRA_NOTIFICATION_CHAT = "CHAT";
@@ -66,12 +73,13 @@ public class FireBaseMessagingServices extends FirebaseMessagingService {
 
             if (remoteMessage.getNotification().getBody() != null) {
                 String messageFbase = remoteMessage.getNotification().getBody();
+                Map<String, String> getData = remoteMessage.getData();
                 if (messageFbase.contains("Request")) {
-                    sendNotification(remoteMessage.getNotification().getBody(), "", EXTRA_NOTIFICATION_REQUEST);
+                    sendNotification(remoteMessage.getNotification().getBody(), "", EXTRA_NOTIFICATION_REQUEST,getData);
                 } else if (messageFbase.contains("Chat")) {
-                    sendNotification(remoteMessage.getNotification().getBody(), "", EXTRA_NOTIFICATION_CHAT);
+                    sendNotification(remoteMessage.getNotification().getBody(), "", EXTRA_NOTIFICATION_CHAT,getData);
                 } else {
-                    sendNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle(), EXTRA_NOTIFICATION_BLAST);
+                    sendNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle(), EXTRA_NOTIFICATION_BLAST,getData);
                 }
             }
         }
@@ -104,7 +112,7 @@ public class FireBaseMessagingServices extends FirebaseMessagingService {
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody, String titleMessage, String flagFrom) {
+    private void sendNotification(String messageBody, String titleMessage, String flagFrom,Map<String, String> getData) {
         SessionManager sessionManager = new SessionManager(this);
         switch (flagFrom) {
             case EXTRA_NOTIFICATION_REQUEST:
@@ -133,6 +141,10 @@ public class FireBaseMessagingServices extends FirebaseMessagingService {
                 break;
             case EXTRA_NOTIFICATION_CHAT:
                 Intent intentChat = new Intent(this, ChatActivity.class);
+                intentChat.putExtra(KEY_FLAG_CHAT_PATIENT_ID, getData.get(KEY_FLAG_CHAT_PATIENT_ID));
+                intentChat.putExtra(KEY_FLAG_CHAT_PATIENT_NAME, getData.get(KEY_FLAG_CHAT_PATIENT_NAME));
+                intentChat.putExtra(KEY_FLAG_CHAT_USER_ID, getData.get(KEY_FLAG_CHAT_USER_ID));
+                intentChat.putExtra(KEY_FLAG_CHAT_USER_NAME, getData.get(KEY_FLAG_CHAT_USER_NAME));
                 intentChat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 PendingIntent pendingIntentChat = PendingIntent.getActivity(this, 0, intentChat,
                         PendingIntent.FLAG_ONE_SHOT);

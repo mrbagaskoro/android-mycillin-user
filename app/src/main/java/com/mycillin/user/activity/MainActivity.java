@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSON, jsonObject.toString());
         Request request = new Request.Builder()
-                .url(Configs.RETROFIT_BASE_URL + "detail_token_fcm_patient/")
+                .url(Configs.RETROFIT_BASE_URL + "token_fcm_patient/")
                 .post(body)
                 .addHeader("content-type", "application/json; charset=utf-8")
                 .addHeader("Authorization", sessionManager.getUserToken())

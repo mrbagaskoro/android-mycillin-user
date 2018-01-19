@@ -92,17 +92,11 @@ public class ChatActivity extends AppCompatActivity {
                 String message = map.get("message");
                 String userName = map.get("user");
 
-                if (userName.equals("M Bagas")) {
+                if (userName.equals(patientName)) {
                     addMessageBox("You:-\n" + message, 1);
                 } else {
-                    addMessageBox("dr. Tommy:-\n" + message, 2);
+                    addMessageBox("" + doctorName + " :-\n" + message, 2);
                 }
-
-                /*if (userName.equals("22222")) {
-                    addMessageBox("You:-\n" + message, 1);
-                } else {
-                    addMessageBox("11111:-\n" + message, 2);
-                }*/
             }
 
             @Override
