@@ -31,6 +31,7 @@ import com.mycillin.user.rest.firebaseGet.ModelResultFirebaseGet;
 import com.mycillin.user.rest.partnerDetailGet.ModelResultPartnerDetailGet;
 import com.mycillin.user.rest.paymentMethodeList.ModelResultPaymentMethodeList;
 import com.mycillin.user.rest.priceGet.ModelResultPriceGet;
+import com.mycillin.user.rest.promoCheck.ModelResultPromoCheck;
 import com.mycillin.user.rest.requestConsultation.ModelResultRequestConsultation;
 import com.mycillin.user.rest.requestTransaction.ModelResultRequestTransaction;
 import com.mycillin.user.util.Configs;
@@ -264,6 +265,23 @@ public class PartnerDetailActivity extends AppCompatActivity {
                 }
             }
         });
+
+        checkPromoCodeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isValid = true;
+
+                if(promoCodeEdtxt.getText().toString().trim().equals("")) {
+                    promoCodeEdtxt.setError(getString(R.string.partnerDetailActivity_promoCodeWarning));
+                    isValid = false;
+                }
+
+                if(isValid) {
+                    checkPromo(promoCodeEdtxt.getText().toString());
+                }
+            }
+        });
+
         getPartnerfirebase(partnerId);
     }
 
@@ -759,6 +777,64 @@ public class PartnerDetailActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+            }
+        });
+    }
+
+    private void checkPromo(String promoCode) {
+        progressBarHandler.show();
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        String token = sessionManager.getUserToken();
+
+        MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("promo_code", promoCode);
+
+        myCillinAPI.checkPromo(token, params).enqueue(new Callback<ModelResultPromoCheck>() {
+            @Override
+            public void onResponse(@NonNull Call<ModelResultPromoCheck> call, @NonNull Response<ModelResultPromoCheck> response) {
+                progressBarHandler.hide();
+
+                if (response.isSuccessful()) {
+                    ModelResultPromoCheck modelResultPromoCheck = response.body();
+                    assert modelResultPromoCheck != null;
+                    if (modelResultPromoCheck.getResult().isStatus()) {
+                        int size = modelResultPromoCheck.getResult().getData().size();
+                        if(size > 0) {
+                            String promoCode = modelResultPromoCheck.getResult().getData().get(0).getPromoCode();
+                            String message = String.format(getResources().getString(R.string.partnerDetailActivity_promoSuccessMessage), promoCode);
+                            Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                        }
+                        else {
+                            promoCodeEdtxt.setText("");
+                            String message = getString(R.string.partnerDetailActivity_promoFailedMessage);
+                            Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        String message;
+                        if (jsonObject.has("result")) {
+                            message = jsonObject.getJSONObject("result").getString("message");
+                        } else {
+
+                            message = jsonObject.getString("message");
+                        }
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ModelResultPromoCheck> call, @NonNull Throwable t) {
+                // TODO: 12/10/2017 SET FAILURE SCENARIO
+                progressBarHandler.hide();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
     }

@@ -35,6 +35,7 @@ import com.mycillin.user.rest.pinGet.ModelResultPinGet;
 import com.mycillin.user.rest.pinSet.ModelResultPinSet;
 import com.mycillin.user.rest.prescriptionRecordList.ModelResultPrescriptionRecordList;
 import com.mycillin.user.rest.priceGet.ModelResultPriceGet;
+import com.mycillin.user.rest.promoCheck.ModelResultPromoCheck;
 import com.mycillin.user.rest.ratingInsert.ModelResultRatingInsert;
 import com.mycillin.user.rest.register.ModelResultRegister;
 import com.mycillin.user.rest.relationList.ModelResultRelationList;
@@ -210,4 +211,7 @@ public interface MyCillinAPI {
 
     @POST("email_record/")
     Call<ModelResultEmailMedicalRecord> sendEmailMedicalRecord(@Header("Authorization") String token, @Body HashMap<String, String> params);
+
+    @POST("valid_promo_code/")
+    Call<ModelResultPromoCheck> checkPromo(@Header("Authorization") String token, @Body HashMap<String, String> params);
 }

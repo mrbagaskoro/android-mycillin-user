@@ -383,5 +383,8 @@
     <string name="historyCompletedDetailActivity_emailMedicalRecordTitle">Kirim Rekam Medis ?</string>
     <string name="historyCompletedDetailActivity_emailMedicalRecordMessage">Anda ingin mengirim rekam medis ke alamat email anda ?</string>
     <string name="findServiceActivity_clearTitle">HAPUS</string>
+    <string name="partnerDetailActivity_promoSuccessMessage">Anda menggunakan kode promo %1$s</string>
+    <string name="partnerDetailActivity_promoFailedMessage">Kode promo tidak tersedia saat ini</string>
+    <string name="partnerDetailActivity_promoCodeWarning">Kode promo wajib diisi !</string>
 
 </resources>

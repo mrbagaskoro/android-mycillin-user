@@ -388,5 +388,8 @@
     <string name="historyCompletedDetailActivity_emailMedicalRecordTitle">Send Medical Record ?</string>
     <string name="historyCompletedDetailActivity_emailMedicalRecordMessage">Do you want to send the medical record to your email account ?</string>
     <string name="findServiceActivity_clearTitle">CLEAR</string>
+    <string name="partnerDetailActivity_promoSuccessMessage">You are using %1$s promo code</string>
+    <string name="partnerDetailActivity_promoFailedMessage">Promo code currently not available</string>
+    <string name="partnerDetailActivity_promoCodeWarning">Promo Code is required !</string>
 
 </resources>
