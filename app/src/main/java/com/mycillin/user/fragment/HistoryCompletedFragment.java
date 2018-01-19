@@ -192,6 +192,10 @@ public class HistoryCompletedFragment extends Fragment {
                                     String diagnose = modelResultHistoryCompleted.getResult().getData().get(i).getDiagnosa() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getDiagnosa();
                                     String actionDesc = modelResultHistoryCompleted.getResult().getData().get(i).getActionTypeDesc() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getActionTypeDesc();
                                     String prescriptionTypeId = modelResultHistoryCompleted.getResult().getData().get(i).getPrescriptionTypeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPrescriptionTypeId();
+                                    String bookingStatusId = modelResultHistoryCompleted.getResult().getData().get(i).getBookingStatusId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getBookingStatusId();
+                                    String bookingStatusDesc = modelResultHistoryCompleted.getResult().getData().get(i).getBookingStatusDesc() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getBookingStatusDesc();
+                                    String cancelStatus = modelResultHistoryCompleted.getResult().getData().get(i).getCancelStatus() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getCancelStatus();
+                                    String cancelReasonUser = modelResultHistoryCompleted.getResult().getData().get(i).getCancelReasonUser() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getCancelReasonUser();
 
                                     completedListList.add(new CompletedList(orderDate.split(" ")[0],
                                             orderTime, bookingId, serviceTypeId, serviceTypeDesc,
@@ -199,7 +203,8 @@ public class HistoryCompletedFragment extends Fragment {
                                             partnerSpecializationId, partnerSpecializationDesc, partnerPic,
                                             mobileNo, rating, paymentId, paymentDesc, promoCode, priceAmount,
                                             cancelBy, cancelReasonByUser, cancelReasonByPartner, diagnose,
-                                            actionDesc, prescriptionTypeId));
+                                            actionDesc, prescriptionTypeId, bookingStatusId, bookingStatusDesc,
+                                            cancelStatus, cancelReasonUser));
                                 }
 
                                 completedAdapter = new CompletedAdapter(completedListList, HistoryCompletedFragment.this);

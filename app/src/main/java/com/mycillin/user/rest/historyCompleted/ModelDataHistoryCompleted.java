@@ -72,6 +72,18 @@ public class ModelDataHistoryCompleted {
     @SerializedName("prescription_type_id")
     @Expose
     private String prescriptionTypeId;
+    @SerializedName("booking_status_id")
+    @Expose
+    private String bookingStatusId;
+    @SerializedName("booking_status_desc")
+    @Expose
+    private String bookingStatusDesc;
+    @SerializedName("cancel_status")
+    @Expose
+    private String cancelStatus;
+    @SerializedName("cancel_reason_user")
+    @Expose
+    private String cancelReasonUser;
 
     public String getOrderDate() {
         return orderDate;
@@ -239,5 +251,37 @@ public class ModelDataHistoryCompleted {
 
     public void setPrescriptionTypeId(String prescriptionTypeId) {
         this.prescriptionTypeId = prescriptionTypeId;
+    }
+
+    public String getBookingStatusId() {
+        return bookingStatusId;
+    }
+
+    public void setBookingStatusId(String bookingStatusId) {
+        this.bookingStatusId = bookingStatusId;
+    }
+
+    public String getBookingStatusDesc() {
+        return bookingStatusDesc;
+    }
+
+    public void setBookingStatusDesc(String bookingStatusDesc) {
+        this.bookingStatusDesc = bookingStatusDesc;
+    }
+
+    public String getCancelStatus() {
+        return cancelStatus;
+    }
+
+    public void setCancelStatus(String cancelStatus) {
+        this.cancelStatus = cancelStatus;
+    }
+
+    public String getCancelReasonUser() {
+        return cancelReasonUser;
+    }
+
+    public void setCancelReasonUser(String cancelReasonUser) {
+        this.cancelReasonUser = cancelReasonUser;
     }
 }

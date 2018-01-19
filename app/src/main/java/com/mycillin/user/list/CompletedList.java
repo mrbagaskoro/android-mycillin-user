@@ -29,6 +29,10 @@ public class CompletedList {
     private String diagnose;
     private String actionDesc;
     private String prescriptionTypeId;
+    private String bookingStatusId;
+    private String bookingStatusDesc;
+    private String cancelStatus;
+    private String cancelReasonUser;
 
     public CompletedList(String orderDate, String orderTime, String bookingId, String serviceTypeId,
                          String serviceTypeDesc, String partnerId, String partnerName, String partnerTypeId,
@@ -36,7 +40,8 @@ public class CompletedList {
                          String partnerPic, String mobileNo, String rating, String paymentId,
                          String paymentDesc, String promoCode, String priceAmount, String cancelBy,
                          String cancelReasonByUser, String cancelReasonByPartner, String diagnose,
-                         String actionDesc, String prescriptionTypeId){
+                         String actionDesc, String prescriptionTypeId, String bookingStatusId,
+                         String bookingStatusDesc, String cancelStatus, String cancelReasonUser){
 
         this.orderDate = orderDate;
         this.orderTime = orderTime;
@@ -62,6 +67,10 @@ public class CompletedList {
         this.diagnose = diagnose;
         this.actionDesc = actionDesc;
         this.prescriptionTypeId = prescriptionTypeId;
+        this.bookingStatusId = bookingStatusId;
+        this.bookingStatusDesc = bookingStatusDesc;
+        this.cancelStatus = cancelStatus;
+        this.cancelReasonUser = cancelReasonUser;
     }
 
     public String getOrderDate() {
@@ -254,5 +263,37 @@ public class CompletedList {
 
     public void setPrescriptionTypeId(String prescriptionTypeId) {
         this.prescriptionTypeId = prescriptionTypeId;
+    }
+
+    public String getBookingStatusId() {
+        return bookingStatusId;
+    }
+
+    public void setBookingStatusId(String bookingStatusId) {
+        this.bookingStatusId = bookingStatusId;
+    }
+
+    public String getBookingStatusDesc() {
+        return bookingStatusDesc;
+    }
+
+    public void setBookingStatusDesc(String bookingStatusDesc) {
+        this.bookingStatusDesc = bookingStatusDesc;
+    }
+
+    public String getCancelStatus() {
+        return cancelStatus;
+    }
+
+    public void setCancelStatus(String cancelStatus) {
+        this.cancelStatus = cancelStatus;
+    }
+
+    public String getCancelReasonUser() {
+        return cancelReasonUser;
+    }
+
+    public void setCancelReasonUser(String cancelReasonUser) {
+        this.cancelReasonUser = cancelReasonUser;
     }
 }

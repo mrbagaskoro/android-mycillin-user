@@ -24,13 +24,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.MyViewHolder> {
     private List<CompletedList> completedLists;
-    private ArrayList<CompletedList> arraCompletedLists;
+    private ArrayList<CompletedList> arrayCompletedLists;
     private HistoryCompletedFragment historyCompletedFragment;
 
     public CompletedAdapter(List<CompletedList> completedLists, HistoryCompletedFragment historyCompletedFragment) {
         this.completedLists = completedLists;
-        this.arraCompletedLists = new ArrayList<>();
-        this.arraCompletedLists.addAll(completedLists);
+        this.arrayCompletedLists = new ArrayList<>();
+        this.arrayCompletedLists.addAll(completedLists);
         this.historyCompletedFragment = historyCompletedFragment;
     }
 
@@ -47,6 +47,14 @@ public class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.MyVi
         holder.bookType.setText(resultList.getServiceTypeDesc());
         holder.bookDate.setText(resultList.getOrderDate());
         holder.bookTime.setText(resultList.getOrderTime());
+
+        if(resultList.getCancelStatus().equals("N")) {
+            holder.bookStatusDesc.setText(resultList.getBookingStatusDesc());
+        }
+        else {
+            holder.bookStatusDesc.setText(resultList.getCancelReasonUser());
+            holder.bookStatusDesc.setTextColor(historyCompletedFragment.getResources().getColor(R.color.darkRed));
+        }
 
         if(!resultList.getPartnerPic().equals("")) {
             RequestOptions requestOptions = new RequestOptions()
@@ -72,6 +80,7 @@ public class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.MyVi
         private TextView bookType;
         private TextView bookDate;
         private TextView bookTime;
+        private TextView bookStatusDesc;
         private CircleImageView doctorPic;
 
 
@@ -81,6 +90,7 @@ public class CompletedAdapter extends RecyclerView.Adapter<CompletedAdapter.MyVi
             bookType = itemView.findViewById(R.id.rowCompletedList_tv_bookType);
             bookDate = itemView.findViewById(R.id.rowCompletedList_tv_bookDate);
             bookTime = itemView.findViewById(R.id.rowCompletedList_tv_bookTime);
+            bookStatusDesc = itemView.findViewById(R.id.rowCompletedList_tv_bookStatusDesc);
             doctorPic = itemView.findViewById(R.id.rowCompletedList_iv_doctorAvatar);
         }
     }
