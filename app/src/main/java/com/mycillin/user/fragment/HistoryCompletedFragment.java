@@ -176,9 +176,9 @@ public class HistoryCompletedFragment extends Fragment {
                                     String partnerId = modelResultHistoryCompleted.getResult().getData().get(i).getPartnerSelected() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPartnerSelected();
                                     String partnerName = modelResultHistoryCompleted.getResult().getData().get(i).getPartnerName() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPartnerName();
                                     String partnerTypeId = modelResultHistoryCompleted.getResult().getData().get(i).getPartnerTypeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPartnerTypeId();
-                                    String partnerTypeDesc = "null";
+                                    String partnerTypeDesc = modelResultHistoryCompleted.getResult().getData().get(i).getPartnerTypeId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getPartnerTypeDesc();
                                     String partnerSpecializationId = modelResultHistoryCompleted.getResult().getData().get(i).getSpesialisasiId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getSpesialisasiId();
-                                    String partnerSpecializationDesc = "null";
+                                    String partnerSpecializationDesc = modelResultHistoryCompleted.getResult().getData().get(i).getSpesialisasiId() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getSpesialisasiDesc();
                                     String partnerPic = modelResultHistoryCompleted.getResult().getData().get(i).getProfilePhoto() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getProfilePhoto();
                                     String mobileNo = modelResultHistoryCompleted.getResult().getData().get(i).getMobileNo() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getMobileNo();
                                     String rating = modelResultHistoryCompleted.getResult().getData().get(i).getRating() == null ? "" : modelResultHistoryCompleted.getResult().getData().get(i).getRating();

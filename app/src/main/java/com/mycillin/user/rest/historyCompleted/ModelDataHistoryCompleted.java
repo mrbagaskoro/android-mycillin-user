@@ -30,16 +30,22 @@ public class ModelDataHistoryCompleted {
     @SerializedName("partner_type_id")
     @Expose
     private String partnerTypeId;
+    @SerializedName("partner_type_desc")
+    @Expose
+    private String partnerTypeDesc;
     @SerializedName("spesialisasi_id")
     @Expose
     private String spesialisasiId;
+    @SerializedName("spesialisasi_desc")
+    @Expose
+    private String spesialisasiDesc;
     @SerializedName("profile_photo")
     @Expose
     private String profilePhoto;
     @SerializedName("mobile_no")
     @Expose
     private String mobileNo;
-    @SerializedName("rating")
+    @SerializedName("service_rating")
     @Expose
     private String rating;
     @SerializedName("pymt_methode_id")
@@ -141,12 +147,28 @@ public class ModelDataHistoryCompleted {
         this.partnerTypeId = partnerTypeId;
     }
 
+    public String getPartnerTypeDesc() {
+        return partnerTypeDesc;
+    }
+
+    public void setPartnerTypeDesc(String partnerTypeDesc) {
+        this.partnerTypeDesc = partnerTypeDesc;
+    }
+
     public String getSpesialisasiId() {
         return spesialisasiId;
     }
 
     public void setSpesialisasiId(String spesialisasiId) {
         this.spesialisasiId = spesialisasiId;
+    }
+
+    public String getSpesialisasiDesc() {
+        return spesialisasiDesc;
+    }
+
+    public void setSpesialisasiDesc(String spesialisasiDesc) {
+        this.spesialisasiDesc = spesialisasiDesc;
     }
 
     public String getProfilePhoto() {
