@@ -44,9 +44,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.IntroActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.FindServiceActivity" />
+        <activity
+            android:name=".activity.IntroActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.FindServiceActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -80,27 +86,58 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.AccountActivity" />
-        <activity android:name=".activity.AccountDetailActivity" />
-        <activity android:name=".activity.InsuranceActivity" />
-        <activity android:name=".activity.PaymentActivity" />
-        <activity android:name=".activity.MedicalRecordDetailActivity" />
-        <activity android:name=".activity.PartnerListActivity" />
-        <activity android:name=".activity.PartnerDetailActivity" />
-        <activity android:name=".activity.HistoryInProgressDetailActivity" />
-        <activity android:name=".activity.HistoryCompletedDetailActivity" />
-        <activity android:name=".activity.RatingActivity" />
-        <activity android:name=".activity.ChatActivity">
+        <activity
+            android:name=".activity.AccountActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.AccountDetailActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.InsuranceActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.PaymentActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.MedicalRecordDetailActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.PartnerListActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.PartnerDetailActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.HistoryInProgressDetailActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.HistoryCompletedDetailActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.RatingActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.ChatActivity"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="CHAT" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TermsAndPrivacyPolicyActivity" />
-        <activity android:name=".activity.ChangePasswordActivity" />
-        <activity android:name=".activity.CancelActivity" />
-        <activity android:name=".activity.FilterDoctorActivity" />
+        <activity
+            android:name=".activity.TermsAndPrivacyPolicyActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.ChangePasswordActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.CancelActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.FilterDoctorActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -109,15 +146,22 @@
         <activity android:name=".activity.InsuranceListActivity" />
         <activity
             android:name=".activity.ViewImageActivity"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.PINActivity"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ChangePINActivity" />
+        <activity
+            android:name=".activity.ChangePINActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".activity.BigBannerActivity"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.FindFacilityActivity" />
+        <activity
+            android:name=".activity.FindFacilityActivity"
+            android:windowSoftInputMode="stateHidden"/>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
