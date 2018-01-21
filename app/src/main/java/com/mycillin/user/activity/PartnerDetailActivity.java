@@ -273,10 +273,12 @@ public class PartnerDetailActivity extends AppCompatActivity {
                     promoCodeEdtxt.setError(getString(R.string.partnerDetailActivity_promoCodeWarning));
                     isValid = false;
                 }
-                if (selectedPaymentMethodId.equals("")) {
-                    String message = getString(R.string.partnerDetailActivity_paymentValidationMessage);
-                    Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
-                    isValid = false;
+                if (!getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
+                    if (selectedPaymentMethodId.equals("")) {
+                        String message = getString(R.string.partnerDetailActivity_paymentValidationMessage);
+                        Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                        isValid = false;
+                    }
                 }
 
                 if(isValid) {
@@ -291,8 +293,15 @@ public class PartnerDetailActivity extends AppCompatActivity {
                 promoCodeEdtxt.setText("");
                 checkPromoCodeBtn.setVisibility(View.VISIBLE);
                 clearPromoCodeBtn.setVisibility(View.GONE);
-                getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
-                        selectedPartnerTypeId, selectedPartnerSpecializationId);
+
+                if (getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
+                    getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), "03",
+                            selectedPartnerTypeId, selectedPartnerSpecializationId);
+                }
+                else {
+                    getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
+                            selectedPartnerTypeId, selectedPartnerSpecializationId);
+                }
             }
         });
 
@@ -486,6 +495,11 @@ public class PartnerDetailActivity extends AppCompatActivity {
                         selectedPartnerId = userId;
                         selectedPartnerTypeId = partnerTypeId;
                         selectedPartnerSpecializationId = specializationId;
+
+                        if (getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
+                            getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), "03",
+                                    selectedPartnerTypeId, selectedPartnerSpecializationId);
+                        }
                     }
                 } else {
                     try {
@@ -674,6 +688,8 @@ public class PartnerDetailActivity extends AppCompatActivity {
         params.put("partner_type_id", partnerTypeId);
         params.put("spesialisasi_id", partnerSpecializationId);
 
+        Log.d("###", "getPrice: " + params);
+
         myCillinAPI.getPrice(token, params).enqueue(new Callback<ModelResultPriceGet>() {
             @Override
             public void onResponse(@NonNull Call<ModelResultPriceGet> call, @NonNull Response<ModelResultPriceGet> response) {
@@ -841,8 +857,14 @@ public class PartnerDetailActivity extends AppCompatActivity {
                             String message = getString(R.string.partnerDetailActivity_promoFailedMessage);
                             Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
 
-                            getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
-                                    selectedPartnerTypeId, selectedPartnerSpecializationId);
+                            if (getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_CONSULTATION)) {
+                                getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), "03",
+                                        selectedPartnerTypeId, selectedPartnerSpecializationId);
+                            }
+                            else {
+                                getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
+                                        selectedPartnerTypeId, selectedPartnerSpecializationId);
+                            }
 
                             checkPromoCodeBtn.setVisibility(View.VISIBLE);
                             clearPromoCodeBtn.setVisibility(View.GONE);
