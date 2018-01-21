@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -88,6 +89,8 @@ public class PartnerDetailActivity extends AppCompatActivity {
     EditText promoCodeEdtxt;
     @BindView(R.id.partnerDetailActivity_bt_checkPromoCodeBtn)
     Button checkPromoCodeBtn;
+    @BindView(R.id.partnerDetailActivity_ib_clearPromoCodeBtn)
+    ImageButton clearPromoCodeBtn;
     @BindView(R.id.partnerDetailActivity_tv_doctorFee)
     TextView doctorFee;
     @BindView(R.id.partnerDetailActivity_v_paymentSeparator)
@@ -270,10 +273,26 @@ public class PartnerDetailActivity extends AppCompatActivity {
                     promoCodeEdtxt.setError(getString(R.string.partnerDetailActivity_promoCodeWarning));
                     isValid = false;
                 }
+                if (selectedPaymentMethodId.equals("")) {
+                    String message = getString(R.string.partnerDetailActivity_paymentValidationMessage);
+                    Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+                    isValid = false;
+                }
 
                 if(isValid) {
                     checkPromo(promoCodeEdtxt.getText().toString());
                 }
+            }
+        });
+
+        clearPromoCodeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                promoCodeEdtxt.setText("");
+                checkPromoCodeBtn.setVisibility(View.VISIBLE);
+                clearPromoCodeBtn.setVisibility(View.GONE);
+                getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
+                        selectedPartnerTypeId, selectedPartnerSpecializationId);
             }
         });
 
@@ -671,6 +690,11 @@ public class PartnerDetailActivity extends AppCompatActivity {
 
                             doctorFee.addTextChangedListener(new CurrencyTextWatcherTextView(doctorFee));
                             doctorFee.setText(price);
+
+                            if(!promoCodeEdtxt.getText().toString().trim().equals("")) {
+                                checkPromo(promoCodeEdtxt.getText().toString());
+                            }
+
                         } else {
                             paymentDropdown.setText("");
                             selectedPaymentMethodId = "";
@@ -799,13 +823,29 @@ public class PartnerDetailActivity extends AppCompatActivity {
                         int size = modelResultPromoCheck.getResult().getData().size();
                         if(size > 0) {
                             String promoCode = modelResultPromoCheck.getResult().getData().get(0).getPromoCode();
+                            Double discount = Double.parseDouble(modelResultPromoCheck.getResult().getData().get(0).getDiscount());
+                            int normalPrice = Integer.parseInt(doctorFee.getText().toString().replace(".", "").replace(",", ""));
+                            int discountPrice = (int) (normalPrice - (normalPrice * discount));
+
+                            doctorFee.addTextChangedListener(new CurrencyTextWatcherTextView(doctorFee));
+                            doctorFee.setText(discountPrice + "");
+
                             String message = String.format(getResources().getString(R.string.partnerDetailActivity_promoSuccessMessage), promoCode);
                             Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+
+                            checkPromoCodeBtn.setVisibility(View.GONE);
+                            clearPromoCodeBtn.setVisibility(View.VISIBLE);
                         }
                         else {
                             promoCodeEdtxt.setText("");
                             String message = getString(R.string.partnerDetailActivity_promoFailedMessage);
                             Snackbar.make(getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
+
+                            getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
+                                    selectedPartnerTypeId, selectedPartnerSpecializationId);
+
+                            checkPromoCodeBtn.setVisibility(View.VISIBLE);
+                            clearPromoCodeBtn.setVisibility(View.GONE);
                         }
                     }
                 } else {

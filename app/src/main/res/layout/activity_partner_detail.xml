@@ -355,7 +355,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/button_no_rad_accent"
-                android:text="@string/partnerDetailActivity_checkPromoCodeTitle"/>
+                android:text="@string/partnerDetailActivity_checkPromoCodeTitle"
+                android:visibility="visible"/>
+
+            <ImageButton
+                android:id="@+id/partnerDetailActivity_ib_clearPromoCodeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_cancel"
+                android:background="@android:color/transparent"
+                android:visibility="gone" />
 
         </LinearLayout>
 
