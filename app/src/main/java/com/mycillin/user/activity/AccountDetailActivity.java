@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -187,9 +188,10 @@ public class AccountDetailActivity extends AppCompatActivity {
         dobEdtxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(),
-                        dateListener, 1999, 0, 1);
-                datePickerDialog.show();*/
+                Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AccountDetailActivity.this, new DatePickerDialog.OnDateSetListener() {
 
@@ -197,7 +199,8 @@ public class AccountDetailActivity extends AppCompatActivity {
                         dobEdtxt.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                     }
 
-                }, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
+                }, mYear, mMonth, mDay);
+                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
                 datePickerDialog.show();
             }
         });

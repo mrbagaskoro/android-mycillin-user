@@ -104,7 +104,7 @@
     <string name="accountDetailActivity_femaleDesc">Wanita</string>
     <string name="accountDetailActivity_fullNameDesc">Nama Lengkap</string>
     <string name="accountDetailActivity_genderDesc">Jenis Kelamin</string>
-    <string name="accountDetailActivity_heightDesc">Tinggi Badan</string>
+    <string name="accountDetailActivity_heightDesc">Tinggi Badan (cm)</string>
     <string name="accountDetailActivity_infoDesc">Mohon berikan informasi anda dengan benar untuk mendapatkan layanan kesehatan yang berkualitas</string>
     <string name="accountDetailActivity_insuranceDesc">Asuransi</string>
     <string name="accountDetailActivity_isAgreeDesc">Saya setuju dengan syarat dan ketentuan serta setuju untuk memberikan informasi pribadi kepada MyCillin</string>
@@ -112,7 +112,7 @@
     <string name="accountDetailActivity_maleDesc">Pria</string>
     <string name="accountDetailActivity_phoneDesc">Nomor Telepon</string>
     <string name="accountDetailActivity_title">Detil Akun</string>
-    <string name="accountDetailActivity_weightDesc">Berat Badan</string>
+    <string name="accountDetailActivity_weightDesc">Berat Badan (kg)</string>
     <string name="eWalletDialog_eWalletTitle">E-Wallet</string>
     <string name="eWalletDialog_iAgreeDesc">Saya Setuju</string>
     <string name="eWalletDialog_infoFourDesc">Anda dapat melakukan pengisian saldo e-wallet melalui ATM Bank Mandiri atau layanan e-cash Bank Mandiri.</string>
