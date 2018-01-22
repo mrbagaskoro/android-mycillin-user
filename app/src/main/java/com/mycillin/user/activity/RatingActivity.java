@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.mycillin.user.R;
 import com.mycillin.user.rest.MyCillinAPI;
 import com.mycillin.user.rest.MyCillinRestClient;
@@ -30,6 +33,7 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +43,8 @@ public class RatingActivity extends AppCompatActivity {
     @BindView(R.id.ratingActivity_toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.ratingActivity_iv_doctorAvatar)
+    CircleImageView doctorAvatar;
     @BindView(R.id.ratingActivity_tv_doctorName)
     TextView partnerNameTxt;
     @BindView(R.id.ratingActivity_tv_bookDate)
@@ -59,6 +65,7 @@ public class RatingActivity extends AppCompatActivity {
     public static final String EXTRA_PARAM_CREATED_DATE = "EXTRA_PARAM_CREATED_DATE";
     public static final String EXTRA_PARAM_BOOKING_ID = "EXTRA_PARAM_BOOKING_ID";
     public static final String EXTRA_PARAM_PARTNER_ID = "EXTRA_PARAM_PARTNER_ID";
+    public static final String EXTRA_PARAM_PARTNER_PIC = "EXTRA_PARAM_PARTNER_PIC";
     public static final String EXTRA_PARAM_PARTNER_NAME = "EXTRA_PARAM_PARTNER_NAME";
 
     @Override
@@ -74,6 +81,20 @@ public class RatingActivity extends AppCompatActivity {
 
         String createdDate = getIntent().getStringExtra(EXTRA_PARAM_CREATED_DATE);
         String partnerName = getIntent().getStringExtra(EXTRA_PARAM_PARTNER_NAME);
+        String partnerPicUrl = getIntent().getStringExtra(EXTRA_PARAM_PARTNER_PIC);
+
+        if(!partnerPicUrl.equals("")) {
+            RequestOptions requestOptions = new RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .placeholder(R.drawable.ic_action_user)
+                    .fitCenter();
+
+            Glide.with(RatingActivity.this)
+                    .load(partnerPicUrl)
+                    .apply(requestOptions)
+                    .into(doctorAvatar);
+        }
 
         partnerNameTxt.setText(partnerName);
         bookDateTxt.setText(createdDate);

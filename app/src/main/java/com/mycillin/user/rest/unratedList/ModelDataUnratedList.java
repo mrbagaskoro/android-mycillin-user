@@ -18,6 +18,9 @@ public class ModelDataUnratedList {
     @SerializedName("partner_selected")
     @Expose
     private String partnerSelected;
+    @SerializedName("partner_photo")
+    @Expose
+    private String partnerPhoto;
     @SerializedName("full_name")
     @Expose
     private String fullName;
@@ -44,6 +47,14 @@ public class ModelDataUnratedList {
 
     public void setPartnerSelected(String partnerSelected) {
         this.partnerSelected = partnerSelected;
+    }
+
+    public String getPartnerPhoto() {
+        return partnerPhoto;
+    }
+
+    public void setPartnerPhoto(String partnerPhoto) {
+        this.partnerPhoto = partnerPhoto;
     }
 
     public String getFullName() {

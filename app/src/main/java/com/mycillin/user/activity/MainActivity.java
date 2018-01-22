@@ -291,6 +291,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra(RatingActivity.EXTRA_PARAM_CREATED_DATE, modelResultUnratedList.getResult().getData().get(i).getCreatedDate());
                             intent.putExtra(RatingActivity.EXTRA_PARAM_BOOKING_ID, modelResultUnratedList.getResult().getData().get(i).getBookingId());
                             intent.putExtra(RatingActivity.EXTRA_PARAM_PARTNER_ID, modelResultUnratedList.getResult().getData().get(i).getPartnerSelected());
+                            intent.putExtra(RatingActivity.EXTRA_PARAM_PARTNER_PIC, modelResultUnratedList.getResult().getData().get(i).getPartnerPhoto());
                             intent.putExtra(RatingActivity.EXTRA_PARAM_PARTNER_NAME, modelResultUnratedList.getResult().getData().get(i).getFullName());
                             startActivity(intent);
                         }
