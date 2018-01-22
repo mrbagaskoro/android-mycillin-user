@@ -375,8 +375,17 @@ public class PartnerDetailActivity extends AppCompatActivity {
                             String paymentId = modelResultPaymentMethodeList.getResult().getData().get(i).getPaymentMethodeId();
                             String paymentDesc = modelResultPaymentMethodeList.getResult().getData().get(i).getPaymentMethodeDesc();
 
-                            items.add(paymentDesc);
-                            paymentMethodIdItemsTemp.put(i, paymentId + " - " + paymentDesc);
+                            if(paymentId.equals("01")) {
+                                // HIDE BPJS PAYMENT METHODE IF SERVICE IS BOOK HEALTHCARE
+                                if(!getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM).equals(HomeFragment.KEY_BOOK_HEALTHCARE)) {
+                                    items.add(paymentDesc);
+                                    paymentMethodIdItemsTemp.put(i, paymentId + " - " + paymentDesc);
+                                }
+                            }
+                            else {
+                                items.add(paymentDesc);
+                                paymentMethodIdItemsTemp.put(i, paymentId + " - " + paymentDesc);
+                            }
                         }
                         spinnerDialog.showSpinerDialog();
                     }
