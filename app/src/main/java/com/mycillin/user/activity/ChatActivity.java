@@ -63,6 +63,13 @@ public class ChatActivity extends AppCompatActivity {
         doctorName = getIntent().getStringExtra(KEY_FLAG_CHAT_USER_NAME);
         bookingID = getIntent().getStringExtra(KEY_FLAG_CHAT_BOOKING_ID);
 
+        svScroll.post(new Runnable() {
+            @Override
+            public void run() {
+                svScroll.fullScroll(View.FOCUS_DOWN);
+            }
+        });
+
         final DatabaseReference user2 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://android-mycillin-1507307522195.firebaseio.com/messages/" + patientID + "_" + doctorID + "");
         final DatabaseReference user1 = FirebaseDatabase.getInstance().getReferenceFromUrl("https://android-mycillin-1507307522195.firebaseio.com/messages/" + doctorID + "_" + patientID + "");
 
