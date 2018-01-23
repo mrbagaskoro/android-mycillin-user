@@ -180,12 +180,15 @@ public class PartnerDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(String s, int i) {
                 paymentDropdown.setText(s);
+                Log.d("PU3", "onClick: " + paymentMethodIdItemsTemp);
                 for (int j = 0; j < paymentMethodIdItemsTemp.size(); j++) {
-                    if (paymentMethodIdItemsTemp.get(j).split(" - ")[1].equals(s)) {
-                        selectedPaymentMethodId = paymentMethodIdItemsTemp.get(j).split(" - ")[0];
+                    if(paymentMethodIdItemsTemp.get(j) != null) {
+                        if (paymentMethodIdItemsTemp.get(j).split(" - ")[1].equals(s)) {
+                            selectedPaymentMethodId = paymentMethodIdItemsTemp.get(j).split(" - ")[0];
 
-                        getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
-                                selectedPartnerTypeId, selectedPartnerSpecializationId);
+                            getPrice(getIntent().getStringExtra(HomeFragment.EXTRA_SERVICE_CALLED_FROM), selectedPaymentMethodId,
+                                    selectedPartnerTypeId, selectedPartnerSpecializationId);
+                        }
                     }
                 }
             }
