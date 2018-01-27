@@ -391,5 +391,6 @@
     <string name="partnerDetailActivity_promoSuccessMessage">You are using %1$s promo code</string>
     <string name="partnerDetailActivity_promoFailedMessage">Promo code currently not available</string>
     <string name="partnerDetailActivity_promoCodeWarning">Promo Code is required !</string>
+    <string name="findServiceActivity_googlePlayServiceWarningMessage">Please install Google Play services.</string>
 
 </resources>

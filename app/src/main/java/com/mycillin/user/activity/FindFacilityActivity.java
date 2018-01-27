@@ -1,21 +1,28 @@
 package com.mycillin.user.activity;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -49,7 +56,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FindFacilityActivity extends AppCompatActivity {
+public class FindFacilityActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
 
     @BindView(R.id.findFacilityActivity_toolbar)
     Toolbar toolbar;
@@ -57,7 +65,15 @@ public class FindFacilityActivity extends AppCompatActivity {
     FloatingActionButton locationBtn;
 
     private GoogleMap gMap;
-    private LocationManager locationManager;
+    private SupportMapFragment mapFragment;
+
+    private Location mLocation;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    private double currentLatitude;
+    private double currentLongitude;
+
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     private ProgressBarHandler progressBarHandler;
 
@@ -71,8 +87,13 @@ public class FindFacilityActivity extends AppCompatActivity {
 
         toolbar.setTitle(getResources().getString(R.string.servicesActivity_facilityServiceTitle));
 
-        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.findFacilityActivity_fr_mapFragment);
-        getLocation(mapFragment);
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.findFacilityActivity_fr_mapFragment);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
@@ -123,9 +144,54 @@ public class FindFacilityActivity extends AppCompatActivity {
         locationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLocation(mapFragment);
+                getLocation(currentLatitude, currentLongitude);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!checkPlayServices()) {
+            new AlertDialog.Builder(FindFacilityActivity.this)
+                    .setTitle(R.string.mainActivity_infoTitle)
+                    .setMessage(R.string.findServiceActivity_googlePlayServiceWarningMessage)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setPositiveButton(getString(R.string.ratingActivity_ratingDesc3), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi
+                    .removeLocationUpdates(mGoogleApiClient, new com.google.android.gms.location.LocationListener() {
+                        @Override
+                        public void onLocationChanged(final Location location) {
+                            if(location != null) {
+                                currentLatitude = location.getLatitude();
+                                currentLongitude = location.getLongitude();
+                                getLocation(location.getLatitude(), location.getLongitude());
+                            }
+                        }
+                    });
+            mGoogleApiClient.disconnect();
+        }
     }
 
     public void onMapSearch(Place place) {
@@ -136,46 +202,20 @@ public class FindFacilityActivity extends AppCompatActivity {
         getFacilityList(place.getLatLng().latitude, place.getLatLng().longitude);
     }
 
-    private void getLocation(final SupportMapFragment mapFragment) {
-        try {
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, new LocationListener() {
-                @Override
-                public void onLocationChanged(final Location location) {
-                    mapFragment.getMapAsync(new OnMapReadyCallback() {
-                        @Override
-                        public void onMapReady(GoogleMap googleMap) {
-                            gMap = googleMap;
-                            gMap.clear();
+    private void getLocation(final double latitude, final double longitude) {
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                gMap = googleMap;
+                gMap.clear();
 
-                            LatLng bapindo = new LatLng(location.getLatitude(), location.getLongitude());
-                            gMap.addMarker(new MarkerOptions().position(bapindo).title(getResources().getString(R.string.serviceBookDoctorActivity_myLocationMarker)));
-                            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bapindo, 12.0f));
+                LatLng bapindo = new LatLng(latitude, longitude);
+                gMap.addMarker(new MarkerOptions().position(bapindo).title(getResources().getString(R.string.serviceBookDoctorActivity_myLocationMarker)));
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bapindo, 12.0f));
 
-                            getFacilityList(location.getLatitude(), location.getLongitude());
-                        }
-                    });
-                }
-
-                @Override
-                public void onStatusChanged(String s, int i, Bundle bundle) {
-
-                }
-
-                @Override
-                public void onProviderEnabled(String s) {
-
-                }
-
-                @Override
-                public void onProviderDisabled(String s) {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.serviceBookDoctorActivity_locationDisabledWarning), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        catch(SecurityException e) {
-            e.printStackTrace();
-        }
+                getFacilityList(latitude, longitude);
+            }
+        });
     }
 
     private void getFacilityList(double latitude, double longitude) {
@@ -262,5 +302,76 @@ public class FindFacilityActivity extends AppCompatActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if(mLocation != null) {
+            currentLatitude = mLocation.getLatitude();
+            currentLongitude = mLocation.getLongitude();
+            getLocation(mLocation.getLatitude(), mLocation.getLongitude());
+        }
+
+        startLocationUpdates();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else
+                finish();
+
+            return false;
+        }
+        return true;
+    }
+
+    protected void startLocationUpdates() {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "Enable Permissions", Toast.LENGTH_LONG).show();
+        }
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient, mLocationRequest, new com.google.android.gms.location.LocationListener() {
+                    @Override
+                    public void onLocationChanged(final Location location) {
+                        if(location != null) {
+                            currentLatitude = location.getLatitude();
+                            currentLongitude = location.getLongitude();
+                            getLocation(location.getLatitude(), location.getLongitude());
+                        }
+                    }
+                });
+
+
     }
 }

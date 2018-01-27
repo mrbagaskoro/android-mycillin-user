@@ -385,5 +385,6 @@
     <string name="partnerDetailActivity_promoSuccessMessage">Anda menggunakan kode promo %1$s</string>
     <string name="partnerDetailActivity_promoFailedMessage">Kode promo tidak tersedia saat ini</string>
     <string name="partnerDetailActivity_promoCodeWarning">Kode promo wajib diisi !</string>
+    <string name="findServiceActivity_googlePlayServiceWarningMessage">Mohon install Google Play services terlebih dahulu.</string>
 
 </resources>
