@@ -24,6 +24,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.module.AppGlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
@@ -31,5 +32,32 @@
   public *;
 }
 
-# for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+# GreenDAO
+-keep class org.greenrobot.greendao.**
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+    public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+-dontwarn org.greenrobot.greendao.**
+-dontwarn org.greenrobot.greendao.database.**
+
+# Retrofit
+-keep class com.squareup.retrofit2.**
+-keep class okio.**
+-keep class retrofit2.**
+-keep class android.databinding.**
+-keep class org.apache.http.**
+-keep class android.net.http.**
+-dontwarn com.squareup.retrofit2.**
+-dontwarn okio.**
+-dontwarn retrofit2.**
+-dontwarn android.databinding.**
+-keepattributes *Annotation*
+
+# CarouselView
+-keep class com.synnapps.carouselview.** { *; }
+-dontwarn com.synnapps.carouselview.**
+
+# Crashlytics
+-keep class com.crashlytics.** { *; }
+-dontwarn com.crashlytics.**

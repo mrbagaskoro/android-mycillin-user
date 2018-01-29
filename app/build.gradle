@@ -28,10 +28,24 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+    signingConfigs {
+        release {
+            // File keystore tidak di attach pada project untuk antisipasi reverse engineering apk
+            storeFile file("D:/16003041/Work/keystore-mycillin-user.jks")
+            storePassword '@Mycillin_2018'
+            keyAlias 'keymcuser'
+            keyPassword '@Mycillin_2018'
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            debuggable true
+        }
+        debug {
+            debuggable true
         }
     }
     dexOptions {
