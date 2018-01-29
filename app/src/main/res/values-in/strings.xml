@@ -308,8 +308,8 @@
     <string name="insuranceActivity_insuranceProviderDropdownTitle">Pilih penyedia jasa asuransi</string>
     <string name="ratingActivity_onBackPressedMessage">Mohon berikan penilaian terhadap pelayanan yang anda terima</string>
     <string name="ratingActivity_emptyRatingMessage">Rating wajib diisi !</string>
-    <string name="servicesActivity_homecareServiceText">LAYANAN PERAWAT</string>
-    <string name="servicesActivity_homecareServiceDesc">Layan reservasi perawat dekat dengan anda</string>
+    <string name="servicesActivity_homecareServiceText">LAYANAN HOMECARE</string>
+    <string name="servicesActivity_homecareServiceDesc">Layan kesehatan homecare oleh perawat dan bidan terderkat</string>
     <string name="dialogImagePickerHeader_title">PILIH GAMBAR DARI :</string>
     <string name="dialogImagePickerAdapter_galleryTitle">Galeri</string>
     <string name="dialogImagePickerAdapter_cameraTitle">Kamera</string>
