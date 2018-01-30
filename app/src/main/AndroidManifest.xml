@@ -136,9 +136,6 @@
             android:name=".activity.CancelActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity
-            android:name=".activity.FilterDoctorActivity"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="sensor"

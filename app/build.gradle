@@ -100,7 +100,7 @@ dependencies {
 
     apply plugin: 'com.google.gms.google-services'
     compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
-        transitive = true;
+        transitive = true
     }
     compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.6@aar') {
         transitive = true
@@ -113,7 +113,6 @@ dependencies {
 }
 
 greendao {
-
     // format versi YYMMDDHHMM.
     schemaVersion 1801171026
 }

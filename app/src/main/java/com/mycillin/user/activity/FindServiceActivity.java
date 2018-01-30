@@ -349,6 +349,8 @@ public class FindServiceActivity extends AppCompatActivity implements GoogleApiC
             }
             else if(resultCode == RESULT_CANCELED) {
                 radioGroupLocation.clearCheck();
+                placeInfoTxt.setVisibility(View.GONE);
+                placeInfoTxt.setText("");
             }
         }
     }
