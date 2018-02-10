@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MyCillin</string>
     <string name="action_settings">Pengaturan</string>
     <string name="all_permissions_denied_feedback">Seluruh izin dibutuhkan</string>
     <string name="audio_permission_denied_dialog_feedback">Anda tidak bisa menelepon sampai Anda mengizinkan telepon</string>

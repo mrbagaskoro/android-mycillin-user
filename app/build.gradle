@@ -48,6 +48,18 @@ android {
             debuggable true
         }
     }
+    productFlavors {
+        dev {
+            //applicationIdSuffix ".dev"
+            buildConfigField("String", "API_URL", "\"http://dev1.mycillin.com/api/\"")
+            resValue "string", "app_name", "devmycillin"
+        }
+        prd {
+            //applicationIdSuffix ".prd"
+            buildConfigField("String", "API_URL", "\"http://mycillin.com/services/api/\"")
+            resValue "string", "app_name", "MyCillin"
+        }
+    }
     dexOptions {
         jumboMode true
     }
