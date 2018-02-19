@@ -222,15 +222,22 @@ public class HistoryCompletedFragment extends Fragment {
                 else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        String message;
+                        String msg;
                         if(jsonObject.has("result")) {
-                            message = jsonObject.getJSONObject("result").getString("message");
+                            msg = jsonObject.getJSONObject("result").getString("message");
+                            if(msg.contains("Data Is Empty")) {
+                                messageContainer.setVisibility(View.VISIBLE);
+                                message.setText(R.string.medicalRecordDetailActivity_noData);
+                                completedRecyclerView.setVisibility(View.GONE);
+                            }
+                            else {
+                                Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), msg, Snackbar.LENGTH_SHORT).show();
+                            }
                         }
                         else {
-
-                            message = jsonObject.getString("message");
+                            msg = jsonObject.getString("message");
+                            Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), msg, Snackbar.LENGTH_SHORT).show();
                         }
-                        Snackbar.make(getActivity().getWindow().getDecorView().getRootView(), message, Snackbar.LENGTH_SHORT).show();
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
