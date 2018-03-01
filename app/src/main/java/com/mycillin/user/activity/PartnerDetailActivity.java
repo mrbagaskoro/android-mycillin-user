@@ -180,7 +180,6 @@ public class PartnerDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(String s, int i) {
                 paymentDropdown.setText(s);
-                Log.d("PU3", "onClick: " + paymentMethodIdItemsTemp);
                 for (int j = 0; j < paymentMethodIdItemsTemp.size(); j++) {
                     if(paymentMethodIdItemsTemp.get(j) != null) {
                         if (paymentMethodIdItemsTemp.get(j).split(" - ")[1].equals(s)) {
@@ -554,10 +553,10 @@ public class PartnerDetailActivity extends AppCompatActivity {
         params.put("user_id", userId);
         params.put("relation_id", relationId);
         params.put("partner_selected", partnerId);
-        params.put("partner_type_id", partnerTypeId);
-        params.put("spesialisasi_id", partnerSpecializationId);
+        params.put("partner_type_id", partnerTypeId.equals("- ") ? "" : partnerTypeId);
+        params.put("spesialisasi_id", partnerSpecializationId.equals("- ") ? "" : partnerSpecializationId);
         params.put("service_type_id", menu);
-        params.put("pymt_methode_id", paymentMethodId);
+        params.put("pymt_methode_id", paymentMethodId.equals("- ") ? "" : paymentMethodId);
         params.put("promo_code", promoCode);
         params.put("latitude_request", latitude);
         params.put("longitude_request", longitude);
@@ -628,8 +627,8 @@ public class PartnerDetailActivity extends AppCompatActivity {
         params.put("user_id", userId);
         params.put("relation_id", relationId);
         params.put("partner_selected", partnerId);
-        params.put("partner_type_id", partnerTypeId);
-        params.put("spesialisasi_id", partnerSpecializationId);
+        params.put("partner_type_id", partnerTypeId.equals("- ") ? "" : partnerTypeId);
+        params.put("spesialisasi_id", partnerSpecializationId.equals("- ") ? "" : partnerSpecializationId);
         params.put("promo_code", promoCode);
 
         myCillinAPI.requestConsultation(token, params).enqueue(new Callback<ModelResultRequestConsultation>() {
@@ -695,12 +694,10 @@ public class PartnerDetailActivity extends AppCompatActivity {
         MyCillinAPI myCillinAPI = MyCillinRestClient.getMyCillinRestInterface();
 
         HashMap<String, String> params = new HashMap<>();
-        params.put("service_type_id", serviceTypeId);
-        params.put("pymt_methode_id", paymentMethodId);
-        params.put("partner_type_id", partnerTypeId);
-        params.put("spesialisasi_id", partnerSpecializationId);
-
-        Log.d("###", "getPrice: " + params);
+        params.put("service_type_id", serviceTypeId.equals("- ") ? "" : serviceTypeId);
+        params.put("pymt_methode_id", paymentMethodId.equals("- ") ? "" : paymentMethodId);
+        params.put("partner_type_id", partnerTypeId.equals("- ") ? "" : partnerTypeId);
+        params.put("spesialisasi_id", partnerSpecializationId.equals("- ") ? "" : partnerSpecializationId);
 
         myCillinAPI.getPrice(token, params).enqueue(new Callback<ModelResultPriceGet>() {
             @Override
